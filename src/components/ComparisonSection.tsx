@@ -4,7 +4,7 @@ import { MessageCircle } from "lucide-react";
 const data = [
   { label: "Transmisión", arena_mt: "Manual", arena_at: "Automática", nevado_mt: "Manual", nevado_at: "Automática" },
   { label: "Ideal para", arena_mt: "Ciudad", arena_at: "Ciudad", nevado_mt: "Ciudad y carretera", nevado_at: "Ciudad y carretera" },
-  { label: "Cuota ref.", arena_mt: "$2.564", arena_at: "$3.236", nevado_mt: "$3.018", nevado_at: "Consultar" },
+  { label: "Cuota ref.", arena_mt: "$2.383", arena_at: "$2.586", nevado_mt: "$3.018", nevado_at: "$3.715" },
   { label: "Tamaño", arena_mt: "Compacto", arena_at: "Compacto", nevado_mt: "Mediano", nevado_at: "Mediano" },
 ];
 
