@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        heading: ['"Barlow Condensed"', 'sans-serif'],
-        body: ['"DM Sans"', 'sans-serif'],
+        heading: ['"Chakra Petch"', 'sans-serif'],
+        body: ['"Outfit"', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
