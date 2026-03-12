@@ -4,8 +4,15 @@ import { waLink, WHATSAPP_DISPLAY, EMAIL } from "@/lib/constants";
 
 const modelOptions = [
   "Nevado MT", "Nevado AT", "Arena Sport MT", "Arena Sport AT",
-  "Arena Pro XIP-4", "Tepuy Pro", "Lite 5", "Refine",
-  "La Venezolana", "Otro / Comercial",
+  "Arena Pro XIP-4", "Lite 5", "Refine",
+  "La Venezolana 4x2", "La Venezolana Diesel", "La Venezolana PRO 4x4",
+  "Doble Cabina", "C-3500 4x4",
+  "Aventura", "Aventura Pro",
+  "X100 Ferretero", "Urban Ferretero 3 Ton", "Urban Chasis Largo",
+  "Sunray V6", "M4 Carroza",
+  "Camión 6T", "Búfalo 12T", "Leyenda 20T", "Cavalino 22T",
+  "Chuto 40T", "K5 Chuto 45T",
+  "Otro",
 ];
 
 const ContactSection = () => {
