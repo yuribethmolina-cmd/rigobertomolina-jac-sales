@@ -1,19 +1,19 @@
 import { useState } from "react";
-import { suvModels, pickupModels, commercialModels, truckModels } from "@/lib/constants";
+import { commercialModels, truckModels, pickupModels, suvModels } from "@/lib/constants";
 import ModelCard from "./ModelCard";
 
-const tabs = ["SUVs", "Pickups", "Comerciales", "Camiones"] as const;
+const tabs = ["Comerciales", "Camiones", "Pickups", "SUVs"] as const;
 type Tab = (typeof tabs)[number];
 
 const tabData: Record<Tab, typeof suvModels> = {
-  SUVs: suvModels,
-  Pickups: pickupModels,
   Comerciales: commercialModels,
   Camiones: truckModels,
+  Pickups: pickupModels,
+  SUVs: suvModels,
 };
 
 const ModelsSection = () => {
-  const [active, setActive] = useState<Tab>("SUVs");
+  const [active, setActive] = useState<Tab>("Comerciales");
 
   return (
     <section id="modelos" className="py-20 md:py-28">

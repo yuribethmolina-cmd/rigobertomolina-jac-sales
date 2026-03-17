@@ -3,15 +3,23 @@ import { MessageCircle, Phone, Mail, ArrowRight } from "lucide-react";
 import { waLink, WHATSAPP_DISPLAY, EMAIL } from "@/lib/constants";
 
 const modelOptions = [
-  "Nevado MT", "Nevado AT", "Arena Sport MT", "Arena Sport AT",
-  "Arena Pro XIP-4", "Lite 5", "Refine",
-  "La Venezolana 4x2", "La Venezolana Diesel", "La Venezolana PRO 4x4",
+  "--- Comerciales ---",
+  "X100 Ferretero", "Urban Ferretero 3 Ton", "Urban Chasis Largo 3 Ton",
+  "Sunray V6", "M4 Carroza",
+  "--- Camiones ---",
+  "6T Chasis 6 Ton", "6T Ferretero 6 Ton",
+  "Búfalo 12 Ton", "Búfalo XL 13 Ton",
+  "Leyenda 20 Ton", "Cavalino 22 Ton",
+  "Chuto 400HP 40 Ton", "K5 Chuto 430HP 45 Ton",
+  "--- Pickups ---",
+  "La Venezolana 4x2", "La Venezolana 4x2 Diesel", "La Venezolana 4x4 Diesel",
+  "La Venezolana PRO 4x4",
   "Doble Cabina", "C-3500 4x4",
   "Aventura", "Aventura Pro",
-  "X100 Ferretero", "Urban Ferretero 3 Ton", "Urban Chasis Largo",
-  "Sunray V6", "M4 Carroza",
-  "Camión 6T", "Búfalo 12T", "Leyenda 20T", "Cavalino 22T",
-  "Chuto 40T", "K5 Chuto 45T",
+  "--- SUVs ---",
+  "Nevado MT", "Nevado AT",
+  "Arena Sport MT", "Arena Sport AT", "Arena Pro",
+  "Tepuy Pro", "Savanna",
   "Otro",
 ];
 
@@ -84,9 +92,13 @@ const ContactSection = () => {
               className="w-full rounded-lg border border-border bg-secondary px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
             >
               <option value="">Selecciona un modelo</option>
-              {modelOptions.map((m) => (
-                <option key={m} value={m}>{m}</option>
-              ))}
+              {modelOptions.map((m) =>
+                m.startsWith("---") ? (
+                  <option key={m} disabled className="font-bold">{m.replace(/---/g, "").trim()}</option>
+                ) : (
+                  <option key={m} value={m}>{m}</option>
+                )
+              )}
             </select>
           </div>
           <div>
