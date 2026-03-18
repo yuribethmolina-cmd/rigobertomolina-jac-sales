@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { waLink } from "@/lib/constants";
-import { ArrowRight, ArrowDown, AlertTriangle } from "lucide-react";
+import { ArrowRight, AlertTriangle } from "lucide-react";
 
 type Plan = "directa" | "facil";
 
