@@ -52,12 +52,20 @@ const utilitarios: CatalogModel[] = [
   { name: "M4 Carroza", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/SUNRAY-V6-171-1024x427.webp", pricePF: "Consultar", referentialImage: true },
 ];
 
-const tabs = ["PASAJEROS", "CAMIONES", "UTILITARIOS"] as const;
+const electricos: CatalogModel[] = [
+  { name: "Voltio Eléctrico", image: "https://jacvenezuela.com/wp-content/uploads/2025/02/VOLTIO-1024x427.webp", tagline: "Movilidad eléctrica urbana compacta", pricePF: "Consultar" },
+  { name: "Electrón Eléctrico", image: "https://jacvenezuela.com/wp-content/uploads/2025/02/ELECTRON-ELECTRICO-1-1024x427.webp", tagline: "Eficiencia eléctrica en diseño moderno", pricePF: "Consultar" },
+  { name: "Nevado Eléctrico", image: "https://jacvenezuela.com/wp-content/uploads/2025/02/jac_banners_Nevado_electrico-1024x427.jpg", tagline: "El SUV Nevado en versión 100% eléctrica", pricePF: "Consultar" },
+  { name: "1073 Camión Eléctrico", image: "https://jacvenezuela.com/wp-content/uploads/2025/02/1073-ELECTRICO-1024x427.webp", tagline: "Solución eléctrica para carga comercial", pricePF: "Consultar" },
+];
+
+const tabs = ["PASAJEROS", "CAMIONES", "ELÉCTRICOS", "UTILITARIOS"] as const;
 type Tab = (typeof tabs)[number];
 
 const tabData: Record<Tab, CatalogModel[]> = {
   PASAJEROS: pasajeros,
   CAMIONES: camiones,
+  "ELÉCTRICOS": electricos,
   UTILITARIOS: utilitarios,
 };
 
