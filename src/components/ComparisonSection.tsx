@@ -1,5 +1,5 @@
 import { waLink, waModelMessage } from "@/lib/constants";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Calculator } from "lucide-react";
 
 const data = [
   { label: "Transmisión", arena_mt: "Manual", arena_at: "Automática", nevado_mt: "Manual", nevado_at: "Automática" },
@@ -56,6 +56,12 @@ const MobileCards = () => (
             className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3 font-heading text-sm font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
           >
             Consultar este modelo <ArrowRight size={16} />
+          </a>
+          <a
+            href="#simulador"
+            className="mt-2 w-full inline-flex items-center justify-center gap-2 rounded-lg border border-primary px-5 py-2.5 font-heading text-sm font-bold text-primary hover:bg-primary/10 transition-colors"
+          >
+            <Calculator size={14} /> Ver desglose de pagos
           </a>
         </div>
       </div>
@@ -130,6 +136,12 @@ const DesktopTable = () => (
                 className="inline-flex items-center gap-1.5 text-sm font-bold text-primary hover:underline"
               >
                 Consultar <ArrowRight size={14} />
+              </a>
+              <a
+                href="#simulador"
+                className="mt-1 inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors"
+              >
+                <Calculator size={12} /> Ver desglose
               </a>
             </td>
           ))}
