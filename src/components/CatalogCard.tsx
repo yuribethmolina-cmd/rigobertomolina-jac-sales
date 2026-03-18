@@ -50,7 +50,7 @@ const CatalogCard = ({ model, isExpanded, onToggle }: Props) => {
           {model.name}
         </h3>
         {model.tagline && (
-          <p className="text-muted-foreground text-[13px] italic mt-1 line-clamp-1">{model.tagline}</p>
+          <p className="text-muted-foreground text-[13px] mt-1 line-clamp-1">{model.tagline}</p>
         )}
 
         {/* Discoverable specs button */}
