@@ -73,4 +73,10 @@
   .section-divider {
     @apply border-t border-white/5;
   }
+  .pill {
+    @apply inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full;
+    background: hsla(186, 100%, 39%, 0.1);
+    border: 1px solid hsla(186, 100%, 39%, 0.3);
+    color: hsl(186, 100%, 39%);
+  }
 }
