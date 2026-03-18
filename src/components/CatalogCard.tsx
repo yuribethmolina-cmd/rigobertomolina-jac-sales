@@ -63,7 +63,7 @@ const CatalogCard = ({ model, isExpanded, onToggle }: Props) => {
                 : "bg-primary/5 border-primary/20 text-primary/80 hover:bg-primary/10 hover:border-primary/30 hover:text-primary"
             }`}
           >
-            🔍 Ver especificaciones
+            Ver especificaciones
             <ChevronDown size={13} className={`transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`} />
           </button>
         )}
@@ -115,7 +115,7 @@ const CatalogCard = ({ model, isExpanded, onToggle }: Props) => {
             rel="noopener noreferrer"
             className="flex-[3] inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary h-10 px-3 font-heading text-sm font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
           >
-            💬 WhatsApp
+            WhatsApp
           </a>
           {model.fichaUrl && (
             <a
@@ -124,7 +124,7 @@ const CatalogCard = ({ model, isExpanded, onToggle }: Props) => {
               rel="noopener noreferrer"
               className="flex-[2] inline-flex items-center justify-center gap-1.5 rounded-lg border border-primary text-primary h-10 px-3 font-heading text-sm font-bold hover:bg-primary/10 transition-colors"
             >
-              📋 Ver ficha
+              Ver ficha
             </a>
           )}
         </div>
