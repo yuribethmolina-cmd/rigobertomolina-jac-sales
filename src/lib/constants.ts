@@ -743,7 +743,7 @@ export const suvModels: CarModel[] = [
     traction: "4x2",
     priceDirecta: "desde $4.285/mes",
     priceFacil: "desde $2.924/mes",
-    image: "https://jacvenezuela.com/wp-content/uploads/2024/09/js8-Savanna-jac-motors-venezuela.jpg",
+    image: "https://jacvenezuela.com/wp-content/uploads/2024/09/js8-Savanna-jac-motors-venezuela-1024x427.jpg",
     colors: [
       { name: "Blanco", hex: "#f5f5f5" },
       { name: "Rojo", hex: "#dc2626" },
