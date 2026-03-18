@@ -1,5 +1,6 @@
 import { Check } from "lucide-react";
 import { INSTAGRAM, INSTAGRAM_HANDLE } from "@/lib/constants";
+import rigbertoImg from "@/assets/rigoberto.png";
 
 const badges = [
   "Atención directa y personalizada",
