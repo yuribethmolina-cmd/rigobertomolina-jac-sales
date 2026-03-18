@@ -38,6 +38,10 @@ const faqs = [
     q: "¿Dónde puedo retirar mi vehículo?",
     a: "La entrega se coordina directamente contigo. Los puntos de entrega dependen de la logística vigente. Contáctame para conocer las opciones de entrega disponibles para tu zona.",
   },
+  {
+    q: "¿Qué necesito para solicitar el Crédito Bel?",
+    a: "Para aplicar al crédito necesitas: cédula vigente, RIF, recibo de servicio público, balance personal firmado por contador, referencia bancaria, últimos 3 estados de cuenta, 2 referencias personales y constancia de trabajo o certificación de ingresos. Puedes enviar los documentos a creditos.jacmotorvzla@bel.com.ve o consultarme directamente para orientarte en el proceso.",
+  },
 ];
 
 const FAQSection = () => (
