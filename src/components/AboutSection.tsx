@@ -1,5 +1,6 @@
 import { Check } from "lucide-react";
 import { INSTAGRAM, INSTAGRAM_HANDLE } from "@/lib/constants";
+import rigbertoImg from "@/assets/rigoberto.png";
 
 const badges = [
   "Atención directa y personalizada",
@@ -17,9 +18,11 @@ const AboutSection = () => (
 
       <div className="mt-12 flex flex-col md:flex-row items-center gap-10">
         {/* Photo placeholder */}
-        <div className="w-48 h-48 md:w-56 md:h-56 rounded-2xl bg-muted/30 border border-border flex items-center justify-center text-muted-foreground text-sm shrink-0">
-          Foto de Rigoberto
-        </div>
+        <img
+          src={rigbertoImg}
+          alt="Rigoberto Molina — Embajador JAC Venezuela"
+          className="w-48 h-48 md:w-64 md:h-64 rounded-2xl object-cover object-top shadow-lg shrink-0"
+        />
 
         <div>
           <p className="text-muted-foreground leading-relaxed">
