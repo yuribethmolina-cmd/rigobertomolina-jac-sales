@@ -43,7 +43,9 @@ const MobileCards = () => (
                 }`}
               >
                 <span className="text-muted-foreground">{row.label}</span>
-                <span className="font-semibold">{(row as Record<string, string>)[m.key]}</span>
+                <span className={`font-semibold ${(row as any).isTotal ? "text-primary font-bold" : ""}`}>
+                  {(row as Record<string, string>)[m.key]}
+                </span>
               </div>
             ))}
           </div>
