@@ -744,6 +744,8 @@ export const suvModels: CarModel[] = [
     tagline: "Van premium de pasajeros — confort y amplitud",
     transmission: "Automática",
     traction: "4x2",
+    priceDirecta: "desde $4.728/mes",
+    priceFacil: "desde $4.114/mes",
     image: "https://jacvenezuela.com/wp-content/uploads/2025/06/JAC-REFINE-EN-VENEZUELA.jpg",
     colors: [
       { name: "Blanco", hex: "#f5f5f5" },
