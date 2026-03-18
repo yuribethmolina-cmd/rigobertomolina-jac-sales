@@ -32,18 +32,18 @@ const pasajeros: CatalogModel[] = [
 ];
 
 const camiones: CatalogModel[] = [
-  { name: "Búfalo XL", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/BUFALO-1024x425.webp", pricePF: "Consultar", fichaUrl: "https://jacvenezuela.com/portfolio/bufalo-xl/" },
-  { name: "Minero 14M3", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/Minero-14m3-Capacidad-Tolva-1024x425.jpg", pricePF: "Consultar", fichaUrl: "https://jacvenezuela.com/portfolio/minero-14m3/" },
-  { name: "Minero 20M3", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/Minero-20m3-Capacidad-Tolva-1024x425.webp", pricePF: "Consultar", fichaUrl: "https://jacvenezuela.com/portfolio/minero-20m3/" },
-  { name: "X100 Ferretero", image: "https://jacvenezuela.com/wp-content/uploads/2025/01/X100-FERRETERO-1024x427.webp", pricePF: "$1.419/mes", fichaUrl: "https://jacvenezuela.com/portfolio/x100-ferretero/" },
-  { name: "Urban 3 Ton", image: "https://jacvenezuela.com/wp-content/uploads/2025/01/URBAN-FERRETERO-1024x427.webp", pricePF: "$1.791/mes", fichaUrl: "https://jacvenezuela.com/portfolio/urban-3-ton/" },
-  { name: "C 3500 Ferretero 4X4", image: "https://jacvenezuela.com/wp-content/uploads/2025/01/C-3500-FERRETERO-4X4-1024x427.webp", pricePF: "$2.637/mes", fichaUrl: "https://jacvenezuela.com/portfolio/c-3500-ferretero-4x4/" },
-  { name: "Doble Cabina Ferretero", image: "https://jacvenezuela.com/wp-content/uploads/2025/01/DOBLE-CABINA-FERRETERO-1024x427.webp", pricePF: "$2.255/mes", fichaUrl: "https://jacvenezuela.com/portfolio/doble-cabina-ferretero/" },
-  { name: "6T Ferretero", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/6T-FERRETERO-1024x425.webp", pricePF: "$2.493/mes", fichaUrl: "https://jacvenezuela.com/portfolio/6t-ferretero/" },
-  { name: "Búfalo 12 Ton", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/BUFALO-1024x425.webp", pricePF: "$2.604/mes", fichaUrl: "https://jacvenezuela.com/portfolio/bufalo-12-ton/" },
-  { name: "Leyenda 20 Ton", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/LEYENDA-1024x425.webp", pricePF: "Consultar", fichaUrl: "https://jacvenezuela.com/portfolio/leyenda-20-ton/" },
-  { name: "Cavalino", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/CAVALINO-1024x425.webp", pricePF: "Consultar", fichaUrl: "https://jacvenezuela.com/portfolio/cavalino/" },
-  { name: "Chuto 4251 430 HP", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/CHUTO-4251-430-1024x425.webp", pricePF: "$6.363/mes", fichaUrl: "https://jacvenezuela.com/portfolio/chuto-4251-430-hp/" },
+  { name: "X100 Ferretero", image: "https://jacvenezuela.com/wp-content/uploads/2025/01/X100-FERRETERO-1024x427.webp", priceCD: "$3.236/mes", pricePF: "$1.419/mes", fichaUrl: "https://jacvenezuela.com/portfolio/x100-ferretero/" },
+  { name: "Urban 3 Ton", image: "https://jacvenezuela.com/wp-content/uploads/2025/01/URBAN-FERRETERO-1024x427.webp", priceCD: "$3.395/mes", pricePF: "$1.791/mes", fichaUrl: "https://jacvenezuela.com/portfolio/urban-3-ton/" },
+  { name: "C 3500 Ferretero 4X4", image: "https://jacvenezuela.com/wp-content/uploads/2025/01/C-3500-FERRETERO-4X4-1024x427.webp", priceCD: "$4.709/mes", pricePF: "$2.637/mes", fichaUrl: "https://jacvenezuela.com/portfolio/c-3500-ferretero-4x4/" },
+  { name: "Doble Cabina Ferretero", image: "https://jacvenezuela.com/wp-content/uploads/2025/01/DOBLE-CABINA-FERRETERO-1024x427.webp", priceCD: "$3.713/mes", pricePF: "$2.255/mes", fichaUrl: "https://jacvenezuela.com/portfolio/doble-cabina-ferretero/" },
+  { name: "6T Ferretero", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/6T-FERRETERO-1024x425.webp", priceCD: "$4.473/mes", pricePF: "$2.493/mes", fichaUrl: "https://jacvenezuela.com/portfolio/6t-ferretero/" },
+  { name: "Búfalo 12 Ton", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/BUFALO-1024x425.webp", priceCD: "$4.671/mes", pricePF: "$2.604/mes", fichaUrl: "https://jacvenezuela.com/portfolio/bufalo-12-ton/" },
+  { name: "Búfalo XL", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/BUFALO-1024x425.webp", priceCD: "Consultar", pricePF: "Consultar", fichaUrl: "https://jacvenezuela.com/portfolio/bufalo-xl/" },
+  { name: "Leyenda 20 Ton", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/LEYENDA-1024x425.webp", priceCD: "Consultar", pricePF: "Consultar", fichaUrl: "https://jacvenezuela.com/portfolio/leyenda-20-ton/" },
+  { name: "Cavalino", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/CAVALINO-1024x425.webp", priceCD: "Consultar", pricePF: "Consultar", fichaUrl: "https://jacvenezuela.com/portfolio/cavalino/" },
+  { name: "Chuto 4251 430 HP", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/CHUTO-4251-430-1024x425.webp", priceCD: "$9.312/mes", pricePF: "$6.363/mes", fichaUrl: "https://jacvenezuela.com/portfolio/chuto-4251-430-hp/" },
+  { name: "Minero 14M3", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/Minero-14m3-Capacidad-Tolva-1024x425.jpg", priceCD: "$11.889/mes", pricePF: "Consultar", fichaUrl: "https://jacvenezuela.com/portfolio/minero-14m3/" },
+  { name: "Minero 20M3", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/Minero-20m3-Capacidad-Tolva-1024x425.webp", priceCD: "$12.883/mes", pricePF: "Consultar", fichaUrl: "https://jacvenezuela.com/portfolio/minero-20m3/" },
 ];
 
 const utilitarios: CatalogModel[] = [
