@@ -53,6 +53,7 @@ export const commercialModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x2",
     price: "$2.564,7",
+    priceFacil: "desde $1.419/mes",
     image: "x100-ferretero",
     featured: "COMERCIAL MÁS CONSULTADO",
     specs: {
