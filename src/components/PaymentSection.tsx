@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { waLink } from "@/lib/constants";
-import { ArrowRight, ArrowDown } from "lucide-react";
+import { ArrowRight, AlertTriangle } from "lucide-react";
 
 type Plan = "directa" | "facil";
 
@@ -17,10 +17,10 @@ const facilSteps = [
 ];
 
 const comparisonData = [
-  { modelo: "Arena Sport MT", directa: "$2.564 / mes", facil: "$1.576 / mes", diff: "-$988/mes", featured: false },
-  { modelo: "Arena Sport AT", directa: "$3.236 / mes", facil: "$1.694 / mes", diff: "-$1.541/mes", featured: false },
-  { modelo: "Nevado MT ⭐", directa: "$3.018 / mes", facil: "$2.402 / mes", diff: "-$616/mes", featured: true },
-  { modelo: "La Venezolana 4x2", directa: "$2.972 / mes", facil: "$1.653 / mes", diff: "-$1.318/mes", featured: false },
+  { modelo: "Arena Sport MT", directa: "$2.564 / mes", totalDirecta: "$17.948", facil: "$1.576 / mes", totalFacil: "$22.132", featured: false },
+  { modelo: "Arena Sport AT", directa: "$3.236 / mes", totalDirecta: "$22.652", facil: "$1.694 / mes", totalFacil: "$23.876", featured: false },
+  { modelo: "Nevado MT ⭐", directa: "$3.018 / mes", totalDirecta: "$21.130", facil: "$2.402 / mes", totalFacil: "$29.436", featured: true },
+  { modelo: "La Venezolana 4x2", directa: "$2.972 / mes", totalDirecta: "$20.804", facil: "$1.653 / mes", totalFacil: "$23.295", featured: false },
 ];
 
 const PaymentSection = () => {
@@ -117,13 +117,15 @@ const PaymentSection = () => {
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[550px] text-sm">
+            <table className="w-full min-w-[700px] text-sm">
               <thead>
                 <tr className="bg-primary text-primary-foreground">
                   <th className="p-3 text-left rounded-tl-lg font-heading font-bold">Modelo</th>
-                  <th className="p-3 text-center font-heading font-bold">Compra Directa</th>
-                  <th className="p-3 text-center font-heading font-bold">Pago Fácil</th>
-                  <th className="p-3 text-center rounded-tr-lg font-heading font-bold">Diferencia</th>
+                  <th className="p-3 text-center font-heading font-bold">Cuota Directa</th>
+                  <th className="p-3 text-center font-heading font-bold">Total Directa</th>
+                  <th className="p-3 text-center font-heading font-bold">Cuota Fácil</th>
+                  <th className="p-3 text-center font-heading font-bold">Total Fácil</th>
+                  <th className="p-3 text-center rounded-tr-lg font-heading font-bold">Total Fácil</th>
                 </tr>
               </thead>
               <tbody>
@@ -134,12 +136,9 @@ const PaymentSection = () => {
                   >
                     <td className="p-3 font-semibold">{row.modelo}</td>
                     <td className="p-3 text-center">{row.directa}</td>
+                    <td className="p-3 text-center font-bold">{row.totalDirecta}</td>
                     <td className="p-3 text-center">{row.facil}</td>
-                    <td className="p-3 text-center text-green-400 font-semibold">
-                      <span className="inline-flex items-center gap-1">
-                        <ArrowDown size={14} /> {row.diff}
-                      </span>
-                    </td>
+                    <td className="p-3 text-center font-bold">{row.totalFacil}</td>
                   </tr>
                 ))}
               </tbody>
@@ -161,10 +160,13 @@ const PaymentSection = () => {
         </div>
 
         {/* Disclaimer */}
-        <div className="mt-8 card-glow p-5 max-w-2xl mx-auto text-center">
-          <p className="text-muted-foreground text-xs leading-relaxed">
-            * Montos referenciales del catálogo Feb 2026. Sujetos a variación por flete, seguro, IVA,
-            IGTF y gastos de nacionalización. Contáctame para el cronograma actualizado de tu modelo.
+        <div className="mt-8 max-w-2xl mx-auto border-2 border-amber-500/50 bg-amber-500/10 rounded-xl p-5 flex items-start gap-3">
+          <AlertTriangle className="text-amber-500 shrink-0 mt-0.5" size={22} />
+          <p className="text-sm leading-relaxed">
+            <strong className="text-amber-500">Precios referenciales.</strong>{" "}
+            Los montos mostrados corresponden al catálogo de <strong>Feb 2026</strong> y están{" "}
+            <strong>sujetos a cambio</strong> por flete, seguro, IVA, IGTF y gastos de nacionalización.
+            Contáctame para el cronograma actualizado de tu modelo.
           </p>
         </div>
       </div>

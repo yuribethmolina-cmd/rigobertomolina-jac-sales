@@ -145,9 +145,13 @@ const ComparisonSection = () => (
       <DesktopTable />
       <MobileCards />
 
-      <p className="text-center text-muted-foreground text-xs mt-6">
-        * Cuotas referenciales del catálogo Feb 2026. Sujetas a cambios.
-      </p>
+      <div className="mt-8 max-w-2xl mx-auto border-2 border-amber-500/50 bg-amber-500/10 rounded-xl p-4 flex items-start gap-3">
+        <span className="text-amber-500 text-lg shrink-0">⚠️</span>
+        <p className="text-sm leading-relaxed">
+          <strong className="text-amber-500">Precios referenciales.</strong>{" "}
+          Cuotas del catálogo <strong>Feb 2026</strong>, <strong>sujetas a cambio</strong>. Consulta por WhatsApp para montos actualizados.
+        </p>
+      </div>
     </div>
   </section>
 );
