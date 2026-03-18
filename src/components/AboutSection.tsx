@@ -17,12 +17,14 @@ const AboutSection = () => (
       </div>
 
       <div className="mt-12 flex flex-col md:flex-row items-center gap-10">
-        {/* Photo placeholder */}
-        <img
-          src={rigbertoImg}
-          alt="Rigoberto Molina — Embajador JAC Venezuela"
-          className="w-48 h-48 md:w-64 md:h-64 rounded-2xl object-cover shadow-lg shrink-0" style={{ objectPosition: '50% 20%', transform: 'scale(1.15)', transformOrigin: 'center 20%' }}
-        />
+        {/* Photo with zoom crop */}
+        <div className="w-48 h-48 md:w-64 md:h-64 rounded-2xl overflow-hidden shadow-lg shrink-0">
+          <img
+            src={rigbertoImg}
+            alt="Rigoberto Molina — Embajador JAC Venezuela"
+            className="w-full h-full object-cover object-top scale-[1.4] origin-[50%_15%]"
+          />
+        </div>
 
         <div>
           <p className="text-muted-foreground leading-relaxed">
