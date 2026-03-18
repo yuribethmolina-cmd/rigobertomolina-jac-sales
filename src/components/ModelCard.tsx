@@ -50,9 +50,9 @@ const ModelCard = ({ model }: Props) => {
           {model.priceDirecta || model.priceFacil ? (
             <>
               {model.priceDirecta && (
-                <p className="text-sm">
-                  <span className="text-muted-foreground">💳 Compra Directa:</span>{" "}
-                  <span className="font-heading font-bold text-primary">{model.priceDirecta}</span>
+                <p className="text-lg">
+                  <span className="text-muted-foreground text-sm">💳 Compra Directa:</span>{" "}
+                  <span className="font-heading font-bold text-foreground">{model.priceDirecta}</span>
                 </p>
               )}
               {model.priceFacil && (
