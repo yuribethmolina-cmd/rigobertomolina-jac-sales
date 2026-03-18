@@ -36,6 +36,8 @@ export interface CarModel {
   traction: string;
   colors?: { name: string; hex: string }[];
   price?: string;
+  priceDirecta?: string;
+  priceFacil?: string;
   featured?: string;
   specs?: CarSpecs;
   image?: string;
@@ -375,6 +377,8 @@ export const pickupModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x2",
     price: "$2.972,3",
+    priceDirecta: "desde $2.972/mes",
+    priceFacil: "desde $1.653/mes",
     image: "https://jacvenezuela.com/wp-content/uploads/2024/09/T6-la-venezolana-de-jac-motors-venezuela.jpg",
     colors: [
       { name: "Azul", hex: "#2563eb" },
@@ -406,6 +410,7 @@ export const pickupModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x2",
     price: "$3.214,6",
+    priceFacil: "desde $1.801/mes",
     colors: [
       { name: "Azul", hex: "#2563eb" },
       { name: "Rojo", hex: "#dc2626" },
@@ -437,6 +442,7 @@ export const pickupModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x4",
     price: "$3.613,3",
+    priceFacil: "desde $2.023/mes",
     colors: [
       { name: "Azul", hex: "#2563eb" },
       { name: "Rojo", hex: "#dc2626" },
@@ -611,6 +617,8 @@ export const suvModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x2",
     price: "$3.018,6",
+    priceDirecta: "desde $3.018/mes",
+    priceFacil: "desde $2.402/mes",
     featured: "MÁS CONSULTADO",
     image: "https://jacvenezuela.com/wp-content/uploads/2024/09/vehiculo-nevado-js4-de-jac-motors-venezuela.jpg",
     colors: [
@@ -626,6 +634,8 @@ export const suvModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x2",
     price: "$2.383,2",
+    priceDirecta: "desde $2.564/mes",
+    priceFacil: "desde $1.576/mes",
     image: "https://jacvenezuela.com/wp-content/uploads/2025/09/jac_banners_arena_sport_mt.jpg",
     colors: [
       { name: "Negro", hex: "#1a1a1a" },
@@ -640,6 +650,8 @@ export const suvModels: CarModel[] = [
     transmission: "Automática",
     traction: "4x2",
     price: "$2.586,2",
+    priceDirecta: "desde $3.236/mes",
+    priceFacil: "desde $1.694/mes",
     image: "https://jacvenezuela.com/wp-content/uploads/2025/09/jac_banners_arena_sport_at.jpg",
     colors: [
       { name: "Negro", hex: "#1a1a1a" },
@@ -654,6 +666,7 @@ export const suvModels: CarModel[] = [
     transmission: "Automática",
     traction: "4x2",
     price: "$3.715,2",
+    priceFacil: "desde $2.677/mes",
     image: "https://jacvenezuela.com/wp-content/uploads/2024/09/nevado-automatico-2025-de-jac-motors-venezuela.jpg",
     colors: [
       { name: "Negro", hex: "#1a1a1a" },
@@ -683,6 +696,7 @@ export const suvModels: CarModel[] = [
     transmission: "Automática",
     traction: "4x2",
     price: "$2.824,7",
+    priceFacil: "desde $2.083/mes",
     image: "https://jacvenezuela.com/wp-content/uploads/2024/09/jac_-motors_banners-Arena-Pro.png",
     colors: [
       { name: "Blanco", hex: "#f5f5f5" },
