@@ -494,7 +494,7 @@ export const pickupModels: CarModel[] = [
     price: "$4.165,2",
     priceDirecta: "desde $4.165/mes",
     priceFacil: "desde $2.295/mes",
-    image: "https://jacvenezuela.com/wp-content/uploads/2025/06/jac_banners_la_venezolana_pro-1.jpg",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/06/jac_banners_la_venezolana_pro-1-1024x427.jpg",
     specs: {
       motor: "2.0 L Turbo Euro V (enfriador interno)",
       potencia: "188 Hp",
