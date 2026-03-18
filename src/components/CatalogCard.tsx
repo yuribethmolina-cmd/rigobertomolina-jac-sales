@@ -63,7 +63,7 @@ const CatalogCard = ({ model, isExpanded, onToggle }: Props) => {
                 : "bg-primary/5 border-primary/20 text-primary/80 hover:bg-primary/10 hover:border-primary/30 hover:text-primary"
             }`}
           >
-            🔍 Ver especificaciones
+            Ver especificaciones
             <ChevronDown size={13} className={`transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`} />
           </button>
         )}
