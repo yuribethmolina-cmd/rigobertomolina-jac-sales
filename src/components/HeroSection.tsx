@@ -68,11 +68,11 @@ const HeroSection = () => {
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden text-white p-1"
+          className="md:hidden text-white p-1 self-center"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Menú"
         >
-          {menuOpen ? <X size={24} /> : <Menu size={24} />}
+          {menuOpen ? <X size={36} /> : <Menu size={36} />}
         </button>
       </nav>
 
