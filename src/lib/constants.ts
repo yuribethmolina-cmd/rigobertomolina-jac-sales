@@ -131,6 +131,7 @@ export const commercialModels: CarModel[] = [
     tagline: "Van de carga o pasajeros — versatilidad total",
     transmission: "Manual",
     traction: "4x2",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/03/SUNRAY-V6-171-1024x427.webp",
     specs: {
       motor: "2.8 L Turbo Diésel",
       combustible: "Diésel",
