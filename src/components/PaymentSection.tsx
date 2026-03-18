@@ -40,23 +40,23 @@ const PaymentSection = () => {
         </div>
 
         {/* Plan toggle */}
-        <div className="flex justify-center gap-2 mt-8">
+        <div className="flex justify-center gap-3 mt-8">
           <button
             onClick={() => setPlan("directa")}
-            className={`px-5 py-2.5 rounded-lg font-heading font-bold text-sm transition-colors ${
+            className={`px-6 py-2.5 rounded-full font-heading font-bold text-sm transition-all duration-300 ${
               plan === "directa"
-                ? "bg-primary text-primary-foreground"
-                : "bg-secondary text-muted-foreground hover:text-foreground"
+                ? "bg-primary text-primary-foreground shadow-lg shadow-primary/30"
+                : "bg-secondary text-muted-foreground border border-muted-foreground/30 hover:text-foreground"
             }`}
           >
             Compra Directa
           </button>
           <button
             onClick={() => setPlan("facil")}
-            className={`px-5 py-2.5 rounded-lg font-heading font-bold text-sm transition-colors ${
+            className={`px-6 py-2.5 rounded-full font-heading font-bold text-sm transition-all duration-300 ${
               plan === "facil"
-                ? "bg-amber-500 text-white"
-                : "bg-secondary text-muted-foreground hover:text-foreground"
+                ? "bg-primary text-primary-foreground shadow-lg shadow-primary/30"
+                : "bg-secondary text-muted-foreground border border-muted-foreground/30 hover:text-foreground"
             }`}
           >
             Pago Fácil
