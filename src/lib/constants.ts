@@ -350,6 +350,7 @@ export const truckModels: CarModel[] = [
     transmission: "Manual",
     traction: "6x4",
     price: "$9.312,5",
+    priceDirecta: "desde $9.312/mes",
     image: "https://jacvenezuela.com/wp-content/uploads/2025/03/CHUTO-4251-430-1024x425.webp",
     specs: {
       motor: "10.3 L Diésel Euro II",
