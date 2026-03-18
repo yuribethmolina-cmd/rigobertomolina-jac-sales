@@ -78,6 +78,7 @@ export const commercialModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x2",
     price: "$3.395,2",
+    priceFacil: "desde $1.791/mes",
     image: "urban-ferretero-3ton",
     specs: {
       motor: "2.8 L Diésel Euro II",
