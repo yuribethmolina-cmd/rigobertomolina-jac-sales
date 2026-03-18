@@ -2,7 +2,7 @@ import { useState } from "react";
 import { commercialModels, truckModels, pickupModels, suvModels } from "@/lib/constants";
 import ModelCard from "./ModelCard";
 
-const tabs = ["Comerciales", "Camiones", "Pickups", "SUVs"] as const;
+const tabs = ["SUVs", "Pickups", "Comerciales", "Camiones"] as const;
 type Tab = (typeof tabs)[number];
 
 const tabData: Record<Tab, typeof suvModels> = {
