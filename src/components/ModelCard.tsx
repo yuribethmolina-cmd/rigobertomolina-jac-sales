@@ -32,9 +32,9 @@ const ModelCard = ({ model }: Props) => {
         )}
       </div>
 
-      <div className="p-5 flex flex-col flex-1">
-        <h3 className="font-heading text-2xl font-bold">{model.name}</h3>
-        <p className="text-muted-foreground italic text-sm mt-1">{model.tagline}</p>
+      <div className="p-5 flex flex-col flex-1 gap-y-2">
+        <h3 className="font-heading text-2xl font-bold mt-3">{model.name}</h3>
+        <p className="text-muted-foreground italic text-sm">{model.tagline}</p>
 
         <div className="flex gap-3 mt-4 flex-wrap">
           <span className="inline-flex items-center gap-1.5 text-xs bg-secondary px-3 py-1.5 rounded-full">
