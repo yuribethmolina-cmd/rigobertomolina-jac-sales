@@ -17,10 +17,10 @@ const facilSteps = [
 ];
 
 const comparisonData = [
-  { modelo: "Arena Sport MT", directa: "$2.564 / mes", facil: "$1.576 / mes", diff: "-$988/mes", featured: false },
-  { modelo: "Arena Sport AT", directa: "$3.236 / mes", facil: "$1.694 / mes", diff: "-$1.541/mes", featured: false },
-  { modelo: "Nevado MT ⭐", directa: "$3.018 / mes", facil: "$2.402 / mes", diff: "-$616/mes", featured: true },
-  { modelo: "La Venezolana 4x2", directa: "$2.972 / mes", facil: "$1.653 / mes", diff: "-$1.318/mes", featured: false },
+  { modelo: "Arena Sport MT", directa: "$2.564 / mes", totalDirecta: "$17.948", facil: "$1.576 / mes", totalFacil: "$22.132", featured: false },
+  { modelo: "Arena Sport AT", directa: "$3.236 / mes", totalDirecta: "$22.652", facil: "$1.694 / mes", totalFacil: "$23.876", featured: false },
+  { modelo: "Nevado MT ⭐", directa: "$3.018 / mes", totalDirecta: "$21.130", facil: "$2.402 / mes", totalFacil: "$29.436", featured: true },
+  { modelo: "La Venezolana 4x2", directa: "$2.972 / mes", totalDirecta: "$20.804", facil: "$1.653 / mes", totalFacil: "$23.295", featured: false },
 ];
 
 const PaymentSection = () => {
