@@ -1,8 +1,8 @@
-import { FolderOpen, CreditCard, MapPin } from "lucide-react";
+import { Trophy, CreditCard, MapPin } from "lucide-react";
 
 const items = [
-  { icon: FolderOpen, text: "Catálogo oficial Feb 2026" },
-  { icon: CreditCard, text: "Compra directa con financiamiento" },
+  { icon: Trophy, text: "Vendiendo la marca #1 en Venezuela 2025" },
+  { icon: CreditCard, text: "Compra directa · Financiamiento disponible" },
   { icon: MapPin, text: "Atención personalizada · Caracas, Venezuela" },
 ];
 

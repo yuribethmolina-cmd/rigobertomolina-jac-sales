@@ -13,7 +13,7 @@ const tabData: Record<Tab, typeof suvModels> = {
 };
 
 const ModelsSection = () => {
-  const [active, setActive] = useState<Tab>("Comerciales");
+  const [active, setActive] = useState<Tab>("SUVs");
 
   return (
     <section id="modelos" className="py-20 md:py-28">
