@@ -124,7 +124,7 @@ const CatalogCard = ({ model, isExpanded, onToggle }: Props) => {
               rel="noopener noreferrer"
               className="flex-[2] inline-flex items-center justify-center gap-1.5 rounded-lg border border-primary text-primary h-10 px-3 font-heading text-sm font-bold hover:bg-primary/10 transition-colors"
             >
-              📋 Ver ficha
+              Ver ficha
             </a>
           )}
         </div>
