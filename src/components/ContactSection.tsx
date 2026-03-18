@@ -42,23 +42,42 @@ const ContactSection = () => {
         </div>
 
         {/* Contact cards */}
-        <div className="grid md:grid-cols-3 gap-6 mt-12">
-          <a href={waLink()} target="_blank" rel="noopener noreferrer" className="card-glow p-6 text-center group">
-            <MessageCircle className="mx-auto text-whatsapp" size={28} />
+        <div className="grid md:grid-cols-3 gap-6 mt-12 items-center">
+          {/* WhatsApp — dominant */}
+          <a
+            href={waLink()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative bg-whatsapp/10 border-2 border-whatsapp/50 rounded-xl py-6 px-5 text-center group hover:border-primary/50 transition-colors duration-200 md:scale-105"
+          >
+            <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs bg-whatsapp text-whatsapp-foreground px-3 py-1 rounded-full uppercase tracking-wide font-bold">
+              Canal principal
+            </span>
+            <MessageCircle className="mx-auto text-whatsapp w-10 h-10" />
             <p className="font-heading font-bold mt-3">WhatsApp</p>
-            <p className="text-muted-foreground text-sm mt-1">{WHATSAPP_DISPLAY}</p>
+            <p className="text-lg font-semibold mt-1">{WHATSAPP_DISPLAY}</p>
             <span className="inline-block mt-3 text-sm font-semibold text-primary group-hover:underline">Escribir ahora</span>
           </a>
-          <a href={`tel:${WHATSAPP_DISPLAY.replace(/\s/g, "")}`} className="card-glow p-6 text-center group">
-            <Phone className="mx-auto text-primary" size={28} />
+
+          {/* Phone */}
+          <a
+            href={`tel:${WHATSAPP_DISPLAY.replace(/\s/g, "")}`}
+            className="bg-secondary border border-border rounded-xl py-6 px-5 text-center group hover:border-primary/50 transition-colors duration-200"
+          >
+            <Phone className="mx-auto text-primary w-10 h-10" />
             <p className="font-heading font-bold mt-3">Teléfono</p>
-            <p className="text-muted-foreground text-sm mt-1">{WHATSAPP_DISPLAY}</p>
+            <p className="text-lg font-semibold mt-1">{WHATSAPP_DISPLAY}</p>
             <span className="inline-block mt-3 text-sm font-semibold text-primary group-hover:underline">Llamar</span>
           </a>
-          <a href={`mailto:${EMAIL}`} className="card-glow p-6 text-center group">
-            <Mail className="mx-auto text-primary" size={28} />
+
+          {/* Email */}
+          <a
+            href={`mailto:${EMAIL}`}
+            className="bg-secondary border border-border rounded-xl py-6 px-5 text-center group hover:border-primary/50 transition-colors duration-200"
+          >
+            <Mail className="mx-auto text-primary w-10 h-10" />
             <p className="font-heading font-bold mt-3">Correo</p>
-            <p className="text-muted-foreground text-sm mt-1">{EMAIL}</p>
+            <p className="text-lg font-semibold mt-1">{EMAIL}</p>
             <span className="inline-block mt-3 text-sm font-semibold text-primary group-hover:underline">Enviar correo</span>
           </a>
         </div>
