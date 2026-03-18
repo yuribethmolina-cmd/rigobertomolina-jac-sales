@@ -711,7 +711,7 @@ export const suvModels: CarModel[] = [
     price: "$4.285,6",
     priceDirecta: "desde $5.259/mes",
     priceFacil: "desde $2.239/mes",
-    image: "https://jacvenezuela.com/wp-content/uploads/2025/06/jac_banners_tepuy_pro.jpg",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/06/jac_banners_tepuy_pro-1024x427.jpg",
     colors: [
       { name: "Blanco", hex: "#f5f5f5" },
       { name: "Negro", hex: "#1a1a1a" },
