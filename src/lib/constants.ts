@@ -79,7 +79,7 @@ export const commercialModels: CarModel[] = [
     traction: "4x2",
     price: "$3.395,2",
     priceFacil: "desde $1.791/mes",
-    image: "urban-ferretero-3ton",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/01/URBAN-FERRETERO-1024x427.webp",
     specs: {
       motor: "2.8 L Diésel Euro II",
       potencia: "91 Hp",
