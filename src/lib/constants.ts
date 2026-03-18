@@ -643,6 +643,7 @@ export const suvModels: CarModel[] = [
       { name: "Azul", hex: "#2563eb" },
     ],
     price: "$3.715,2",
+    image: "https://jacvenezuela.com/wp-content/uploads/2024/09/nevado-automatico-2025-de-jac-motors-venezuela.jpg",
     specs: {
       motor: "1.5 L Turbo WT Euro V",
       potencia: "147 Hp",
