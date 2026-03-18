@@ -54,7 +54,7 @@ export const commercialModels: CarModel[] = [
     traction: "4x2",
     price: "$2.564,7",
     priceFacil: "desde $1.419/mes",
-    image: "x100-ferretero",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/01/X100-FERRETERO-1024x427.webp",
     featured: "COMERCIAL MÁS CONSULTADO",
     specs: {
       motor: "1.6 L Gasolina Euro II WT",
