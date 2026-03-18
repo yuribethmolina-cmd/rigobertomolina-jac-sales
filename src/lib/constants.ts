@@ -170,6 +170,7 @@ export const truckModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x2",
     price: "$4.473,1",
+    priceDirecta: "desde $4.473/mes",
     priceFacil: "desde $2.493/mes",
     image: "https://jacvenezuela.com/wp-content/uploads/2025/03/6T-FERRETERO-1024x425.webp",
     colors: [
