@@ -26,9 +26,9 @@ const comparisonData = [
 const PaymentSection = () => {
   const [plan, setPlan] = useState<Plan>("directa");
   const steps = plan === "directa" ? directaSteps : facilSteps;
-  const accentClass = plan === "directa" ? "text-primary" : "text-amber-400";
-  const accentBg = plan === "directa" ? "bg-primary/10 border-primary/30" : "bg-amber-400/10 border-amber-400/30";
-  const accentBgSolid = plan === "directa" ? "bg-primary/20" : "bg-amber-400/20";
+  const accentClass = "text-primary";
+  const accentBg = "bg-primary/10 border-primary/30";
+  const accentBgSolid = "bg-primary/20";
 
   return (
     <section id="pago" className="py-20 md:py-28">
@@ -40,23 +40,23 @@ const PaymentSection = () => {
         </div>
 
         {/* Plan toggle */}
-        <div className="flex justify-center gap-2 mt-8">
+        <div className="flex justify-center gap-3 mt-8">
           <button
             onClick={() => setPlan("directa")}
-            className={`px-5 py-2.5 rounded-lg font-heading font-bold text-sm transition-colors ${
+            className={`px-6 py-2.5 rounded-full font-heading font-bold text-sm transition-all duration-300 ${
               plan === "directa"
-                ? "bg-primary text-primary-foreground"
-                : "bg-secondary text-muted-foreground hover:text-foreground"
+                ? "bg-primary text-primary-foreground shadow-lg shadow-primary/30"
+                : "bg-secondary text-muted-foreground border border-muted-foreground/30 hover:text-foreground"
             }`}
           >
             Compra Directa
           </button>
           <button
             onClick={() => setPlan("facil")}
-            className={`px-5 py-2.5 rounded-lg font-heading font-bold text-sm transition-colors ${
+            className={`px-6 py-2.5 rounded-full font-heading font-bold text-sm transition-all duration-300 ${
               plan === "facil"
-                ? "bg-amber-500 text-white"
-                : "bg-secondary text-muted-foreground hover:text-foreground"
+                ? "bg-primary text-primary-foreground shadow-lg shadow-primary/30"
+                : "bg-secondary text-muted-foreground border border-muted-foreground/30 hover:text-foreground"
             }`}
           >
             Pago Fácil
@@ -65,12 +65,17 @@ const PaymentSection = () => {
 
         {/* Steps */}
         <div className="grid md:grid-cols-3 gap-6 mt-10">
-          {steps.map((s) => (
-            <div key={s.title} className="card-glow p-6 text-center">
-              <span className="text-4xl">{s.num}</span>
-              <h3 className="font-heading text-xl font-bold mt-3">{s.title}</h3>
-              <p className={`text-sm font-semibold mt-1 ${accentClass}`}>{s.sub}</p>
-              <p className="text-muted-foreground text-sm mt-2">{s.desc}</p>
+          {steps.map((s, i) => (
+            <div
+              key={s.title}
+              className="relative overflow-hidden bg-gradient-to-b from-secondary to-background border-l-4 border-primary rounded-xl p-6 min-h-[160px]"
+            >
+              <span className="absolute top-2 right-4 text-6xl font-black text-primary/20 leading-none select-none pointer-events-none">
+                {i + 1}
+              </span>
+              <h3 className="font-heading text-xl font-bold relative z-10">{s.title}</h3>
+              <p className={`text-sm font-semibold mt-1 ${accentClass} relative z-10`}>{s.sub}</p>
+              <p className="text-muted-foreground text-sm mt-2 relative z-10">{s.desc}</p>
             </div>
           ))}
         </div>
@@ -93,11 +98,11 @@ const PaymentSection = () => {
             <>
               <p className="text-sm font-semibold text-muted-foreground">Las cuotas mensuales son significativamente menores que en Compra Directa.</p>
               <div className={`inline-block mt-4 border rounded-lg px-6 py-4 ${accentBg}`}>
-                <p className="font-heading font-bold text-amber-400 text-lg">
+                <p className="font-heading font-bold text-primary text-lg">
                   Nevado MT → $2.402,3 + ($2.402,3 × 10) + $5.413,9 = aprox. $29.436 total
                 </p>
               </div>
-              <p className="mt-3 text-sm font-medium text-amber-400">
+              <p className="mt-3 text-sm font-medium text-primary">
                 Ideal si prefieres cuotas bajas y más tiempo
               </p>
             </>
