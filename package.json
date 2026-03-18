@@ -4,11 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "build:dev": "vite build --mode development",
+    "dev": "NODE_PATH=./vendor:./node_modules vite",
+    "build": "NODE_PATH=./vendor:./node_modules vite build",
+    "build:dev": "NODE_PATH=./vendor:./node_modules vite build --mode development",
     "lint": "eslint .",
-    "preview": "vite preview",
+    "preview": "NODE_PATH=./vendor:./node_modules vite preview",
     "test": "vitest run",
     "test:watch": "vitest"
   },
