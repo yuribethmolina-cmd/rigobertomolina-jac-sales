@@ -5,7 +5,17 @@ import { MessageCircle } from "lucide-react";
 const HeroSection = () => {
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover" />
+      {/* Video background */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        poster={heroBg}
+        className="absolute inset-0 w-full h-full object-cover"
+      >
+        <source src="/videos/JAC05.mp4" type="video/mp4" />
+      </video>
       <div className="absolute inset-0 bg-background/70" />
 
       {/* Nav */}
