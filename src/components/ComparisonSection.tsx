@@ -108,7 +108,9 @@ const DesktopTable = () => (
                       : ""
                 }`}
               >
-                {(row as Record<string, string>)[m.key]}
+                <span className={(row as any).isTotal ? "font-bold text-primary" : ""}>
+                  {(row as Record<string, string>)[m.key]}
+                </span>
               </td>
             ))}
           </tr>
