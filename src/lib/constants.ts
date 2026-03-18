@@ -53,6 +53,7 @@ export const commercialModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x2",
     price: "$2.564,7",
+    priceFacil: "desde $1.419/mes",
     image: "x100-ferretero",
     featured: "COMERCIAL MÁS CONSULTADO",
     specs: {
@@ -77,6 +78,7 @@ export const commercialModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x2",
     price: "$3.395,2",
+    priceFacil: "desde $1.791/mes",
     image: "urban-ferretero-3ton",
     specs: {
       motor: "2.8 L Diésel Euro II",
@@ -156,6 +158,7 @@ export const truckModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x2",
     price: "$4.473,1",
+    priceFacil: "desde $2.493/mes",
     colors: [
       { name: "Blanco", hex: "#f5f5f5" },
       { name: "Amarillo", hex: "#facc15" },
@@ -212,6 +215,7 @@ export const truckModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x2",
     price: "$7.322,6",
+    priceFacil: "desde $2.604/mes",
     colors: [
       { name: "Rojo", hex: "#dc2626" },
       { name: "Blanco", hex: "#f5f5f5" },
@@ -241,6 +245,7 @@ export const truckModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x2",
     price: "$7.850,3",
+    priceFacil: "desde $4.091/mes",
     specs: {
       motor: "CUMMINS C230-20 · 8.3 L Diésel Euro II",
       potencia: "230 Hp",
@@ -262,6 +267,7 @@ export const truckModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x2",
     price: "$10.223,2",
+    priceFacil: "desde $4.397/mes",
     colors: [
       { name: "Blanco", hex: "#f5f5f5" },
       { name: "Rojo", hex: "#dc2626" },
@@ -292,6 +298,7 @@ export const truckModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x2",
     price: "$7.106,4",
+    priceFacil: "desde $5.709/mes",
     colors: [
       { name: "Rojo", hex: "#dc2626" },
       { name: "Amarillo", hex: "#facc15" },
@@ -343,6 +350,7 @@ export const truckModels: CarModel[] = [
     transmission: "Manual",
     traction: "6x4",
     price: "$11.209,9",
+    priceFacil: "desde $6.363/mes",
     colors: [
       { name: "Amarillo", hex: "#facc15" },
       { name: "Rojo", hex: "#dc2626" },
@@ -410,6 +418,7 @@ export const pickupModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x2",
     price: "$3.214,6",
+    priceDirecta: "desde $3.214/mes",
     priceFacil: "desde $1.801/mes",
     colors: [
       { name: "Azul", hex: "#2563eb" },
@@ -442,6 +451,7 @@ export const pickupModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x4",
     price: "$3.613,3",
+    priceDirecta: "desde $3.613/mes",
     priceFacil: "desde $2.023/mes",
     colors: [
       { name: "Azul", hex: "#2563eb" },
@@ -472,6 +482,8 @@ export const pickupModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x4",
     price: "$4.165,2",
+    priceDirecta: "desde $4.165/mes",
+    priceFacil: "desde $2.295/mes",
     image: "https://jacvenezuela.com/wp-content/uploads/2025/06/jac_banners_la_venezolana_pro-1.jpg",
     specs: {
       motor: "2.0 L Turbo Euro V (enfriador interno)",
@@ -496,6 +508,7 @@ export const pickupModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x2",
     price: "$3.713,3",
+    priceFacil: "desde $2.255/mes",
     colors: [
       { name: "Blanco", hex: "#f5f5f5" },
       { name: "Amarillo", hex: "#facc15" },
@@ -524,6 +537,7 @@ export const pickupModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x4",
     price: "$4.709,3",
+    priceFacil: "desde $2.637/mes",
     image: "https://jacvenezuela.com/wp-content/uploads/2025/01/C-3500-FERRETERO-4X4-1024x427.webp",
     colors: [
       { name: "Gris", hex: "#9ca3af" },
@@ -666,6 +680,7 @@ export const suvModels: CarModel[] = [
     transmission: "Automática",
     traction: "4x2",
     price: "$3.715,2",
+    priceDirecta: "desde $3.715/mes",
     priceFacil: "desde $2.677/mes",
     image: "https://jacvenezuela.com/wp-content/uploads/2024/09/nevado-automatico-2025-de-jac-motors-venezuela.jpg",
     colors: [
@@ -682,6 +697,8 @@ export const suvModels: CarModel[] = [
     transmission: "Automática",
     traction: "4x2",
     price: "$4.285,6",
+    priceDirecta: "desde $5.259/mes",
+    priceFacil: "desde $2.239/mes",
     image: "https://jacvenezuela.com/wp-content/uploads/2025/06/jac_banners_tepuy_pro.jpg",
     colors: [
       { name: "Blanco", hex: "#f5f5f5" },
@@ -696,6 +713,7 @@ export const suvModels: CarModel[] = [
     transmission: "Automática",
     traction: "4x2",
     price: "$2.824,7",
+    priceDirecta: "desde $3.395/mes",
     priceFacil: "desde $2.083/mes",
     image: "https://jacvenezuela.com/wp-content/uploads/2024/09/jac_-motors_banners-Arena-Pro.png",
     colors: [
@@ -711,6 +729,8 @@ export const suvModels: CarModel[] = [
     tagline: "SUV espacioso · 182 HP Turbo DCT · Maletero 1.253 L",
     transmission: "Automática",
     traction: "4x2",
+    priceDirecta: "desde $4.285/mes",
+    priceFacil: "desde $2.924/mes",
     image: "https://jacvenezuela.com/wp-content/uploads/2024/09/js8-Savanna-jac-motors-venezuela.jpg",
     colors: [
       { name: "Blanco", hex: "#f5f5f5" },
@@ -724,6 +744,8 @@ export const suvModels: CarModel[] = [
     tagline: "Van premium de pasajeros — confort y amplitud",
     transmission: "Automática",
     traction: "4x2",
+    priceDirecta: "desde $4.728/mes",
+    priceFacil: "desde $4.114/mes",
     image: "https://jacvenezuela.com/wp-content/uploads/2025/06/JAC-REFINE-EN-VENEZUELA.jpg",
     colors: [
       { name: "Blanco", hex: "#f5f5f5" },
