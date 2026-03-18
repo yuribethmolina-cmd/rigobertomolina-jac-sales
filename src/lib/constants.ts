@@ -627,6 +627,8 @@ export const pickupModels: CarModel[] = [
     transmission: "Automática",
     traction: "4x4",
     price: "$6.392,4",
+    priceDirecta: "desde $6.392/mes",
+    priceFacil: "desde $3.645/mes",
     image: "https://jacvenezuela.com/wp-content/uploads/2025/10/jac_banners_aventura_pro_edicion_limitada-1024x427.jpg",
     colors: [
       { name: "Amarillo", hex: "#facc15" },
