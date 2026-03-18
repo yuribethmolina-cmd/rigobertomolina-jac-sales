@@ -613,6 +613,7 @@ export const suvModels: CarModel[] = [
     ],
     price: "$3.018,6",
     featured: "MÁS CONSULTADO",
+    image: "https://jacvenezuela.com/wp-content/uploads/2024/09/vehiculo-nevado-js4-de-jac-motors-venezuela.jpg",
     specs: {
       motor: "1.6 L DVT Euro V",
       potencia: "118 Hp",
