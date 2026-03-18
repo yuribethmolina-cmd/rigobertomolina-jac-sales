@@ -53,14 +53,18 @@ const CatalogCard = ({ model, isExpanded, onToggle }: Props) => {
           <p className="text-muted-foreground text-[13px] italic mt-1 line-clamp-1">{model.tagline}</p>
         )}
 
-        {/* Discoverable link */}
+        {/* Discoverable specs button */}
         {specs && (
           <button
             onClick={onToggle}
-            className="text-primary/70 hover:text-primary text-[11px] mt-1.5 flex items-center gap-1 transition-colors"
+            className={`mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold tracking-wide transition-all duration-200 border ${
+              isExpanded
+                ? "bg-primary/15 border-primary/40 text-primary"
+                : "bg-primary/5 border-primary/20 text-primary/80 hover:bg-primary/10 hover:border-primary/30 hover:text-primary"
+            }`}
           >
-            Ver especificaciones
-            <ChevronDown size={12} className={`transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`} />
+            🔍 Ver especificaciones
+            <ChevronDown size={13} className={`transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`} />
           </button>
         )}
 
