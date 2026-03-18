@@ -165,10 +165,13 @@ const PaymentSection = () => {
         </div>
 
         {/* Disclaimer */}
-        <div className="mt-8 card-glow p-5 max-w-2xl mx-auto text-center">
-          <p className="text-muted-foreground text-xs leading-relaxed">
-            * Montos referenciales del catálogo Feb 2026. Sujetos a variación por flete, seguro, IVA,
-            IGTF y gastos de nacionalización. Contáctame para el cronograma actualizado de tu modelo.
+        <div className="mt-8 max-w-2xl mx-auto border-2 border-amber-500/50 bg-amber-500/10 rounded-xl p-5 flex items-start gap-3">
+          <AlertTriangle className="text-amber-500 shrink-0 mt-0.5" size={22} />
+          <p className="text-sm leading-relaxed">
+            <strong className="text-amber-500">Precios referenciales.</strong>{" "}
+            Los montos mostrados corresponden al catálogo de <strong>Feb 2026</strong> y están{" "}
+            <strong>sujetos a cambio</strong> por flete, seguro, IVA, IGTF y gastos de nacionalización.
+            Contáctame para el cronograma actualizado de tu modelo.
           </p>
         </div>
       </div>
