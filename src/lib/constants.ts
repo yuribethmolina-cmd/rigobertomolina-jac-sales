@@ -305,6 +305,7 @@ export const truckModels: CarModel[] = [
     traction: "4x2",
     price: "$7.106,4",
     priceFacil: "desde $5.709/mes",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/03/CAVALINO-1024x425.webp",
     colors: [
       { name: "Rojo", hex: "#dc2626" },
       { name: "Amarillo", hex: "#facc15" },
