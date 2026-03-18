@@ -7,9 +7,9 @@ interface Props {
 
 const ModelCard = ({ model }: Props) => {
   return (
-    <div className="card-glow p-0 flex flex-col overflow-hidden">
+    <div className="card-glow p-0 flex flex-col overflow-hidden border-t-2 border-primary hover:scale-[1.02] transition-transform duration-200">
       {/* Image */}
-      <div className="relative aspect-[16/10] bg-muted/30 flex items-center justify-center text-muted-foreground text-sm overflow-hidden">
+      <div className="relative h-52 bg-muted/30 flex items-center justify-center text-muted-foreground text-sm overflow-hidden">
         {model.featured && (
           <span className="absolute top-3 left-3 z-10 px-3 py-1 text-xs font-bold rounded-full bg-primary/90 text-primary-foreground">
             ⭐ {model.featured}
