@@ -519,6 +519,7 @@ export const pickupModels: CarModel[] = [
     traction: "4x2",
     price: "$3.713,3",
     priceFacil: "desde $2.255/mes",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/01/DOBLE-CABINA-FERRETERO-1024x427.webp",
     colors: [
       { name: "Blanco", hex: "#f5f5f5" },
       { name: "Amarillo", hex: "#facc15" },
