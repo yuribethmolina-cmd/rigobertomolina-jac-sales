@@ -8,6 +8,15 @@ export const waLink = (message?: string) =>
   `https://wa.me/${WHATSAPP_NUMBER}${message ? `?text=${encodeURIComponent(message)}` : ""}`;
 
 export const waModelMessage = (model: string) =>
+  `Hola Rigoberto, me interesa el ${model}. ¿Puedes darme más información?`;
+export const EMAIL = "correo@email.com";
+export const INSTAGRAM = "https://www.instagram.com/ventasjacvzla/";
+export const INSTAGRAM_HANDLE = "@ventasjacvzla";
+
+export const waLink = (message?: string) =>
+  `https://wa.me/${WHATSAPP_NUMBER}${message ? `?text=${encodeURIComponent(message)}` : ""}`;
+
+export const waModelMessage = (model: string) =>
   `Hola Rigoberto, me interesa el ${model} ¿puedes darme más información?`;
 
 /* ── Specs interface ── */
