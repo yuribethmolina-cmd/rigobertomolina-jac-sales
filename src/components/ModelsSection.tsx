@@ -104,6 +104,12 @@ const ModelsSection = () => {
             <CatalogCard key={m.name} model={m} showCD={active === "PASAJEROS"} />
           ))}
         </div>
+
+        {active === "ELÉCTRICOS" && (
+          <p className="mt-6 text-center text-xs text-muted-foreground leading-relaxed max-w-xl mx-auto">
+            ⚡ Los vehículos eléctricos JAC están sujetos a disponibilidad. Consulta con Rigoberto para más información.
+          </p>
+        )}
       </div>
     </section>
   );
