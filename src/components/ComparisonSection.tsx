@@ -134,8 +134,8 @@ const DesktopTable = () => (
 );
 
 const ComparisonSection = () => (
-  <section className="py-20 bg-secondary/30">
-    <div className="container">
+  <section className="py-20 bg-secondary/30 section-divider">
+    <div className="section-container">
       <div className="text-center">
         <h2 className="section-title">¿Cuál Nevado o Arena es para ti?</h2>
         <p className="section-subtitle">Los modelos más consultados, lado a lado</p>

@@ -33,8 +33,8 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contacto" className="py-20 md:py-28 bg-secondary/30">
-      <div className="container">
+    <section id="contacto" className="py-20 bg-secondary/30 section-divider">
+      <div className="section-container">
         <div className="text-center">
           <h2 className="section-title">Hablemos</h2>
           <p className="section-subtitle">Estoy en Caracas, atiendo de lunes a sábado</p>

@@ -2,8 +2,8 @@ import { MessageCircle } from "lucide-react";
 import { waLink, WHATSAPP_DISPLAY, INSTAGRAM, INSTAGRAM_HANDLE } from "@/lib/constants";
 
 const FooterSection = () => (
-  <footer className="py-12 border-t border-border">
-    <div className="container text-center space-y-3">
+  <footer className="py-12 section-divider">
+    <div className="section-container text-center space-y-3">
       <p className="font-heading text-lg font-bold">Rigoberto Molina · Embajador de la marca JAC · Caracas, Venezuela</p>
       <p className="text-muted-foreground text-sm">Catálogo Compra Directa & Pago Fácil · Bel · JAC Venezuela · Feb 2026</p>
       <p className="text-muted-foreground text-sm">Lunes a Sábado · {WHATSAPP_DISPLAY}</p>

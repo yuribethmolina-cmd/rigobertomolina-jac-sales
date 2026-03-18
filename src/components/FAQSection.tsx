@@ -41,8 +41,8 @@ const faqs = [
 ];
 
 const FAQSection = () => (
-  <section id="faq" className="py-20 md:py-28 bg-secondary/30">
-    <div className="container max-w-3xl">
+  <section id="faq" className="py-20 bg-secondary/30 section-divider">
+    <div className="section-container max-w-3xl">
       <div className="text-center">
         <h2 className="section-title">Preguntas Frecuentes</h2>
         <p className="section-subtitle">Todo lo que necesitas saber antes de comprar tu JAC</p>

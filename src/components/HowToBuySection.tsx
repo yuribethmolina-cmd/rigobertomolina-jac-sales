@@ -8,8 +8,8 @@ const steps = [
 ];
 
 const HowToBuySection = () => (
-  <section className="py-20 md:py-28 bg-secondary/30">
-    <div className="container">
+  <section className="py-20 bg-secondary/30 section-divider">
+    <div className="section-container">
       <div className="text-center">
         <h2 className="section-title">¿Cómo compro mi JAC?</h2>
         <div className="teal-underline mx-auto" />

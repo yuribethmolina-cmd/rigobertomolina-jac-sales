@@ -31,8 +31,8 @@ const PaymentSection = () => {
   const accentBgSolid = "bg-primary/20";
 
   return (
-    <section id="pago" className="py-20 md:py-28">
-      <div className="container">
+     <section id="pago" className="py-20 section-divider">
+      <div className="section-container">
         <div className="text-center">
           <h2 className="section-title">¿Cómo funciona el pago?</h2>
           <p className="section-subtitle">Elige el plan que mejor se adapta a ti</p>

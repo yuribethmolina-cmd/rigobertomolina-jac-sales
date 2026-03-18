@@ -9,8 +9,8 @@ const badges = [
 ];
 
 const AboutSection = () => (
-  <section className="py-20">
-    <div className="container">
+  <section className="py-20 section-divider">
+    <div className="section-container">
       <div className="bg-gradient-to-br from-secondary to-background rounded-3xl p-8 md:p-12">
         <div className="text-center md:text-left">
           <h2 className="section-title">¿Por qué comprar con Rigoberto?</h2>
