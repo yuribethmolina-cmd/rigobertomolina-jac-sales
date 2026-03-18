@@ -1,0 +1,5 @@
+{
+  "name": "@alloc/quick-lru",
+  "version": "5.2.0",
+  "main": "index.js"
+}
