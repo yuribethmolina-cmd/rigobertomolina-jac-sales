@@ -137,6 +137,12 @@ const DesktopTable = () => (
               >
                 Consultar <ArrowRight size={14} />
               </a>
+              <a
+                href="#simulador"
+                className="mt-1 inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors"
+              >
+                <Calculator size={12} /> Ver desglose
+              </a>
             </td>
           ))}
         </tr>
