@@ -680,6 +680,7 @@ export const suvModels: CarModel[] = [
     transmission: "Automática",
     traction: "4x2",
     price: "$3.715,2",
+    priceDirecta: "desde $3.715/mes",
     priceFacil: "desde $2.677/mes",
     image: "https://jacvenezuela.com/wp-content/uploads/2024/09/nevado-automatico-2025-de-jac-motors-venezuela.jpg",
     colors: [
