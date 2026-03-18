@@ -56,15 +56,21 @@
 
 @layer components {
   .section-title {
-    @apply font-heading text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight;
+    @apply font-heading text-4xl md:text-5xl font-black tracking-tight;
   }
   .section-subtitle {
-    @apply text-muted-foreground text-base md:text-lg mt-3;
+    @apply text-muted-foreground text-lg mt-3;
   }
   .teal-underline {
-    @apply w-16 h-1 bg-primary rounded-full mt-4;
+    @apply w-16 h-1 bg-primary rounded-full mt-4 mb-10;
   }
   .card-glow {
     @apply border border-border bg-card rounded-xl transition-all duration-300 hover:border-primary/50 hover:shadow-[0_0_20px_rgba(0,181,200,0.15)];
+  }
+  .section-container {
+    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  .section-divider {
+    @apply border-t border-white/5;
   }
 }
