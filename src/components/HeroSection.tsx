@@ -1,4 +1,4 @@
-import heroBg from "@/assets/hero-bg.jpg";
+
 import { waLink } from "@/lib/constants";
 import { MessageCircle } from "lucide-react";
 
