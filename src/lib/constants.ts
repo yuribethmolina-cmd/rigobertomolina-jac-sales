@@ -726,7 +726,7 @@ export const suvModels: CarModel[] = [
     transmission: "Automática",
     traction: "4x2",
     price: "$4.285,6",
-    priceDirecta: "desde $5.259/mes",
+    priceDirecta: "desde $4.285/mes",
     priceFacil: "desde $2.239/mes",
     image: "https://jacvenezuela.com/wp-content/uploads/2025/06/jac_banners_tepuy_pro-1024x427.jpg",
     colors: [
