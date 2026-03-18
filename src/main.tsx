@@ -2,7 +2,7 @@ import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 
-const RELEASE_ID = "v20260318-1200";
+const RELEASE_ID = "v20260318-1400";
 console.info(`[Release] ${RELEASE_ID}`);
 
 const root = document.getElementById("root")!;
