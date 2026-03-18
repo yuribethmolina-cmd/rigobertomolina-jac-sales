@@ -41,6 +41,7 @@ export interface CarModel {
   featured?: string;
   specs?: CarSpecs;
   image?: string;
+  referentialImage?: boolean;
 }
 
 /* ══════════════════════════════════════════
@@ -103,7 +104,7 @@ export const commercialModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x2",
     price: "$3.236,4",
-    image: "urban-chasis-largo-3ton",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/01/Urban-Chasis-1024x576.webp",
     colors: [
       { name: "Blanco", hex: "#f5f5f5" },
       { name: "Amarillo", hex: "#facc15" },
@@ -143,6 +144,8 @@ export const commercialModels: CarModel[] = [
     tagline: "Transporte colectivo — hasta 16 pasajeros",
     transmission: "Manual",
     traction: "4x2",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/03/SUNRAY-V6-171-1024x427.webp",
+    referentialImage: true,
     specs: {
       combustible: "Diésel",
     },
