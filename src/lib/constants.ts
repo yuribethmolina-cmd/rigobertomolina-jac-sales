@@ -250,6 +250,7 @@ export const truckModels: CarModel[] = [
     traction: "4x2",
     price: "$7.850,3",
     priceFacil: "desde $4.091/mes",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/03/BUFALO-1024x425.webp",
     specs: {
       motor: "CUMMINS C230-20 · 8.3 L Diésel Euro II",
       potencia: "230 Hp",
