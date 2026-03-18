@@ -3,6 +3,7 @@ import CredibilityStrip from "@/components/CredibilityStrip";
 import ModelsSection from "@/components/ModelsSection";
 import ComparisonSection from "@/components/ComparisonSection";
 import PaymentSection from "@/components/PaymentSection";
+import PaymentSimulator from "@/components/PaymentSimulator";
 import HowToBuySection from "@/components/HowToBuySection";
 import FAQSection from "@/components/FAQSection";
 import AboutSection from "@/components/AboutSection";
@@ -17,6 +18,7 @@ const Index = () => (
     <ModelsSection />
     <ComparisonSection />
     <PaymentSection />
+    <PaymentSimulator />
     <HowToBuySection />
     <FAQSection />
     <AboutSection />
