@@ -40,9 +40,29 @@ const ModelCard = ({ model }: Props) => {
           </span>
         </div>
 
-        <p className="mt-4 font-heading text-lg font-bold text-primary">
-          {model.price ? `Cuota desde ${model.price} *` : "Precio: Consultar"}
-        </p>
+        {/* Dual pricing */}
+        <div className="mt-4 space-y-1">
+          {model.priceDirecta || model.priceFacil ? (
+            <>
+              {model.priceDirecta && (
+                <p className="text-sm">
+                  <span className="text-muted-foreground">💳 Compra Directa:</span>{" "}
+                  <span className="font-heading font-bold text-primary">{model.priceDirecta}</span>
+                </p>
+              )}
+              {model.priceFacil && (
+                <p className="text-sm">
+                  <span className="text-muted-foreground">📅 Pago Fácil:</span>{" "}
+                  <span className="font-heading font-bold text-amber-400">{model.priceFacil}</span>
+                </p>
+              )}
+            </>
+          ) : (
+            <p className="font-heading text-lg font-bold text-primary">
+              {model.price ? `Cuota desde ${model.price} *` : "Consultar precio"}
+            </p>
+          )}
+        </div>
 
         <a
           href={waLink(waModelMessage(model.name))}
