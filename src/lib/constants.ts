@@ -727,7 +727,7 @@ export const suvModels: CarModel[] = [
     price: "$2.824,7",
     priceDirecta: "desde $3.395/mes",
     priceFacil: "desde $2.083/mes",
-    image: "https://jacvenezuela.com/wp-content/uploads/2024/09/jac_-motors_banners-Arena-Pro.png",
+    image: "https://jacvenezuela.com/wp-content/uploads/2024/09/jac_-motors_banners-Arena-Pro-1024x427.png",
     colors: [
       { name: "Blanco", hex: "#f5f5f5" },
       { name: "Rojo", hex: "#dc2626" },
