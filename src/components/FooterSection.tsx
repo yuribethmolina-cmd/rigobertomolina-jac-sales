@@ -33,6 +33,7 @@ const FooterSection = () => (
         Este sitio no es un portal oficial de JAC Motors ni de Bel Venezuela.
         Es el sitio personal de Rigoberto Molina como embajador de la marca y vendedor independiente.
       </p>
+      <p className="text-muted-foreground/40 text-[10px] mt-4">v20260318-1200</p>
     </div>
   </footer>
 );
