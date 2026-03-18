@@ -143,6 +143,8 @@ export const commercialModels: CarModel[] = [
     tagline: "Transporte colectivo — hasta 16 pasajeros",
     transmission: "Manual",
     traction: "4x2",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/03/SUNRAY-V6-171-1024x427.webp",
+    referentialImage: true,
     specs: {
       combustible: "Diésel",
     },
