@@ -101,7 +101,7 @@ const ModelsSection = () => {
         {/* Cards */}
         <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-5">
           {tabData[active].map((m) => (
-            <CatalogCard key={m.name} model={m} showCD={active === "PASAJEROS"} />
+            <CatalogCard key={m.name} model={m} />
           ))}
         </div>
 
