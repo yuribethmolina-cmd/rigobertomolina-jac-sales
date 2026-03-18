@@ -518,6 +518,7 @@ export const pickupModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x4",
     price: "$4.709,3",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/01/C-3500-FERRETERO-4X4-1024x427.webp",
     colors: [
       { name: "Gris", hex: "#9ca3af" },
     ],
