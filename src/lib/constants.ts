@@ -137,6 +137,8 @@ export const commercialModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x2",
     image: "https://jacvenezuela.com/wp-content/uploads/2025/03/SUNRAY-V6-171-1024x427.webp",
+    priceDirecta: "desde $4.908/mes",
+    priceFacil: "desde $2.785/mes",
     specs: {
       motor: "2.8 L Turbo Diésel",
       combustible: "Diésel",
