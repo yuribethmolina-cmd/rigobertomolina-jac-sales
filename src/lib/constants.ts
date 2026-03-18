@@ -729,6 +729,8 @@ export const suvModels: CarModel[] = [
     tagline: "SUV espacioso · 182 HP Turbo DCT · Maletero 1.253 L",
     transmission: "Automática",
     traction: "4x2",
+    priceDirecta: "desde $4.285/mes",
+    priceFacil: "desde $2.924/mes",
     image: "https://jacvenezuela.com/wp-content/uploads/2024/09/js8-Savanna-jac-motors-venezuela.jpg",
     colors: [
       { name: "Blanco", hex: "#f5f5f5" },
