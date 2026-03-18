@@ -97,13 +97,13 @@ const CatalogCard = ({ model, isExpanded, onToggle }: Props) => {
         {/* Price pills */}
         <div className="flex flex-wrap gap-2 mt-3 mb-4">
           {hasCD && (
-            <span className="pill">💳 CD {model.priceCD}</span>
+            <span className="pill">Compra Directa {model.priceCD}</span>
           )}
           {hasPF && (
-            <span className="pill">📅 {hasCD ? "PF" : "Pago Fácil"} {model.pricePF}</span>
+            <span className="pill">Pago Fácil {model.pricePF}</span>
           )}
           {!hasCD && !hasPF && (
-            <span className="pill">💬 Consultar precio</span>
+            <span className="pill">Consultar precio</span>
           )}
         </div>
 
