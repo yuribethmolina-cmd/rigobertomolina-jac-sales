@@ -42,25 +42,37 @@ const CatalogCard = ({ model }: Props) => {
         {/* Price pills */}
         <div className="flex flex-wrap gap-2 mt-3 mb-4">
           {hasCD && (
-            <span className="pill">💳 CD ${model.priceCD}</span>
+            <span className="pill">💳 CD {model.priceCD}</span>
           )}
           {hasPF && (
-            <span className="pill">📅 {hasCD ? "PF" : "Pago Fácil"} ${model.pricePF}</span>
+            <span className="pill">📅 {hasCD ? "PF" : "Pago Fácil"} {model.pricePF}</span>
           )}
           {!hasCD && !hasPF && (
             <span className="pill">💬 Consultar precio</span>
           )}
         </div>
 
-        {/* CTA */}
-        <a
-          href={waLink(waModelMessage(model.name))}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-auto pt-4 w-full inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 font-heading text-sm font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
-        >
-          Consultar por WhatsApp <ArrowRight size={16} />
-        </a>
+        {/* CTA buttons */}
+        <div className="mt-auto flex gap-2">
+          <a
+            href={waLink(waModelMessage(model.name))}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-[3] inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary h-10 px-3 font-heading text-sm font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
+          >
+            💬 WhatsApp
+          </a>
+          {model.fichaUrl && (
+            <a
+              href={model.fichaUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-[2] inline-flex items-center justify-center gap-1.5 rounded-lg border border-primary text-primary h-10 px-3 font-heading text-sm font-bold hover:bg-primary/10 transition-colors"
+            >
+              📋 Ver ficha
+            </a>
+          )}
+        </div>
       </div>
     </div>
   );
