@@ -1,6 +1,6 @@
 export const WHATSAPP_NUMBER = "584143200146";
 export const WHATSAPP_DISPLAY = "+58 414 320 0146";
-export const EMAIL = "correo@email.com";
+export const EMAIL = "rigobertomolina6@gmail.com";
 export const INSTAGRAM = "https://www.instagram.com/ventasjacvzla/";
 export const INSTAGRAM_HANDLE = "@ventasjacvzla";
 
