@@ -57,6 +57,12 @@ const MobileCards = () => (
           >
             Consultar este modelo <ArrowRight size={16} />
           </a>
+          <a
+            href="#simulador"
+            className="mt-2 w-full inline-flex items-center justify-center gap-2 rounded-lg border border-primary px-5 py-2.5 font-heading text-sm font-bold text-primary hover:bg-primary/10 transition-colors"
+          >
+            <Calculator size={14} /> Ver desglose de pagos
+          </a>
         </div>
       </div>
     ))}
