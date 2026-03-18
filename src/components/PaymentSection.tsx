@@ -98,7 +98,7 @@ const PaymentSection = () => {
             <>
               <p className="text-sm font-semibold text-muted-foreground">Las cuotas mensuales son significativamente menores que en Compra Directa.</p>
               <div className={`inline-block mt-4 border rounded-lg px-6 py-4 ${accentBg}`}>
-                <p className="font-heading font-bold text-amber-400 text-lg">
+                <p className="font-heading font-bold text-primary text-lg">
                   Nevado MT → $2.402,3 + ($2.402,3 × 10) + $5.413,9 = aprox. $29.436 total
                 </p>
               </div>
