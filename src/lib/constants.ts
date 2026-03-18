@@ -41,6 +41,7 @@ export interface CarModel {
   featured?: string;
   specs?: CarSpecs;
   image?: string;
+  referentialImage?: boolean;
 }
 
 /* ══════════════════════════════════════════

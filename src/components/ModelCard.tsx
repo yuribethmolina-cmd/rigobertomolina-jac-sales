@@ -25,6 +25,11 @@ const ModelCard = ({ model }: Props) => {
         ) : (
           "Foto del modelo"
         )}
+        {model.referentialImage && (
+          <span className="absolute bottom-2 left-2 z-10 text-[10px] text-muted-foreground bg-background/80 px-2 py-0.5 rounded">
+            📷 Imagen referencial · Consultar disponibilidad
+          </span>
+        )}
       </div>
 
       <div className="p-5 flex flex-col flex-1">
