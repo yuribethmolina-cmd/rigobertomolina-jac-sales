@@ -102,7 +102,7 @@ const PaymentSection = () => {
                   Nevado MT → $2.402,3 + ($2.402,3 × 10) + $5.413,9 = aprox. $29.436 total
                 </p>
               </div>
-              <p className="mt-3 text-sm font-medium text-amber-400">
+              <p className="mt-3 text-sm font-medium text-primary">
                 Ideal si prefieres cuotas bajas y más tiempo
               </p>
             </>
