@@ -124,7 +124,6 @@ const PaymentSection = () => {
                   <th className="p-3 text-center font-heading font-bold">Cuota Directa</th>
                   <th className="p-3 text-center font-heading font-bold">Total Directa</th>
                   <th className="p-3 text-center font-heading font-bold">Cuota Fácil</th>
-                  <th className="p-3 text-center font-heading font-bold">Total Fácil</th>
                   <th className="p-3 text-center rounded-tr-lg font-heading font-bold">Total Fácil</th>
                 </tr>
               </thead>
