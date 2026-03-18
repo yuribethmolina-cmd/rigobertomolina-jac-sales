@@ -9,6 +9,7 @@ export interface CatalogModel {
   pricePF?: string;
   featured?: string;
   referentialImage?: boolean;
+  fichaUrl?: string;
 }
 
 const pasajeros: CatalogModel[] = [
