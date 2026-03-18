@@ -79,13 +79,14 @@ const HeroSection = () => {
 
       {/* Mobile menu panel */}
       <div
-        className={`fixed top-0 left-0 right-0 z-40 bg-[rgba(13,27,42,0.97)] backdrop-blur-[10px] transition-all duration-300 ease-in-out md:hidden ${
+        className={`fixed left-0 right-0 z-40 bg-[rgba(13,27,42,0.97)] backdrop-blur-[10px] transition-all duration-300 ease-in-out md:hidden ${
           menuOpen
             ? "translate-y-0 opacity-100"
-            : "-translate-y-full opacity-0 pointer-events-none"
+            : "-translate-y-8 opacity-0 pointer-events-none"
         }`}
+        style={{ top: scrolled ? '4.5rem' : '9rem' }}
       >
-        <div className="pt-16 pb-6 px-6 flex flex-col gap-1">
+        <div className="py-6 px-6 flex flex-col gap-1">
           {navLinks.map((link, i) => (
             <a
               key={link.href}
