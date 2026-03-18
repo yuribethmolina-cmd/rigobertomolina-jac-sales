@@ -51,7 +51,7 @@ const HeroSection = () => {
             : "bg-gradient-to-b from-[rgba(0,0,0,0.6)] to-transparent"
         }`}
       >
-        <img src={logoRM} alt="Rigoberto Molina" className="h-14 md:h-40 w-auto brightness-0 invert" />
+        <img src={logoRM} alt="Rigoberto Molina" className="h-28 md:h-40 w-auto brightness-0 invert" />
 
         {/* Desktop links */}
         <div className="hidden md:flex gap-6 text-sm font-medium">
