@@ -1,22 +1,17 @@
-import heroBg from "@/assets/hero-bg.jpg";
+
 import { waLink } from "@/lib/constants";
 import { MessageCircle } from "lucide-react";
 
 const HeroSection = () => {
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Video background */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        poster={heroBg}
+      {/* Background image */}
+      <img
+        src="https://jacvenezuela.com/wp-content/uploads/2025/10/jac_banners_aventura_pro_edicion_limitada.jpg"
+        alt="JAC Venezuela"
         className="absolute inset-0 w-full h-full object-cover"
-      >
-        <source src="/videos/JAC05.mp4" type="video/mp4" />
-      </video>
-      <div className="absolute inset-0 bg-background/70" />
+      />
+      <div className="absolute inset-0 bg-[rgba(0,0,0,0.6)]" />
 
       {/* Nav */}
       <nav className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between px-6 py-5 md:px-12">
