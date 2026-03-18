@@ -375,6 +375,7 @@ export const pickupModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x2",
     price: "$2.972,3",
+    image: "https://jacvenezuela.com/wp-content/uploads/2024/09/T6-la-venezolana-de-jac-motors-venezuela.jpg",
     colors: [
       { name: "Azul", hex: "#2563eb" },
       { name: "Rojo", hex: "#dc2626" },
@@ -571,6 +572,7 @@ export const pickupModels: CarModel[] = [
     transmission: "Automática",
     traction: "4x4",
     price: "$6.392,4",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/10/jac_banners_aventura_pro_edicion_limitada.jpg",
     colors: [
       { name: "Amarillo", hex: "#facc15" },
       { name: "Blanco", hex: "#f5f5f5" },
@@ -613,6 +615,7 @@ export const suvModels: CarModel[] = [
     ],
     price: "$3.018,6",
     featured: "MÁS CONSULTADO",
+    image: "https://jacvenezuela.com/wp-content/uploads/2024/09/vehiculo-nevado-js4-de-jac-motors-venezuela.jpg",
     specs: {
       motor: "1.6 L DVT Euro V",
       potencia: "118 Hp",
@@ -642,6 +645,7 @@ export const suvModels: CarModel[] = [
       { name: "Azul", hex: "#2563eb" },
     ],
     price: "$3.715,2",
+    image: "https://jacvenezuela.com/wp-content/uploads/2024/09/nevado-automatico-2025-de-jac-motors-venezuela.jpg",
     specs: {
       motor: "1.5 L Turbo WT Euro V",
       potencia: "147 Hp",
@@ -663,6 +667,7 @@ export const suvModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x2",
     price: "$2.383,2",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/09/jac_banners_arena_sport_mt.jpg",
     colors: [
       { name: "Negro", hex: "#1a1a1a" },
       { name: "Plateado", hex: "#c0c0c0" },
@@ -691,6 +696,7 @@ export const suvModels: CarModel[] = [
     transmission: "Automática",
     traction: "4x2",
     price: "$2.586,2",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/09/jac_banners_arena_sport_at.jpg",
     colors: [
       { name: "Negro", hex: "#1a1a1a" },
       { name: "Plateado", hex: "#c0c0c0" },
@@ -747,6 +753,7 @@ export const suvModels: CarModel[] = [
     traction: "4x2",
     price: "$4.285,6",
     featured: "NUEVO",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/06/jac_banners_tepuy_pro.jpg",
     colors: [
       { name: "Blanco", hex: "#f5f5f5" },
       { name: "Negro", hex: "#1a1a1a" },

@@ -45,7 +45,7 @@ const ModelCard = ({ model }: Props) => {
       <div className="aspect-video bg-muted/30 rounded-lg mb-4 flex items-center justify-center text-muted-foreground text-sm overflow-hidden">
         {model.image ? (
           <img
-            src={`/src/assets/${model.image}.jpeg`}
+            src={model.image.startsWith("http") ? model.image : `/src/assets/${model.image}.jpeg`}
             alt={model.name}
             className="w-full h-full object-cover"
             loading="lazy"
