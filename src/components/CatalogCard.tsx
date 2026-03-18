@@ -40,7 +40,7 @@ const CatalogCard = ({ model }: Props) => {
         )}
 
         {/* Price pills */}
-        <div className="flex flex-wrap gap-2 mt-3">
+        <div className="flex flex-wrap gap-2 mt-3 mb-4">
           {hasCD && (
             <span className="pill">💳 CD ${model.priceCD}</span>
           )}
