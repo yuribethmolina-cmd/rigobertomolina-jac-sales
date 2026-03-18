@@ -451,6 +451,7 @@ export const pickupModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x4",
     price: "$3.613,3",
+    priceDirecta: "desde $3.613/mes",
     priceFacil: "desde $2.023/mes",
     colors: [
       { name: "Azul", hex: "#2563eb" },
