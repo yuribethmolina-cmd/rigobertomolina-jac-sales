@@ -117,13 +117,15 @@ const PaymentSection = () => {
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[550px] text-sm">
+            <table className="w-full min-w-[700px] text-sm">
               <thead>
                 <tr className="bg-primary text-primary-foreground">
                   <th className="p-3 text-left rounded-tl-lg font-heading font-bold">Modelo</th>
-                  <th className="p-3 text-center font-heading font-bold">Compra Directa</th>
-                  <th className="p-3 text-center font-heading font-bold">Pago Fácil</th>
-                  <th className="p-3 text-center rounded-tr-lg font-heading font-bold">Diferencia</th>
+                  <th className="p-3 text-center font-heading font-bold">Cuota Directa</th>
+                  <th className="p-3 text-center font-heading font-bold">Total Directa</th>
+                  <th className="p-3 text-center font-heading font-bold">Cuota Fácil</th>
+                  <th className="p-3 text-center font-heading font-bold">Total Fácil</th>
+                  <th className="p-3 text-center rounded-tr-lg font-heading font-bold">Ahorro/mes</th>
                 </tr>
               </thead>
               <tbody>
@@ -134,7 +136,9 @@ const PaymentSection = () => {
                   >
                     <td className="p-3 font-semibold">{row.modelo}</td>
                     <td className="p-3 text-center">{row.directa}</td>
+                    <td className="p-3 text-center font-bold">{row.totalDirecta}</td>
                     <td className="p-3 text-center">{row.facil}</td>
+                    <td className="p-3 text-center font-bold">{row.totalFacil}</td>
                     <td className="p-3 text-center text-green-400 font-semibold">
                       <span className="inline-flex items-center gap-1">
                         <ArrowDown size={14} /> {row.diff}
