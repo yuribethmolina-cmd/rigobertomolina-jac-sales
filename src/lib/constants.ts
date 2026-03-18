@@ -54,7 +54,7 @@ export const commercialModels: CarModel[] = [
     traction: "4x2",
     price: "$2.564,7",
     priceFacil: "desde $1.419/mes",
-    image: "x100-ferretero",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/01/X100-FERRETERO-1024x427.webp",
     featured: "COMERCIAL MÁS CONSULTADO",
     specs: {
       motor: "1.6 L Gasolina Euro II WT",
@@ -79,7 +79,7 @@ export const commercialModels: CarModel[] = [
     traction: "4x2",
     price: "$3.395,2",
     priceFacil: "desde $1.791/mes",
-    image: "urban-ferretero-3ton",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/01/URBAN-FERRETERO-1024x427.webp",
     specs: {
       motor: "2.8 L Diésel Euro II",
       potencia: "91 Hp",
@@ -131,6 +131,7 @@ export const commercialModels: CarModel[] = [
     tagline: "Van de carga o pasajeros — versatilidad total",
     transmission: "Manual",
     traction: "4x2",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/03/SUNRAY-V6-171-1024x427.webp",
     specs: {
       motor: "2.8 L Turbo Diésel",
       combustible: "Diésel",
@@ -159,6 +160,7 @@ export const truckModels: CarModel[] = [
     traction: "4x2",
     price: "$4.473,1",
     priceFacil: "desde $2.493/mes",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/03/6T-FERRETERO-1024x425.webp",
     colors: [
       { name: "Blanco", hex: "#f5f5f5" },
       { name: "Amarillo", hex: "#facc15" },
@@ -187,6 +189,7 @@ export const truckModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x2",
     price: "$4.671,3",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/03/6T-FERRETERO-1024x425.webp",
     colors: [
       { name: "Blanco", hex: "#f5f5f5" },
       { name: "Rojo", hex: "#dc2626" },
@@ -216,6 +219,7 @@ export const truckModels: CarModel[] = [
     traction: "4x2",
     price: "$7.322,6",
     priceFacil: "desde $2.604/mes",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/03/BUFALO-1024x425.webp",
     colors: [
       { name: "Rojo", hex: "#dc2626" },
       { name: "Blanco", hex: "#f5f5f5" },
@@ -246,6 +250,7 @@ export const truckModels: CarModel[] = [
     traction: "4x2",
     price: "$7.850,3",
     priceFacil: "desde $4.091/mes",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/03/BUFALO-1024x425.webp",
     specs: {
       motor: "CUMMINS C230-20 · 8.3 L Diésel Euro II",
       potencia: "230 Hp",
@@ -268,6 +273,7 @@ export const truckModels: CarModel[] = [
     traction: "4x2",
     price: "$10.223,2",
     priceFacil: "desde $4.397/mes",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/03/LEYENDA-1024x425.webp",
     colors: [
       { name: "Blanco", hex: "#f5f5f5" },
       { name: "Rojo", hex: "#dc2626" },
@@ -299,6 +305,7 @@ export const truckModels: CarModel[] = [
     traction: "4x2",
     price: "$7.106,4",
     priceFacil: "desde $5.709/mes",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/03/CAVALINO-1024x425.webp",
     colors: [
       { name: "Rojo", hex: "#dc2626" },
       { name: "Amarillo", hex: "#facc15" },
@@ -327,6 +334,7 @@ export const truckModels: CarModel[] = [
     transmission: "Manual",
     traction: "6x4",
     price: "$9.312,5",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/03/CHUTO-4251-430-1024x425.webp",
     specs: {
       motor: "10.3 L Diésel Euro II",
       potencia: "400 Hp @ 1.900 RPM",
@@ -351,6 +359,7 @@ export const truckModels: CarModel[] = [
     traction: "6x4",
     price: "$11.209,9",
     priceFacil: "desde $6.363/mes",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/03/CHUTO-4251-430-1024x425.webp",
     colors: [
       { name: "Amarillo", hex: "#facc15" },
       { name: "Rojo", hex: "#dc2626" },
@@ -387,7 +396,7 @@ export const pickupModels: CarModel[] = [
     price: "$2.972,3",
     priceDirecta: "desde $2.972/mes",
     priceFacil: "desde $1.653/mes",
-    image: "https://jacvenezuela.com/wp-content/uploads/2024/09/T6-la-venezolana-de-jac-motors-venezuela.jpg",
+    image: "https://jacvenezuela.com/wp-content/uploads/2024/09/T6-la-venezolana-de-jac-motors-venezuela-1024x427.jpg",
     colors: [
       { name: "Azul", hex: "#2563eb" },
       { name: "Rojo", hex: "#dc2626" },
@@ -413,7 +422,7 @@ export const pickupModels: CarModel[] = [
   },
   {
     name: "LA VENEZOLANA 4X2 DIESEL",
-    image: "https://jacvenezuela.com/wp-content/uploads/2025/02/jac_banners_la_venezolana_diesel_4x2_4x4.jpg",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/02/jac_banners_la_venezolana_diesel_4x2_4x4-1024x427.jpg",
     tagline: "Mayor eficiencia diésel para trabajo pesado",
     transmission: "Manual",
     traction: "4x2",
@@ -453,6 +462,7 @@ export const pickupModels: CarModel[] = [
     price: "$3.613,3",
     priceDirecta: "desde $3.613/mes",
     priceFacil: "desde $2.023/mes",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/02/jac_banners_la_venezolana_diesel_4x2_4x4-1024x427.jpg",
     colors: [
       { name: "Azul", hex: "#2563eb" },
       { name: "Rojo", hex: "#dc2626" },
@@ -484,7 +494,7 @@ export const pickupModels: CarModel[] = [
     price: "$4.165,2",
     priceDirecta: "desde $4.165/mes",
     priceFacil: "desde $2.295/mes",
-    image: "https://jacvenezuela.com/wp-content/uploads/2025/06/jac_banners_la_venezolana_pro-1.jpg",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/06/jac_banners_la_venezolana_pro-1-1024x427.jpg",
     specs: {
       motor: "2.0 L Turbo Euro V (enfriador interno)",
       potencia: "188 Hp",
@@ -509,6 +519,7 @@ export const pickupModels: CarModel[] = [
     traction: "4x2",
     price: "$3.713,3",
     priceFacil: "desde $2.255/mes",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/01/DOBLE-CABINA-FERRETERO-1024x427.webp",
     colors: [
       { name: "Blanco", hex: "#f5f5f5" },
       { name: "Amarillo", hex: "#facc15" },
@@ -565,6 +576,7 @@ export const pickupModels: CarModel[] = [
     transmission: "Automática",
     traction: "4x4",
     price: "$5.259,0",
+    image: "https://jacvenezuela.com/wp-content/uploads/2024/09/t9-Aventura-Gasolina-jac-motors-venezuela-1024x427.jpg",
     colors: [
       { name: "Rojo", hex: "#dc2626" },
       { name: "Amarillo", hex: "#facc15" },
@@ -595,7 +607,7 @@ export const pickupModels: CarModel[] = [
     transmission: "Automática",
     traction: "4x4",
     price: "$6.392,4",
-    image: "https://jacvenezuela.com/wp-content/uploads/2025/10/jac_banners_aventura_pro_edicion_limitada.jpg",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/10/jac_banners_aventura_pro_edicion_limitada-1024x427.jpg",
     colors: [
       { name: "Amarillo", hex: "#facc15" },
       { name: "Blanco", hex: "#f5f5f5" },
@@ -634,7 +646,7 @@ export const suvModels: CarModel[] = [
     priceDirecta: "desde $3.018/mes",
     priceFacil: "desde $2.402/mes",
     featured: "MÁS CONSULTADO",
-    image: "https://jacvenezuela.com/wp-content/uploads/2024/09/vehiculo-nevado-js4-de-jac-motors-venezuela.jpg",
+    image: "https://jacvenezuela.com/wp-content/uploads/2024/09/vehiculo-nevado-js4-de-jac-motors-venezuela-1024x427.jpg",
     colors: [
       { name: "Negro", hex: "#1a1a1a" },
       { name: "Blanco", hex: "#f5f5f5" },
@@ -650,7 +662,7 @@ export const suvModels: CarModel[] = [
     price: "$2.383,2",
     priceDirecta: "desde $2.564/mes",
     priceFacil: "desde $1.576/mes",
-    image: "https://jacvenezuela.com/wp-content/uploads/2025/09/jac_banners_arena_sport_mt.jpg",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/09/jac_banners_arena_sport_mt-1024x427.jpg",
     colors: [
       { name: "Negro", hex: "#1a1a1a" },
       { name: "Plateado", hex: "#c0c0c0" },
@@ -666,7 +678,7 @@ export const suvModels: CarModel[] = [
     price: "$2.586,2",
     priceDirecta: "desde $3.236/mes",
     priceFacil: "desde $1.694/mes",
-    image: "https://jacvenezuela.com/wp-content/uploads/2025/09/jac_banners_arena_sport_at.jpg",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/09/jac_banners_arena_sport_at-1024x427.jpg",
     colors: [
       { name: "Negro", hex: "#1a1a1a" },
       { name: "Plateado", hex: "#c0c0c0" },
@@ -682,7 +694,7 @@ export const suvModels: CarModel[] = [
     price: "$3.715,2",
     priceDirecta: "desde $3.715/mes",
     priceFacil: "desde $2.677/mes",
-    image: "https://jacvenezuela.com/wp-content/uploads/2024/09/nevado-automatico-2025-de-jac-motors-venezuela.jpg",
+    image: "https://jacvenezuela.com/wp-content/uploads/2024/09/nevado-automatico-2025-de-jac-motors-venezuela-1024x427.jpg",
     colors: [
       { name: "Negro", hex: "#1a1a1a" },
       { name: "Blanco", hex: "#f5f5f5" },
@@ -699,7 +711,7 @@ export const suvModels: CarModel[] = [
     price: "$4.285,6",
     priceDirecta: "desde $5.259/mes",
     priceFacil: "desde $2.239/mes",
-    image: "https://jacvenezuela.com/wp-content/uploads/2025/06/jac_banners_tepuy_pro.jpg",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/06/jac_banners_tepuy_pro-1024x427.jpg",
     colors: [
       { name: "Blanco", hex: "#f5f5f5" },
       { name: "Negro", hex: "#1a1a1a" },
@@ -715,7 +727,7 @@ export const suvModels: CarModel[] = [
     price: "$2.824,7",
     priceDirecta: "desde $3.395/mes",
     priceFacil: "desde $2.083/mes",
-    image: "https://jacvenezuela.com/wp-content/uploads/2024/09/jac_-motors_banners-Arena-Pro.png",
+    image: "https://jacvenezuela.com/wp-content/uploads/2024/09/jac_-motors_banners-Arena-Pro-1024x427.png",
     colors: [
       { name: "Blanco", hex: "#f5f5f5" },
       { name: "Rojo", hex: "#dc2626" },
@@ -731,7 +743,7 @@ export const suvModels: CarModel[] = [
     traction: "4x2",
     priceDirecta: "desde $4.285/mes",
     priceFacil: "desde $2.924/mes",
-    image: "https://jacvenezuela.com/wp-content/uploads/2024/09/js8-Savanna-jac-motors-venezuela.jpg",
+    image: "https://jacvenezuela.com/wp-content/uploads/2024/09/js8-Savanna-jac-motors-venezuela-1024x427.jpg",
     colors: [
       { name: "Blanco", hex: "#f5f5f5" },
       { name: "Rojo", hex: "#dc2626" },
@@ -746,7 +758,7 @@ export const suvModels: CarModel[] = [
     traction: "4x2",
     priceDirecta: "desde $4.728/mes",
     priceFacil: "desde $4.114/mes",
-    image: "https://jacvenezuela.com/wp-content/uploads/2025/06/JAC-REFINE-EN-VENEZUELA.jpg",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/06/JAC-REFINE-EN-VENEZUELA-1024x427.jpg",
     colors: [
       { name: "Blanco", hex: "#f5f5f5" },
       { name: "Negro", hex: "#1a1a1a" },
