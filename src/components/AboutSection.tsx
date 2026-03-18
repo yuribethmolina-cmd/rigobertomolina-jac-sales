@@ -22,7 +22,7 @@ const AboutSection = () => (
           <img
             src={rigbertoImg}
             alt="Rigoberto Molina — Embajador JAC Venezuela"
-            className="w-full h-full object-cover object-top scale-[1.4] origin-[50%_15%]"
+            className="w-full h-full object-cover scale-[1.6] origin-[50%_25%]"
           />
         </div>
 
