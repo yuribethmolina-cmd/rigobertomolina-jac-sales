@@ -72,6 +72,16 @@ const tabData: Record<Tab, CatalogModel[]> = {
 
 const ModelsSection = () => {
   const [active, setActive] = useState<Tab>("PASAJEROS");
+  const [expandedModel, setExpandedModel] = useState<string | null>(null);
+
+  const handleToggle = (name: string) => {
+    setExpandedModel((prev) => (prev === name ? null : name));
+  };
+
+  const handleTabChange = (tab: Tab) => {
+    setActive(tab);
+    setExpandedModel(null);
+  };
 
   return (
     <section id="modelos" className="py-20 section-divider">
@@ -87,7 +97,7 @@ const ModelsSection = () => {
           {tabs.map((tab) => (
             <button
               key={tab}
-              onClick={() => setActive(tab)}
+              onClick={() => handleTabChange(tab)}
               className={`px-6 py-2.5 rounded-lg font-heading font-bold text-sm tracking-wide transition-colors ${
                 active === tab
                   ? "bg-primary text-primary-foreground"
@@ -102,7 +112,12 @@ const ModelsSection = () => {
         {/* Cards */}
         <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-5">
           {tabData[active].map((m) => (
-            <CatalogCard key={m.name} model={m} />
+            <CatalogCard
+              key={m.name}
+              model={m}
+              isExpanded={expandedModel === m.name}
+              onToggle={() => handleToggle(m.name)}
+            />
           ))}
         </div>
 

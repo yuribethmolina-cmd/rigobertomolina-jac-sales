@@ -1,19 +1,26 @@
 import { waLink, waModelMessage } from "@/lib/constants";
-import { ArrowRight } from "lucide-react";
+import catalogSpecs from "@/lib/catalogSpecs";
+import { ChevronDown } from "lucide-react";
 import type { CatalogModel } from "./ModelsSection";
 
 interface Props {
   model: CatalogModel;
+  isExpanded: boolean;
+  onToggle: () => void;
 }
 
-const CatalogCard = ({ model }: Props) => {
+const CatalogCard = ({ model, isExpanded, onToggle }: Props) => {
   const hasCD = model.priceCD && model.priceCD !== "Consultar";
   const hasPF = model.pricePF && model.pricePF !== "Consultar";
+  const specs = catalogSpecs[model.name];
 
   return (
     <div className="group rounded-xl overflow-hidden border border-[hsla(186,100%,39%,0.15)] bg-[hsl(212,52%,13%)] hover:border-primary hover:shadow-[0_0_20px_hsla(186,100%,39%,0.2)] transition-all duration-300 flex flex-col">
-      {/* Image */}
-      <div className="relative h-[150px] md:h-[180px] bg-[hsl(213,45%,11%)]">
+      {/* Image — clickable */}
+      <div
+        className="relative h-[150px] md:h-[180px] bg-[hsl(213,45%,11%)] cursor-pointer"
+        onClick={onToggle}
+      >
         <img src={model.image} alt={model.name} className="w-full h-full object-cover" loading="lazy" />
         {model.featured && (
           <span className="absolute top-3 left-3 z-10 px-3 py-1 text-[10px] font-bold rounded-full bg-primary text-primary-foreground uppercase tracking-wider">
@@ -24,10 +31,17 @@ const CatalogCard = ({ model }: Props) => {
           JAC | bel
         </span>
         {model.referentialImage && (
-          <span className="absolute bottom-2 right-3 text-[9px] text-muted-foreground bg-background/70 px-2 py-0.5 rounded">
+          <span className="absolute bottom-8 right-3 text-[9px] text-muted-foreground bg-background/70 px-2 py-0.5 rounded">
             📷 Imagen referencial
           </span>
         )}
+        {/* Chevron indicator */}
+        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center justify-center">
+          <ChevronDown
+            size={18}
+            className={`text-primary/70 transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
+          />
+        </div>
       </div>
 
       {/* Content */}
@@ -38,6 +52,43 @@ const CatalogCard = ({ model }: Props) => {
         {model.tagline && (
           <p className="text-muted-foreground text-[13px] italic mt-1 line-clamp-1">{model.tagline}</p>
         )}
+
+        {/* Discoverable link */}
+        {specs && (
+          <button
+            onClick={onToggle}
+            className="text-primary/70 hover:text-primary text-[11px] mt-1.5 flex items-center gap-1 transition-colors"
+          >
+            Ver especificaciones
+            <ChevronDown size={12} className={`transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`} />
+          </button>
+        )}
+
+        {/* Expandable specs panel */}
+        <div
+          className="overflow-hidden transition-all duration-300 ease-in-out"
+          style={{
+            maxHeight: isExpanded && specs ? `${specs.length * 40 + 32}px` : "0px",
+            opacity: isExpanded && specs ? 1 : 0,
+          }}
+        >
+          <div
+            className="grid grid-cols-2 gap-x-4 gap-y-2 mt-3"
+            style={{
+              background: "rgba(0, 181, 200, 0.05)",
+              borderTop: "1px solid rgba(0, 181, 200, 0.2)",
+              borderBottom: "1px solid rgba(0, 181, 200, 0.2)",
+              padding: "12px 16px",
+            }}
+          >
+            {specs?.map((s) => (
+              <div key={s.label}>
+                <span className="block text-[11px] uppercase tracking-wider text-muted-foreground">{s.label}</span>
+                <span className="block text-[13px] font-bold text-foreground">{s.value}</span>
+              </div>
+            ))}
+          </div>
+        </div>
 
         {/* Price pills */}
         <div className="flex flex-wrap gap-2 mt-3 mb-4">
