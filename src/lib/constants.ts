@@ -466,6 +466,7 @@ export const pickupModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x4",
     price: "$4.165,2",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/06/jac_banners_la_venezolana_pro-1.jpg",
     specs: {
       motor: "2.0 L Turbo Euro V (enfriador interno)",
       potencia: "188 Hp",
