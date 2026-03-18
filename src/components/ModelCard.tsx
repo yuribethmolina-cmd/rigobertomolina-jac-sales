@@ -7,9 +7,9 @@ interface Props {
 
 const ModelCard = ({ model }: Props) => {
   return (
-    <div className="card-glow p-0 flex flex-col overflow-hidden">
+    <div className="card-glow p-0 flex flex-col overflow-hidden border-t-2 border-primary hover:scale-[1.02] transition-transform duration-200">
       {/* Image */}
-      <div className="relative aspect-[16/10] bg-muted/30 flex items-center justify-center text-muted-foreground text-sm overflow-hidden">
+      <div className="relative h-52 bg-muted/30 flex items-center justify-center text-muted-foreground text-sm overflow-hidden">
         {model.featured && (
           <span className="absolute top-3 left-3 z-10 px-3 py-1 text-xs font-bold rounded-full bg-primary/90 text-primary-foreground">
             ⭐ {model.featured}
@@ -32,9 +32,9 @@ const ModelCard = ({ model }: Props) => {
         )}
       </div>
 
-      <div className="p-5 flex flex-col flex-1">
-        <h3 className="font-heading text-2xl font-bold">{model.name}</h3>
-        <p className="text-muted-foreground italic text-sm mt-1">{model.tagline}</p>
+      <div className="p-5 flex flex-col flex-1 gap-y-2">
+        <h3 className="font-heading text-2xl font-bold mt-3">{model.name}</h3>
+        <p className="text-muted-foreground italic text-sm">{model.tagline}</p>
 
         <div className="flex gap-3 mt-4 flex-wrap">
           <span className="inline-flex items-center gap-1.5 text-xs bg-secondary px-3 py-1.5 rounded-full">
@@ -50,15 +50,15 @@ const ModelCard = ({ model }: Props) => {
           {model.priceDirecta || model.priceFacil ? (
             <>
               {model.priceDirecta && (
-                <p className="text-sm">
-                  <span className="text-muted-foreground">💳 Compra Directa:</span>{" "}
-                  <span className="font-heading font-bold text-primary">{model.priceDirecta}</span>
+                <p className="text-lg">
+                  <span className="text-muted-foreground text-sm">💳 Compra Directa:</span>{" "}
+                  <span className="font-heading font-bold text-foreground">{model.priceDirecta}</span>
                 </p>
               )}
               {model.priceFacil && (
                 <p className="text-sm">
                   <span className="text-muted-foreground">📅 Pago Fácil:</span>{" "}
-                  <span className="font-heading font-bold text-amber-400">{model.priceFacil}</span>
+                  <span className="font-heading font-bold text-primary">{model.priceFacil}</span>
                 </p>
               )}
               <p className="text-[10px] text-muted-foreground mt-1">* Montos referenciales Feb 2026</p>
