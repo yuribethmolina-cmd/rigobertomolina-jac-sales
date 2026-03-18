@@ -4,7 +4,9 @@ import { ArrowRight } from "lucide-react";
 const data = [
   { label: "Transmisión", arena_mt: "Manual", arena_at: "Automática", nevado_mt: "Manual", nevado_at: "Automática" },
   { label: "Ideal para", arena_mt: "Ciudad", arena_at: "Ciudad", nevado_mt: "Ciudad y carretera", nevado_at: "Ciudad y carretera" },
-  { label: "Cuota ref.", arena_mt: "$2.383", arena_at: "$2.586", nevado_mt: "$3.018", nevado_at: "$3.715" },
+  { label: "Cuota ref.", arena_mt: "$2.564/mes", arena_at: "$3.236/mes", nevado_mt: "$3.018/mes", nevado_at: "$3.715/mes" },
+  { label: "Total Directa", arena_mt: "$17.948", arena_at: "$22.652", nevado_mt: "$21.130", nevado_at: "$26.006", isTotal: true },
+  { label: "Total Fácil", arena_mt: "$22.132", arena_at: "$23.876", nevado_mt: "$29.436", nevado_at: "$33.714", isTotal: true },
   { label: "Tamaño", arena_mt: "Compacto", arena_at: "Compacto", nevado_mt: "Mediano", nevado_at: "Mediano" },
 ];
 
@@ -41,7 +43,9 @@ const MobileCards = () => (
                 }`}
               >
                 <span className="text-muted-foreground">{row.label}</span>
-                <span className="font-semibold">{(row as Record<string, string>)[m.key]}</span>
+                <span className={`font-semibold ${(row as any).isTotal ? "text-primary font-bold" : ""}`}>
+                  {(row as Record<string, string>)[m.key]}
+                </span>
               </div>
             ))}
           </div>
@@ -104,7 +108,9 @@ const DesktopTable = () => (
                       : ""
                 }`}
               >
-                {(row as Record<string, string>)[m.key]}
+                <span className={(row as any).isTotal ? "font-bold text-primary" : ""}>
+                  {(row as Record<string, string>)[m.key]}
+                </span>
               </td>
             ))}
           </tr>
