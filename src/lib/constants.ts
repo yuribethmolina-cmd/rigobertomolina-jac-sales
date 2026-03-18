@@ -646,7 +646,7 @@ export const suvModels: CarModel[] = [
     priceDirecta: "desde $3.018/mes",
     priceFacil: "desde $2.402/mes",
     featured: "MÁS CONSULTADO",
-    image: "https://jacvenezuela.com/wp-content/uploads/2024/09/vehiculo-nevado-js4-de-jac-motors-venezuela.jpg",
+    image: "https://jacvenezuela.com/wp-content/uploads/2024/09/vehiculo-nevado-js4-de-jac-motors-venezuela-1024x427.jpg",
     colors: [
       { name: "Negro", hex: "#1a1a1a" },
       { name: "Blanco", hex: "#f5f5f5" },
