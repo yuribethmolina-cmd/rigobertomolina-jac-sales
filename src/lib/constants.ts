@@ -408,8 +408,9 @@ export const pickupModels: CarModel[] = [
       equipamiento: ["Neumáticos 245/65R17", "Rines de aluminio", "Asientos de ecopiel", "Escalones laterales"],
     },
   },
-    image: "https://jacvenezuela.com/wp-content/uploads/2025/02/jac_banners_la_venezolana_diesel_4x2_4x4.jpg",
+  {
     name: "LA VENEZOLANA 4X2 DIESEL",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/02/jac_banners_la_venezolana_diesel_4x2_4x4.jpg",
     tagline: "Mayor eficiencia diésel para trabajo pesado",
     transmission: "Manual",
     traction: "4x2",
