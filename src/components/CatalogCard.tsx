@@ -115,7 +115,7 @@ const CatalogCard = ({ model, isExpanded, onToggle }: Props) => {
             rel="noopener noreferrer"
             className="flex-[3] inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary h-10 px-3 font-heading text-sm font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
           >
-            💬 WhatsApp
+            WhatsApp
           </a>
           {model.fichaUrl && (
             <a
