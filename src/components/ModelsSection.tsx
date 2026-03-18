@@ -47,10 +47,10 @@ const camiones: CatalogModel[] = [
 ];
 
 const utilitarios: CatalogModel[] = [
-  { name: "Sunray V4 Ambulancia", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/SUNRAY-V4-AMBULANCIA-1024x425.webp", pricePF: "Consultar", fichaUrl: "https://jacvenezuela.com/portfolio/sunray-v4-ambulancia/" },
-  { name: "Compactador 5 Ton", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/Compactador-5-ton-1024x425.webp", pricePF: "Consultar", fichaUrl: "https://jacvenezuela.com/portfolio/compactador-5-ton/" },
-  { name: "Urban Chasis Largo 3 Ton", image: "https://jacvenezuela.com/wp-content/uploads/2025/01/Urban-Chasis-1024x576.webp", pricePF: "Consultar", fichaUrl: "https://jacvenezuela.com/portfolio/urban-3-ton/" },
-  { name: "M4 Carroza", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/SUNRAY-V6-171-1024x427.webp", pricePF: "Consultar", referentialImage: true, fichaUrl: "https://jacvenezuela.com/portfolio/sunray-v6-pasajeros/" },
+  { name: "Sunray V4 Ambulancia", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/SUNRAY-V4-AMBULANCIA-1024x425.webp", priceCD: "$5.330/mes", pricePF: "$4.837/mes", fichaUrl: "https://jacvenezuela.com/portfolio/sunray-v4-ambulancia/" },
+  { name: "Compactador 5 Ton", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/Compactador-5-ton-1024x425.webp", priceCD: "$4.661/mes", pricePF: "$5.642/mes", fichaUrl: "https://jacvenezuela.com/portfolio/compactador-5-ton/" },
+  { name: "Urban Chasis Largo 3 Ton", image: "https://jacvenezuela.com/wp-content/uploads/2025/01/Urban-Chasis-1024x576.webp", priceCD: "$3.117/mes", pricePF: "$1.782/mes", fichaUrl: "https://jacvenezuela.com/portfolio/urban-3-ton/" },
+  { name: "M4 Carroza", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/SUNRAY-V6-171-1024x427.webp", priceCD: "$6.386/mes", pricePF: "$3.875/mes", referentialImage: true, fichaUrl: "https://jacvenezuela.com/portfolio/sunray-v6-pasajeros/" },
 ];
 
 const electricos: CatalogModel[] = [
