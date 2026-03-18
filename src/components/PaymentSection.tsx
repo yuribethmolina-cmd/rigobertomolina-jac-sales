@@ -140,9 +140,6 @@ const PaymentSection = () => {
                     <td className="p-3 text-center">{row.facil}</td>
                     <td className="p-3 text-center font-bold">{row.totalFacil}</td>
                   </tr>
-                ))}
-                  </tr>
-                ))}
               </tbody>
             </table>
           </div>
