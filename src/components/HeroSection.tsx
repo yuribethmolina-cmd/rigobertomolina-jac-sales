@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { waLink } from "@/lib/constants";
 import { MessageCircle, Menu, X } from "lucide-react";
+import logoRM from "@/assets/logo-rigoberto.png";
 
 const navLinks = [
   { label: "Modelos", href: "#modelos" },
