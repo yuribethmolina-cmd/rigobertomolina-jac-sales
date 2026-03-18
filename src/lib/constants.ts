@@ -80,6 +80,7 @@ export const commercialModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x2",
     price: "$3.395,2",
+    priceDirecta: "desde $3.395/mes",
     priceFacil: "desde $1.791/mes",
     image: "https://jacvenezuela.com/wp-content/uploads/2025/01/URBAN-FERRETERO-1024x427.webp",
     specs: {
