@@ -219,6 +219,7 @@ export const truckModels: CarModel[] = [
     traction: "4x2",
     price: "$7.322,6",
     priceFacil: "desde $2.604/mes",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/03/BUFALO-1024x425.webp",
     colors: [
       { name: "Rojo", hex: "#dc2626" },
       { name: "Blanco", hex: "#f5f5f5" },
