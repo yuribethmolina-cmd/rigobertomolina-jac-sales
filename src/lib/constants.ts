@@ -264,6 +264,7 @@ export const truckModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x2",
     price: "$7.850,3",
+    priceDirecta: "desde $7.322/mes",
     priceFacil: "desde $4.091/mes",
     image: "https://jacvenezuela.com/wp-content/uploads/2025/03/BUFALO-1024x425.webp",
     specs: {
