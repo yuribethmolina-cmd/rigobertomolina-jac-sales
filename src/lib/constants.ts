@@ -613,6 +613,8 @@ export const suvModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x2",
     price: "$3.018,6",
+    priceDirecta: "desde $3.018/mes",
+    priceFacil: "desde $2.402/mes",
     featured: "MÁS CONSULTADO",
     image: "https://jacvenezuela.com/wp-content/uploads/2024/09/vehiculo-nevado-js4-de-jac-motors-venezuela.jpg",
     colors: [
