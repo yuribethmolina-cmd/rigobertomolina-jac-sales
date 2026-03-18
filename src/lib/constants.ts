@@ -375,6 +375,7 @@ export const pickupModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x2",
     price: "$2.972,3",
+    image: "https://jacvenezuela.com/wp-content/uploads/2024/09/T6-la-venezolana-de-jac-motors-venezuela.jpg",
     colors: [
       { name: "Azul", hex: "#2563eb" },
       { name: "Rojo", hex: "#dc2626" },
