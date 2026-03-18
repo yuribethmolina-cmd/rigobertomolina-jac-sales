@@ -9,18 +9,12 @@ interface Props {
 const CatalogCard = ({ model }: Props) => {
   const hasCD = model.priceCD && model.priceCD !== "Consultar";
   const hasPF = model.pricePF && model.pricePF !== "Consultar";
-  const showConsultar = !hasCD && !hasPF;
 
   return (
     <div className="group rounded-xl overflow-hidden border border-[hsla(186,100%,39%,0.15)] bg-[hsl(212,52%,13%)] hover:border-primary hover:shadow-[0_0_20px_hsla(186,100%,39%,0.2)] transition-all duration-300 flex flex-col">
-      {/* Image area */}
+      {/* Image */}
       <div className="relative h-[150px] md:h-[180px] bg-[hsl(213,45%,11%)]">
-        <img
-          src={model.image}
-          alt={model.name}
-          className="w-full h-full object-cover"
-          loading="lazy"
-        />
+        <img src={model.image} alt={model.name} className="w-full h-full object-cover" loading="lazy" />
         {model.featured && (
           <span className="absolute top-3 left-3 z-10 px-3 py-1 text-[10px] font-bold rounded-full bg-primary text-primary-foreground uppercase tracking-wider">
             ⭐ {model.featured}
@@ -41,7 +35,6 @@ const CatalogCard = ({ model }: Props) => {
         <h3 className="font-heading text-base md:text-lg font-bold uppercase leading-tight text-foreground">
           {model.name}
         </h3>
-
         {model.tagline && (
           <p className="text-muted-foreground text-[13px] italic mt-1 line-clamp-1">{model.tagline}</p>
         )}
@@ -49,24 +42,13 @@ const CatalogCard = ({ model }: Props) => {
         {/* Price pills */}
         <div className="flex flex-wrap gap-2 mt-3">
           {hasCD && (
-            <span className="inline-flex items-center gap-1 text-xs font-semibold bg-[hsla(186,100%,39%,0.1)] border border-[hsla(186,100%,39%,0.3)] text-primary px-2.5 py-1 rounded-full">
-              💳 CD ${model.priceCD}
-            </span>
+            <span className="pill">💳 CD ${model.priceCD}</span>
           )}
           {hasPF && (
-            <span className="inline-flex items-center gap-1 text-xs font-semibold bg-[hsla(186,100%,39%,0.1)] border border-[hsla(186,100%,39%,0.3)] text-primary px-2.5 py-1 rounded-full">
-              📅 PF ${model.pricePF}
-            </span>
+            <span className="pill">📅 {hasCD ? "PF" : "Pago Fácil"} ${model.pricePF}</span>
           )}
-          {!hasCD && !hasPF && hasPFOnly(model) && (
-            <span className="inline-flex items-center gap-1 text-xs font-semibold bg-[hsla(186,100%,39%,0.1)] border border-[hsla(186,100%,39%,0.3)] text-primary px-2.5 py-1 rounded-full">
-              💬 Consultar precio
-            </span>
-          )}
-          {showConsultar && !hasPFOnly(model) && (
-            <span className="inline-flex items-center gap-1 text-xs font-semibold bg-[hsla(186,100%,39%,0.1)] border border-[hsla(186,100%,39%,0.3)] text-primary px-2.5 py-1 rounded-full">
-              💬 Consultar precio
-            </span>
+          {!hasCD && !hasPF && (
+            <span className="pill">💬 Consultar precio</span>
           )}
         </div>
 
@@ -83,9 +65,5 @@ const CatalogCard = ({ model }: Props) => {
     </div>
   );
 };
-
-function hasPFOnly(model: CatalogModel): boolean {
-  return !model.priceCD && !model.pricePF;
-}
 
 export default CatalogCard;
