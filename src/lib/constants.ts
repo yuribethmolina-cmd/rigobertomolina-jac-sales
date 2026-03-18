@@ -665,6 +665,7 @@ export const suvModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x2",
     price: "$2.383,2",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/09/jac_banners_arena_sport_mt.jpg",
     colors: [
       { name: "Negro", hex: "#1a1a1a" },
       { name: "Plateado", hex: "#c0c0c0" },
