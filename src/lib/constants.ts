@@ -245,6 +245,7 @@ export const truckModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x2",
     price: "$7.850,3",
+    priceFacil: "desde $4.091/mes",
     specs: {
       motor: "CUMMINS C230-20 · 8.3 L Diésel Euro II",
       potencia: "230 Hp",
