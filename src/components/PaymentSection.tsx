@@ -65,12 +65,17 @@ const PaymentSection = () => {
 
         {/* Steps */}
         <div className="grid md:grid-cols-3 gap-6 mt-10">
-          {steps.map((s) => (
-            <div key={s.title} className="card-glow p-6 text-center">
-              <span className="text-4xl">{s.num}</span>
-              <h3 className="font-heading text-xl font-bold mt-3">{s.title}</h3>
-              <p className={`text-sm font-semibold mt-1 ${accentClass}`}>{s.sub}</p>
-              <p className="text-muted-foreground text-sm mt-2">{s.desc}</p>
+          {steps.map((s, i) => (
+            <div
+              key={s.title}
+              className="relative overflow-hidden bg-gradient-to-b from-secondary to-background border-l-4 border-primary rounded-xl p-6 min-h-[160px]"
+            >
+              <span className="absolute top-2 right-4 text-6xl font-black text-primary/20 leading-none select-none pointer-events-none">
+                {i + 1}
+              </span>
+              <h3 className="font-heading text-xl font-bold relative z-10">{s.title}</h3>
+              <p className={`text-sm font-semibold mt-1 ${accentClass} relative z-10`}>{s.sub}</p>
+              <p className="text-muted-foreground text-sm mt-2 relative z-10">{s.desc}</p>
             </div>
           ))}
         </div>
