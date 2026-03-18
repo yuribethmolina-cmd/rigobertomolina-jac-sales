@@ -462,6 +462,7 @@ export const pickupModels: CarModel[] = [
     price: "$3.613,3",
     priceDirecta: "desde $3.613/mes",
     priceFacil: "desde $2.023/mes",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/02/jac_banners_la_venezolana_diesel_4x2_4x4-1024x427.jpg",
     colors: [
       { name: "Azul", hex: "#2563eb" },
       { name: "Rojo", hex: "#dc2626" },
