@@ -1,5 +1,5 @@
 import { waLink, waModelMessage } from "@/lib/constants";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Calculator } from "lucide-react";
 
 const data = [
   { label: "Transmisión", arena_mt: "Manual", arena_at: "Automática", nevado_mt: "Manual", nevado_at: "Automática" },
