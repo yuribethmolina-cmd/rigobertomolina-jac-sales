@@ -106,6 +106,8 @@ export const commercialModels: CarModel[] = [
     transmission: "Manual",
     traction: "4x2",
     price: "$3.236,4",
+    priceDirecta: "desde $3.117/mes",
+    priceFacil: "desde $1.782/mes",
     image: "https://jacvenezuela.com/wp-content/uploads/2025/01/Urban-Chasis-1024x576.webp",
     colors: [
       { name: "Blanco", hex: "#f5f5f5" },
