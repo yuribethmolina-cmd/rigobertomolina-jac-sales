@@ -26,9 +26,9 @@ const comparisonData = [
 const PaymentSection = () => {
   const [plan, setPlan] = useState<Plan>("directa");
   const steps = plan === "directa" ? directaSteps : facilSteps;
-  const accentClass = plan === "directa" ? "text-primary" : "text-amber-400";
-  const accentBg = plan === "directa" ? "bg-primary/10 border-primary/30" : "bg-amber-400/10 border-amber-400/30";
-  const accentBgSolid = plan === "directa" ? "bg-primary/20" : "bg-amber-400/20";
+  const accentClass = "text-primary";
+  const accentBg = "bg-primary/10 border-primary/30";
+  const accentBgSolid = "bg-primary/20";
 
   return (
     <section id="pago" className="py-20 md:py-28">
