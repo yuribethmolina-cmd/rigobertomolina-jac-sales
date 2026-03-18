@@ -758,7 +758,7 @@ export const suvModels: CarModel[] = [
     traction: "4x2",
     priceDirecta: "desde $4.728/mes",
     priceFacil: "desde $4.114/mes",
-    image: "https://jacvenezuela.com/wp-content/uploads/2025/06/JAC-REFINE-EN-VENEZUELA.jpg",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/06/JAC-REFINE-EN-VENEZUELA-1024x427.jpg",
     colors: [
       { name: "Blanco", hex: "#f5f5f5" },
       { name: "Negro", hex: "#1a1a1a" },
