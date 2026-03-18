@@ -85,12 +85,17 @@ const HeroSection = () => {
         }`}
       >
         <div className="pt-16 pb-6 px-6 flex flex-col gap-1">
-          {navLinks.map((link) => (
+          {navLinks.map((link, i) => (
             <a
               key={link.href}
               href={link.href}
               onClick={handleNavClick}
               className="block py-3 px-4 text-lg font-medium text-white border-l-2 border-transparent hover:border-primary hover:text-primary transition-all"
+              style={{
+                opacity: menuOpen ? 1 : 0,
+                transform: menuOpen ? "translateX(0)" : "translateX(-20px)",
+                transition: `opacity 0.3s ease ${0.1 + i * 0.08}s, transform 0.3s ease ${0.1 + i * 0.08}s`,
+              }}
             >
               {link.label}
             </a>
