@@ -1,39 +1,121 @@
-
+import { useState, useEffect } from "react";
 import { waLink } from "@/lib/constants";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, Menu, X } from "lucide-react";
+
+const navLinks = [
+  { label: "Modelos", href: "#modelos" },
+  { label: "Pago", href: "#pago" },
+  { label: "Contacto", href: "#contacto" },
+];
 
 const HeroSection = () => {
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 80);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const handleNavClick = () => setMenuOpen(false);
+
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background image */}
-      <img
-        src="https://jacvenezuela.com/wp-content/uploads/2025/10/jac_banners_aventura_pro_edicion_limitada.jpg"
-        alt="JAC Venezuela"
-        className="absolute inset-0 w-full h-full object-cover"
+    <section id="hero" className="relative flex items-center justify-center overflow-hidden h-[100svh]">
+      {/* Video background */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+      >
+        <source src="https://jacvenezuela.com/VIDEOS2026/JAC05.mp4" type="video/mp4" />
+      </video>
+
+      {/* Gradient overlay */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(13,27,42,0.5) 0%, rgba(13,27,42,0.65) 60%, rgba(13,27,42,0.85) 100%)",
+        }}
       />
-      <div className="absolute inset-0 bg-[rgba(0,0,0,0.6)]" />
 
       {/* Nav */}
-      <nav className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between px-6 py-5 md:px-12">
-        <span className="font-heading text-sm tracking-widest text-muted-foreground uppercase">JAC | bel</span>
-        <div className="hidden sm:flex gap-6 text-sm font-medium text-muted-foreground">
-          <a href="#modelos" className="hover:text-primary transition-colors">Modelos</a>
-          <a href="#pago" className="hover:text-primary transition-colors">Pago</a>
-          <a href="#contacto" className="hover:text-primary transition-colors">Contacto</a>
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 md:px-12 transition-all duration-300 ${
+          scrolled
+            ? "bg-[rgba(13,27,42,0.95)] shadow-lg"
+            : "bg-gradient-to-b from-[rgba(0,0,0,0.6)] to-transparent"
+        }`}
+      >
+        <span className="font-heading text-sm tracking-widest text-white uppercase font-bold">
+          JAC | BEL
+        </span>
+
+        {/* Desktop links */}
+        <div className="hidden md:flex gap-6 text-sm font-medium">
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="text-white hover:text-primary transition-colors"
+            >
+              {link.label}
+            </a>
+          ))}
         </div>
+
+        {/* Mobile hamburger */}
+        <button
+          className="md:hidden text-white p-1"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Menú"
+        >
+          {menuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </nav>
+
+      {/* Mobile menu panel */}
+      <div
+        className={`fixed top-0 left-0 right-0 z-40 bg-[rgba(13,27,42,0.97)] backdrop-blur-[10px] transition-all duration-300 ease-in-out md:hidden ${
+          menuOpen
+            ? "translate-y-0 opacity-100"
+            : "-translate-y-full opacity-0 pointer-events-none"
+        }`}
+      >
+        <div className="pt-16 pb-6 px-6 flex flex-col gap-1">
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={handleNavClick}
+              className="block py-3 px-4 text-lg font-medium text-white border-l-2 border-transparent hover:border-primary hover:text-primary transition-all"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+      </div>
 
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-3xl">
-        <h1 className="font-heading text-5xl md:text-7xl font-extrabold leading-[1.05] tracking-tight">
+        <h1
+          className="font-heading text-5xl md:text-7xl font-extrabold leading-[1.05] tracking-tight animate-[fade-in_0.6s_ease_0.2s_both]"
+        >
           Tu próximo carro JAC,
           <br />
           <span className="text-primary">con la atención que mereces.</span>
         </h1>
-        <p className="mt-6 text-muted-foreground text-lg md:text-xl">
+        <p
+          className="mt-6 text-white/80 text-lg md:text-xl animate-[fade-in_0.6s_ease_0.4s_both]"
+        >
           Vendedor independiente en Caracas · Catálogo vigente Feb 2026
         </p>
-        <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+        <div
+          className="mt-8 flex flex-col sm:flex-row gap-4 justify-center animate-[fade-in_0.6s_ease_0.6s_both]"
+        >
           <a
             href="#modelos"
             className="inline-flex items-center justify-center rounded-lg bg-primary px-8 py-3.5 font-heading text-lg font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
