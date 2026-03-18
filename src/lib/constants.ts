@@ -576,6 +576,7 @@ export const pickupModels: CarModel[] = [
     transmission: "Automática",
     traction: "4x4",
     price: "$5.259,0",
+    image: "https://jacvenezuela.com/wp-content/uploads/2024/09/t9-Aventura-Gasolina-jac-motors-venezuela-1024x427.jpg",
     colors: [
       { name: "Rojo", hex: "#dc2626" },
       { name: "Amarillo", hex: "#facc15" },
