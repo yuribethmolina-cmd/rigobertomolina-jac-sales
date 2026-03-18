@@ -160,6 +160,7 @@ export const truckModels: CarModel[] = [
     traction: "4x2",
     price: "$4.473,1",
     priceFacil: "desde $2.493/mes",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/03/6T-FERRETERO-1024x425.webp",
     colors: [
       { name: "Blanco", hex: "#f5f5f5" },
       { name: "Amarillo", hex: "#facc15" },
