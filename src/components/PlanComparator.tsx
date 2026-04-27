@@ -347,6 +347,19 @@ const PlanComparator = () => {
                 )}
               </span>
             </div>
+            {models.length >= MAX_MODELS && (
+              <div
+                role="status"
+                aria-live="polite"
+                className="mb-2 flex items-center gap-2 rounded-lg border-2 border-amber-500/60 bg-amber-500/10 px-3 py-2 text-xs font-semibold text-foreground"
+              >
+                <span className="text-amber-500">●</span>
+                <span>
+                  Llegaste al máximo de {MAX_MODELS} modelos. Quita uno para
+                  agregar otro.
+                </span>
+              </div>
+            )}
             <div className="rounded-lg border-2 border-border bg-background p-3 max-h-64 overflow-y-auto space-y-3">
               {Array.from(new Set(modelOptions.map((m) => m.group)))
                 .filter((g) => g !== "Sin preferencia")
