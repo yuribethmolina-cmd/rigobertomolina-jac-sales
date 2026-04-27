@@ -191,30 +191,53 @@ const MorePlansSection = () => {
   const [sortOrder, setSortOrder] = useState<"original" | "asc" | "desc">(
     "original",
   );
+  const [fuelFilter, setFuelFilter] = useState<"all" | "gasolina" | "diesel">(
+    "all",
+  );
   const [page, setPage] = useState<number>(1);
   const PAGE_SIZE = 6;
 
   const selectedPlan =
     morePlans.find((p) => p.id === selectedPlanId) ?? morePlans[0];
 
-  // Reset búsqueda, orden y página al cambiar de plan
+  // Detectar si el plan tiene modelos por combustible
+  const fuelAvailability = useMemo(() => {
+    const hasGasolina = selectedPlan.models.some((m) =>
+      /gasolina/i.test(m.model),
+    );
+    const hasDiesel = selectedPlan.models.some((m) =>
+      /di[eé]sel/i.test(m.model),
+    );
+    return { hasGasolina, hasDiesel, show: hasGasolina && hasDiesel };
+  }, [selectedPlan]);
+
+  // Reset búsqueda, orden, combustible y página al cambiar de plan
   useEffect(() => {
     setModelQuery("");
     setSortOrder("original");
+    setFuelFilter("all");
     setPage(1);
   }, [selectedPlanId]);
 
   const filteredModels = useMemo(() => {
     const q = modelQuery.trim().toLowerCase();
-    const base = q
+    let base = q
       ? selectedPlan.models.filter((m) => m.model.toLowerCase().includes(q))
       : selectedPlan.models;
+
+    if (fuelAvailability.show && fuelFilter !== "all") {
+      base = base.filter((m) =>
+        fuelFilter === "gasolina"
+          ? /gasolina/i.test(m.model)
+          : /di[eé]sel/i.test(m.model),
+      );
+    }
+
     if (sortOrder === "original") return base;
-    const sorted = [...base].sort((a, b) =>
+    return [...base].sort((a, b) =>
       sortOrder === "asc" ? a.cuota - b.cuota : b.cuota - a.cuota,
     );
-    return sorted;
-  }, [selectedPlan, modelQuery, sortOrder]);
+  }, [selectedPlan, modelQuery, sortOrder, fuelFilter, fuelAvailability.show]);
 
   const totalPages = Math.max(1, Math.ceil(filteredModels.length / PAGE_SIZE));
   const currentPage = Math.min(page, totalPages);
@@ -226,7 +249,7 @@ const MorePlansSection = () => {
   // Reset página cuando cambia el filtro
   useEffect(() => {
     setPage(1);
-  }, [modelQuery, sortOrder]);
+  }, [modelQuery, sortOrder, fuelFilter]);
 
   // Recalcular plazo dentro del rango cuando cambia el plan
   const effectivePlazo = Math.min(
@@ -381,6 +404,36 @@ const MorePlansSection = () => {
                   <option value="desc">Cuota: mayor a menor</option>
                 </select>
               </div>
+
+              {fuelAvailability.show && (
+                <div
+                  role="group"
+                  aria-label="Filtrar por combustible"
+                  className="flex flex-wrap gap-2 mb-3"
+                >
+                  {(
+                    [
+                      { id: "all", label: "Todos" },
+                      { id: "gasolina", label: "Gasolina" },
+                      { id: "diesel", label: "Diésel" },
+                    ] as const
+                  ).map((opt) => (
+                    <button
+                      key={opt.id}
+                      type="button"
+                      onClick={() => setFuelFilter(opt.id)}
+                      aria-pressed={fuelFilter === opt.id}
+                      className={`rounded-full border-2 px-3 py-1 text-xs font-heading font-bold transition-colors ${
+                        fuelFilter === opt.id
+                          ? "border-primary bg-primary text-primary-foreground"
+                          : "border-border bg-background hover:border-primary/50"
+                      }`}
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
+              )}
 
               <div className="rounded-lg border border-border overflow-hidden">
                 <table className="w-full text-sm">
