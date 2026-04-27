@@ -535,6 +535,7 @@ const MorePlansSection = () => {
             gastos de nacionalización.
           </p>
         </div>
+        )}
 
         <p className="mt-8 text-center text-xs text-muted-foreground max-w-2xl mx-auto leading-relaxed">
           * Montos referenciales de los catálogos oficiales JAC / Bel Feb 2026.
