@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { waLink } from "@/lib/constants";
+import CopyableMessage from "@/components/CopyableMessage";
 
 type VehicleType = "SUV" | "Camioneta" | "Comercial";
 const vehicleTypes: VehicleType[] = ["SUV", "Camioneta", "Comercial"];
@@ -380,14 +381,7 @@ const MorePlansSection = () => {
             </div>
           </div>
 
-          <div className="mt-5 rounded-lg bg-background border border-border p-4">
-            <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
-              Vista previa del mensaje
-            </p>
-            <p className="text-sm text-foreground leading-relaxed">
-              {waMessage}
-            </p>
-          </div>
+          <CopyableMessage message={waMessage} className="mt-5" />
 
           <a
             href={waLink(waMessage)}
