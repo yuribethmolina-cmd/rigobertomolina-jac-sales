@@ -44,8 +44,8 @@ const plans: PlanRow[] = [
   {
     id: "directa",
     name: "Compra Directa",
-    cuotaMin: 1454,
-    cuotaMax: 9000,
+    cuotaMin: 2612,
+    cuotaMax: 16000,
     plazoMin: 7,
     plazoMax: 7,
     requisitosExtra: false,
