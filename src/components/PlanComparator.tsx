@@ -1,6 +1,20 @@
 import { useMemo, useState } from "react";
 import { ArrowRight, Check, X } from "lucide-react";
-import { waLink } from "@/lib/constants";
+import {
+  waLink,
+  commercialModels,
+  truckModels,
+  pickupModels,
+  suvModels,
+} from "@/lib/constants";
+
+const modelOptions: { group: string; name: string }[] = [
+  { group: "Sin preferencia", name: "Sin preferencia" },
+  ...suvModels.map((m) => ({ group: "SUV / Pasajeros", name: m.name })),
+  ...pickupModels.map((m) => ({ group: "Pick-Up", name: m.name })),
+  ...commercialModels.map((m) => ({ group: "Comerciales", name: m.name })),
+  ...truckModels.map((m) => ({ group: "Camiones", name: m.name })),
+];
 
 type PlanRow = {
   id: string;
@@ -132,6 +146,7 @@ const plazoOptions = [
 const PlanComparator = () => {
   const [budget, setBudget] = useState<number>(2000);
   const [maxPlazo, setMaxPlazo] = useState<number>(24);
+  const [model, setModel] = useState<string>("Sin preferencia");
 
   const matches = useMemo(() => {
     return plans
@@ -141,9 +156,7 @@ const PlanComparator = () => {
         let score = 0;
         if (fitsBudget) score += 2;
         if (fitsPlazo) score += 2;
-        // bonus por cuota mínima cómoda dentro del presupuesto
         if (fitsBudget && p.cuotaMin <= budget * 0.7) score += 1;
-        // bonus por plazo corto
         if (fitsPlazo && p.plazoMin <= maxPlazo - 6) score += 1;
         return { ...p, score, fitsBudget, fitsPlazo };
       })
@@ -155,6 +168,19 @@ const PlanComparator = () => {
 
   const formatRange = (min: number, max: number) =>
     min === max ? `$${min.toLocaleString("es-VE")}` : `$${min.toLocaleString("es-VE")} – $${max.toLocaleString("es-VE")}`;
+
+  const budgetLabel =
+    budget === Infinity ? "sin límite" : `hasta $${budget.toLocaleString("es-VE")}/mes`;
+  const plazoLabel =
+    maxPlazo === 999 ? "sin restricción de plazo" : `con un plazo máximo de ${maxPlazo} meses`;
+  const modelLine =
+    model === "Sin preferencia"
+      ? "Aún no he definido el modelo."
+      : `Me interesa el modelo ${model}.`;
+
+  const buildMessage = (planName: string) =>
+    `Hola Rigoberto, quiero información sobre el plan ${planName}. ` +
+    `${modelLine} Mi presupuesto es ${budgetLabel} y busco ${plazoLabel}.`;
 
   return (
     <section id="comparador" className="py-20 section-divider">
