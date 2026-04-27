@@ -175,11 +175,22 @@ const MorePlansSection = () => {
   const restante = precio - inicialMonto;
   const cuotaEstimada = restante / effectivePlazo;
 
-  const waMessage =
-    `Hola Rigoberto, me interesa el plan ${selectedPlan.title} para un vehículo tipo ${vehicleType} ` +
-    `con precio aproximado de ${formatUSD(precio)}. ` +
-    `Según el simulador la cuota mensual sería ~${formatUSD(cuotaEstimada)} en ${effectivePlazo} meses ` +
-    `(inicial estimada ${formatUSD(inicialMonto)}). ¿Me confirmas los números reales?`;
+  const hasValidPrice = precio > 0 && Number.isFinite(precio);
+  const waMessage = (() => {
+    const parts: string[] = [
+      `Hola Rigoberto, me interesa el plan ${selectedPlan.title} para un vehículo tipo ${vehicleType}.`,
+    ];
+    if (hasValidPrice) {
+      parts.push(
+        `Precio aproximado ${formatUSD(precio)}.`,
+        `Según el simulador la cuota mensual sería ~${formatUSD(cuotaEstimada)} en ${effectivePlazo} meses (inicial estimada ${formatUSD(inicialMonto)}).`,
+        `¿Me confirmas los números reales?`,
+      );
+    } else {
+      parts.push(`¿Me puedes dar más información?`);
+    }
+    return parts.join(" ");
+  })();
 
 
   return (
