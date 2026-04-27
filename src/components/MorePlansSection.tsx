@@ -226,6 +226,9 @@ const MorePlansSection = () => {
   const [fuelFilter, setFuelFilter] = useState<"all" | "gasolina" | "diesel">(
     "all",
   );
+  const [categoryFilter, setCategoryFilter] = useState<"all" | Category>(
+    "all",
+  );
   const [page, setPage] = useState<number>(1);
   const PAGE_SIZE = 6;
 
@@ -243,11 +246,21 @@ const MorePlansSection = () => {
     return { hasGasolina, hasDiesel, show: hasGasolina && hasDiesel };
   }, [selectedPlan]);
 
-  // Reset búsqueda, orden, combustible y página al cambiar de plan
+  // Categorías disponibles dentro del plan seleccionado
+  const availableCategories = useMemo(() => {
+    const set = new Set<Category>();
+    selectedPlan.models.forEach((m) => set.add(categorize(m.model)));
+    return (["SUV", "Camioneta", "Pasajeros", "Comercial"] as const).filter(
+      (c) => set.has(c),
+    );
+  }, [selectedPlan]);
+
+  // Reset búsqueda, orden, combustible, categoría y página al cambiar de plan
   useEffect(() => {
     setModelQuery("");
     setSortOrder("original");
     setFuelFilter("all");
+    setCategoryFilter("all");
     setPage(1);
   }, [selectedPlanId]);
 
@@ -256,6 +269,10 @@ const MorePlansSection = () => {
     let base = q
       ? selectedPlan.models.filter((m) => m.model.toLowerCase().includes(q))
       : selectedPlan.models;
+
+    if (categoryFilter !== "all") {
+      base = base.filter((m) => categorize(m.model) === categoryFilter);
+    }
 
     if (fuelAvailability.show && fuelFilter !== "all") {
       base = base.filter((m) =>
@@ -269,7 +286,14 @@ const MorePlansSection = () => {
     return [...base].sort((a, b) =>
       sortOrder === "asc" ? a.cuota - b.cuota : b.cuota - a.cuota,
     );
-  }, [selectedPlan, modelQuery, sortOrder, fuelFilter, fuelAvailability.show]);
+  }, [
+    selectedPlan,
+    modelQuery,
+    sortOrder,
+    fuelFilter,
+    fuelAvailability.show,
+    categoryFilter,
+  ]);
 
   const totalPages = Math.max(1, Math.ceil(filteredModels.length / PAGE_SIZE));
   const currentPage = Math.min(page, totalPages);
@@ -278,10 +302,10 @@ const MorePlansSection = () => {
     currentPage * PAGE_SIZE,
   );
 
-  // Reset página cuando cambia el filtro
+  // Reset página cuando cambia cualquier filtro
   useEffect(() => {
     setPage(1);
-  }, [modelQuery, sortOrder, fuelFilter]);
+  }, [modelQuery, sortOrder, fuelFilter, categoryFilter]);
 
   // Recalcular plazo dentro del rango cuando cambia el plan
   const effectivePlazo = Math.min(
