@@ -295,6 +295,12 @@ const MorePlansSection = () => {
     categoryFilter,
   ]);
 
+  const cuotaStats = useMemo(() => {
+    if (filteredModels.length === 0) return null;
+    const cuotas = filteredModels.map((m) => m.cuota);
+    return { min: Math.min(...cuotas), max: Math.max(...cuotas) };
+  }, [filteredModels]);
+
   const totalPages = Math.max(1, Math.ceil(filteredModels.length / PAGE_SIZE));
   const currentPage = Math.min(page, totalPages);
   const pagedModels = filteredModels.slice(
