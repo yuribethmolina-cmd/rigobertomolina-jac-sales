@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ArrowRight, Check, X } from "lucide-react";
 import CopyableMessage from "@/components/CopyableMessage";
 import {
@@ -8,6 +8,11 @@ import {
   pickupModels,
   suvModels,
 } from "@/lib/constants";
+
+const MAX_NAME = 40;
+const MAX_CITY = 40;
+const sanitize = (s: string) =>
+  s.replace(/[<>]/g, "").replace(/\s+/g, " ").trimStart();
 
 const modelOptions: { group: string; name: string }[] = [
   { group: "Sin preferencia", name: "Sin preferencia" },
