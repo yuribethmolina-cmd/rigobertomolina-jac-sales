@@ -230,7 +230,24 @@ const MorePlansSection = () => {
     "all",
   );
   const [page, setPage] = useState<number>(1);
+  const [searchOpen, setSearchOpen] = useState<boolean>(false);
+  const searchWrapRef = useRef<HTMLDivElement>(null);
   const PAGE_SIZE = 6;
+
+  // Cerrar dropdown al hacer clic fuera
+  useEffect(() => {
+    if (!searchOpen) return;
+    const onClick = (e: MouseEvent) => {
+      if (
+        searchWrapRef.current &&
+        !searchWrapRef.current.contains(e.target as Node)
+      ) {
+        setSearchOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
+  }, [searchOpen]);
 
   const selectedPlan =
     morePlans.find((p) => p.id === selectedPlanId) ?? morePlans[0];
