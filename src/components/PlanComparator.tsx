@@ -170,15 +170,6 @@ const PlanComparator = () => {
   const formatRange = (min: number, max: number) =>
     min === max ? `$${min.toLocaleString("es-VE")}` : `$${min.toLocaleString("es-VE")} – $${max.toLocaleString("es-VE")}`;
 
-  const budgetLabel =
-    budget === Infinity ? "sin límite" : `hasta $${budget.toLocaleString("es-VE")}/mes`;
-  const plazoLabel =
-    maxPlazo === 999 ? "sin restricción de plazo" : `con un plazo máximo de ${maxPlazo} meses`;
-  const modelLine =
-    model === "Sin preferencia"
-      ? "Aún no he definido el modelo."
-      : `Me interesa el modelo ${model}.`;
-
   const buildMessage = (planName: string) => {
     const parts: string[] = [
       `Hola Rigoberto, quiero información sobre el plan ${planName}.`,
