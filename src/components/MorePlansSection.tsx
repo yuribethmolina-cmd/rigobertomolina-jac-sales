@@ -313,42 +313,96 @@ const MorePlansSection = () => {
               )}
             </div>
 
-            {/* Tabla de modelos */}
+            {/* Tabla de modelos con buscador y paginación */}
             <div>
-              <h4 className="font-heading text-sm font-bold uppercase tracking-wider text-muted-foreground mb-3">
-                {selectedPlan.cuotaLabel} por modelo
-              </h4>
+              <div className="flex items-center justify-between gap-2 mb-3">
+                <h4 className="font-heading text-sm font-bold uppercase tracking-wider text-muted-foreground">
+                  {selectedPlan.cuotaLabel} por modelo
+                </h4>
+                <span className="text-xs text-muted-foreground">
+                  {filteredModels.length} de {selectedPlan.models.length}
+                </span>
+              </div>
+
+              <div className="relative mb-3">
+                <Search
+                  size={14}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                />
+                <input
+                  type="search"
+                  value={modelQuery}
+                  onChange={(e) => setModelQuery(e.target.value)}
+                  placeholder="Buscar modelo (X100, Sunray, Venezolana...)"
+                  className="w-full rounded-lg border-2 border-border bg-background pl-9 pr-3 py-2 text-sm font-semibold text-foreground focus:border-primary focus:outline-none transition-colors"
+                />
+              </div>
+
               <div className="rounded-lg border border-border overflow-hidden">
                 <table className="w-full text-sm">
                   <tbody>
-                    {selectedPlan.models.map((m, i) => (
-                      <tr
-                        key={m.model}
-                        className={i % 2 === 0 ? "bg-secondary/40" : ""}
-                      >
-                        <td className="px-4 py-2.5 font-semibold">
-                          {m.model}
-                        </td>
-                        <td className="px-4 py-2.5 text-right font-heading font-bold text-primary whitespace-nowrap">
-                          {formatUSD(m.cuota)}
-                          {m.cuota2 !== undefined ? (
-                            <span className="text-muted-foreground font-normal">
-                              {" / "}
-                            </span>
-                          ) : (
-                            "/mes"
-                          )}
-                          {m.cuota2 !== undefined && (
-                            <span className="text-primary">
-                              {formatUSD(m.cuota2)}
-                            </span>
-                          )}
+                    {pagedModels.length === 0 ? (
+                      <tr>
+                        <td className="px-4 py-6 text-center text-muted-foreground text-sm">
+                          No hay modelos que coincidan con "{modelQuery}".
                         </td>
                       </tr>
-                    ))}
+                    ) : (
+                      pagedModels.map((m, i) => (
+                        <tr
+                          key={m.model}
+                          className={i % 2 === 0 ? "bg-secondary/40" : ""}
+                        >
+                          <td className="px-4 py-2.5 font-semibold">
+                            {m.model}
+                          </td>
+                          <td className="px-4 py-2.5 text-right font-heading font-bold text-primary whitespace-nowrap">
+                            {formatUSD(m.cuota)}
+                            {m.cuota2 !== undefined ? (
+                              <span className="text-muted-foreground font-normal">
+                                {" / "}
+                              </span>
+                            ) : (
+                              "/mes"
+                            )}
+                            {m.cuota2 !== undefined && (
+                              <span className="text-primary">
+                                {formatUSD(m.cuota2)}
+                              </span>
+                            )}
+                          </td>
+                        </tr>
+                      ))
+                    )}
                   </tbody>
                 </table>
               </div>
+
+              {totalPages > 1 && (
+                <div className="mt-3 flex items-center justify-between gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setPage((p) => Math.max(1, p - 1))}
+                    disabled={currentPage === 1}
+                    className="rounded-lg border-2 border-border bg-background px-3 py-1.5 text-xs font-heading font-bold disabled:opacity-40 disabled:cursor-not-allowed hover:border-primary/50 transition-colors"
+                  >
+                    Anterior
+                  </button>
+                  <span className="text-xs font-semibold text-muted-foreground">
+                    Página {currentPage} de {totalPages}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setPage((p) => Math.min(totalPages, p + 1))
+                    }
+                    disabled={currentPage === totalPages}
+                    className="rounded-lg border-2 border-border bg-background px-3 py-1.5 text-xs font-heading font-bold disabled:opacity-40 disabled:cursor-not-allowed hover:border-primary/50 transition-colors"
+                  >
+                    Siguiente
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
