@@ -510,18 +510,100 @@ const MorePlansSection = () => {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-2 mb-3">
-                <div className="relative">
+                <div className="relative" ref={searchWrapRef}>
                   <Search
                     size={14}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none"
                   />
                   <input
-                    type="search"
+                    type="text"
+                    role="combobox"
+                    aria-expanded={searchOpen}
+                    aria-controls="model-search-listbox"
+                    aria-autocomplete="list"
                     value={modelQuery}
-                    onChange={(e) => setModelQuery(e.target.value)}
+                    onChange={(e) => {
+                      setModelQuery(e.target.value);
+                      setSearchOpen(true);
+                    }}
+                    onFocus={() => setSearchOpen(true)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Escape") setSearchOpen(false);
+                    }}
                     placeholder="Buscar modelo (X100, Sunray, Venezolana...)"
-                    className="w-full rounded-lg border-2 border-border bg-background pl-9 pr-3 py-2 text-sm font-semibold text-foreground focus:border-primary focus:outline-none transition-colors"
+                    className="w-full rounded-lg border-2 border-border bg-background pl-9 pr-16 py-2 text-sm font-semibold text-foreground focus:border-primary focus:outline-none transition-colors"
                   />
+                  <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
+                    {modelQuery && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setModelQuery("");
+                          setSearchOpen(true);
+                        }}
+                        aria-label="Limpiar búsqueda"
+                        className="p-1 rounded hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        <X size={14} />
+                      </button>
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => setSearchOpen((v) => !v)}
+                      aria-label="Mostrar lista de modelos"
+                      aria-expanded={searchOpen}
+                      className="p-1 rounded hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      <ChevronDown
+                        size={16}
+                        className={`transition-transform ${searchOpen ? "rotate-180" : ""}`}
+                      />
+                    </button>
+                  </div>
+
+                  {searchOpen && (() => {
+                    const q = modelQuery.trim().toLowerCase();
+                    const suggestions = (
+                      q
+                        ? selectedPlan.models.filter((m) =>
+                            m.model.toLowerCase().includes(q),
+                          )
+                        : selectedPlan.models
+                    ).slice(0, 50);
+                    return (
+                      <ul
+                        id="model-search-listbox"
+                        role="listbox"
+                        className="absolute z-30 left-0 right-0 mt-1 max-h-72 overflow-y-auto rounded-lg border-2 border-primary/40 bg-card shadow-xl"
+                      >
+                        {suggestions.length === 0 ? (
+                          <li className="px-3 py-2 text-xs text-muted-foreground">
+                            Sin coincidencias en este plan.
+                          </li>
+                        ) : (
+                          suggestions.map((m) => (
+                            <li key={m.model} role="option">
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setModelQuery(m.model);
+                                  setSearchOpen(false);
+                                }}
+                                className="w-full text-left px-3 py-2 text-xs flex items-center justify-between gap-3 hover:bg-primary/10 transition-colors"
+                              >
+                                <span className="font-semibold text-foreground truncate">
+                                  {m.model}
+                                </span>
+                                <span className="font-heading font-bold text-primary shrink-0">
+                                  {formatUSD(m.cuota)}
+                                </span>
+                              </button>
+                            </li>
+                          ))
+                        )}
+                      </ul>
+                    );
+                  })()}
                 </div>
                 <select
                   value={sortOrder}
