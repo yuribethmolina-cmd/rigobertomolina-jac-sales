@@ -53,6 +53,8 @@ const morePlans: Plan[] = [
       { model: "C-3500 Doble Cabina", cuota: 963.7 },
       { model: "Búfalo Cava de Conservación", cuota: 2197.4 },
       { model: "Búfalo Brazo Hidráulico", cuota: 3538.2 },
+      { model: "La Venezolana 4x2 Gasolina", cuota: 499.3 },
+      { model: "La Venezolana 4x2 Diésel", cuota: 515.6 },
       { model: "Sunray Pasajeros", cuota: 1078.7 },
       { model: "Sunlong / Bachaco", cuota: 1865.5 },
     ],
