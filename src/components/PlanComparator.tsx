@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { ArrowRight, Check, X } from "lucide-react";
+import CopyableMessage from "@/components/CopyableMessage";
 import {
   waLink,
   commercialModels,
