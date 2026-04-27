@@ -148,6 +148,7 @@ const PlanComparator = () => {
   const [budget, setBudget] = useState<number>(2000);
   const [maxPlazo, setMaxPlazo] = useState<number>(24);
   const [model, setModel] = useState<string>("Sin preferencia");
+  const [selectedPlanId, setSelectedPlanId] = useState<string | null>(null);
 
   const matches = useMemo(() => {
     return plans
