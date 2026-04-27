@@ -188,25 +188,33 @@ const MorePlansSection = () => {
   const [precioRaw, setPrecioRaw] = useState<string>("25000");
   const [plazo, setPlazo] = useState<number>(morePlans[0].defaultPlazo);
   const [modelQuery, setModelQuery] = useState<string>("");
+  const [sortOrder, setSortOrder] = useState<"original" | "asc" | "desc">(
+    "original",
+  );
   const [page, setPage] = useState<number>(1);
   const PAGE_SIZE = 6;
 
   const selectedPlan =
     morePlans.find((p) => p.id === selectedPlanId) ?? morePlans[0];
 
-  // Reset búsqueda y página al cambiar de plan
+  // Reset búsqueda, orden y página al cambiar de plan
   useEffect(() => {
     setModelQuery("");
+    setSortOrder("original");
     setPage(1);
   }, [selectedPlanId]);
 
   const filteredModels = useMemo(() => {
     const q = modelQuery.trim().toLowerCase();
-    if (!q) return selectedPlan.models;
-    return selectedPlan.models.filter((m) =>
-      m.model.toLowerCase().includes(q),
+    const base = q
+      ? selectedPlan.models.filter((m) => m.model.toLowerCase().includes(q))
+      : selectedPlan.models;
+    if (sortOrder === "original") return base;
+    const sorted = [...base].sort((a, b) =>
+      sortOrder === "asc" ? a.cuota - b.cuota : b.cuota - a.cuota,
     );
-  }, [selectedPlan, modelQuery]);
+    return sorted;
+  }, [selectedPlan, modelQuery, sortOrder]);
 
   const totalPages = Math.max(1, Math.ceil(filteredModels.length / PAGE_SIZE));
   const currentPage = Math.min(page, totalPages);
