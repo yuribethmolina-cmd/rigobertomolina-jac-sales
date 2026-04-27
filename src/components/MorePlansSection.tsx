@@ -435,6 +435,24 @@ const MorePlansSection = () => {
                 </div>
               )}
 
+              {sortOrder !== "original" &&
+                filteredModels.some((m) => m.cuota2 !== undefined) && (
+                  <div
+                    role="note"
+                    className="mb-3 flex items-start gap-2 rounded-lg border border-amber-500/40 bg-amber-500/10 p-2.5 text-xs"
+                  >
+                    <AlertTriangle
+                      size={14}
+                      className="text-amber-500 mt-0.5 shrink-0"
+                    />
+                    <p className="text-foreground">
+                      Este plan mezcla cuotas mensuales con pagos únicos. El
+                      orden por cuota usa solo el primer monto de cada modelo,
+                      así que no es estrictamente comparable.
+                    </p>
+                  </div>
+                )}
+
               <div className="rounded-lg border border-border overflow-hidden">
                 <table className="w-full text-sm">
                   <tbody>
