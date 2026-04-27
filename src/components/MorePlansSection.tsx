@@ -255,10 +255,10 @@ const MorePlansSection = () => {
     );
   }, [selectedPlan]);
 
-  // Reset búsqueda, orden, combustible, categoría y página al cambiar de plan
+  // Al cambiar de plan, mantener búsqueda y orden (contexto del usuario).
+  // Solo reseteamos los filtros que dependen del catálogo del plan
+  // (combustible y categoría pueden no existir en el nuevo plan) y la página.
   useEffect(() => {
-    setModelQuery("");
-    setSortOrder("original");
     setFuelFilter("all");
     setCategoryFilter("all");
     setPage(1);
