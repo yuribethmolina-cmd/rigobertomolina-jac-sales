@@ -352,18 +352,34 @@ const MorePlansSection = () => {
                 </span>
               </div>
 
-              <div className="relative mb-3">
-                <Search
-                  size={14}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
-                />
-                <input
-                  type="search"
-                  value={modelQuery}
-                  onChange={(e) => setModelQuery(e.target.value)}
-                  placeholder="Buscar modelo (X100, Sunray, Venezolana...)"
-                  className="w-full rounded-lg border-2 border-border bg-background pl-9 pr-3 py-2 text-sm font-semibold text-foreground focus:border-primary focus:outline-none transition-colors"
-                />
+              <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-2 mb-3">
+                <div className="relative">
+                  <Search
+                    size={14}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                  />
+                  <input
+                    type="search"
+                    value={modelQuery}
+                    onChange={(e) => setModelQuery(e.target.value)}
+                    placeholder="Buscar modelo (X100, Sunray, Venezolana...)"
+                    className="w-full rounded-lg border-2 border-border bg-background pl-9 pr-3 py-2 text-sm font-semibold text-foreground focus:border-primary focus:outline-none transition-colors"
+                  />
+                </div>
+                <select
+                  value={sortOrder}
+                  onChange={(e) =>
+                    setSortOrder(
+                      e.target.value as "original" | "asc" | "desc",
+                    )
+                  }
+                  aria-label="Ordenar modelos por cuota"
+                  className="rounded-lg border-2 border-border bg-background px-3 py-2 text-sm font-semibold text-foreground focus:border-primary focus:outline-none transition-colors cursor-pointer"
+                >
+                  <option value="original">Orden del catálogo</option>
+                  <option value="asc">Cuota: menor a mayor</option>
+                  <option value="desc">Cuota: mayor a menor</option>
+                </select>
               </div>
 
               <div className="rounded-lg border border-border overflow-hidden">
