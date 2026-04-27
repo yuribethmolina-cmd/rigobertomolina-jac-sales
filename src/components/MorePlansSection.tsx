@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { ArrowRight, AlertTriangle } from "lucide-react";
+import { useState, useMemo, useEffect } from "react";
+import { ArrowRight, AlertTriangle, Search } from "lucide-react";
 import { waLink } from "@/lib/constants";
 import CopyableMessage from "@/components/CopyableMessage";
 
@@ -167,9 +167,38 @@ const MorePlansSection = () => {
   const [precio, setPrecio] = useState<number>(25000);
   const [precioRaw, setPrecioRaw] = useState<string>("25000");
   const [plazo, setPlazo] = useState<number>(morePlans[0].defaultPlazo);
+  const [modelQuery, setModelQuery] = useState<string>("");
+  const [page, setPage] = useState<number>(1);
+  const PAGE_SIZE = 6;
 
   const selectedPlan =
     morePlans.find((p) => p.id === selectedPlanId) ?? morePlans[0];
+
+  // Reset búsqueda y página al cambiar de plan
+  useEffect(() => {
+    setModelQuery("");
+    setPage(1);
+  }, [selectedPlanId]);
+
+  const filteredModels = useMemo(() => {
+    const q = modelQuery.trim().toLowerCase();
+    if (!q) return selectedPlan.models;
+    return selectedPlan.models.filter((m) =>
+      m.model.toLowerCase().includes(q),
+    );
+  }, [selectedPlan, modelQuery]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredModels.length / PAGE_SIZE));
+  const currentPage = Math.min(page, totalPages);
+  const pagedModels = filteredModels.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE,
+  );
+
+  // Reset página cuando cambia el filtro
+  useEffect(() => {
+    setPage(1);
+  }, [modelQuery]);
 
   // Recalcular plazo dentro del rango cuando cambia el plan
   const effectivePlazo = Math.min(
@@ -284,42 +313,96 @@ const MorePlansSection = () => {
               )}
             </div>
 
-            {/* Tabla de modelos */}
+            {/* Tabla de modelos con buscador y paginación */}
             <div>
-              <h4 className="font-heading text-sm font-bold uppercase tracking-wider text-muted-foreground mb-3">
-                {selectedPlan.cuotaLabel} por modelo
-              </h4>
+              <div className="flex items-center justify-between gap-2 mb-3">
+                <h4 className="font-heading text-sm font-bold uppercase tracking-wider text-muted-foreground">
+                  {selectedPlan.cuotaLabel} por modelo
+                </h4>
+                <span className="text-xs text-muted-foreground">
+                  {filteredModels.length} de {selectedPlan.models.length}
+                </span>
+              </div>
+
+              <div className="relative mb-3">
+                <Search
+                  size={14}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                />
+                <input
+                  type="search"
+                  value={modelQuery}
+                  onChange={(e) => setModelQuery(e.target.value)}
+                  placeholder="Buscar modelo (X100, Sunray, Venezolana...)"
+                  className="w-full rounded-lg border-2 border-border bg-background pl-9 pr-3 py-2 text-sm font-semibold text-foreground focus:border-primary focus:outline-none transition-colors"
+                />
+              </div>
+
               <div className="rounded-lg border border-border overflow-hidden">
                 <table className="w-full text-sm">
                   <tbody>
-                    {selectedPlan.models.map((m, i) => (
-                      <tr
-                        key={m.model}
-                        className={i % 2 === 0 ? "bg-secondary/40" : ""}
-                      >
-                        <td className="px-4 py-2.5 font-semibold">
-                          {m.model}
-                        </td>
-                        <td className="px-4 py-2.5 text-right font-heading font-bold text-primary whitespace-nowrap">
-                          {formatUSD(m.cuota)}
-                          {m.cuota2 !== undefined ? (
-                            <span className="text-muted-foreground font-normal">
-                              {" / "}
-                            </span>
-                          ) : (
-                            "/mes"
-                          )}
-                          {m.cuota2 !== undefined && (
-                            <span className="text-primary">
-                              {formatUSD(m.cuota2)}
-                            </span>
-                          )}
+                    {pagedModels.length === 0 ? (
+                      <tr>
+                        <td className="px-4 py-6 text-center text-muted-foreground text-sm">
+                          No hay modelos que coincidan con "{modelQuery}".
                         </td>
                       </tr>
-                    ))}
+                    ) : (
+                      pagedModels.map((m, i) => (
+                        <tr
+                          key={m.model}
+                          className={i % 2 === 0 ? "bg-secondary/40" : ""}
+                        >
+                          <td className="px-4 py-2.5 font-semibold">
+                            {m.model}
+                          </td>
+                          <td className="px-4 py-2.5 text-right font-heading font-bold text-primary whitespace-nowrap">
+                            {formatUSD(m.cuota)}
+                            {m.cuota2 !== undefined ? (
+                              <span className="text-muted-foreground font-normal">
+                                {" / "}
+                              </span>
+                            ) : (
+                              "/mes"
+                            )}
+                            {m.cuota2 !== undefined && (
+                              <span className="text-primary">
+                                {formatUSD(m.cuota2)}
+                              </span>
+                            )}
+                          </td>
+                        </tr>
+                      ))
+                    )}
                   </tbody>
                 </table>
               </div>
+
+              {totalPages > 1 && (
+                <div className="mt-3 flex items-center justify-between gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setPage((p) => Math.max(1, p - 1))}
+                    disabled={currentPage === 1}
+                    className="rounded-lg border-2 border-border bg-background px-3 py-1.5 text-xs font-heading font-bold disabled:opacity-40 disabled:cursor-not-allowed hover:border-primary/50 transition-colors"
+                  >
+                    Anterior
+                  </button>
+                  <span className="text-xs font-semibold text-muted-foreground">
+                    Página {currentPage} de {totalPages}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setPage((p) => Math.min(totalPages, p + 1))
+                    }
+                    disabled={currentPage === totalPages}
+                    className="rounded-lg border-2 border-border bg-background px-3 py-1.5 text-xs font-heading font-bold disabled:opacity-40 disabled:cursor-not-allowed hover:border-primary/50 transition-colors"
+                  >
+                    Siguiente
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
