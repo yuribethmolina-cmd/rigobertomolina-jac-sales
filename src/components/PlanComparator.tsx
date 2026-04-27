@@ -188,38 +188,35 @@ const PlanComparator = () => {
     min === max ? `$${min.toLocaleString("es-VE")}` : `$${min.toLocaleString("es-VE")} – $${max.toLocaleString("es-VE")}`;
 
   const buildMessage = (planName: string) => {
-    const parts: string[] = [
+    const lines: string[] = [
       `Hola Rigoberto, quiero información sobre el plan ${planName}.`,
     ];
     if (models.length > 0) {
       const list = formatModelList(models);
-      parts.push(
+      lines.push(
         models.length === 1
-          ? `Me interesa el modelo ${list}.`
-          : `Me interesan los modelos ${list}.`,
+          ? `Modelo de interés: ${list}.`
+          : `Modelos de interés: ${list}.`,
       );
     }
 
     const budgetOpen = budget === Infinity;
     const plazoOpen = maxPlazo === 999;
 
-    if (budgetOpen && plazoOpen) {
-      parts.push("Soy flexible con el presupuesto y el plazo.");
-    } else if (budgetOpen && !plazoOpen) {
-      parts.push(
-        `Soy flexible con el presupuesto, pero busco un plazo máximo de ${maxPlazo} meses.`,
-      );
-    } else if (!budgetOpen && plazoOpen) {
-      parts.push(
-        `Manejo un presupuesto de hasta $${budget.toLocaleString("es-VE")}/mes y soy flexible con el plazo.`,
-      );
-    } else {
-      parts.push(
-        `Busco un presupuesto de hasta $${budget.toLocaleString("es-VE")}/mes y un plazo máximo de ${maxPlazo} meses.`,
-      );
-    }
+    lines.push(
+      `Presupuesto: ${
+        budgetOpen
+          ? "flexible, sin límite definido"
+          : `hasta $${budget.toLocaleString("es-VE")}/mes`
+      }.`,
+    );
+    lines.push(
+      `Plazo: ${
+        plazoOpen ? "flexible, sin tope" : `hasta ${maxPlazo} meses`
+      }.`,
+    );
 
-    return parts.join(" ");
+    return lines.join("\n");
   };
 
   return (

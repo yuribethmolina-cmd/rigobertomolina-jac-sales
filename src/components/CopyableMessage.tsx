@@ -66,7 +66,7 @@ const CopyableMessage = ({
           )}
         </button>
       </div>
-      <p className="text-sm text-foreground leading-relaxed">{message}</p>
+      <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">{message}</p>
     </div>
   );
 };
