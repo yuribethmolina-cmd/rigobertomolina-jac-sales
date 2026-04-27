@@ -167,9 +167,38 @@ const MorePlansSection = () => {
   const [precio, setPrecio] = useState<number>(25000);
   const [precioRaw, setPrecioRaw] = useState<string>("25000");
   const [plazo, setPlazo] = useState<number>(morePlans[0].defaultPlazo);
+  const [modelQuery, setModelQuery] = useState<string>("");
+  const [page, setPage] = useState<number>(1);
+  const PAGE_SIZE = 6;
 
   const selectedPlan =
     morePlans.find((p) => p.id === selectedPlanId) ?? morePlans[0];
+
+  // Reset búsqueda y página al cambiar de plan
+  useEffect(() => {
+    setModelQuery("");
+    setPage(1);
+  }, [selectedPlanId]);
+
+  const filteredModels = useMemo(() => {
+    const q = modelQuery.trim().toLowerCase();
+    if (!q) return selectedPlan.models;
+    return selectedPlan.models.filter((m) =>
+      m.model.toLowerCase().includes(q),
+    );
+  }, [selectedPlan, modelQuery]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredModels.length / PAGE_SIZE));
+  const currentPage = Math.min(page, totalPages);
+  const pagedModels = filteredModels.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE,
+  );
+
+  // Reset página cuando cambia el filtro
+  useEffect(() => {
+    setPage(1);
+  }, [modelQuery]);
 
   // Recalcular plazo dentro del rango cuando cambia el plan
   const effectivePlazo = Math.min(
