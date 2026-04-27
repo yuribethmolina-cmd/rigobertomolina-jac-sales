@@ -461,6 +461,42 @@ const MorePlansSection = () => {
                 </select>
               </div>
 
+              {availableCategories.length > 1 && (
+                <div
+                  role="group"
+                  aria-label="Filtrar por categoría"
+                  className="flex flex-wrap gap-2 mb-3"
+                >
+                  <button
+                    type="button"
+                    onClick={() => setCategoryFilter("all")}
+                    aria-pressed={categoryFilter === "all"}
+                    className={`rounded-full border-2 px-3 py-1 text-xs font-heading font-bold transition-colors ${
+                      categoryFilter === "all"
+                        ? "border-primary bg-primary text-primary-foreground"
+                        : "border-border bg-background hover:border-primary/50"
+                    }`}
+                  >
+                    Todas
+                  </button>
+                  {availableCategories.map((cat) => (
+                    <button
+                      key={cat}
+                      type="button"
+                      onClick={() => setCategoryFilter(cat)}
+                      aria-pressed={categoryFilter === cat}
+                      className={`rounded-full border-2 px-3 py-1 text-xs font-heading font-bold transition-colors ${
+                        categoryFilter === cat
+                          ? "border-primary bg-primary text-primary-foreground"
+                          : "border-border bg-background hover:border-primary/50"
+                      }`}
+                    >
+                      {categoryLabel[cat]}
+                    </button>
+                  ))}
+                </div>
+              )}
+
               {fuelAvailability.show && (
                 <div
                   role="group"
