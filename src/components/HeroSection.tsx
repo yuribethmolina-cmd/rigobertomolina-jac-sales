@@ -30,7 +30,13 @@ const HeroSection = () => {
         loop
         muted
         playsInline
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        preload="metadata"
+        disableRemotePlayback
+        disablePictureInPicture
+        controls={false}
+        aria-hidden="true"
+        tabIndex={-1}
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none [transform:translateZ(0)] [will-change:transform] [backface-visibility:hidden]"
       >
         <source src="/videos/hero.mp4" type="video/mp4" />
       </video>
