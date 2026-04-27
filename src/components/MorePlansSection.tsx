@@ -382,6 +382,27 @@ const MorePlansSection = () => {
             </div>
           </div>
 
+          {/* Aviso de validación */}
+          {!isValid && (
+            <div
+              role="alert"
+              className="mt-5 flex items-start gap-2 rounded-lg border-2 border-amber-500/60 bg-amber-500/10 p-3 text-sm"
+            >
+              <AlertTriangle
+                size={16}
+                className="text-amber-500 mt-0.5 shrink-0"
+              />
+              <p className="text-foreground">
+                {precioError ??
+                  `El plazo debe estar entre ${selectedPlan.plazoMin} y ${selectedPlan.plazoMax} meses.`}{" "}
+                <span className="text-muted-foreground">
+                  La simulación y el mensaje no se actualizarán hasta corregir
+                  estos valores.
+                </span>
+              </p>
+            </div>
+          )}
+
           {/* Resultado del simulador */}
           <div className="mt-5 grid grid-cols-3 gap-3">
             <div className="rounded-lg bg-background border border-border p-3 text-center">
@@ -389,15 +410,29 @@ const MorePlansSection = () => {
                 Inicial ({selectedPlan.inicialPct}%)
               </p>
               <p className="font-heading font-bold text-foreground mt-1">
-                {formatUSD(inicialMonto)}
+                {isValid ? formatUSD(inicialMonto) : "—"}
               </p>
             </div>
-            <div className="rounded-lg bg-primary/10 border-2 border-primary p-3 text-center">
-              <p className="text-[10px] font-bold uppercase tracking-wider text-primary">
+            <div
+              className={`rounded-lg p-3 text-center border-2 ${
+                isValid
+                  ? "bg-primary/10 border-primary"
+                  : "bg-background border-dashed border-border"
+              }`}
+            >
+              <p
+                className={`text-[10px] font-bold uppercase tracking-wider ${
+                  isValid ? "text-primary" : "text-muted-foreground"
+                }`}
+              >
                 Cuota mensual
               </p>
-              <p className="font-heading font-bold text-primary mt-1">
-                {formatUSD(cuotaEstimada)}
+              <p
+                className={`font-heading font-bold mt-1 ${
+                  isValid ? "text-primary" : "text-muted-foreground"
+                }`}
+              >
+                {isValid ? formatUSD(cuotaEstimada) : "—"}
               </p>
             </div>
             <div className="rounded-lg bg-background border border-border p-3 text-center">
@@ -405,7 +440,7 @@ const MorePlansSection = () => {
                 Total a financiar
               </p>
               <p className="font-heading font-bold text-foreground mt-1">
-                {formatUSD(restante)}
+                {isValid ? formatUSD(restante) : "—"}
               </p>
             </div>
           </div>
@@ -435,14 +470,26 @@ const MorePlansSection = () => {
 
           <CopyableMessage message={waMessage} className="mt-5" />
 
-          <a
-            href={waLink(waMessage)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-6 w-full inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3 font-heading text-sm font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
-          >
-            Enviar consulta por WhatsApp <ArrowRight size={16} />
-          </a>
+          {isValid ? (
+            <a
+              href={waLink(waMessage)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 w-full inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3 font-heading text-sm font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
+            >
+              Enviar consulta por WhatsApp <ArrowRight size={16} />
+            </a>
+          ) : (
+            <button
+              type="button"
+              disabled
+              aria-disabled="true"
+              title="Corrige el precio o el plazo para enviar la consulta"
+              className="mt-6 w-full inline-flex items-center justify-center gap-2 rounded-lg bg-muted px-5 py-3 font-heading text-sm font-bold text-muted-foreground cursor-not-allowed"
+            >
+              Corrige los datos para enviar la consulta
+            </button>
+          )}
 
           <p className="mt-3 text-[11px] text-muted-foreground text-center">
             Cuota calculada como (precio − inicial) ÷ plazo. Estimación
