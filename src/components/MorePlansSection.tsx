@@ -5,22 +5,26 @@ import { waLink } from "@/lib/constants";
 type VehicleType = "SUV" | "Camioneta" | "Comercial";
 const vehicleTypes: VehicleType[] = ["SUV", "Camioneta", "Comercial"];
 
+type ModelQuota = { model: string; cuota: number };
+
 type Plan = {
+  id: string;
   title: string;
   tagline: string;
   structure: string[];
-  cuotaRange: string;
+  cuotaLabel: string;
   inicialRange?: string;
   highlight: string;
   accent: "teal" | "amber" | "neutral";
+  models: ModelQuota[];
 };
 
-// Datos extraídos de los catálogos oficiales JAC/Bel Feb 2026.
-// Las cuotas mensuales reflejan el rango entre el modelo más económico
-// y el más costoso dentro de cada plan.
+// Cuotas extraídas vía OCR de los catálogos oficiales JAC/Bel Feb 2026.
+// Para Fiao/Ruta66/Travesía la secuencia de modelos es idéntica entre planes.
 const morePlans: Plan[] = [
   {
-    title: "Credijac 35×35 Pasajeros / Camiones",
+    id: "credijac",
+    title: "Credijac 35×35",
     tagline: "Inicial 35% + 30 cuotas + 6 cuotas extra",
     structure: [
       "6 cuotas iniciales (35%)",
@@ -28,12 +32,23 @@ const morePlans: Plan[] = [
       "30 cuotas ordinarias mensuales",
       "6 cuotas extra en meses 9, 12, 15, 18, 21 y 24",
     ],
-    cuotaRange: "Cuota ordinaria desde $399 hasta $1.840/mes",
-    inicialRange: "Cuota inicial desde $1.430 hasta $6.620/mes",
+    cuotaLabel: "Cuota ordinaria mensual",
+    inicialRange: "Cuota inicial desde $1.430 hasta $6.620",
     highlight: "Plan más popular para financiamiento extendido",
     accent: "teal",
+    models: [
+      { model: "X100 Ferretero", cuota: 530.8 },
+      { model: "Urban Chasis Largo 3 Ton", cuota: 654.5 },
+      { model: "Urban Ferretero 2 Ton", cuota: 716.3 },
+      { model: "C-3500 Doble Cabina", cuota: 963.7 },
+      { model: "Búfalo Cava de Conservación", cuota: 2197.4 },
+      { model: "Búfalo Brazo Hidráulico", cuota: 3538.2 },
+      { model: "Sunray Pasajeros", cuota: 1078.7 },
+      { model: "Sunlong / Bachaco", cuota: 1865.5 },
+    ],
   },
   {
+    id: "fiao",
     title: "Llévatelo Fiao",
     tagline: "Plan flexible con entrega anticipada",
     structure: [
@@ -41,11 +56,22 @@ const morePlans: Plan[] = [
       "Entrega del vehículo antes de finalizar el plan",
       "Cuotas posteriores hasta cierre del cronograma",
     ],
-    cuotaRange: "Cuotas desde $974 hasta $3.770/mes",
+    cuotaLabel: "Cuota mensual estimada",
     highlight: "Te llevas tu vehículo antes de pagar todo",
     accent: "amber",
+    models: [
+      { model: "X100 Ferretero", cuota: 1192.7 },
+      { model: "Urban Chasis Largo 3 Ton", cuota: 1344.2 },
+      { model: "Urban Ferretero 2 Ton", cuota: 1430.7 },
+      { model: "C-3500 Doble Cabina", cuota: 2010.7 },
+      { model: "Búfalo Cava de Conservación", cuota: 4221.7 },
+      { model: "Búfalo Brazo Hidráulico", cuota: 6667.3 },
+      { model: "Sunray Pasajeros", cuota: 2274.6 },
+      { model: "Sunlong / Bachaco", cuota: 3789.4 },
+    ],
   },
   {
+    id: "ruta66",
     title: "Credijac Ruta 66",
     tagline: "Pensado para camiones de carga",
     structure: [
@@ -54,21 +80,36 @@ const morePlans: Plan[] = [
       "Cuotas ordinarias prolongadas",
       "Cuotas extra programadas",
     ],
-    cuotaRange: "Cuota ordinaria desde $495 hasta $1.840/mes",
+    cuotaLabel: "Cuota ordinaria mensual",
     highlight: "Ideal para flotas y operadores logísticos",
     accent: "neutral",
+    models: [
+      { model: "X100 Ferretero", cuota: 530.8 },
+      { model: "Urban Chasis Largo 3 Ton", cuota: 654.5 },
+      { model: "Urban Ferretero 2 Ton", cuota: 716.3 },
+      { model: "C-3500 Doble Cabina", cuota: 963.7 },
+      { model: "Búfalo Cava de Conservación", cuota: 2197.4 },
+      { model: "Búfalo Brazo Hidráulico", cuota: 3538.2 },
+      { model: "Sunlong / Bachaco", cuota: 1865.5 },
+    ],
   },
   {
+    id: "travesia",
     title: "Travesía Eléctricos",
     tagline: "Financiamiento exclusivo para línea EV",
     structure: [
       "Estructura especial para vehículos eléctricos JAC",
       "Cronograma adaptado al ticket de los modelos EV",
-      "Aplica para Sunray EV, E-Sei4, E-JS1 y otros",
     ],
-    cuotaRange: "Cuotas desde $2.888 hasta $5.460/mes",
+    cuotaLabel: "Cuota mensual estimada",
     highlight: "El único plan dedicado 100% a eléctricos",
     accent: "teal",
+    models: [
+      { model: "Sunray EV", cuota: 6038.3 },
+      { model: "E-Sei4", cuota: 7154.3 },
+      { model: "E-JS1", cuota: 5564.0 },
+      { model: "E-JS4", cuota: 7752.5 },
+    ],
   },
 ];
 
@@ -84,11 +125,17 @@ const accentBadge = {
   amber: "bg-amber-500 text-white",
 };
 
+const formatUSD = (n: number) =>
+  `$${n.toLocaleString("es-VE", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+
 const MorePlansSection = () => {
-  const [selectedPlan, setSelectedPlan] = useState<string>(morePlans[0].title);
+  const [selectedPlanId, setSelectedPlanId] = useState<string>(morePlans[0].id);
   const [vehicleType, setVehicleType] = useState<VehicleType>("SUV");
 
-  const waMessage = `Hola Rigoberto, me interesa el plan ${selectedPlan} para un vehículo tipo ${vehicleType}. ¿Me puedes dar más información?`;
+  const selectedPlan =
+    morePlans.find((p) => p.id === selectedPlanId) ?? morePlans[0];
+
+  const waMessage = `Hola Rigoberto, me interesa el plan ${selectedPlan.title} para un vehículo tipo ${vehicleType}. ¿Me puedes dar más información?`;
 
   return (
     <section id="mas-planes" className="py-20 section-divider">
@@ -97,29 +144,50 @@ const MorePlansSection = () => {
           <h2 className="section-title">Más planes de financiamiento</h2>
           <p className="section-subtitle">
             Además de Compra Directa y Pago Fácil, JAC ofrece cuatro planes
-            adicionales para que encuentres la modalidad que mejor se adapta a
-            tu presupuesto.
+            adicionales. Selecciona un plan para ver la cuota estimada por
+            modelo.
           </p>
           <div className="teal-underline mx-auto" />
         </div>
 
-        <div className="mt-14 grid md:grid-cols-2 gap-6">
-          {morePlans.map((plan) => (
-            <div
-              key={plan.title}
-              className={`relative rounded-2xl border-2 ${accentBorder[plan.accent]} card-glow flex flex-col p-6`}
+        {/* Tabs de planes */}
+        <div className="mt-10 flex flex-wrap justify-center gap-2">
+          {morePlans.map((p) => (
+            <button
+              key={p.id}
+              type="button"
+              onClick={() => setSelectedPlanId(p.id)}
+              className={`rounded-full border-2 px-4 py-2 text-sm font-heading font-bold transition-colors ${
+                selectedPlanId === p.id
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : "border-border bg-background hover:border-primary/50"
+              }`}
             >
-              <span
-                className={`self-start text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full ${accentBadge[plan.accent]}`}
-              >
-                {plan.highlight}
-              </span>
+              {p.title}
+            </button>
+          ))}
+        </div>
 
-              <h3 className="font-heading text-xl font-bold mt-4">{plan.title}</h3>
-              <p className="text-muted-foreground text-sm mt-1">{plan.tagline}</p>
+        {/* Tarjeta del plan seleccionado */}
+        <div
+          className={`mt-8 rounded-2xl border-2 ${accentBorder[selectedPlan.accent]} card-glow p-6 md:p-8`}
+        >
+          <div className="grid md:grid-cols-2 gap-8">
+            <div>
+              <span
+                className={`inline-block text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full ${accentBadge[selectedPlan.accent]}`}
+              >
+                {selectedPlan.highlight}
+              </span>
+              <h3 className="font-heading text-2xl font-bold mt-4">
+                {selectedPlan.title}
+              </h3>
+              <p className="text-muted-foreground text-sm mt-1">
+                {selectedPlan.tagline}
+              </p>
 
               <ul className="mt-5 space-y-2 text-sm">
-                {plan.structure.map((s) => (
+                {selectedPlan.structure.map((s) => (
                   <li key={s} className="flex items-start gap-2">
                     <span className="text-primary mt-1">•</span>
                     <span>{s}</span>
@@ -127,97 +195,81 @@ const MorePlansSection = () => {
                 ))}
               </ul>
 
-              <div className="mt-5 pt-5 border-t border-border space-y-1.5">
-                {plan.inicialRange && (
-                  <p className="text-sm">
-                    <span className="font-heading font-bold text-primary">
-                      {plan.inicialRange}
-                    </span>
-                  </p>
-                )}
-                <p className="text-sm">
+              {selectedPlan.inicialRange && (
+                <p className="mt-4 text-sm">
                   <span className="font-heading font-bold text-primary">
-                    {plan.cuotaRange}
+                    {selectedPlan.inicialRange}
                   </span>
                 </p>
-              </div>
-
-              <a
-                href={waLink(
-                  `Hola Rigoberto, quiero información sobre el plan ${plan.title}`,
-                )}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-6 inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3 font-heading text-sm font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
-              >
-                Consultar este plan <ArrowRight size={16} />
-              </a>
+              )}
             </div>
-          ))}
+
+            {/* Tabla de modelos */}
+            <div>
+              <h4 className="font-heading text-sm font-bold uppercase tracking-wider text-muted-foreground mb-3">
+                {selectedPlan.cuotaLabel} por modelo
+              </h4>
+              <div className="rounded-lg border border-border overflow-hidden">
+                <table className="w-full text-sm">
+                  <tbody>
+                    {selectedPlan.models.map((m, i) => (
+                      <tr
+                        key={m.model}
+                        className={i % 2 === 0 ? "bg-secondary/40" : ""}
+                      >
+                        <td className="px-4 py-2.5 font-semibold">
+                          {m.model}
+                        </td>
+                        <td className="px-4 py-2.5 text-right font-heading font-bold text-primary whitespace-nowrap">
+                          {formatUSD(m.cuota)}/mes
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Selector personalizado */}
-        <div className="mt-14 rounded-2xl border-2 border-primary/40 bg-secondary/30 p-6 md:p-8 max-w-3xl mx-auto">
+        {/* Selector de consulta personalizada */}
+        <div className="mt-10 rounded-2xl border-2 border-primary/40 bg-secondary/30 p-6 md:p-8 max-w-3xl mx-auto">
           <h3 className="font-heading text-lg md:text-xl font-bold text-center">
             Arma tu consulta personalizada
           </h3>
           <p className="text-muted-foreground text-sm text-center mt-2">
-            Elige un plan y el tipo de vehículo que buscas. Te llevamos a
-            WhatsApp con el mensaje listo.
+            El plan ya está seleccionado arriba. Elige el tipo de vehículo y
+            envía tu consulta por WhatsApp.
           </p>
 
-          <div className="mt-6 grid md:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
-                Plan de financiamiento
-              </label>
-              <div className="flex flex-col gap-2">
-                {morePlans.map((p) => (
-                  <button
-                    key={p.title}
-                    type="button"
-                    onClick={() => setSelectedPlan(p.title)}
-                    className={`text-left rounded-lg border-2 px-4 py-3 text-sm font-semibold transition-colors ${
-                      selectedPlan === p.title
-                        ? "border-primary bg-primary/10 text-foreground"
-                        : "border-border bg-background hover:border-primary/50"
-                    }`}
-                  >
-                    {p.title}
-                  </button>
-                ))}
-              </div>
+          <div className="mt-6">
+            <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
+              Tipo de vehículo
+            </label>
+            <div className="grid grid-cols-3 gap-2">
+              {vehicleTypes.map((t) => (
+                <button
+                  key={t}
+                  type="button"
+                  onClick={() => setVehicleType(t)}
+                  className={`rounded-lg border-2 px-4 py-3 text-sm font-semibold transition-colors ${
+                    vehicleType === t
+                      ? "border-primary bg-primary/10 text-foreground"
+                      : "border-border bg-background hover:border-primary/50"
+                  }`}
+                >
+                  {t}
+                </button>
+              ))}
             </div>
 
-            <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
-                Tipo de vehículo
-              </label>
-              <div className="flex flex-col gap-2">
-                {vehicleTypes.map((t) => (
-                  <button
-                    key={t}
-                    type="button"
-                    onClick={() => setVehicleType(t)}
-                    className={`text-left rounded-lg border-2 px-4 py-3 text-sm font-semibold transition-colors ${
-                      vehicleType === t
-                        ? "border-primary bg-primary/10 text-foreground"
-                        : "border-border bg-background hover:border-primary/50"
-                    }`}
-                  >
-                    {t}
-                  </button>
-                ))}
-              </div>
-
-              <div className="mt-6 rounded-lg bg-background border border-border p-4">
-                <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
-                  Vista previa del mensaje
-                </p>
-                <p className="text-sm text-foreground leading-relaxed">
-                  {waMessage}
-                </p>
-              </div>
+            <div className="mt-5 rounded-lg bg-background border border-border p-4">
+              <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
+                Vista previa del mensaje
+              </p>
+              <p className="text-sm text-foreground leading-relaxed">
+                {waMessage}
+              </p>
             </div>
           </div>
 
@@ -233,9 +285,9 @@ const MorePlansSection = () => {
 
         <p className="mt-8 text-center text-xs text-muted-foreground max-w-2xl mx-auto leading-relaxed">
           * Montos referenciales de los catálogos oficiales JAC / Bel Feb 2026.
-          Sujetos a variación según modelo, flete, seguro, IVA, IGTF y gastos
-          de nacionalización. Confirma siempre con Rigoberto antes de cerrar
-          tu plan.
+          Sujetos a variación según flete, seguro, IVA, IGTF y gastos de
+          nacionalización. Confirma siempre con Rigoberto antes de cerrar tu
+          plan.
         </p>
       </div>
     </section>
