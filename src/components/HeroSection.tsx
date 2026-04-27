@@ -29,7 +29,6 @@ const HeroSection = () => {
         autoPlay
         loop
         muted
-        defaultMuted
         playsInline
         preload="metadata"
         disableRemotePlayback
