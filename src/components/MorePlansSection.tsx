@@ -276,16 +276,88 @@ const MorePlansSection = () => {
           </div>
         </div>
 
-        {/* Selector de consulta personalizada */}
+        {/* Mini simulador + consulta personalizada */}
         <div className="mt-10 rounded-2xl border-2 border-primary/40 bg-secondary/30 p-6 md:p-8 max-w-3xl mx-auto">
           <h3 className="font-heading text-lg md:text-xl font-bold text-center">
-            Arma tu consulta personalizada
+            Simula tu cuota y arma tu consulta
           </h3>
           <p className="text-muted-foreground text-sm text-center mt-2">
-            El plan ya está seleccionado arriba. Elige el tipo de vehículo y
-            envía tu consulta por WhatsApp.
+            Ingresa el precio del vehículo y el plazo. Calculamos una cuota
+            estimada según el plan seleccionado y armamos tu mensaje.
           </p>
 
+          <div className="mt-6 grid md:grid-cols-2 gap-4">
+            <div>
+              <label
+                htmlFor="precio-input"
+                className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2"
+              >
+                Precio del vehículo (USD)
+              </label>
+              <input
+                id="precio-input"
+                type="number"
+                min={5000}
+                max={300000}
+                step={500}
+                value={precio}
+                onChange={(e) => setPrecio(Number(e.target.value) || 0)}
+                className="w-full rounded-lg border-2 border-border bg-background px-4 py-3 text-sm font-semibold text-foreground focus:border-primary focus:outline-none transition-colors"
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="plazo-input"
+                className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2"
+              >
+                Plazo: {effectivePlazo} meses
+                <span className="text-muted-foreground font-normal normal-case ml-1">
+                  ({selectedPlan.plazoMin}–{selectedPlan.plazoMax})
+                </span>
+              </label>
+              <input
+                id="plazo-input"
+                type="range"
+                min={selectedPlan.plazoMin}
+                max={selectedPlan.plazoMax}
+                step={6}
+                value={effectivePlazo}
+                onChange={(e) => setPlazo(Number(e.target.value))}
+                className="w-full accent-primary"
+              />
+            </div>
+          </div>
+
+          {/* Resultado del simulador */}
+          <div className="mt-5 grid grid-cols-3 gap-3">
+            <div className="rounded-lg bg-background border border-border p-3 text-center">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                Inicial ({selectedPlan.inicialPct}%)
+              </p>
+              <p className="font-heading font-bold text-foreground mt-1">
+                {formatUSD(inicialMonto)}
+              </p>
+            </div>
+            <div className="rounded-lg bg-primary/10 border-2 border-primary p-3 text-center">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-primary">
+                Cuota mensual
+              </p>
+              <p className="font-heading font-bold text-primary mt-1">
+                {formatUSD(cuotaEstimada)}
+              </p>
+            </div>
+            <div className="rounded-lg bg-background border border-border p-3 text-center">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                Total a financiar
+              </p>
+              <p className="font-heading font-bold text-foreground mt-1">
+                {formatUSD(restante)}
+              </p>
+            </div>
+          </div>
+
+          {/* Tipo de vehículo */}
           <div className="mt-6">
             <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
               Tipo de vehículo
@@ -306,15 +378,15 @@ const MorePlansSection = () => {
                 </button>
               ))}
             </div>
+          </div>
 
-            <div className="mt-5 rounded-lg bg-background border border-border p-4">
-              <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
-                Vista previa del mensaje
-              </p>
-              <p className="text-sm text-foreground leading-relaxed">
-                {waMessage}
-              </p>
-            </div>
+          <div className="mt-5 rounded-lg bg-background border border-border p-4">
+            <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
+              Vista previa del mensaje
+            </p>
+            <p className="text-sm text-foreground leading-relaxed">
+              {waMessage}
+            </p>
           </div>
 
           <a
@@ -325,6 +397,12 @@ const MorePlansSection = () => {
           >
             Enviar consulta por WhatsApp <ArrowRight size={16} />
           </a>
+
+          <p className="mt-3 text-[11px] text-muted-foreground text-center">
+            Cuota calculada como (precio − inicial) ÷ plazo. Estimación
+            referencial sin incluir cuotas extra, intereses, IVA, IGTF ni
+            gastos de nacionalización.
+          </p>
         </div>
 
         <p className="mt-8 text-center text-xs text-muted-foreground max-w-2xl mx-auto leading-relaxed">
