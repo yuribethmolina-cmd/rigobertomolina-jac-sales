@@ -199,20 +199,26 @@ const PlanComparator = () => {
           : `Me interesan los modelos ${list}.`,
       );
     }
-    const constraints: string[] = [];
-    if (budget !== Infinity) {
-      constraints.push(
-        `presupuesto de hasta $${budget.toLocaleString("es-VE")}/mes`,
-      );
-    }
-    if (maxPlazo !== 999) {
-      constraints.push(`plazo máximo de ${maxPlazo} meses`);
-    }
-    if (constraints.length > 0) {
+
+    const budgetOpen = budget === Infinity;
+    const plazoOpen = maxPlazo === 999;
+
+    if (budgetOpen && plazoOpen) {
+      parts.push("Soy flexible con el presupuesto y el plazo.");
+    } else if (budgetOpen && !plazoOpen) {
       parts.push(
-        `Busco un ${constraints.join(" y ")}.`.replace("un presupuesto", "presupuesto"),
+        `Soy flexible con el presupuesto, pero busco un plazo máximo de ${maxPlazo} meses.`,
+      );
+    } else if (!budgetOpen && plazoOpen) {
+      parts.push(
+        `Manejo un presupuesto de hasta $${budget.toLocaleString("es-VE")}/mes y soy flexible con el plazo.`,
+      );
+    } else {
+      parts.push(
+        `Busco un presupuesto de hasta $${budget.toLocaleString("es-VE")}/mes y un plazo máximo de ${maxPlazo} meses.`,
       );
     }
+
     return parts.join(" ");
   };
 
