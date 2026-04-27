@@ -301,54 +301,94 @@ const PlanComparator = () => {
           </h3>
 
           <div className="grid md:grid-cols-2 gap-4">
-            {top.map((p) => (
-              <div
-                key={p.id}
-                className="rounded-2xl border-2 border-primary/60 shadow-[0_0_24px_-6px_hsl(var(--primary)/0.35)] card-glow p-5"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <h4 className="font-heading text-lg font-bold">{p.name}</h4>
-                  <span className="text-[10px] font-bold uppercase tracking-wider bg-primary text-primary-foreground px-2 py-1 rounded-full">
-                    Recomendado
-                  </span>
-                </div>
-                <div className="mt-3 grid grid-cols-2 gap-3 text-sm">
-                  <div>
-                    <p className="text-xs text-muted-foreground uppercase tracking-wider">Cuota</p>
-                    <p className="font-heading font-bold text-primary">
-                      {formatRange(p.cuotaMin, p.cuotaMax)}/mes
+            {top.map((p) => {
+              const isSelected = selectedPlanId === p.id;
+              return (
+                <button
+                  key={p.id}
+                  type="button"
+                  onClick={() => setSelectedPlanId(p.id)}
+                  aria-pressed={isSelected}
+                  className={`text-left rounded-2xl border-2 card-glow p-5 transition-all ${
+                    isSelected
+                      ? "border-primary shadow-[0_0_28px_-4px_hsl(var(--primary)/0.55)] bg-primary/5"
+                      : "border-primary/60 shadow-[0_0_24px_-6px_hsl(var(--primary)/0.35)] hover:border-primary"
+                  }`}
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <h4 className="font-heading text-lg font-bold">{p.name}</h4>
+                    <span
+                      className={`text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full ${
+                        isSelected
+                          ? "bg-primary text-primary-foreground"
+                          : "bg-primary/20 text-primary"
+                      }`}
+                    >
+                      {isSelected ? "Seleccionado" : "Recomendado"}
+                    </span>
+                  </div>
+                  <div className="mt-3 grid grid-cols-2 gap-3 text-sm">
+                    <div>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider">Cuota</p>
+                      <p className="font-heading font-bold text-primary">
+                        {formatRange(p.cuotaMin, p.cuotaMax)}/mes
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider">Plazo</p>
+                      <p className="font-heading font-bold">
+                        {p.plazoMin === p.plazoMax
+                          ? `${p.plazoMin} meses`
+                          : `${p.plazoMin}-${p.plazoMax} meses`}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="mt-3 space-y-1.5 text-sm">
+                    <p className="flex items-start gap-2">
+                      <Check size={14} className="text-primary mt-0.5 shrink-0" />
+                      <span>{p.pros}</span>
+                    </p>
+                    <p className="flex items-start gap-2">
+                      <X size={14} className="text-amber-500 mt-0.5 shrink-0" />
+                      <span className="text-muted-foreground">{p.contras}</span>
                     </p>
                   </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground uppercase tracking-wider">Plazo</p>
-                    <p className="font-heading font-bold">
-                      {p.plazoMin === p.plazoMax
-                        ? `${p.plazoMin} meses`
-                        : `${p.plazoMin}-${p.plazoMax} meses`}
-                    </p>
-                  </div>
-                </div>
-                <div className="mt-3 space-y-1.5 text-sm">
-                  <p className="flex items-start gap-2">
-                    <Check size={14} className="text-primary mt-0.5 shrink-0" />
-                    <span>{p.pros}</span>
-                  </p>
-                  <p className="flex items-start gap-2">
-                    <X size={14} className="text-amber-500 mt-0.5 shrink-0" />
-                    <span className="text-muted-foreground">{p.contras}</span>
-                  </p>
-                </div>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Vista previa del mensaje WhatsApp + CTA */}
+          {top.length > 0 && (() => {
+            const activePlan =
+              top.find((p) => p.id === selectedPlanId) ?? top[0];
+            return (
+              <div className="mt-8 max-w-3xl mx-auto">
+                <CopyableMessage
+                  message={buildMessage(activePlan.name)}
+                  label={`Mensaje para ${activePlan.name}${
+                    selectedPlanId ? "" : " (primer recomendado)"
+                  }`}
+                  className="bg-secondary/30"
+                />
                 <a
-                  href={waLink(buildMessage(p.name))}
+                  href={waLink(buildMessage(activePlan.name))}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 w-full inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 font-heading text-sm font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
+                  className="mt-4 w-full inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3 font-heading text-sm font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
                 >
-                  Consultar este plan <ArrowRight size={14} />
+                  Consultar plan {activePlan.name} por WhatsApp{" "}
+                  <ArrowRight size={14} />
                 </a>
+                {!selectedPlanId && (
+                  <p className="mt-2 text-xs text-muted-foreground text-center">
+                    Toca una tarjeta arriba para personalizar el mensaje con
+                    otro plan recomendado.
+                  </p>
+                )}
               </div>
-            ))}
-          </div>
+            );
+          })()}
 
           {others.length > 0 && (
             <div className="mt-8">
