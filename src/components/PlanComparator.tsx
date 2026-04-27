@@ -279,6 +279,16 @@ const PlanComparator = () => {
           </div>
         </div>
 
+        {/* Vista previa del mensaje WhatsApp */}
+        <div className="mt-6 max-w-3xl mx-auto rounded-xl border border-border bg-secondary/30 p-4">
+          <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1.5">
+            Vista previa del mensaje (al pulsar “Consultar este plan”)
+          </p>
+          <p className="text-sm text-foreground leading-relaxed">
+            {buildMessage("[plan seleccionado]")}
+          </p>
+        </div>
+
         {/* Resultados */}
         <div className="mt-10">
           <h3 className="font-heading text-lg font-bold mb-4">
