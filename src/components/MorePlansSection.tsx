@@ -52,6 +52,11 @@ const morePlans: Plan[] = [
       { model: "Sunray Pasajeros", cuota: 1078.7 },
       { model: "Sunlong / Bachaco", cuota: 1865.5 },
     ],
+    inicialPct: 35,
+    cuotasOrdinarias: 30,
+    defaultPlazo: 36,
+    plazoMin: 24,
+    plazoMax: 48,
   },
   {
     id: "fiao",
@@ -75,6 +80,11 @@ const morePlans: Plan[] = [
       { model: "Sunray Pasajeros", cuota: 2274.6 },
       { model: "Sunlong / Bachaco", cuota: 3789.4 },
     ],
+    inicialPct: 25,
+    cuotasOrdinarias: 18,
+    defaultPlazo: 18,
+    plazoMin: 12,
+    plazoMax: 24,
   },
   {
     id: "ruta66",
@@ -98,6 +108,11 @@ const morePlans: Plan[] = [
       { model: "Búfalo Brazo Hidráulico", cuota: 3538.2 },
       { model: "Sunlong / Bachaco", cuota: 1865.5 },
     ],
+    inicialPct: 30,
+    cuotasOrdinarias: 30,
+    defaultPlazo: 36,
+    plazoMin: 24,
+    plazoMax: 48,
   },
   {
     id: "travesia",
@@ -116,6 +131,11 @@ const morePlans: Plan[] = [
       { model: "E-JS1", cuota: 5564.0 },
       { model: "E-JS4", cuota: 7752.5 },
     ],
+    inicialPct: 30,
+    cuotasOrdinarias: 24,
+    defaultPlazo: 30,
+    plazoMin: 24,
+    plazoMax: 36,
   },
 ];
 
