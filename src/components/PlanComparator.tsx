@@ -275,41 +275,61 @@ const PlanComparator = () => {
           </div>
 
           <div className="md:col-span-2">
-            <label
-              htmlFor="model-select"
-              className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2"
-            >
-              Modelo de interés (opcional)
-            </label>
-            <select
-              id="model-select"
-              value={model}
-              onChange={(e) => setModel(e.target.value)}
-              className="w-full rounded-lg border-2 border-border bg-background px-4 py-3 text-sm font-semibold text-foreground hover:border-primary/50 focus:border-primary focus:outline-none transition-colors"
-            >
-              {(() => {
-                const groups = Array.from(
-                  new Set(modelOptions.map((m) => m.group)),
-                );
-                return groups.map((g) =>
-                  g === "Sin preferencia" ? (
-                    <option key={g} value="Sin preferencia">
-                      Sin preferencia
-                    </option>
-                  ) : (
-                    <optgroup key={g} label={g}>
+            <div className="flex items-baseline justify-between mb-2 gap-3">
+              <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                Modelos de interés (hasta {MAX_MODELS}, opcional)
+              </label>
+              <span className="text-xs font-semibold text-muted-foreground">
+                {models.length}/{MAX_MODELS}
+                {models.length > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => setModels([])}
+                    className="ml-3 text-primary hover:underline"
+                  >
+                    Limpiar
+                  </button>
+                )}
+              </span>
+            </div>
+            <div className="rounded-lg border-2 border-border bg-background p-3 max-h-64 overflow-y-auto space-y-3">
+              {Array.from(new Set(modelOptions.map((m) => m.group)))
+                .filter((g) => g !== "Sin preferencia")
+                .map((g) => (
+                  <div key={g}>
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-1.5">
+                      {g}
+                    </p>
+                    <div className="flex flex-wrap gap-1.5">
                       {modelOptions
                         .filter((m) => m.group === g)
-                        .map((m) => (
-                          <option key={m.name} value={m.name}>
-                            {m.name}
-                          </option>
-                        ))}
-                    </optgroup>
-                  ),
-                );
-              })()}
-            </select>
+                        .map((m) => {
+                          const active = models.includes(m.name);
+                          const disabled = !active && models.length >= MAX_MODELS;
+                          return (
+                            <button
+                              key={m.name}
+                              type="button"
+                              onClick={() => toggleModel(m.name)}
+                              disabled={disabled}
+                              aria-pressed={active}
+                              className={`text-xs font-semibold px-2.5 py-1.5 rounded-full border-2 transition-colors ${
+                                active
+                                  ? "border-primary bg-primary text-primary-foreground"
+                                  : disabled
+                                    ? "border-border bg-background text-muted-foreground/50 cursor-not-allowed"
+                                    : "border-border bg-background hover:border-primary/50"
+                              }`}
+                            >
+                              {active ? "✓ " : ""}
+                              {m.name}
+                            </button>
+                          );
+                        })}
+                    </div>
+                  </div>
+                ))}
+            </div>
           </div>
         </div>
 
