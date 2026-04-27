@@ -170,18 +170,29 @@ const PlanComparator = () => {
   const formatRange = (min: number, max: number) =>
     min === max ? `$${min.toLocaleString("es-VE")}` : `$${min.toLocaleString("es-VE")} – $${max.toLocaleString("es-VE")}`;
 
-  const budgetLabel =
-    budget === Infinity ? "sin límite" : `hasta $${budget.toLocaleString("es-VE")}/mes`;
-  const plazoLabel =
-    maxPlazo === 999 ? "sin restricción de plazo" : `con un plazo máximo de ${maxPlazo} meses`;
-  const modelLine =
-    model === "Sin preferencia"
-      ? "Aún no he definido el modelo."
-      : `Me interesa el modelo ${model}.`;
-
-  const buildMessage = (planName: string) =>
-    `Hola Rigoberto, quiero información sobre el plan ${planName}. ` +
-    `${modelLine} Mi presupuesto es ${budgetLabel} y busco ${plazoLabel}.`;
+  const buildMessage = (planName: string) => {
+    const parts: string[] = [
+      `Hola Rigoberto, quiero información sobre el plan ${planName}.`,
+    ];
+    if (model !== "Sin preferencia") {
+      parts.push(`Me interesa el modelo ${model}.`);
+    }
+    const constraints: string[] = [];
+    if (budget !== Infinity) {
+      constraints.push(
+        `presupuesto de hasta $${budget.toLocaleString("es-VE")}/mes`,
+      );
+    }
+    if (maxPlazo !== 999) {
+      constraints.push(`plazo máximo de ${maxPlazo} meses`);
+    }
+    if (constraints.length > 0) {
+      parts.push(
+        `Busco un ${constraints.join(" y ")}.`.replace("un presupuesto", "presupuesto"),
+      );
+    }
+    return parts.join(" ");
+  };
 
   return (
     <section id="comparador" className="py-20 section-divider">
