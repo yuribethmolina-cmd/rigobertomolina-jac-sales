@@ -437,9 +437,17 @@ const MorePlansSection = () => {
                     {filteredModels.length}
                     <span className="text-muted-foreground font-semibold">
                       {" "}
-                      / {selectedPlan.models.length} modelos
+                      / {selectedPlan.models.length}{" "}
+                      {filteredModels.length === selectedPlan.models.length
+                        ? "modelos"
+                        : "modelos coinciden"}
                     </span>
                   </span>
+                  {totalPages > 1 && filteredModels.length > 0 && (
+                    <span className="text-[10px] uppercase tracking-wider font-bold text-muted-foreground">
+                      Página {currentPage} de {totalPages}
+                    </span>
+                  )}
                   {cuotaStats ? (
                     <>
                       <span className="text-muted-foreground">
@@ -459,6 +467,21 @@ const MorePlansSection = () => {
                           Orden: {sortOrder === "asc" ? "menor a mayor" : "mayor a menor"}
                         </span>
                       )}
+                      {modelQuery.trim() && (
+                        <span className="text-[10px] uppercase tracking-wider font-bold text-primary">
+                          Búsqueda: "{modelQuery.trim()}"
+                        </span>
+                      )}
+                      {fuelFilter !== "all" && (
+                        <span className="text-[10px] uppercase tracking-wider font-bold text-primary">
+                          Combustible: {fuelFilter === "gasolina" ? "Gasolina" : "Diésel"}
+                        </span>
+                      )}
+                      {categoryFilter !== "all" && (
+                        <span className="text-[10px] uppercase tracking-wider font-bold text-primary">
+                          Categoría: {categoryFilter}
+                        </span>
+                      )}
                     </>
                   ) : (
                     <span className="text-muted-foreground">
@@ -466,6 +489,7 @@ const MorePlansSection = () => {
                     </span>
                   )}
                 </div>
+
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-2 mb-3">
