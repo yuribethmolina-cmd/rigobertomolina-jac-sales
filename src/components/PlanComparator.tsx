@@ -156,8 +156,41 @@ const PlanComparator = () => {
   const [selectedPlanId, setSelectedPlanId] = useState<string | null>(null);
   const MAX_MODELS = 3;
 
-  const toggleModel = (name: string) => {
-    setModels((prev) => {
+  // Personalización opcional (nombre y ciudad)
+  const [personalizar, setPersonalizar] = useState<boolean>(false);
+  const [nombre, setNombre] = useState<string>("");
+  const [ciudad, setCiudad] = useState<string>("");
+
+  // Cargar preferencias guardadas
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("rm_personal");
+      if (saved) {
+        const p = JSON.parse(saved);
+        if (typeof p?.nombre === "string") setNombre(p.nombre);
+        if (typeof p?.ciudad === "string") setCiudad(p.ciudad);
+        if (typeof p?.personalizar === "boolean")
+          setPersonalizar(p.personalizar);
+      }
+    } catch {
+      // ignore
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(
+        "rm_personal",
+        JSON.stringify({ personalizar, nombre, ciudad }),
+      );
+    } catch {
+      // ignore
+    }
+  }, [personalizar, nombre, ciudad]);
+
+  const cleanNombre = sanitize(nombre).slice(0, MAX_NAME);
+  const cleanCiudad = sanitize(ciudad).slice(0, MAX_CITY);
+
       if (prev.includes(name)) return prev.filter((m) => m !== name);
       if (prev.length >= MAX_MODELS) return prev;
       return [...prev, name];
