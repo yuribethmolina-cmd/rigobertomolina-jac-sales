@@ -226,7 +226,7 @@ const MorePlansSection = () => {
   // Reset página cuando cambia el filtro
   useEffect(() => {
     setPage(1);
-  }, [modelQuery]);
+  }, [modelQuery, sortOrder]);
 
   // Recalcular plazo dentro del rango cuando cambia el plan
   const effectivePlazo = Math.min(
