@@ -57,8 +57,8 @@ const plans: PlanRow[] = [
   {
     id: "facil",
     name: "Pago Fácil",
-    cuotaMin: 800,
-    cuotaMax: 5000,
+    cuotaMin: 1455,
+    cuotaMax: 9000,
     plazoMin: 12,
     plazoMax: 12,
     requisitosExtra: false,
