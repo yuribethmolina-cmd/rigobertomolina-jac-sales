@@ -9,7 +9,7 @@ const PRECIO_MAX = 300000;
 type VehicleType = "SUV" | "Camioneta" | "Comercial";
 const vehicleTypes: VehicleType[] = ["SUV", "Camioneta", "Comercial"];
 
-type ModelQuota = { model: string; cuota: number };
+type ModelQuota = { model: string; cuota: number; cuota2?: number };
 
 type Plan = {
   id: string;
