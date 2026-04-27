@@ -231,7 +231,10 @@ const MorePlansSection = () => {
   );
   const [page, setPage] = useState<number>(1);
   const [searchOpen, setSearchOpen] = useState<boolean>(false);
+  const [activeIndex, setActiveIndex] = useState<number>(-1);
   const searchWrapRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const listboxRef = useRef<HTMLUListElement>(null);
   const PAGE_SIZE = 6;
 
   // Cerrar dropdown al hacer clic fuera
