@@ -428,19 +428,10 @@ const MorePlansSection = () => {
 
             {/* Tabla de modelos con buscador y paginación */}
             <div>
-              <div className="flex items-center justify-between gap-2 mb-3">
-                <h4 className="font-heading text-sm font-bold uppercase tracking-wider text-muted-foreground">
+              <div className="mb-3">
+                <h4 className="font-heading text-sm font-bold uppercase tracking-wider text-muted-foreground mb-2">
                   {selectedPlan.cuotaLabel} por modelo
                 </h4>
-                <span className="text-xs text-muted-foreground">
-                  {filteredModels.length} de {selectedPlan.models.length}
-                </span>
-              <div className="mb-3">
-                <div className="flex items-center justify-between gap-2 mb-2">
-                  <h4 className="font-heading text-sm font-bold uppercase tracking-wider text-muted-foreground">
-                    {selectedPlan.cuotaLabel} por modelo
-                  </h4>
-                </div>
                 <div className="rounded-lg border border-primary/30 bg-primary/5 px-3 py-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
                   <span className="font-heading font-bold text-primary">
                     {filteredModels.length}
@@ -476,6 +467,13 @@ const MorePlansSection = () => {
                   )}
                 </div>
               </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-2 mb-3">
+                <div className="relative">
+                  <Search
+                    size={14}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                  />
                   <input
                     type="search"
                     value={modelQuery}
