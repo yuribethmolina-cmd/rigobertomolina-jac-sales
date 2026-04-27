@@ -386,9 +386,74 @@ const PlanComparator = () => {
                 ))}
             </div>
           </div>
-        </div>
 
-        {/* Resultados */}
+          {/* Personalización opcional */}
+          <div className="md:col-span-2">
+            <label className="flex items-center gap-2 cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={personalizar}
+                onChange={(e) => setPersonalizar(e.target.checked)}
+                className="h-4 w-4 accent-primary"
+              />
+              <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                Personalizar mensaje con mi nombre y ciudad (opcional)
+              </span>
+            </label>
+
+            {personalizar && (
+              <div className="mt-3 grid sm:grid-cols-2 gap-3">
+                <div>
+                  <label
+                    htmlFor="nombre-input"
+                    className="block text-[11px] font-bold uppercase tracking-wider text-muted-foreground mb-1.5"
+                  >
+                    Tu nombre
+                  </label>
+                  <input
+                    id="nombre-input"
+                    type="text"
+                    value={nombre}
+                    onChange={(e) => setNombre(e.target.value)}
+                    maxLength={MAX_NAME}
+                    autoComplete="given-name"
+                    placeholder="Ej: María"
+                    className="w-full rounded-lg border-2 border-border bg-background px-3 py-2.5 text-sm font-semibold text-foreground focus:border-primary focus:outline-none transition-colors"
+                  />
+                  <p className="mt-1 text-[10px] text-muted-foreground">
+                    {cleanNombre.length}/{MAX_NAME}
+                  </p>
+                </div>
+                <div>
+                  <label
+                    htmlFor="ciudad-input"
+                    className="block text-[11px] font-bold uppercase tracking-wider text-muted-foreground mb-1.5"
+                  >
+                    Tu ciudad
+                  </label>
+                  <input
+                    id="ciudad-input"
+                    type="text"
+                    value={ciudad}
+                    onChange={(e) => setCiudad(e.target.value)}
+                    maxLength={MAX_CITY}
+                    autoComplete="address-level2"
+                    placeholder="Ej: Caracas"
+                    className="w-full rounded-lg border-2 border-border bg-background px-3 py-2.5 text-sm font-semibold text-foreground focus:border-primary focus:outline-none transition-colors"
+                  />
+                  <p className="mt-1 text-[10px] text-muted-foreground">
+                    {cleanCiudad.length}/{MAX_CITY}
+                  </p>
+                </div>
+              </div>
+            )}
+            {personalizar && !cleanNombre && !cleanCiudad && (
+              <p className="mt-2 text-[11px] text-muted-foreground">
+                Llena al menos un campo para que se incluya en el mensaje.
+              </p>
+            )}
+          </div>
+        </div>
         <div className="mt-10">
           <h3 className="font-heading text-lg font-bold mb-4">
             {top.length > 0
