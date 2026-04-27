@@ -181,6 +181,38 @@ const accentBadge = {
 const formatUSD = (n: number) =>
   `$${n.toLocaleString("es-VE", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
 
+type Category = "SUV" | "Camioneta" | "Pasajeros" | "Comercial";
+
+const categorize = (model: string): Category => {
+  const m = model.toLowerCase();
+  // Comerciales: carga, vans, camiones, ambulancia, escolar, compactador
+  if (
+    /(x100|urban|c-3500|b[uú]falo|compactador|sunray.*(carga|ambulancia|escolar)|m4 carroza|sunlong|bachaco)/i.test(
+      m,
+    )
+  ) {
+    return "Comercial";
+  }
+  // Pasajeros (vans / minibuses)
+  if (/sunray.*pasajeros/i.test(m)) return "Pasajeros";
+  // Camionetas / pickups
+  if (
+    /(la venezolana|aventura|arena|nevado|tepuy|limited|jimmy)/i.test(m)
+  ) {
+    return "Camioneta";
+  }
+  // SUVs
+  if (/(savanna|[ée]lite|rf8)/i.test(m)) return "SUV";
+  return "Comercial";
+};
+
+const categoryLabel: Record<Category, string> = {
+  SUV: "SUV",
+  Camioneta: "Camioneta",
+  Pasajeros: "Pasajeros",
+  Comercial: "Comercial",
+};
+
 const MorePlansSection = () => {
   const [selectedPlanId, setSelectedPlanId] = useState<string>(morePlans[0].id);
   const [vehicleType, setVehicleType] = useState<VehicleType>("SUV");
@@ -192,6 +224,9 @@ const MorePlansSection = () => {
     "original",
   );
   const [fuelFilter, setFuelFilter] = useState<"all" | "gasolina" | "diesel">(
+    "all",
+  );
+  const [categoryFilter, setCategoryFilter] = useState<"all" | Category>(
     "all",
   );
   const [page, setPage] = useState<number>(1);
@@ -211,11 +246,21 @@ const MorePlansSection = () => {
     return { hasGasolina, hasDiesel, show: hasGasolina && hasDiesel };
   }, [selectedPlan]);
 
-  // Reset búsqueda, orden, combustible y página al cambiar de plan
+  // Categorías disponibles dentro del plan seleccionado
+  const availableCategories = useMemo(() => {
+    const set = new Set<Category>();
+    selectedPlan.models.forEach((m) => set.add(categorize(m.model)));
+    return (["SUV", "Camioneta", "Pasajeros", "Comercial"] as const).filter(
+      (c) => set.has(c),
+    );
+  }, [selectedPlan]);
+
+  // Reset búsqueda, orden, combustible, categoría y página al cambiar de plan
   useEffect(() => {
     setModelQuery("");
     setSortOrder("original");
     setFuelFilter("all");
+    setCategoryFilter("all");
     setPage(1);
   }, [selectedPlanId]);
 
@@ -224,6 +269,10 @@ const MorePlansSection = () => {
     let base = q
       ? selectedPlan.models.filter((m) => m.model.toLowerCase().includes(q))
       : selectedPlan.models;
+
+    if (categoryFilter !== "all") {
+      base = base.filter((m) => categorize(m.model) === categoryFilter);
+    }
 
     if (fuelAvailability.show && fuelFilter !== "all") {
       base = base.filter((m) =>
@@ -237,7 +286,14 @@ const MorePlansSection = () => {
     return [...base].sort((a, b) =>
       sortOrder === "asc" ? a.cuota - b.cuota : b.cuota - a.cuota,
     );
-  }, [selectedPlan, modelQuery, sortOrder, fuelFilter, fuelAvailability.show]);
+  }, [
+    selectedPlan,
+    modelQuery,
+    sortOrder,
+    fuelFilter,
+    fuelAvailability.show,
+    categoryFilter,
+  ]);
 
   const totalPages = Math.max(1, Math.ceil(filteredModels.length / PAGE_SIZE));
   const currentPage = Math.min(page, totalPages);
@@ -246,10 +302,10 @@ const MorePlansSection = () => {
     currentPage * PAGE_SIZE,
   );
 
-  // Reset página cuando cambia el filtro
+  // Reset página cuando cambia cualquier filtro
   useEffect(() => {
     setPage(1);
-  }, [modelQuery, sortOrder, fuelFilter]);
+  }, [modelQuery, sortOrder, fuelFilter, categoryFilter]);
 
   // Recalcular plazo dentro del rango cuando cambia el plan
   const effectivePlazo = Math.min(
@@ -404,6 +460,42 @@ const MorePlansSection = () => {
                   <option value="desc">Cuota: mayor a menor</option>
                 </select>
               </div>
+
+              {availableCategories.length > 1 && (
+                <div
+                  role="group"
+                  aria-label="Filtrar por categoría"
+                  className="flex flex-wrap gap-2 mb-3"
+                >
+                  <button
+                    type="button"
+                    onClick={() => setCategoryFilter("all")}
+                    aria-pressed={categoryFilter === "all"}
+                    className={`rounded-full border-2 px-3 py-1 text-xs font-heading font-bold transition-colors ${
+                      categoryFilter === "all"
+                        ? "border-primary bg-primary text-primary-foreground"
+                        : "border-border bg-background hover:border-primary/50"
+                    }`}
+                  >
+                    Todas
+                  </button>
+                  {availableCategories.map((cat) => (
+                    <button
+                      key={cat}
+                      type="button"
+                      onClick={() => setCategoryFilter(cat)}
+                      aria-pressed={categoryFilter === cat}
+                      className={`rounded-full border-2 px-3 py-1 text-xs font-heading font-bold transition-colors ${
+                        categoryFilter === cat
+                          ? "border-primary bg-primary text-primary-foreground"
+                          : "border-border bg-background hover:border-primary/50"
+                      }`}
+                    >
+                      {categoryLabel[cat]}
+                    </button>
+                  ))}
+                </div>
+              )}
 
               {fuelAvailability.show && (
                 <div
