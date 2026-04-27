@@ -330,13 +330,33 @@ const MorePlansSection = () => {
               <input
                 id="precio-input"
                 type="number"
-                min={5000}
-                max={300000}
+                inputMode="numeric"
+                min={PRECIO_MIN}
+                max={PRECIO_MAX}
                 step={500}
-                value={precio}
-                onChange={(e) => setPrecio(Number(e.target.value) || 0)}
-                className="w-full rounded-lg border-2 border-border bg-background px-4 py-3 text-sm font-semibold text-foreground focus:border-primary focus:outline-none transition-colors"
+                value={precioRaw}
+                aria-invalid={!!precioError}
+                aria-describedby={precioError ? "precio-error" : undefined}
+                onChange={(e) => {
+                  const raw = e.target.value;
+                  setPrecioRaw(raw);
+                  const n = Number(raw);
+                  setPrecio(Number.isFinite(n) ? n : NaN);
+                }}
+                className={`w-full rounded-lg border-2 bg-background px-4 py-3 text-sm font-semibold text-foreground focus:outline-none transition-colors ${
+                  precioError
+                    ? "border-amber-500 focus:border-amber-500"
+                    : "border-border focus:border-primary"
+                }`}
               />
+              {precioError && (
+                <p
+                  id="precio-error"
+                  className="mt-1.5 text-xs font-semibold text-amber-500"
+                >
+                  {precioError}
+                </p>
+              )}
             </div>
 
             <div>
