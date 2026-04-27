@@ -188,25 +188,33 @@ const MorePlansSection = () => {
   const [precioRaw, setPrecioRaw] = useState<string>("25000");
   const [plazo, setPlazo] = useState<number>(morePlans[0].defaultPlazo);
   const [modelQuery, setModelQuery] = useState<string>("");
+  const [sortOrder, setSortOrder] = useState<"original" | "asc" | "desc">(
+    "original",
+  );
   const [page, setPage] = useState<number>(1);
   const PAGE_SIZE = 6;
 
   const selectedPlan =
     morePlans.find((p) => p.id === selectedPlanId) ?? morePlans[0];
 
-  // Reset búsqueda y página al cambiar de plan
+  // Reset búsqueda, orden y página al cambiar de plan
   useEffect(() => {
     setModelQuery("");
+    setSortOrder("original");
     setPage(1);
   }, [selectedPlanId]);
 
   const filteredModels = useMemo(() => {
     const q = modelQuery.trim().toLowerCase();
-    if (!q) return selectedPlan.models;
-    return selectedPlan.models.filter((m) =>
-      m.model.toLowerCase().includes(q),
+    const base = q
+      ? selectedPlan.models.filter((m) => m.model.toLowerCase().includes(q))
+      : selectedPlan.models;
+    if (sortOrder === "original") return base;
+    const sorted = [...base].sort((a, b) =>
+      sortOrder === "asc" ? a.cuota - b.cuota : b.cuota - a.cuota,
     );
-  }, [selectedPlan, modelQuery]);
+    return sorted;
+  }, [selectedPlan, modelQuery, sortOrder]);
 
   const totalPages = Math.max(1, Math.ceil(filteredModels.length / PAGE_SIZE));
   const currentPage = Math.min(page, totalPages);
@@ -218,7 +226,7 @@ const MorePlansSection = () => {
   // Reset página cuando cambia el filtro
   useEffect(() => {
     setPage(1);
-  }, [modelQuery]);
+  }, [modelQuery, sortOrder]);
 
   // Recalcular plazo dentro del rango cuando cambia el plan
   const effectivePlazo = Math.min(
@@ -344,18 +352,34 @@ const MorePlansSection = () => {
                 </span>
               </div>
 
-              <div className="relative mb-3">
-                <Search
-                  size={14}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
-                />
-                <input
-                  type="search"
-                  value={modelQuery}
-                  onChange={(e) => setModelQuery(e.target.value)}
-                  placeholder="Buscar modelo (X100, Sunray, Venezolana...)"
-                  className="w-full rounded-lg border-2 border-border bg-background pl-9 pr-3 py-2 text-sm font-semibold text-foreground focus:border-primary focus:outline-none transition-colors"
-                />
+              <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-2 mb-3">
+                <div className="relative">
+                  <Search
+                    size={14}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                  />
+                  <input
+                    type="search"
+                    value={modelQuery}
+                    onChange={(e) => setModelQuery(e.target.value)}
+                    placeholder="Buscar modelo (X100, Sunray, Venezolana...)"
+                    className="w-full rounded-lg border-2 border-border bg-background pl-9 pr-3 py-2 text-sm font-semibold text-foreground focus:border-primary focus:outline-none transition-colors"
+                  />
+                </div>
+                <select
+                  value={sortOrder}
+                  onChange={(e) =>
+                    setSortOrder(
+                      e.target.value as "original" | "asc" | "desc",
+                    )
+                  }
+                  aria-label="Ordenar modelos por cuota"
+                  className="rounded-lg border-2 border-border bg-background px-3 py-2 text-sm font-semibold text-foreground focus:border-primary focus:outline-none transition-colors cursor-pointer"
+                >
+                  <option value="original">Orden del catálogo</option>
+                  <option value="asc">Cuota: menor a mayor</option>
+                  <option value="desc">Cuota: mayor a menor</option>
+                </select>
               </div>
 
               <div className="rounded-lg border border-border overflow-hidden">
