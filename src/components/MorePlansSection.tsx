@@ -405,6 +405,36 @@ const MorePlansSection = () => {
                 </select>
               </div>
 
+              {fuelAvailability.show && (
+                <div
+                  role="group"
+                  aria-label="Filtrar por combustible"
+                  className="flex flex-wrap gap-2 mb-3"
+                >
+                  {(
+                    [
+                      { id: "all", label: "Todos" },
+                      { id: "gasolina", label: "Gasolina" },
+                      { id: "diesel", label: "Diésel" },
+                    ] as const
+                  ).map((opt) => (
+                    <button
+                      key={opt.id}
+                      type="button"
+                      onClick={() => setFuelFilter(opt.id)}
+                      aria-pressed={fuelFilter === opt.id}
+                      className={`rounded-full border-2 px-3 py-1 text-xs font-heading font-bold transition-colors ${
+                        fuelFilter === opt.id
+                          ? "border-primary bg-primary text-primary-foreground"
+                          : "border-border bg-background hover:border-primary/50"
+                      }`}
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+
               <div className="rounded-lg border border-border overflow-hidden">
                 <table className="w-full text-sm">
                   <tbody>
