@@ -32,7 +32,7 @@ const HeroSection = () => {
         playsInline
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
       >
-        <source src="https://jacvenezuela.com/VIDEOS2026/JAC05.mp4" type="video/mp4" />
+        <source src="/videos/hero.mp4" type="video/mp4" />
       </video>
 
       {/* Gradient overlay */}
