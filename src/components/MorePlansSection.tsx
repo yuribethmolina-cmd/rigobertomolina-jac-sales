@@ -162,6 +162,7 @@ const MorePlansSection = () => {
   const [selectedPlanId, setSelectedPlanId] = useState<string>(morePlans[0].id);
   const [vehicleType, setVehicleType] = useState<VehicleType>("SUV");
   const [precio, setPrecio] = useState<number>(25000);
+  const [precioRaw, setPrecioRaw] = useState<string>("25000");
   const [plazo, setPlazo] = useState<number>(morePlans[0].defaultPlazo);
 
   const selectedPlan =
@@ -172,18 +173,35 @@ const MorePlansSection = () => {
     Math.max(plazo, selectedPlan.plazoMin),
     selectedPlan.plazoMax,
   );
+  const plazoIsValid =
+    Number.isFinite(plazo) &&
+    plazo >= selectedPlan.plazoMin &&
+    plazo <= selectedPlan.plazoMax;
+
+  // Validación del precio
+  let precioError: string | null = null;
+  if (precioRaw.trim() === "" || !Number.isFinite(precio)) {
+    precioError = "Ingresa un precio válido para simular tu cuota.";
+  } else if (precio <= 0) {
+    precioError = "El precio debe ser mayor que $0.";
+  } else if (precio < PRECIO_MIN) {
+    precioError = `El precio mínimo aceptado es ${formatUSD(PRECIO_MIN)}.`;
+  } else if (precio > PRECIO_MAX) {
+    precioError = `El precio máximo aceptado es ${formatUSD(PRECIO_MAX)}.`;
+  }
+
+  const isValid = !precioError && plazoIsValid;
 
   // Cálculo simplificado de la cuota mensual estimada
-  const inicialMonto = (precio * selectedPlan.inicialPct) / 100;
-  const restante = precio - inicialMonto;
-  const cuotaEstimada = restante / effectivePlazo;
+  const inicialMonto = isValid ? (precio * selectedPlan.inicialPct) / 100 : 0;
+  const restante = isValid ? precio - inicialMonto : 0;
+  const cuotaEstimada = isValid ? restante / effectivePlazo : 0;
 
-  const hasValidPrice = precio > 0 && Number.isFinite(precio);
   const waMessage = (() => {
     const parts: string[] = [
       `Hola Rigoberto, me interesa el plan ${selectedPlan.title} para un vehículo tipo ${vehicleType}.`,
     ];
-    if (hasValidPrice) {
+    if (isValid) {
       parts.push(
         `Precio aproximado ${formatUSD(precio)}.`,
         `Según el simulador la cuota mensual sería ~${formatUSD(cuotaEstimada)} en ${effectivePlazo} meses (inicial estimada ${formatUSD(inicialMonto)}).`,
