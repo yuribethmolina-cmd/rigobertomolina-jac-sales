@@ -228,9 +228,17 @@ const PlanComparator = () => {
     min === max ? `$${min.toLocaleString("es-VE")}` : `$${min.toLocaleString("es-VE")} – $${max.toLocaleString("es-VE")}`;
 
   const buildMessage = (planName: string) => {
-    const lines: string[] = [
-      `Hola Rigoberto, quiero información sobre el plan ${planName}.`,
-    ];
+    const usePersonal = personalizar;
+    const greetingExtra =
+      usePersonal && cleanNombre ? ` Soy ${cleanNombre}` : "";
+    const greeting = `Hola Rigoberto,${greetingExtra ? `${greetingExtra}.` : ""} quiero información sobre el plan ${planName}.`;
+    // Si agregamos "Soy X.", separamos en dos oraciones limpias
+    const opening = greetingExtra
+      ? `Hola Rigoberto.${greetingExtra}. Quiero información sobre el plan ${planName}.`
+      : greeting;
+
+    const lines: string[] = [opening];
+
     if (models.length > 0) {
       const list = formatModelList(models);
       lines.push(
@@ -255,6 +263,10 @@ const PlanComparator = () => {
         plazoOpen ? "flexible, sin tope" : `hasta ${maxPlazo} meses`
       }.`,
     );
+
+    if (usePersonal && cleanCiudad) {
+      lines.push(`Estoy en ${cleanCiudad}.`);
+    }
 
     return lines.join("\n");
   };
