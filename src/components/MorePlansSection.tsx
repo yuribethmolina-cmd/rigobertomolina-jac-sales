@@ -322,7 +322,32 @@ const MorePlansSection = () => {
           </div>
         </div>
 
-        {/* Mini simulador + consulta personalizada */}
+        {selectedPlan.id === "travesia" ? (
+          <div className="mt-10 rounded-2xl border-2 border-amber-500/40 bg-amber-500/5 p-6 md:p-8 max-w-3xl mx-auto text-center">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <AlertTriangle size={18} className="text-amber-500" />
+              <h3 className="font-heading text-lg font-bold">
+                Travesía Eléctricos no usa simulador
+              </h3>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Este plan se paga en dos cuotas fijas (Pago Cuota 1 + Pago Cuota
+              2) según el modelo eléctrico. Consulta directamente con
+              Rigoberto para confirmar montos y disponibilidad.
+            </p>
+            <a
+              href={waLink(
+                `Hola Rigoberto, me interesa el plan Travesía Eléctricos. ¿Me confirmas Pago Cuota 1 y Pago Cuota 2 actualizados?`,
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3 font-heading text-sm font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
+            >
+              Consultar por WhatsApp <ArrowRight size={16} />
+            </a>
+          </div>
+        ) : (
+        /* Mini simulador + consulta personalizada */
         <div className="mt-10 rounded-2xl border-2 border-primary/40 bg-secondary/30 p-6 md:p-8 max-w-3xl mx-auto">
           <h3 className="font-heading text-lg md:text-xl font-bold text-center">
             Simula tu cuota y arma tu consulta
