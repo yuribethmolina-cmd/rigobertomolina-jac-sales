@@ -181,6 +181,38 @@ const accentBadge = {
 const formatUSD = (n: number) =>
   `$${n.toLocaleString("es-VE", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
 
+type Category = "SUV" | "Camioneta" | "Pasajeros" | "Comercial";
+
+const categorize = (model: string): Category => {
+  const m = model.toLowerCase();
+  // Comerciales: carga, vans, camiones, ambulancia, escolar, compactador
+  if (
+    /(x100|urban|c-3500|b[uú]falo|compactador|sunray.*(carga|ambulancia|escolar)|m4 carroza|sunlong|bachaco)/i.test(
+      m,
+    )
+  ) {
+    return "Comercial";
+  }
+  // Pasajeros (vans / minibuses)
+  if (/sunray.*pasajeros/i.test(m)) return "Pasajeros";
+  // Camionetas / pickups
+  if (
+    /(la venezolana|aventura|arena|nevado|tepuy|limited|jimmy)/i.test(m)
+  ) {
+    return "Camioneta";
+  }
+  // SUVs
+  if (/(savanna|[ée]lite|rf8)/i.test(m)) return "SUV";
+  return "Comercial";
+};
+
+const categoryLabel: Record<Category, string> = {
+  SUV: "SUV",
+  Camioneta: "Camioneta",
+  Pasajeros: "Pasajeros",
+  Comercial: "Comercial",
+};
+
 const MorePlansSection = () => {
   const [selectedPlanId, setSelectedPlanId] = useState<string>(morePlans[0].id);
   const [vehicleType, setVehicleType] = useState<VehicleType>("SUV");
