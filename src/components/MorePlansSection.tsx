@@ -1,5 +1,5 @@
-import { useState, useMemo, useEffect } from "react";
-import { ArrowRight, AlertTriangle, Search } from "lucide-react";
+import { useState, useMemo, useEffect, useRef } from "react";
+import { ArrowRight, AlertTriangle, Search, ChevronDown, X } from "lucide-react";
 import { waLink } from "@/lib/constants";
 import CopyableMessage from "@/components/CopyableMessage";
 
