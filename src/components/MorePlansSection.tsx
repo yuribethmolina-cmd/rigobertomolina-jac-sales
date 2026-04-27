@@ -157,11 +157,29 @@ const formatUSD = (n: number) =>
 const MorePlansSection = () => {
   const [selectedPlanId, setSelectedPlanId] = useState<string>(morePlans[0].id);
   const [vehicleType, setVehicleType] = useState<VehicleType>("SUV");
+  const [precio, setPrecio] = useState<number>(25000);
+  const [plazo, setPlazo] = useState<number>(morePlans[0].defaultPlazo);
 
   const selectedPlan =
     morePlans.find((p) => p.id === selectedPlanId) ?? morePlans[0];
 
-  const waMessage = `Hola Rigoberto, me interesa el plan ${selectedPlan.title} para un vehículo tipo ${vehicleType}. ¿Me puedes dar más información?`;
+  // Recalcular plazo dentro del rango cuando cambia el plan
+  const effectivePlazo = Math.min(
+    Math.max(plazo, selectedPlan.plazoMin),
+    selectedPlan.plazoMax,
+  );
+
+  // Cálculo simplificado de la cuota mensual estimada
+  const inicialMonto = (precio * selectedPlan.inicialPct) / 100;
+  const restante = precio - inicialMonto;
+  const cuotaEstimada = restante / effectivePlazo;
+
+  const waMessage =
+    `Hola Rigoberto, me interesa el plan ${selectedPlan.title} para un vehículo tipo ${vehicleType} ` +
+    `con precio aproximado de ${formatUSD(precio)}. ` +
+    `Según el simulador la cuota mensual sería ~${formatUSD(cuotaEstimada)} en ${effectivePlazo} meses ` +
+    `(inicial estimada ${formatUSD(inicialMonto)}). ¿Me confirmas los números reales?`;
+
 
   return (
     <section id="mas-planes" className="py-20 section-divider">
