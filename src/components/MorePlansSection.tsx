@@ -231,7 +231,10 @@ const MorePlansSection = () => {
   );
   const [page, setPage] = useState<number>(1);
   const [searchOpen, setSearchOpen] = useState<boolean>(false);
+  const [activeIndex, setActiveIndex] = useState<number>(-1);
   const searchWrapRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const listboxRef = useRef<HTMLUListElement>(null);
   const PAGE_SIZE = 6;
 
   // Cerrar dropdown al hacer clic fuera
@@ -325,10 +328,39 @@ const MorePlansSection = () => {
     currentPage * PAGE_SIZE,
   );
 
+  // Sugerencias para el dropdown del buscador
+  const searchSuggestions = useMemo(() => {
+    const q = modelQuery.trim().toLowerCase();
+    return (
+      q
+        ? selectedPlan.models.filter((m) => m.model.toLowerCase().includes(q))
+        : selectedPlan.models
+    ).slice(0, 50);
+  }, [selectedPlan, modelQuery]);
+
   // Reset página cuando cambia cualquier filtro
   useEffect(() => {
     setPage(1);
   }, [modelQuery, sortOrder, fuelFilter, categoryFilter]);
+
+  // Reset índice activo cuando cambia la lista o se cierra el dropdown
+  useEffect(() => {
+    setActiveIndex(-1);
+  }, [searchSuggestions, searchOpen]);
+
+  // Auto-scroll del item activo al moverse con teclado
+  useEffect(() => {
+    if (!searchOpen || activeIndex < 0 || !listboxRef.current) return;
+    const item = listboxRef.current.querySelectorAll<HTMLLIElement>(
+      "li[role='option']",
+    )[activeIndex];
+    item?.scrollIntoView({ block: "nearest" });
+  }, [activeIndex, searchOpen]);
+
+  // Foco automático al input cuando se abre el dropdown
+  useEffect(() => {
+    if (searchOpen) searchInputRef.current?.focus();
+  }, [searchOpen]);
 
   // Recalcular plazo dentro del rango cuando cambia el plan
   const effectivePlazo = Math.min(
@@ -516,11 +548,17 @@ const MorePlansSection = () => {
                     className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none"
                   />
                   <input
+                    ref={searchInputRef}
                     type="text"
                     role="combobox"
                     aria-expanded={searchOpen}
                     aria-controls="model-search-listbox"
                     aria-autocomplete="list"
+                    aria-activedescendant={
+                      searchOpen && activeIndex >= 0
+                        ? `model-option-${activeIndex}`
+                        : undefined
+                    }
                     value={modelQuery}
                     onChange={(e) => {
                       setModelQuery(e.target.value);
@@ -528,7 +566,55 @@ const MorePlansSection = () => {
                     }}
                     onFocus={() => setSearchOpen(true)}
                     onKeyDown={(e) => {
-                      if (e.key === "Escape") setSearchOpen(false);
+                      if (e.key === "Escape") {
+                        setSearchOpen(false);
+                        return;
+                      }
+                      if (e.key === "ArrowDown") {
+                        e.preventDefault();
+                        if (!searchOpen) {
+                          setSearchOpen(true);
+                          return;
+                        }
+                        if (searchSuggestions.length === 0) return;
+                        setActiveIndex((i) =>
+                          i < searchSuggestions.length - 1 ? i + 1 : 0,
+                        );
+                        return;
+                      }
+                      if (e.key === "ArrowUp") {
+                        e.preventDefault();
+                        if (!searchOpen) {
+                          setSearchOpen(true);
+                          return;
+                        }
+                        if (searchSuggestions.length === 0) return;
+                        setActiveIndex((i) =>
+                          i <= 0 ? searchSuggestions.length - 1 : i - 1,
+                        );
+                        return;
+                      }
+                      if (e.key === "Home" && searchOpen) {
+                        e.preventDefault();
+                        setActiveIndex(0);
+                        return;
+                      }
+                      if (e.key === "End" && searchOpen) {
+                        e.preventDefault();
+                        setActiveIndex(searchSuggestions.length - 1);
+                        return;
+                      }
+                      if (e.key === "Enter") {
+                        if (
+                          searchOpen &&
+                          activeIndex >= 0 &&
+                          searchSuggestions[activeIndex]
+                        ) {
+                          e.preventDefault();
+                          setModelQuery(searchSuggestions[activeIndex].model);
+                          setSearchOpen(false);
+                        }
+                      }
                     }}
                     placeholder="Buscar modelo (X100, Sunray, Venezolana...)"
                     className="w-full rounded-lg border-2 border-border bg-background pl-9 pr-16 py-2 text-sm font-semibold text-foreground focus:border-primary focus:outline-none transition-colors"
@@ -540,6 +626,7 @@ const MorePlansSection = () => {
                         onClick={() => {
                           setModelQuery("");
                           setSearchOpen(true);
+                          searchInputRef.current?.focus();
                         }}
                         aria-label="Limpiar búsqueda"
                         className="p-1 rounded hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
@@ -549,7 +636,10 @@ const MorePlansSection = () => {
                     )}
                     <button
                       type="button"
-                      onClick={() => setSearchOpen((v) => !v)}
+                      onClick={() => {
+                        setSearchOpen((v) => !v);
+                        searchInputRef.current?.focus();
+                      }}
                       aria-label="Mostrar lista de modelos"
                       aria-expanded={searchOpen}
                       className="p-1 rounded hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
@@ -561,35 +651,40 @@ const MorePlansSection = () => {
                     </button>
                   </div>
 
-                  {searchOpen && (() => {
-                    const q = modelQuery.trim().toLowerCase();
-                    const suggestions = (
-                      q
-                        ? selectedPlan.models.filter((m) =>
-                            m.model.toLowerCase().includes(q),
-                          )
-                        : selectedPlan.models
-                    ).slice(0, 50);
-                    return (
-                      <ul
-                        id="model-search-listbox"
-                        role="listbox"
-                        className="absolute z-30 left-0 right-0 mt-1 max-h-72 overflow-y-auto rounded-lg border-2 border-primary/40 bg-card shadow-xl"
-                      >
-                        {suggestions.length === 0 ? (
-                          <li className="px-3 py-2 text-xs text-muted-foreground">
-                            Sin coincidencias en este plan.
-                          </li>
-                        ) : (
-                          suggestions.map((m) => (
-                            <li key={m.model} role="option">
+                  {searchOpen && (
+                    <ul
+                      ref={listboxRef}
+                      id="model-search-listbox"
+                      role="listbox"
+                      className="absolute z-30 left-0 right-0 mt-1 max-h-72 overflow-y-auto rounded-lg border-2 border-primary/40 bg-card shadow-xl"
+                    >
+                      {searchSuggestions.length === 0 ? (
+                        <li className="px-3 py-2 text-xs text-muted-foreground">
+                          Sin coincidencias en este plan.
+                        </li>
+                      ) : (
+                        searchSuggestions.map((m, idx) => {
+                          const isActive = idx === activeIndex;
+                          return (
+                            <li
+                              key={m.model}
+                              id={`model-option-${idx}`}
+                              role="option"
+                              aria-selected={isActive}
+                            >
                               <button
                                 type="button"
+                                onMouseEnter={() => setActiveIndex(idx)}
                                 onClick={() => {
                                   setModelQuery(m.model);
                                   setSearchOpen(false);
+                                  searchInputRef.current?.focus();
                                 }}
-                                className="w-full text-left px-3 py-2 text-xs flex items-center justify-between gap-3 hover:bg-primary/10 transition-colors"
+                                className={`w-full text-left px-3 py-2 text-xs flex items-center justify-between gap-3 transition-colors ${
+                                  isActive
+                                    ? "bg-primary/15 text-foreground"
+                                    : "hover:bg-primary/10"
+                                }`}
                               >
                                 <span className="font-semibold text-foreground truncate">
                                   {m.model}
@@ -599,11 +694,11 @@ const MorePlansSection = () => {
                                 </span>
                               </button>
                             </li>
-                          ))
-                        )}
-                      </ul>
-                    );
-                  })()}
+                          );
+                        })
+                      )}
+                    </ul>
+                  )}
                 </div>
                 <select
                   value={sortOrder}
