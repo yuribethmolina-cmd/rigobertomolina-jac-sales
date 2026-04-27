@@ -9,7 +9,7 @@ const PRECIO_MAX = 300000;
 type VehicleType = "SUV" | "Camioneta" | "Comercial";
 const vehicleTypes: VehicleType[] = ["SUV", "Camioneta", "Comercial"];
 
-type ModelQuota = { model: string; cuota: number };
+type ModelQuota = { model: string; cuota: number; cuota2?: number };
 
 type Plan = {
   id: string;
@@ -121,25 +121,26 @@ const morePlans: Plan[] = [
   {
     id: "travesia",
     title: "Travesía Eléctricos",
-    tagline: "Financiamiento exclusivo para línea EV",
+    tagline: "Estructura Pago Cuota 1 + Pago Cuota 2",
     structure: [
-      "Estructura especial para vehículos eléctricos JAC",
-      "Cronograma adaptado al ticket de los modelos EV",
+      "Pago Cuota 1 al firmar el contrato",
+      "Pago Cuota 2 al momento de la entrega",
+      "No tiene cuotas mensuales: solo dos pagos definidos",
     ],
-    cuotaLabel: "Cuota mensual estimada",
-    highlight: "El único plan dedicado 100% a eléctricos",
+    cuotaLabel: "Pago Cuota 1 / Pago Cuota 2",
+    highlight: "Único plan dedicado 100% a eléctricos",
     accent: "teal",
     models: [
-      { model: "Sunray EV", cuota: 6038.3 },
-      { model: "E-Sei4", cuota: 7154.3 },
-      { model: "E-JS1", cuota: 5564.0 },
-      { model: "E-JS4", cuota: 7752.5 },
+      { model: "Sunray EV", cuota: 6038.3, cuota2: 6038.3 },
+      { model: "E-Sei4", cuota: 7154.3, cuota2: 7154.3 },
+      { model: "E-JS1", cuota: 5564.0, cuota2: 5564.0 },
+      { model: "E-JS4", cuota: 7752.5, cuota2: 7752.5 },
     ],
-    inicialPct: 30,
-    cuotasOrdinarias: 24,
-    defaultPlazo: 30,
-    plazoMin: 24,
-    plazoMax: 36,
+    inicialPct: 50,
+    cuotasOrdinarias: 2,
+    defaultPlazo: 2,
+    plazoMin: 2,
+    plazoMax: 2,
   },
 ];
 
@@ -298,7 +299,19 @@ const MorePlansSection = () => {
                           {m.model}
                         </td>
                         <td className="px-4 py-2.5 text-right font-heading font-bold text-primary whitespace-nowrap">
-                          {formatUSD(m.cuota)}/mes
+                          {formatUSD(m.cuota)}
+                          {m.cuota2 !== undefined ? (
+                            <span className="text-muted-foreground font-normal">
+                              {" / "}
+                            </span>
+                          ) : (
+                            "/mes"
+                          )}
+                          {m.cuota2 !== undefined && (
+                            <span className="text-primary">
+                              {formatUSD(m.cuota2)}
+                            </span>
+                          )}
                         </td>
                       </tr>
                     ))}
@@ -309,7 +322,32 @@ const MorePlansSection = () => {
           </div>
         </div>
 
-        {/* Mini simulador + consulta personalizada */}
+        {selectedPlan.id === "travesia" ? (
+          <div className="mt-10 rounded-2xl border-2 border-amber-500/40 bg-amber-500/5 p-6 md:p-8 max-w-3xl mx-auto text-center">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <AlertTriangle size={18} className="text-amber-500" />
+              <h3 className="font-heading text-lg font-bold">
+                Travesía Eléctricos no usa simulador
+              </h3>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Este plan se paga en dos cuotas fijas (Pago Cuota 1 + Pago Cuota
+              2) según el modelo eléctrico. Consulta directamente con
+              Rigoberto para confirmar montos y disponibilidad.
+            </p>
+            <a
+              href={waLink(
+                `Hola Rigoberto, me interesa el plan Travesía Eléctricos. ¿Me confirmas Pago Cuota 1 y Pago Cuota 2 actualizados?`,
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3 font-heading text-sm font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
+            >
+              Consultar por WhatsApp <ArrowRight size={16} />
+            </a>
+          </div>
+        ) : (
+        /* Mini simulador + consulta personalizada */
         <div className="mt-10 rounded-2xl border-2 border-primary/40 bg-secondary/30 p-6 md:p-8 max-w-3xl mx-auto">
           <h3 className="font-heading text-lg md:text-xl font-bold text-center">
             Simula tu cuota y arma tu consulta
@@ -497,6 +535,7 @@ const MorePlansSection = () => {
             gastos de nacionalización.
           </p>
         </div>
+        )}
 
         <p className="mt-8 text-center text-xs text-muted-foreground max-w-2xl mx-auto leading-relaxed">
           * Montos referenciales de los catálogos oficiales JAC / Bel Feb 2026.
