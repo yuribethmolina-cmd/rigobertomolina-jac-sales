@@ -328,10 +328,39 @@ const MorePlansSection = () => {
     currentPage * PAGE_SIZE,
   );
 
+  // Sugerencias para el dropdown del buscador
+  const searchSuggestions = useMemo(() => {
+    const q = modelQuery.trim().toLowerCase();
+    return (
+      q
+        ? selectedPlan.models.filter((m) => m.model.toLowerCase().includes(q))
+        : selectedPlan.models
+    ).slice(0, 50);
+  }, [selectedPlan, modelQuery]);
+
   // Reset página cuando cambia cualquier filtro
   useEffect(() => {
     setPage(1);
   }, [modelQuery, sortOrder, fuelFilter, categoryFilter]);
+
+  // Reset índice activo cuando cambia la lista o se cierra el dropdown
+  useEffect(() => {
+    setActiveIndex(-1);
+  }, [searchSuggestions, searchOpen]);
+
+  // Auto-scroll del item activo al moverse con teclado
+  useEffect(() => {
+    if (!searchOpen || activeIndex < 0 || !listboxRef.current) return;
+    const item = listboxRef.current.querySelectorAll<HTMLLIElement>(
+      "li[role='option']",
+    )[activeIndex];
+    item?.scrollIntoView({ block: "nearest" });
+  }, [activeIndex, searchOpen]);
+
+  // Foco automático al input cuando se abre el dropdown
+  useEffect(() => {
+    if (searchOpen) searchInputRef.current?.focus();
+  }, [searchOpen]);
 
   // Recalcular plazo dentro del rango cuando cambia el plan
   const effectivePlazo = Math.min(
