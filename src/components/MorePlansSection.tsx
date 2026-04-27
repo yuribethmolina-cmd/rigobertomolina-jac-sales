@@ -299,7 +299,19 @@ const MorePlansSection = () => {
                           {m.model}
                         </td>
                         <td className="px-4 py-2.5 text-right font-heading font-bold text-primary whitespace-nowrap">
-                          {formatUSD(m.cuota)}/mes
+                          {formatUSD(m.cuota)}
+                          {m.cuota2 !== undefined ? (
+                            <span className="text-muted-foreground font-normal">
+                              {" / "}
+                            </span>
+                          ) : (
+                            "/mes"
+                          )}
+                          {m.cuota2 !== undefined && (
+                            <span className="text-primary">
+                              {formatUSD(m.cuota2)}
+                            </span>
+                          )}
                         </td>
                       </tr>
                     ))}
