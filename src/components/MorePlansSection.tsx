@@ -1,5 +1,9 @@
+import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { waLink } from "@/lib/constants";
+
+type VehicleType = "SUV" | "Camioneta" | "Comercial";
+const vehicleTypes: VehicleType[] = ["SUV", "Camioneta", "Comercial"];
 
 type Plan = {
   title: string;
