@@ -445,31 +445,54 @@ const MorePlansSection = () => {
                         </td>
                       </tr>
                     ) : (
-                      pagedModels.map((m, i) => (
-                        <tr
-                          key={m.model}
-                          className={i % 2 === 0 ? "bg-secondary/40" : ""}
-                        >
-                          <td className="px-4 py-2.5 font-semibold">
-                            {m.model}
-                          </td>
-                          <td className="px-4 py-2.5 text-right font-heading font-bold text-primary whitespace-nowrap">
-                            {formatUSD(m.cuota)}
-                            {m.cuota2 !== undefined ? (
-                              <span className="text-muted-foreground font-normal">
-                                {" / "}
-                              </span>
-                            ) : (
-                              "/mes"
-                            )}
-                            {m.cuota2 !== undefined && (
-                              <span className="text-primary">
-                                {formatUSD(m.cuota2)}
-                              </span>
-                            )}
-                          </td>
-                        </tr>
-                      ))
+                      pagedModels.map((m, i) => {
+                        const isPagoUnico = m.cuota2 !== undefined;
+                        const badgeLabel = isPagoUnico
+                          ? "Pago único × 2"
+                          : "Cuota mensual";
+                        const tooltip = isPagoUnico
+                          ? "Pago único: dos pagos definidos (Cuota 1 + Cuota 2). El monto mostrado NO es mensual y no es comparable directamente al ordenar."
+                          : `Cuota ordinaria mensual del catálogo oficial. Estructura del plan: ${selectedPlan.tagline}.`;
+                        return (
+                          <tr
+                            key={m.model}
+                            className={i % 2 === 0 ? "bg-secondary/40" : ""}
+                          >
+                            <td className="px-4 py-2.5">
+                              <div className="font-semibold">{m.model}</div>
+                              <div className="mt-1">
+                                <span
+                                  title={tooltip}
+                                  className={`inline-block text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full cursor-help ${
+                                    isPagoUnico
+                                      ? "bg-amber-500/15 text-amber-500 border border-amber-500/40"
+                                      : "bg-primary/10 text-primary border border-primary/30"
+                                  }`}
+                                >
+                                  {badgeLabel}
+                                </span>
+                              </div>
+                            </td>
+                            <td className="px-4 py-2.5 text-right font-heading font-bold text-primary whitespace-nowrap align-top">
+                              {formatUSD(m.cuota)}
+                              {isPagoUnico ? (
+                                <>
+                                  <span className="text-muted-foreground font-normal">
+                                    {" / "}
+                                  </span>
+                                  <span className="text-primary">
+                                    {formatUSD(m.cuota2!)}
+                                  </span>
+                                </>
+                              ) : (
+                                <span className="text-muted-foreground font-normal text-xs">
+                                  /mes
+                                </span>
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })
                     )}
                   </tbody>
                 </table>
