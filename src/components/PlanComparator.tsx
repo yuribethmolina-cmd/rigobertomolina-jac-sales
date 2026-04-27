@@ -191,8 +191,13 @@ const PlanComparator = () => {
     const parts: string[] = [
       `Hola Rigoberto, quiero información sobre el plan ${planName}.`,
     ];
-    if (model !== "Sin preferencia") {
-      parts.push(`Me interesa el modelo ${model}.`);
+    if (models.length > 0) {
+      const list = formatModelList(models);
+      parts.push(
+        models.length === 1
+          ? `Me interesa el modelo ${list}.`
+          : `Me interesan los modelos ${list}.`,
+      );
     }
     const constraints: string[] = [];
     if (budget !== Infinity) {
