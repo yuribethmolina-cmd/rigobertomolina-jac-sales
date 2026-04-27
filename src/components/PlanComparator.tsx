@@ -147,8 +147,24 @@ const plazoOptions = [
 const PlanComparator = () => {
   const [budget, setBudget] = useState<number>(2000);
   const [maxPlazo, setMaxPlazo] = useState<number>(24);
-  const [model, setModel] = useState<string>("Sin preferencia");
+  const [models, setModels] = useState<string[]>([]);
   const [selectedPlanId, setSelectedPlanId] = useState<string | null>(null);
+  const MAX_MODELS = 3;
+
+  const toggleModel = (name: string) => {
+    setModels((prev) => {
+      if (prev.includes(name)) return prev.filter((m) => m !== name);
+      if (prev.length >= MAX_MODELS) return prev;
+      return [...prev, name];
+    });
+  };
+
+  const formatModelList = (list: string[]) => {
+    if (list.length === 0) return "";
+    if (list.length === 1) return list[0];
+    if (list.length === 2) return `${list[0]} y ${list[1]}`;
+    return `${list.slice(0, -1).join(", ")} y ${list[list.length - 1]}`;
+  };
 
   const matches = useMemo(() => {
     return plans
