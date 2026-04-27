@@ -408,6 +408,110 @@ const PlanComparator = () => {
               top.find((p) => p.id === selectedPlanId) ?? top[0];
             return (
               <div className="mt-8 max-w-3xl mx-auto">
+                {/* Resumen con chips clicables */}
+                <div className="mb-3 rounded-lg border border-border bg-background/60 p-3">
+                  <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
+                    Resumen de tu solicitud
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedPlanId(null)}
+                      title={
+                        selectedPlanId
+                          ? "Quitar selección de plan"
+                          : "Plan recomendado por defecto"
+                      }
+                      className="inline-flex items-center gap-1.5 rounded-full border-2 border-primary bg-primary/15 px-3 py-1 text-xs font-bold text-foreground hover:bg-primary/25 transition-colors"
+                    >
+                      <span className="text-[9px] uppercase tracking-wider text-primary">
+                        Plan
+                      </span>
+                      {activePlan.name}
+                      {selectedPlanId && <X size={11} />}
+                    </button>
+
+                    {models.length === 0 ? (
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-dashed border-border px-3 py-1 text-xs font-semibold text-muted-foreground">
+                        <span className="text-[9px] uppercase tracking-wider">
+                          Modelos
+                        </span>
+                        Sin preferencia
+                      </span>
+                    ) : (
+                      models.map((m) => (
+                        <button
+                          key={m}
+                          type="button"
+                          onClick={() => toggleModel(m)}
+                          title={`Quitar ${m}`}
+                          className="inline-flex items-center gap-1.5 rounded-full border-2 border-primary bg-primary/15 px-3 py-1 text-xs font-bold text-foreground hover:bg-primary/25 transition-colors"
+                        >
+                          <span className="text-[9px] uppercase tracking-wider text-primary">
+                            Modelo
+                          </span>
+                          {m}
+                          <X size={11} />
+                        </button>
+                      ))
+                    )}
+
+                    <button
+                      type="button"
+                      onClick={() => setBudget(Infinity)}
+                      title={
+                        budget === Infinity
+                          ? "Sin límite de presupuesto"
+                          : "Liberar presupuesto (sin límite)"
+                      }
+                      className={`inline-flex items-center gap-1.5 rounded-full border-2 px-3 py-1 text-xs font-bold transition-colors ${
+                        budget === Infinity
+                          ? "border-dashed border-border text-muted-foreground"
+                          : "border-primary bg-primary/15 text-foreground hover:bg-primary/25"
+                      }`}
+                    >
+                      <span
+                        className={`text-[9px] uppercase tracking-wider ${
+                          budget === Infinity ? "" : "text-primary"
+                        }`}
+                      >
+                        Presupuesto
+                      </span>
+                      {budget === Infinity
+                        ? "Sin límite"
+                        : `Hasta $${budget.toLocaleString("es-VE")}/mes`}
+                      {budget !== Infinity && <X size={11} />}
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setMaxPlazo(999)}
+                      title={
+                        maxPlazo === 999
+                          ? "Sin tope de plazo"
+                          : "Liberar plazo (sin tope)"
+                      }
+                      className={`inline-flex items-center gap-1.5 rounded-full border-2 px-3 py-1 text-xs font-bold transition-colors ${
+                        maxPlazo === 999
+                          ? "border-dashed border-border text-muted-foreground"
+                          : "border-primary bg-primary/15 text-foreground hover:bg-primary/25"
+                      }`}
+                    >
+                      <span
+                        className={`text-[9px] uppercase tracking-wider ${
+                          maxPlazo === 999 ? "" : "text-primary"
+                        }`}
+                      >
+                        Plazo
+                      </span>
+                      {maxPlazo === 999
+                        ? "Sin tope"
+                        : `Hasta ${maxPlazo} meses`}
+                      {maxPlazo !== 999 && <X size={11} />}
+                    </button>
+                  </div>
+                </div>
+
                 <CopyableMessage
                   message={buildMessage(activePlan.name)}
                   label={`Mensaje para ${activePlan.name}${
