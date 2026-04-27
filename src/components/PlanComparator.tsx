@@ -239,6 +239,44 @@ const PlanComparator = () => {
               ))}
             </div>
           </div>
+
+          <div className="md:col-span-2">
+            <label
+              htmlFor="model-select"
+              className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2"
+            >
+              Modelo de interés (opcional)
+            </label>
+            <select
+              id="model-select"
+              value={model}
+              onChange={(e) => setModel(e.target.value)}
+              className="w-full rounded-lg border-2 border-border bg-background px-4 py-3 text-sm font-semibold text-foreground hover:border-primary/50 focus:border-primary focus:outline-none transition-colors"
+            >
+              {(() => {
+                const groups = Array.from(
+                  new Set(modelOptions.map((m) => m.group)),
+                );
+                return groups.map((g) =>
+                  g === "Sin preferencia" ? (
+                    <option key={g} value="Sin preferencia">
+                      Sin preferencia
+                    </option>
+                  ) : (
+                    <optgroup key={g} label={g}>
+                      {modelOptions
+                        .filter((m) => m.group === g)
+                        .map((m) => (
+                          <option key={m.name} value={m.name}>
+                            {m.name}
+                          </option>
+                        ))}
+                    </optgroup>
+                  ),
+                );
+              })()}
+            </select>
+          </div>
         </div>
 
         {/* Resultados */}
@@ -288,7 +326,7 @@ const PlanComparator = () => {
                   </p>
                 </div>
                 <a
-                  href={waLink(`Hola Rigoberto, quiero información sobre el plan ${p.name}`)}
+                  href={waLink(buildMessage(p.name))}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-4 w-full inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 font-heading text-sm font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
