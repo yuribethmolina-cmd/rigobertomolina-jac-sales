@@ -17,6 +17,12 @@ type Plan = {
   highlight: string;
   accent: "teal" | "amber" | "neutral";
   models: ModelQuota[];
+  // Parámetros para el mini simulador
+  inicialPct: number;        // % del precio que cubre la inicial total
+  cuotasOrdinarias: number;  // número de cuotas mensuales típicas
+  defaultPlazo: number;      // plazo total sugerido en meses
+  plazoMin: number;
+  plazoMax: number;
 };
 
 // Cuotas extraídas vía OCR de los catálogos oficiales JAC/Bel Feb 2026.
