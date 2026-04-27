@@ -1,7 +1,10 @@
 import { useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, AlertTriangle } from "lucide-react";
 import { waLink } from "@/lib/constants";
 import CopyableMessage from "@/components/CopyableMessage";
+
+const PRECIO_MIN = 5000;
+const PRECIO_MAX = 300000;
 
 type VehicleType = "SUV" | "Camioneta" | "Comercial";
 const vehicleTypes: VehicleType[] = ["SUV", "Camioneta", "Comercial"];
