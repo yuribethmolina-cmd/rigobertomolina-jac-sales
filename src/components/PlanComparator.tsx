@@ -191,6 +191,8 @@ const PlanComparator = () => {
   const cleanNombre = sanitize(nombre).slice(0, MAX_NAME);
   const cleanCiudad = sanitize(ciudad).slice(0, MAX_CITY);
 
+  const toggleModel = (name: string) => {
+    setModels((prev) => {
       if (prev.includes(name)) return prev.filter((m) => m !== name);
       if (prev.length >= MAX_MODELS) return prev;
       return [...prev, name];
