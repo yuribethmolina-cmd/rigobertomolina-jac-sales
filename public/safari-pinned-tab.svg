@@ -1,3 +1,49 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="black">
-  <text x="8" y="13" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11" font-weight="800" text-anchor="middle" letter-spacing="-0.5">RM</text>
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Safari Pinned Tab icon for Rigoberto Molina (RM monogram).
+  Requirements: pure black on transparent, no strokes, no gradients,
+  single <path> or basic shapes only. Safari tints the black fill
+  with the color from <link rel="mask-icon" color="...">.
+  ViewBox 16x16 (Safari standard for pinned tabs).
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+  <!-- R: stem + bowl + diagonal leg -->
+  <path fill="#000000" d="
+    M 1.6 2
+    L 4.2 2
+    Q 6.6 2 6.6 4.2
+    Q 6.6 5.7 5.4 6.4
+    L 7.0 9.4
+    L 7.0 14
+    L 5.4 14
+    L 5.4 10.2
+    L 4.0 7.4
+    L 3.2 7.4
+    L 3.2 14
+    L 1.6 14
+    Z
+    M 3.2 3.4
+    L 3.2 6.0
+    L 4.1 6.0
+    Q 5.0 6.0 5.0 4.7
+    Q 5.0 3.4 4.1 3.4
+    Z
+  "/>
+  <!-- M: two stems + central V -->
+  <path fill="#000000" d="
+    M 7.6 2
+    L 9.0 2
+    L 11.0 7.0
+    L 13.0 2
+    L 14.4 2
+    L 14.4 14
+    L 12.9 14
+    L 12.9 6.0
+    L 11.5 9.6
+    L 10.5 9.6
+    L 9.1 6.0
+    L 9.1 14
+    L 7.6 14
+    Z
+  "/>
 </svg>
