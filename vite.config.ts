@@ -40,7 +40,7 @@ export default defineConfig(({ command }) => {
       {
         name: "inject-release-id",
         transformIndexHtml(html) {
-          return html.replaceAll("%RELEASE_ID%", releaseId);
+          return html.replaceAll("__RELEASE_ID__", releaseId);
         },
       },
     ],
