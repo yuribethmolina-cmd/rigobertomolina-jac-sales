@@ -2,7 +2,8 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- viewport-fit=cover: el contenido se extiende bajo notch/safe areas en standalone (iOS) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Rigoberto Molina · Vendedor JAC Caracas</title>
     <meta name="description" content="Catálogo JAC Venezuela · Compra Directa · Atención personalizada en Caracas. SUVs, camionetas y comerciales.">
     <meta name="author" content="Rigoberto Molina" />
@@ -36,10 +37,7 @@
   <!-- Fallback genérico para versiones antiguas de iOS sin atributo sizes -->
   <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=%RELEASE_ID%">
 
-  <!-- Safari Pinned Tab (macOS Safari): SVG monocromático que se tiñe del color indicado -->
-  <link rel="mask-icon" href="/safari-pinned-tab.svg?v=%RELEASE_ID%" color="#00B5C8">
-
-  <!-- Safari Pinned Tab (macOS Safari): SVG monocromático que se tiñe del color indicado -->
+  <!-- Safari Pinned Tab (macOS Safari): SVG monocromático teñido con el color de marca -->
   <link rel="mask-icon" href="/safari-pinned-tab.svg?v=%RELEASE_ID%" color="#00B5C8">
 
   <!-- Android Chrome -->
@@ -49,26 +47,32 @@
   <link rel="manifest" href="/manifest.json?v=%RELEASE_ID%">
 
   <!-- PWA / iOS Add to Home Screen -->
-  <!-- theme-color: navy oscuro (fondo real del sitio) en modo dark, teal de marca en light.
-       Android Chrome lo usa para la barra de URL; iOS Safari 15+ para la barra superior. -->
-  <meta name="theme-color" content="#0F172A" media="(prefers-color-scheme: dark)">
-  <meta name="theme-color" content="#00B5C8" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0F172A">
+  <!-- theme-color = color real del fondo del sitio (HSL 213 45% 11% → #0F1A28).
+       Android Chrome lo usa para barra de URL; iOS Safari 15+ para barra superior.
+       Mantenerlo idéntico al fondo evita el "salto" visual entre chrome y contenido. -->
+  <meta name="theme-color" content="#0F1A28" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#0F1A28" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0F1A28">
 
-  <!-- color-scheme: indica al navegador que renderice scrollbars/form controls en oscuro -->
+  <!-- color-scheme: scrollbars y form controls nativos en oscuro -->
   <meta name="color-scheme" content="dark">
 
   <meta name="application-name" content="Rigoberto Molina">
+
+  <!-- Modo standalone (pantalla completa al abrir desde home screen) -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
-  <!-- black-translucent: el contenido se extiende bajo la status bar de iOS con texto blanco -->
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <!-- Status bar: "black" = fondo negro sólido, contenido empieza debajo de la barra.
+       Coherente con el tema oscuro y evita problemas de safe-area en notch. -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
   <meta name="apple-mobile-web-app-title" content="Rigoberto Molina">
   <meta name="format-detection" content="telephone=no">
 
   <!-- Windows / Edge tiles -->
-  <meta name="msapplication-TileColor" content="#0F172A">
-  <meta name="msapplication-navbutton-color" content="#0F172A">
+  <meta name="msapplication-TileColor" content="#0F1A28">
+  <meta name="msapplication-navbutton-color" content="#0F1A28">
   <meta name="msapplication-TileImage" content="/apple-touch-icon.png?v=%RELEASE_ID%">
 
   <!-- Preload de recursos críticos para mejorar carga en conexiones lentas -->
