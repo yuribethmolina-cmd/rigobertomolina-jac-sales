@@ -1,8 +1,8 @@
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
+import { RELEASE_ID } from "./lib/release";
 
-const RELEASE_ID = "v20260318-1400";
 console.info(`[Release] ${RELEASE_ID}`);
 
 const root = document.getElementById("root")!;
