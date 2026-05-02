@@ -30,14 +30,26 @@
   <link rel="manifest" href="/manifest.json?v=%RELEASE_ID%">
 
   <!-- PWA / iOS Add to Home Screen -->
-  <meta name="theme-color" content="#00B5C8">
+  <!-- theme-color: navy oscuro (fondo real del sitio) en modo dark, teal de marca en light.
+       Android Chrome lo usa para la barra de URL; iOS Safari 15+ para la barra superior. -->
+  <meta name="theme-color" content="#0F172A" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#00B5C8" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0F172A">
+
+  <!-- color-scheme: indica al navegador que renderice scrollbars/form controls en oscuro -->
+  <meta name="color-scheme" content="dark">
+
   <meta name="application-name" content="Rigoberto Molina">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
+  <!-- black-translucent: el contenido se extiende bajo la status bar de iOS con texto blanco -->
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Rigoberto Molina">
   <meta name="format-detection" content="telephone=no">
+
+  <!-- Windows / Edge tiles -->
   <meta name="msapplication-TileColor" content="#0F172A">
+  <meta name="msapplication-navbutton-color" content="#0F172A">
   <meta name="msapplication-TileImage" content="/apple-touch-icon.png?v=%RELEASE_ID%">
 
   <!-- Preload de recursos críticos para mejorar carga en conexiones lentas -->
