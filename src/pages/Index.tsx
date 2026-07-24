@@ -26,6 +26,7 @@ const Index = () => (
     <PlanComparator />
     <PaymentSection />
     <PaymentSimulator />
+    <GuidedSimulator />
     <HowToBuySection />
     <FAQSection />
     <AboutSection />
