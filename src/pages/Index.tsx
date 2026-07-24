@@ -7,6 +7,7 @@ import MorePlansSection from "@/components/MorePlansSection";
 import PlanComparator from "@/components/PlanComparator";
 import PaymentSection from "@/components/PaymentSection";
 import PaymentSimulator from "@/components/PaymentSimulator";
+import GuidedSimulator from "@/components/GuidedSimulator";
 import HowToBuySection from "@/components/HowToBuySection";
 import FAQSection from "@/components/FAQSection";
 import AboutSection from "@/components/AboutSection";
@@ -25,6 +26,7 @@ const Index = () => (
     <PlanComparator />
     <PaymentSection />
     <PaymentSimulator />
+    <GuidedSimulator />
     <HowToBuySection />
     <FAQSection />
     <AboutSection />
