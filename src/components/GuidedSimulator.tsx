@@ -112,6 +112,35 @@ const GuidedSimulator = () => {
     return { total, inicial, pagos: 12, ultima };
   }, [cuota, plan, inicialPct]);
 
+  /* Amortization schedule (per-cuota breakdown with running total) */
+  type ScheduleRow = { label: string; amount: number; cumulative: number; highlight?: boolean };
+  const schedule = useMemo<ScheduleRow[] | null>(() => {
+    if (!cuota || !plan || !totales) return null;
+    const rows: ScheduleRow[] = [];
+    let cum = 0;
+    if (totales.inicial > 0) {
+      cum += totales.inicial;
+      rows.push({ label: `Inicial (${inicialPct}%)`, amount: totales.inicial, cumulative: cum, highlight: true });
+    }
+    if (plan === "directa") {
+      const labels = ["Afiliación", "Cuota 1", "Cuota 2", "Cuota 3", "Cuota 4", "Cuota 5", "Previo a entrega"];
+      labels.forEach((label) => {
+        cum += cuota;
+        rows.push({ label, amount: cuota, cumulative: cum });
+      });
+    } else {
+      rows.push({ label: "Afiliación", amount: cuota, cumulative: (cum += cuota) });
+      for (let i = 1; i <= 10; i++) {
+        cum += cuota;
+        rows.push({ label: `Cuota ${i}`, amount: cuota, cumulative: cum });
+      }
+      const ultima = totales.ultima ?? cuota;
+      cum += ultima;
+      rows.push({ label: "Última cuota", amount: ultima, cumulative: cum, highlight: true });
+    }
+    return rows;
+  }, [cuota, plan, totales, inicialPct]);
+
   const canNext =
     (step === 0 && !!modelName) ||
     (step === 1 && !!plan) ||
@@ -390,6 +419,43 @@ const GuidedSimulator = () => {
                     <span className="font-heading font-bold">TOTAL ESTIMADO</span>
                     <span className="font-heading font-bold text-lg text-primary">
                       {fmt(totales.total)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-6">
+                <p className="text-xs font-semibold text-muted-foreground mb-2">
+                  Desglose de cuotas
+                </p>
+                <div className="rounded-xl border border-border overflow-hidden">
+                  <div className="grid grid-cols-[auto_1fr_auto_auto] gap-x-4 px-4 py-2 bg-secondary text-[11px] font-heading font-bold uppercase tracking-wide text-muted-foreground">
+                    <span>#</span>
+                    <span>Concepto</span>
+                    <span className="text-right">Monto</span>
+                    <span className="text-right">Acumulado</span>
+                  </div>
+                  <div className="divide-y divide-border max-h-72 overflow-y-auto">
+                    {schedule?.map((row, i) => (
+                      <div
+                        key={`${row.label}-${i}`}
+                        className={`grid grid-cols-[auto_1fr_auto_auto] gap-x-4 px-4 py-2.5 text-sm ${
+                          row.highlight ? "bg-primary/5" : ""
+                        }`}
+                      >
+                        <span className="text-xs text-muted-foreground w-5">{i + 1}</span>
+                        <span className={row.highlight ? "font-semibold" : ""}>{row.label}</span>
+                        <span className="font-heading font-bold text-right">{fmt(row.amount)}</span>
+                        <span className="text-right text-xs text-muted-foreground">
+                          {fmt(row.cumulative)}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex items-center justify-between px-4 py-3 bg-primary/10">
+                    <span className="font-heading font-bold text-sm">TOTAL</span>
+                    <span className="font-heading font-bold text-lg text-primary">
+                      {schedule ? fmt(schedule[schedule.length - 1].cumulative) : ""}
                     </span>
                   </div>
                 </div>
