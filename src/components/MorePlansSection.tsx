@@ -85,18 +85,44 @@ const morePlans: Plan[] = [
     plazoMax: 48,
   },
   {
+    id: "facilito",
+    title: "Facilito de JAC",
+    tagline: "Inicial baja + cuotas fijas por 2 años",
+    structure: [
+      "Afiliación Día 1",
+      "6 pagos mensuales iniciales",
+      "Pre-entrega (cuota especial)",
+      "23 cuotas fijas mensuales",
+    ],
+    cuotaLabel: "Cuota mensual fija",
+    highlight: "La cuota mensual más baja de JAC",
+    accent: "teal",
+    models: [
+      { model: "Arena Sport MT", cuota: 799.1 },
+      { model: "Arena Sport AT", cuota: 899.4 },
+    ],
+    inicialPct: 20,
+    cuotasOrdinarias: 23,
+    defaultPlazo: 30,
+    plazoMin: 24,
+    plazoMax: 36,
+  },
+  {
     id: "fiao",
     title: "Llévatelo Fiao",
-    tagline: "Plan flexible con entrega anticipada",
+    tagline: "40% inicial + 12 cuotas ordinarias",
     structure: [
-      "Cuotas iniciales reducidas",
-      "Entrega del vehículo antes de finalizar el plan",
-      "Cuotas posteriores hasta cierre del cronograma",
+      "Afiliación Día 1",
+      "5 pagos iniciales (40% del precio)",
+      "Pre-entrega previo a la entrega",
+      "12 cuotas ordinarias mensuales",
     ],
-    cuotaLabel: "Cuota mensual estimada",
+    cuotaLabel: "Cuota ordinaria mensual",
     highlight: "Te llevas tu vehículo antes de pagar todo",
     accent: "amber",
     models: [
+      { model: "Arena Sport MT", cuota: 974.0 },
+      { model: "Arena Sport AT", cuota: 1064.9 },
       { model: "X100 Ferretero", cuota: 1192.7 },
       { model: "Urban Chasis Largo 3 Ton", cuota: 1344.2 },
       { model: "Urban Ferretero 2 Ton", cuota: 1430.7 },
@@ -106,8 +132,8 @@ const morePlans: Plan[] = [
       { model: "Sunray Pasajeros", cuota: 2274.6 },
       { model: "Sunlong / Bachaco", cuota: 3789.4 },
     ],
-    inicialPct: 25,
-    cuotasOrdinarias: 18,
+    inicialPct: 40,
+    cuotasOrdinarias: 12,
     defaultPlazo: 18,
     plazoMin: 12,
     plazoMax: 24,
@@ -1108,10 +1134,10 @@ const MorePlansSection = () => {
         )}
 
         <p className="mt-8 text-center text-xs text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-          * Montos referenciales de los catálogos oficiales JAC / Bel Feb 2026.
-          Sujetos a variación según flete, seguro, IVA, IGTF y gastos de
-          nacionalización. Confirma siempre con Rigoberto antes de cerrar tu
-          plan.
+          * Montos referenciales de los catálogos oficiales JAC / Bel. Facilito
+          y Llévatelo Fiao actualizados Jun 2026. Sujetos a variación según
+          flete, seguro, IVA, IGTF y gastos de nacionalización. Confirma
+          siempre con Rigoberto antes de cerrar tu plan.
         </p>
       </div>
     </section>
