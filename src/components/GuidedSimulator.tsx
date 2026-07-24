@@ -112,6 +112,35 @@ const GuidedSimulator = () => {
     return { total, inicial, pagos: 12, ultima };
   }, [cuota, plan, inicialPct]);
 
+  /* Amortization schedule (per-cuota breakdown with running total) */
+  type ScheduleRow = { label: string; amount: number; cumulative: number; highlight?: boolean };
+  const schedule = useMemo<ScheduleRow[] | null>(() => {
+    if (!cuota || !plan || !totales) return null;
+    const rows: ScheduleRow[] = [];
+    let cum = 0;
+    if (totales.inicial > 0) {
+      cum += totales.inicial;
+      rows.push({ label: `Inicial (${inicialPct}%)`, amount: totales.inicial, cumulative: cum, highlight: true });
+    }
+    if (plan === "directa") {
+      const labels = ["Afiliación", "Cuota 1", "Cuota 2", "Cuota 3", "Cuota 4", "Cuota 5", "Previo a entrega"];
+      labels.forEach((label) => {
+        cum += cuota;
+        rows.push({ label, amount: cuota, cumulative: cum });
+      });
+    } else {
+      rows.push({ label: "Afiliación", amount: cuota, cumulative: (cum += cuota) });
+      for (let i = 1; i <= 10; i++) {
+        cum += cuota;
+        rows.push({ label: `Cuota ${i}`, amount: cuota, cumulative: cum });
+      }
+      const ultima = totales.ultima ?? cuota;
+      cum += ultima;
+      rows.push({ label: "Última cuota", amount: ultima, cumulative: cum, highlight: true });
+    }
+    return rows;
+  }, [cuota, plan, totales, inicialPct]);
+
   const canNext =
     (step === 0 && !!modelName) ||
     (step === 1 && !!plan) ||
