@@ -17,10 +17,10 @@ const facilSteps = [
 ];
 
 const comparisonData = [
-  { modelo: "Arena Sport MT", directa: "$2.564 / mes", totalDirecta: "$17.948", facil: "$1.576 / mes", totalFacil: "$22.132", featured: false },
-  { modelo: "Arena Sport AT", directa: "$3.236 / mes", totalDirecta: "$22.652", facil: "$1.694 / mes", totalFacil: "$23.876", featured: false },
-  { modelo: "Nevado MT ⭐", directa: "$3.018 / mes", totalDirecta: "$21.130", facil: "$2.402 / mes", totalFacil: "$29.436", featured: true },
-  { modelo: "La Venezolana 4x2", directa: "$2.972 / mes", totalDirecta: "$20.804", facil: "$1.653 / mes", totalFacil: "$23.295", featured: false },
+  { modelo: "Arena Sport MT", directa: "$2.568 / mes", totalDirecta: "$17.978", facil: "$1.576 / mes", totalFacil: "$22.132", featured: false },
+  { modelo: "Arena Sport AT", directa: "$2.775 / mes", totalDirecta: "$19.427", facil: "$1.694 / mes", totalFacil: "$23.876", featured: false },
+  { modelo: "Nevado MT ⭐", directa: "$3.386 / mes", totalDirecta: "$23.705", facil: "$2.402 / mes", totalFacil: "$29.436", featured: true },
+  { modelo: "La Venezolana 4x2", directa: "$3.267 / mes", totalDirecta: "$22.874", facil: "$1.653 / mes", totalFacil: "$23.295", featured: false },
 ];
 
 const PaymentSection = () => {
@@ -87,7 +87,7 @@ const PaymentSection = () => {
               <p className="text-sm font-semibold text-muted-foreground">Los tres pagos son exactamente iguales entre sí.</p>
               <div className={`inline-block mt-4 border rounded-lg px-6 py-4 ${accentBg}`}>
                 <p className={`font-heading font-bold text-lg ${accentClass}`}>
-                  Nevado MT → $3.018,6 + ($3.018,6 × 5) + $3.018,6 = aprox. $21.130 total
+                  Nevado MT → $3.386,4 + ($3.386,4 × 5) + $3.386,4 = aprox. $23.705 total
                 </p>
               </div>
               <p className={`mt-3 text-sm font-medium ${accentClass}`}>
@@ -113,7 +113,7 @@ const PaymentSection = () => {
         <div className="mt-16">
           <div className="text-center mb-8">
             <h3 className="font-heading text-2xl md:text-3xl font-bold">¿Cuánto pagarías por mes con cada plan?</h3>
-            <p className="text-muted-foreground text-sm mt-2">Cuotas mensuales referenciales · Feb 2026</p>
+            <p className="text-muted-foreground text-sm mt-2">Cuotas mensuales referenciales · Jul 2026</p>
           </div>
 
           <div className="overflow-x-auto">
@@ -163,7 +163,7 @@ const PaymentSection = () => {
           <AlertTriangle className="text-amber-500 shrink-0 mt-0.5" size={22} />
           <p className="text-sm leading-relaxed">
             <strong className="text-amber-500">Precios referenciales.</strong>{" "}
-            Los montos mostrados corresponden al catálogo de <strong>Feb 2026</strong> y están{" "}
+            Los montos mostrados corresponden al catálogo de <strong>Jul 2026</strong> y están{" "}
             <strong>sujetos a cambio</strong> por flete, seguro, IVA, IGTF y gastos de nacionalización.
             Contáctame para el cronograma actualizado de tu modelo.
           </p>
