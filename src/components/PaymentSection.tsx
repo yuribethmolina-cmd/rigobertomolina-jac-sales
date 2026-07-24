@@ -12,15 +12,15 @@ const directaSteps = [
 
 const facilSteps = [
   { num: "①", title: "AFILIACIÓN", sub: "Día 1", desc: "Primer pago para reservar tu unidad" },
-  { num: "②", title: "10 CUOTAS MENSUALES", sub: "Mes a mes por 10 meses", desc: "Cuotas más bajas, más tiempo para pagar" },
-  { num: "③", title: "ÚLTIMA CUOTA", sub: "Antes de la entrega", desc: "Cuota final mayor antes de recibir tu carro" },
+  { num: "②", title: "12 CUOTAS MENSUALES", sub: "Mes a mes por 12 meses", desc: "Cuotas más bajas, más tiempo para pagar" },
+  { num: "③", title: "PREVIO A LA ENTREGA", sub: "Antes de la entrega", desc: "Cuota final mayor antes de recibir tu carro" },
 ];
 
 const comparisonData = [
-  { modelo: "Arena Sport MT", directa: "$2.568 / mes", totalDirecta: "$17.978", facil: "$1.576 / mes", totalFacil: "$22.132", featured: false },
-  { modelo: "Arena Sport AT", directa: "$2.775 / mes", totalDirecta: "$19.427", facil: "$1.694 / mes", totalFacil: "$23.876", featured: false },
-  { modelo: "Nevado MT ⭐", directa: "$3.386 / mes", totalDirecta: "$23.705", facil: "$2.402 / mes", totalFacil: "$29.436", featured: true },
-  { modelo: "La Venezolana 4x2", directa: "$3.267 / mes", totalDirecta: "$22.874", facil: "$1.653 / mes", totalFacil: "$23.295", featured: false },
+  { modelo: "Arena Sport MT", directa: "$2.568 / mes", totalDirecta: "$17.978", facil: "$1.242 / mes", totalFacil: "$18.840", featured: false },
+  { modelo: "Arena Sport AT", directa: "$2.775 / mes", totalDirecta: "$19.427", facil: "$1.351 / mes", totalFacil: "$20.360", featured: false },
+  { modelo: "Nevado MT ⭐", directa: "$3.386 / mes", totalDirecta: "$23.705", facil: "$1.674 / mes", totalFacil: "$24.848", featured: true },
+  { modelo: "La Venezolana 4x2", directa: "$3.267 / mes", totalDirecta: "$22.874", facil: "Consultar", totalFacil: "Consultar", featured: false },
 ];
 
 const PaymentSection = () => {
@@ -99,7 +99,7 @@ const PaymentSection = () => {
               <p className="text-sm font-semibold text-muted-foreground">Las cuotas mensuales son significativamente menores que en Compra Directa.</p>
               <div className={`inline-block mt-4 border rounded-lg px-6 py-4 ${accentBg}`}>
                 <p className="font-heading font-bold text-primary text-lg">
-                  Nevado MT → $2.402,3 + ($2.402,3 × 10) + $5.413,9 = aprox. $29.436 total
+                  Nevado MT → $999,9 + ($1.673,5 × 12) + $3.766,0 = aprox. $24.848 total
                 </p>
               </div>
               <p className="mt-3 text-sm font-medium text-primary">
