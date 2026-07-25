@@ -141,30 +141,27 @@ const morePlans: Plan[] = [
   {
     id: "ruta66",
     title: "Credijac Ruta 66",
-    tagline: "Pensado para camiones de carga",
+    tagline: "16 cuotas iniciales + pre-entrega + 50 cuotas mensuales",
     structure: [
-      "Cuotas iniciales",
-      "Pre-entrega",
-      "Cuotas ordinarias prolongadas",
-      "Cuotas extra programadas",
+      "16 cuotas iniciales mensuales (previas a la entrega)",
+      "Pre-entrega: pago especial previo a recibir el vehículo",
+      "50 cuotas ordinarias mensuales y consecutivas",
     ],
-    cuotaLabel: "Cuota ordinaria mensual",
-    highlight: "Ideal para flotas y operadores logísticos",
+    cuotaLabel: "Cuota mensual (50 cuotas)",
+    highlight: "Financiamiento extendido a más de 5 años",
     accent: "neutral",
     models: [
-      { model: "X100 Ferretero", cuota: 530.8 },
-      { model: "Urban Chasis Largo 3 Ton", cuota: 654.5 },
-      { model: "Urban Ferretero 2 Ton", cuota: 716.3 },
-      { model: "C-3500 Doble Cabina", cuota: 963.7 },
-      { model: "Búfalo Cava de Conservación", cuota: 2197.4 },
-      { model: "Búfalo Brazo Hidráulico", cuota: 3538.2 },
-      { model: "Sunlong / Bachaco", cuota: 1865.5 },
+      { model: "Arena Sport MT", cuota: 558.8 },
+      { model: "Arena Sport AT", cuota: 599.3 },
+      { model: "Arena Pro AT", cuota: 670.9 },
+      { model: "Nevado MT", cuota: 731.4 },
+      { model: "Tepuy Pro", cuota: 1020.1 },
     ],
-    inicialPct: 30,
-    cuotasOrdinarias: 30,
-    defaultPlazo: 36,
-    plazoMin: 24,
-    plazoMax: 48,
+    inicialPct: 20,
+    cuotasOrdinarias: 50,
+    defaultPlazo: 50,
+    plazoMin: 50,
+    plazoMax: 66,
   },
   {
     id: "travesia",
@@ -1134,10 +1131,10 @@ const MorePlansSection = () => {
         )}
 
         <p className="mt-8 text-center text-xs text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-          * Montos referenciales de los catálogos oficiales JAC / Bel. Facilito
-          y Llévatelo Fiao actualizados Jun 2026. Sujetos a variación según
-          flete, seguro, IVA, IGTF y gastos de nacionalización. Confirma
-          siempre con Rigoberto antes de cerrar tu plan.
+          * Montos referenciales de los catálogos oficiales JAC / Bel. Facilito,
+          Llévatelo Fiao y Credijac Ruta 66 actualizados Jun 2026. Sujetos a
+          variación según flete, seguro, IVA, IGTF y gastos de nacionalización.
+          Confirma siempre con Rigoberto antes de cerrar tu plan.
         </p>
       </div>
     </section>
