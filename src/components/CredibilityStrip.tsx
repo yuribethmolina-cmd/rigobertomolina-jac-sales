@@ -1,7 +1,7 @@
 import { Trophy, CreditCard, MapPin } from "lucide-react";
 
 const items = [
-  { icon: Trophy, text: "Vendiendo la marca #1 en Venezuela 2025" },
+  { icon: Trophy, text: "VENDIENDO LA MARCA #1 EN VENEZUELA" },
   { icon: CreditCard, text: "Compra directa · Financiamiento disponible" },
   { icon: MapPin, text: "Atención personalizada · Caracas, Venezuela" },
 ];
