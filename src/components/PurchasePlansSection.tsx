@@ -167,7 +167,7 @@ const PurchasePlansSection = () => (
 
       {/* Disclaimer */}
       <p className="mt-8 text-center text-xs text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-        * Compra Directa y Pago Fácil: montos referenciales del catálogo Feb 2026, sujetos a variación.
+        * Compra Directa y Pago Fácil: montos referenciales del catálogo Julio 2026, sujetos a variación.
         Crédito Bel: sujeto a aprobación. ¿Tienes dudas sobre cuál plan es para ti? Escríbele a Rigoberto.
       </p>
 
