@@ -706,7 +706,7 @@ const PlanComparator = () => {
         </div>
 
         <p className="mt-8 text-center text-xs text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-          * Rangos referenciales basados en catálogos JAC / Bel Feb 2026. La
+          * Rangos referenciales basados en catálogos JAC / Bel Julio 2026. La
           cuota final depende del modelo elegido y puede variar por flete,
           seguro, IVA, IGTF y nacionalización.
         </p>

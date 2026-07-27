@@ -61,7 +61,7 @@ const ModelCard = ({ model }: Props) => {
                   <span className="font-heading font-bold text-primary">{model.priceFacil}</span>
                 </p>
               )}
-              <p className="text-xs text-amber-500/80 font-medium mt-1">⚠ Montos referenciales Feb 2026 · Sujetos a cambio</p>
+              <p className="text-xs text-amber-500/80 font-medium mt-1">⚠ Montos referenciales Julio 2026 · Sujetos a cambio</p>
             </>
           ) : (
             <p className="font-heading text-lg font-bold text-primary">

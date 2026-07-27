@@ -29,7 +29,7 @@ type Plan = {
   plazoMax: number;
 };
 
-// Cuotas extraídas vía OCR de los catálogos oficiales JAC/Bel Feb 2026.
+// Cuotas extraídas vía OCR de los catálogos oficiales JAC/Bel Julio 2026.
 // Para Fiao/Ruta66/Travesía la secuencia de modelos es idéntica entre planes.
 const morePlans: Plan[] = [
   {

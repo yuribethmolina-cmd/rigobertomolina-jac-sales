@@ -113,7 +113,7 @@ const PaymentSection = () => {
         <div className="mt-16">
           <div className="text-center mb-8">
             <h3 className="font-heading text-2xl md:text-3xl font-bold">¿Cuánto pagarías por mes con cada plan?</h3>
-            <p className="text-muted-foreground text-sm mt-2">Cuotas mensuales referenciales · Jul 2026</p>
+            <p className="text-muted-foreground text-sm mt-2">Cuotas mensuales referenciales · Julio 2026</p>
           </div>
 
           <div className="overflow-x-auto">
@@ -163,7 +163,7 @@ const PaymentSection = () => {
           <AlertTriangle className="text-amber-500 shrink-0 mt-0.5" size={22} />
           <p className="text-sm leading-relaxed">
             <strong className="text-amber-500">Precios referenciales.</strong>{" "}
-            Los montos mostrados corresponden al catálogo de <strong>Jul 2026</strong> y están{" "}
+            Los montos mostrados corresponden al catálogo de <strong>Julio 2026</strong> y están{" "}
             <strong>sujetos a cambio</strong> por flete, seguro, IVA, IGTF y gastos de nacionalización.
             Contáctame para el cronograma actualizado de tu modelo.
           </p>
