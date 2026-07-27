@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import HeroSection from "@/components/HeroSection";
 import CredibilityStrip from "@/components/CredibilityStrip";
 import ModelsSection from "@/components/ModelsSection";
@@ -17,6 +18,15 @@ import WhatsAppFloat from "@/components/WhatsAppFloat";
 
 const Index = () => (
   <>
+    <Helmet>
+      <title>Rigoberto Molina · Vendedor JAC Caracas</title>
+      <meta
+        name="description"
+        content="Catálogo JAC Venezuela · Compra Directa · Atención personalizada en Caracas. SUVs, camionetas y comerciales."
+      />
+      <link rel="canonical" href="https://rigobertomolina.com/" />
+      <meta property="og:url" content="https://rigobertomolina.com/" />
+    </Helmet>
     <HeroSection />
     <CredibilityStrip />
     <ModelsSection />
