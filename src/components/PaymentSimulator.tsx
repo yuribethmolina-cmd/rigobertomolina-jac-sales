@@ -66,7 +66,7 @@ const PaymentSimulator = () => {
           {/* Directa */}
           <div className={`rounded-2xl border overflow-hidden ${directaRows ? "border-border" : "border-border/50 opacity-60"}`}>
             <div className="bg-primary text-primary-foreground p-4 text-center">
-              <h3 className="font-heading font-bold text-lg">💳 Compra Directa</h3>
+              <h3 className="font-heading font-bold text-lg">Compra Directa</h3>
               <p className="text-xs text-primary-foreground/70 mt-1">7 pagos iguales</p>
             </div>
             {directaRows ? (
