@@ -167,7 +167,7 @@ const ComparisonSection = () => (
         <span className="text-amber-500 text-lg shrink-0">⚠️</span>
         <p className="text-sm leading-relaxed">
           <strong className="text-amber-500">Precios referenciales.</strong>{" "}
-          Cuotas del catálogo <strong>Julio 2026</strong>, <strong>sujetas a cambio</strong>. Consulta por WhatsApp para montos actualizados.
+          Cuotas del catálogo <strong>Agosto 2026</strong>, <strong>sujetas a cambio</strong>. Consulta por WhatsApp para montos actualizados.
         </p>
       </div>
     </div>
