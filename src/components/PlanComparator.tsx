@@ -121,6 +121,19 @@ const plans: PlanRow[] = [
 
   },
   {
+    id: "crediexpress",
+    name: "CrediExpress JAC",
+    cuotaMin: 1786,
+    cuotaMax: 5678,
+    plazoMin: 6,
+    plazoMax: 6,
+    requisitosExtra: false,
+    entregaAnticipada: false,
+    pros: "Plan corto: inicial fraccionada en 3 pagos y solo 6 cuotas",
+    contras: "Cuotas altas por el plazo reducido",
+    href: "#mas-planes",
+  },
+  {
     id: "bel",
     name: "Crédito Bel",
     cuotaMin: 300,
