@@ -7,8 +7,9 @@ import {
   waLink,
   type CarModel,
 } from "@/lib/constants";
-import { MessageSquareText, Send, Zap } from "lucide-react";
+import { Download, MessageSquareText, Send, Zap } from "lucide-react";
 import CopyableMessage from "./CopyableMessage";
+import { generateQuotePdf } from "@/lib/quotePdf";
 
 /* Parse "$X.XXX,X" / "desde $X.XXX/mes" → number (formato VE) */
 const parsePrice = (s?: string): number | null => {
@@ -94,6 +95,20 @@ const QuickQuoteSection = () => {
       `¿Me confirmas disponibilidad y los pasos para iniciar?`,
     ].join("\n");
   }, [model, nombre, planName, planDetail, cuota]);
+
+  const handleDownloadPdf = () => {
+    if (!model) return;
+    generateQuotePdf({
+      modelo: model.name,
+      categoria: model.category,
+      plan: planName,
+      planDetalle: planDetail,
+      cuota: cuota ? `${fmt(cuota)}/mes` : "Por confirmar",
+      nombre: nombre || undefined,
+      mensaje: message,
+      waUrl: waLink(message),
+    });
+  };
 
   const grouped = useMemo(() => {
     const map = new Map<string, QuickModel[]>();
@@ -196,14 +211,24 @@ const QuickQuoteSection = () => {
             <CopyableMessage message={message} label="Mensaje que se enviará" />
           </div>
 
-          <a
-            href={waLink(message)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground font-heading font-bold px-6 py-4 hover:opacity-90 transition-opacity"
-          >
-            <Send size={18} /> Enviar por WhatsApp
-          </a>
+          <div className="mt-5 grid sm:grid-cols-[1fr_auto] gap-3">
+            <a
+              href={waLink(message)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground font-heading font-bold px-6 py-4 hover:opacity-90 transition-opacity"
+            >
+              <Send size={18} /> Enviar por WhatsApp
+            </a>
+            <button
+              type="button"
+              onClick={handleDownloadPdf}
+              disabled={!model}
+              className="w-full inline-flex items-center justify-center gap-2 rounded-xl border-2 border-primary text-primary font-heading font-bold px-6 py-4 hover:bg-primary/10 transition-colors disabled:opacity-40"
+            >
+              <Download size={18} /> Descargar PDF
+            </button>
+          </div>
 
           <p className="mt-3 text-xs text-muted-foreground flex items-start gap-1.5">
             <MessageSquareText size={13} className="mt-0.5 shrink-0" />
