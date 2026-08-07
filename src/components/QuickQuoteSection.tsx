@@ -151,6 +151,8 @@ const QuickQuoteSection = () => {
         document.execCommand("copy");
         document.body.removeChild(ta);
       }
+      setMessageCopied(true);
+      window.setTimeout(() => setMessageCopied(false), 2000);
       toast.success("Mensaje copiado al portapapeles");
     } catch {
       toast.error("No se pudo copiar el mensaje");
