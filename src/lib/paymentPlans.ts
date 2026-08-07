@@ -1,5 +1,5 @@
 /* Fuente única de verdad para el simulador de pagos y la tabla comparativa.
-   Montos referenciales Agosto 2026. */
+   Montos referenciales Agosto 2026 (catálogos del 06 de agosto 2026). */
 
 export interface PlanModel {
   modelo: string;
@@ -7,42 +7,55 @@ export interface PlanModel {
   /* Compra Directa: 7 pagos iguales */
   cuotaDirecta: number | null;
   totalDirecta: number | null;
-  /* Pago Fácil: afiliación + 12 cuotas + última cuota mayor */
+  /* Pago Fácil: afiliación + 12 cuotas + pago previo a la entrega */
+  afiliacionFacil?: number | null;
   cuotaFacil: number | null;
+  finalFacil?: number | null;
   totalFacil: number | null;
 }
+
+const AFILIACION_FACIL = 999.9;
 
 export const planModels: PlanModel[] = [
   {
     modelo: "Arena Sport MT",
     cuotaDirecta: 2568,
     totalDirecta: 17978,
-    cuotaFacil: 1242,
-    totalFacil: 18840,
+    afiliacionFacil: AFILIACION_FACIL,
+    cuotaFacil: 1241.9,
+    finalFacil: 2937.5,
+    totalFacil: 18840.2,
   },
   {
     modelo: "Arena Sport AT",
     cuotaDirecta: 2775,
     totalDirecta: 19427,
-    cuotaFacil: 1351,
-    totalFacil: 20360,
+    afiliacionFacil: AFILIACION_FACIL,
+    cuotaFacil: 1351.1,
+    finalFacil: 3147.1,
+    totalFacil: 20360.2,
   },
   {
     modelo: "Nevado MT",
     featured: true,
     cuotaDirecta: 3352,
     totalDirecta: 23461,
-    cuotaFacil: 1655,
-    totalFacil: 24592,
+    afiliacionFacil: AFILIACION_FACIL,
+    cuotaFacil: 1655.1,
+    finalFacil: 3730.8,
+    totalFacil: 24591.9,
   },
   {
     modelo: "La Venezolana 4x2",
     cuotaDirecta: 3267,
     totalDirecta: 22874,
-    cuotaFacil: null,
-    totalFacil: null,
+    afiliacionFacil: AFILIACION_FACIL,
+    cuotaFacil: 1634.9,
+    finalFacil: 3738.9,
+    totalFacil: 24357.6,
   },
 ];
+
 
 const round1 = (n: number) => Math.round(n * 10) / 10;
 
