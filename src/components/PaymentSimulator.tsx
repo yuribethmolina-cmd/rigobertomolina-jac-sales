@@ -228,7 +228,7 @@ const PaymentSimulator = () => {
         </div>
 
         <p className="text-center text-xs text-muted-foreground mt-6">
-          ⚠ Montos referenciales Julio 2026 · Sujetos a cambio · La última cuota de Pago Fácil es estimada
+          ⚠ Montos referenciales Agosto 2026 · Sujetos a cambio · La última cuota de Pago Fácil es estimada
         </p>
       </div>
     </section>
