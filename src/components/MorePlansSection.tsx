@@ -43,7 +43,7 @@ const morePlans: Plan[] = [
       "6 cuotas extra en meses 9, 12, 15, 18, 21 y 24",
     ],
     cuotaLabel: "Cuota ordinaria mensual",
-    inicialRange: "Cuota inicial desde $1.459 hasta $6.620",
+    inicialRange: "Cuota inicial desde $1.459 hasta $7.567",
     highlight: "Plan más popular para financiamiento extendido",
     accent: "teal",
     models: [
