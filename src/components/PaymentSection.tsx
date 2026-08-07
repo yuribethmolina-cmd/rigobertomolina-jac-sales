@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { waLink } from "@/lib/constants";
+import { planModels, fmtMoney0 } from "@/lib/paymentPlans";
 import { ArrowRight, AlertTriangle } from "lucide-react";
 
 type Plan = "directa" | "facil";
@@ -16,12 +17,15 @@ const facilSteps = [
   { num: "③", title: "PREVIO A LA ENTREGA", sub: "Antes de la entrega", desc: "Cuota final mayor antes de recibir tu carro" },
 ];
 
-const comparisonData = [
-  { modelo: "Arena Sport MT", directa: "$2.568 / mes", totalDirecta: "$17.978", facil: "$1.242 / mes", totalFacil: "$18.840", featured: false },
-  { modelo: "Arena Sport AT", directa: "$2.775 / mes", totalDirecta: "$19.427", facil: "$1.351 / mes", totalFacil: "$20.360", featured: false },
-  { modelo: "Nevado MT ⭐", directa: "$3.352 / mes", totalDirecta: "$23.461", facil: "$1.655 / mes", totalFacil: "$24.592", featured: true },
-  { modelo: "La Venezolana 4x2", directa: "$3.267 / mes", totalDirecta: "$22.874", facil: "Consultar", totalFacil: "Consultar", featured: false },
-];
+const comparisonData = planModels.map((m) => ({
+  modelo: m.featured ? `${m.modelo} ⭐` : m.modelo,
+  directa: m.cuotaDirecta ? `${fmtMoney0(m.cuotaDirecta)} / mes` : "Consultar",
+  totalDirecta: m.totalDirecta ? fmtMoney0(m.totalDirecta) : "Consultar",
+  facil: m.cuotaFacil ? `${fmtMoney0(m.cuotaFacil)} / mes` : "Consultar",
+  totalFacil: m.totalFacil ? fmtMoney0(m.totalFacil) : "Consultar",
+  featured: !!m.featured,
+}));
+
 
 const PaymentSection = () => {
   const [plan, setPlan] = useState<Plan>("directa");
