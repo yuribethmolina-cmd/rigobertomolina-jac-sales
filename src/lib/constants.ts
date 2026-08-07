@@ -841,9 +841,9 @@ export const suvModels: CarModel[] = [
     tagline: "El SUV familiar más completo del catálogo",
     transmission: "Manual",
     traction: "4x2",
-    price: "$3.386,4",
-    priceDirecta: "desde $3.386/mes",
-    priceFacil: "desde $2.402/mes",
+    price: "$3.351,6",
+    priceDirecta: "desde $3.352/mes",
+    priceFacil: "desde $1.655/mes",
     featured: "MÁS CONSULTADO",
     image: "https://jacvenezuela.com/wp-content/uploads/2024/09/vehiculo-nevado-js4-de-jac-motors-venezuela-1024x427.jpg",
     colors: [
@@ -861,7 +861,7 @@ export const suvModels: CarModel[] = [
     traction: "4x2",
     price: "$2.568,3",
     priceDirecta: "desde $2.568/mes",
-    priceFacil: "desde $1.358/mes",
+    priceFacil: "desde $1.242/mes",
     image: "https://jacvenezuela.com/wp-content/uploads/2025/09/jac_banners_arena_sport_mt-1024x427.jpg",
     colors: [
       { name: "Negro", hex: "#1a1a1a" },
@@ -877,7 +877,7 @@ export const suvModels: CarModel[] = [
     traction: "4x2",
     price: "$2.775,3",
     priceDirecta: "desde $2.775/mes",
-    priceFacil: "desde $1.474/mes",
+    priceFacil: "desde $1.351/mes",
     image: "https://jacvenezuela.com/wp-content/uploads/2025/09/jac_banners_arena_sport_at-1024x427.jpg",
     colors: [
       { name: "Negro", hex: "#1a1a1a" },
@@ -893,7 +893,7 @@ export const suvModels: CarModel[] = [
     traction: "4x2",
     price: "$3.040,5",
     priceDirecta: "desde $3.040/mes",
-    priceFacil: "desde $1.625/mes",
+    priceFacil: "desde $1.491/mes",
     image: "https://jacvenezuela.com/wp-content/uploads/2024/09/jac_-motors_banners-Arena-Pro-1024x427.png",
     colors: [
       { name: "Blanco", hex: "#f5f5f5" },
@@ -949,7 +949,7 @@ export const suvModels: CarModel[] = [
     traction: "4x2",
     price: "$4.594,5",
     priceDirecta: "desde $4.594/mes",
-    priceFacil: "desde $2.239/mes",
+    priceFacil: "desde $2.311/mes",
     image: "https://jacvenezuela.com/wp-content/uploads/2025/06/jac_banners_tepuy_pro-1024x427.jpg",
     colors: [
       { name: "Blanco", hex: "#f5f5f5" },
@@ -963,9 +963,9 @@ export const suvModels: CarModel[] = [
     tagline: "SUV espacioso · 182 HP Turbo DCT · Maletero 1.253 L",
     transmission: "Automática",
     traction: "4x2",
-    price: "$4.978,8",
-    priceDirecta: "desde $4.978/mes",
-    priceFacil: "desde $4.114/mes",
+    price: "$4.924,1",
+    priceDirecta: "desde $4.924/mes",
+    priceFacil: "desde $2.485/mes",
     image: "https://jacvenezuela.com/wp-content/uploads/2024/09/js8-Savanna-jac-motors-venezuela-1024x427.jpg",
     colors: [
       { name: "Blanco", hex: "#f5f5f5" },
@@ -981,7 +981,7 @@ export const suvModels: CarModel[] = [
     traction: "4x2",
     price: "$7.665,1",
     priceDirecta: "desde $7.665/mes",
-    priceFacil: "desde $2.924/mes",
+    priceFacil: "desde $3.931/mes",
     image: "https://jacvenezuela.com/wp-content/uploads/2025/06/JAC-REFINE-EN-VENEZUELA-1024x427.jpg",
     colors: [
       { name: "Blanco", hex: "#f5f5f5" },

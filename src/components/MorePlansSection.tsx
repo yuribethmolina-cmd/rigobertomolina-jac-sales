@@ -29,7 +29,7 @@ type Plan = {
   plazoMax: number;
 };
 
-// Cuotas extraídas vía OCR de los catálogos oficiales JAC/Bel Julio 2026.
+// Cuotas extraídas vía OCR de los catálogos oficiales JAC/Bel Agosto 2026.
 // Para Fiao/Ruta66/Travesía la secuencia de modelos es idéntica entre planes.
 const morePlans: Plan[] = [
   {
@@ -43,7 +43,7 @@ const morePlans: Plan[] = [
       "6 cuotas extra en meses 9, 12, 15, 18, 21 y 24",
     ],
     cuotaLabel: "Cuota ordinaria mensual",
-    inicialRange: "Cuota inicial desde $1.430 hasta $6.620",
+    inicialRange: "Cuota inicial desde $1.459 hasta $6.620",
     highlight: "Plan más popular para financiamiento extendido",
     accent: "teal",
     models: [
@@ -62,8 +62,8 @@ const morePlans: Plan[] = [
       { model: "Aventura", cuota: 829.1 },
       { model: "Aventura Pro", cuota: 1007.6 },
       { model: "Limited", cuota: 854.2 },
-      { model: "Arena Sport MT", cuota: 399.3 },
-      { model: "Arena Sport AT", cuota: 453.9 },
+      { model: "Arena Sport MT", cuota: 404.8 },
+      { model: "Arena Sport AT", cuota: 442.5 },
       { model: "Arena Pro", cuota: 462.4 },
       { model: "Nevado MT", cuota: 543.3 },
       { model: "Tepuy Pro", cuota: 685.7 },
@@ -186,6 +186,50 @@ const morePlans: Plan[] = [
     defaultPlazo: 2,
     plazoMin: 2,
     plazoMax: 2,
+  },
+  {
+    id: "crediexpress",
+    title: "CrediExpress JAC",
+    tagline: "Inicial fraccionada + previo entrega + 6 cuotas",
+    structure: [
+      "3 pagos iniciales (inicial fraccionada)",
+      "Previo a la entrega (cuota especial)",
+      "6 cuotas ordinarias mensuales",
+    ],
+    cuotaLabel: "Cuota ordinaria mensual (6 cuotas)",
+    highlight: "El plan más corto: paga en 6 cuotas",
+    accent: "neutral" as const,
+    models: [
+      { model: "Arena Sport MT", cuota: 1785.7 },
+      { model: "Arena Sport AT", cuota: 1952.4 },
+    ],
+    inicialPct: 30,
+    cuotasOrdinarias: 6,
+    defaultPlazo: 6,
+    plazoMin: 6,
+    plazoMax: 6,
+  },
+  {
+    id: "travesia3",
+    title: "Travesía 3 Pagos",
+    tagline: "3 cuotas iguales: firma, 30 días y entrega",
+    structure: [
+      "Pago Cuota 1 al firmar el contrato",
+      "Pago Cuota 2 a los 30 días",
+      "Pago Cuota 3 previo a la entrega",
+    ],
+    cuotaLabel: "Pago por cuota (× 3 pagos iguales)",
+    highlight: "Paga en solo 3 cuotas iguales",
+    accent: "amber" as const,
+    models: [
+      { model: "Arena Sport MT", cuota: 6831.8 },
+      { model: "Arena Sport AT", cuota: 7382.4 },
+    ],
+    inicialPct: 33,
+    cuotasOrdinarias: 3,
+    defaultPlazo: 3,
+    plazoMin: 3,
+    plazoMax: 3,
   },
 ];
 
@@ -437,7 +481,7 @@ const MorePlansSection = () => {
         <div className="text-center">
           <h2 className="section-title">Más planes de financiamiento</h2>
           <p className="section-subtitle">
-            Además de Compra Directa y Pago Fácil, JAC ofrece cuatro planes
+            Además de Compra Directa y Pago Fácil, JAC ofrece siete planes
             adicionales. Selecciona un plan para ver la cuota estimada por
             modelo.
           </p>
@@ -1132,7 +1176,7 @@ const MorePlansSection = () => {
 
         <p className="mt-8 text-center text-xs text-muted-foreground max-w-2xl mx-auto leading-relaxed">
           * Montos referenciales de los catálogos oficiales JAC / Bel. Facilito,
-          Llévatelo Fiao y Credijac Ruta 66 actualizados Jun 2026. Sujetos a
+          Llévatelo Fiao y Credijac Ruta 66 actualizados Ago 2026. Sujetos a
           variación según flete, seguro, IVA, IGTF y gastos de nacionalización.
           Confirma siempre con Rigoberto antes de cerrar tu plan.
         </p>
