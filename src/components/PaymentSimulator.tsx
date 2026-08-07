@@ -52,8 +52,8 @@ const PaymentSimulator = () => {
               className="w-full appearance-none bg-card border-2 border-border rounded-xl px-5 py-3.5 pr-12 font-heading font-bold text-foreground focus:border-primary focus:outline-none transition-colors cursor-pointer"
             >
               {allModels.map((m, i) => (
-                <option key={m.name} value={i}>
-                  {m.name} — {m.category}
+                <option key={m.modelo} value={i}>
+                  {m.modelo}
                 </option>
               ))}
             </select>
