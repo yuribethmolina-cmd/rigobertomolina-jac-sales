@@ -87,22 +87,27 @@ export const buildDirectaSchedule = (cuota: number, total: number): ScheduleRow[
   });
 };
 
-/* Pago Fácil: afiliación + 12 cuotas mensuales + última cuota mayor.
-   La última cuota se ajusta para que el total coincida con la tabla comparativa. */
-export const buildFacilSchedule = (cuota: number, total: number): ScheduleRow[] => {
+/* Pago Fácil: afiliación a la firma + 12 cuotas mensuales + pago previo a la entrega.
+   Los montos vienen del catálogo; el pago final se ajusta si hay redondeos. */
+export const buildFacilSchedule = (
+  cuota: number,
+  total: number,
+  afiliacion: number = 999.9,
+  final?: number | null
+): ScheduleRow[] => {
   const labels = [
     "Afiliación",
     ...Array.from({ length: 12 }, (_, i) => `Cuota ${i + 1}`),
-    "Última cuota",
+    "Previo a entrega",
   ];
-  const afiliacion = round1(cuota * 0.604);
   let cumulative = 0;
   return labels.map((label, i) => {
     let amount: number;
-    if (i === 0) amount = afiliacion;
-    else if (i === labels.length - 1) amount = round1(total - cumulative);
+    if (i === 0) amount = round1(afiliacion);
+    else if (i === labels.length - 1) amount = round1(final ?? total - cumulative);
     else amount = round1(cuota);
     cumulative = round1(cumulative + amount);
+
     return { label, amount, cumulative };
   });
 };
