@@ -24,10 +24,11 @@ const PaymentSimulator = () => {
   const facilRows = useMemo(
     () =>
       model.cuotaFacil && model.totalFacil
-        ? buildFacilSchedule(model.cuotaFacil, model.totalFacil)
+        ? buildFacilSchedule(model.cuotaFacil, model.totalFacil, model.afiliacionFacil ?? 999.9, model.finalFacil)
         : null,
     [model]
   );
+
 
 
   return (
