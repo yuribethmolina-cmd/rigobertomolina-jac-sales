@@ -62,6 +62,7 @@ const QuickQuoteSection = () => {
   const [modelName, setModelName] = useState<string>(allModels[0]?.name ?? "");
   const [plan, setPlan] = useState<PlanKey>("directa");
   const [nombre, setNombre] = useState("");
+  const [messageCopied, setMessageCopied] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem("rm_nombre");
