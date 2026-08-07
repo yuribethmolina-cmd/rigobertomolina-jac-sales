@@ -134,7 +134,12 @@ export const generateQuotePdf = (d: QuoteData) => {
   doc.text(lines, M + 12, y + 22);
   y += boxH + 26;
 
-  /* Link */
+  /* Link (salta de página si no cabe sobre el pie) */
+  const pageH = doc.internal.pageSize.getHeight();
+  if (y > pageH - 90) {
+    doc.addPage();
+    y = 90;
+  }
   doc.setTextColor(...TEAL);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(11);
@@ -143,7 +148,7 @@ export const generateQuotePdf = (d: QuoteData) => {
   });
 
   /* Footer */
-  const H = doc.internal.pageSize.getHeight();
+  const H = pageH;
   doc.setFont("helvetica", "normal");
   doc.setFontSize(9);
   doc.setTextColor(...GRAY);
