@@ -150,10 +150,10 @@ const PaymentSimulator = () => {
         {/* CTA */}
         <div className="mt-10 text-center">
           <p className="text-muted-foreground text-sm mb-4">
-            ¿Te interesa el <strong>{model.name}</strong>? Pide tu cronograma actualizado.
+            ¿Te interesa el <strong>{model.modelo}</strong>? Pide tu cronograma actualizado.
           </p>
           <a
-            href={waLink(`Hola Rigoberto, acabo de ver el simulador de pagos del ${model.name}. ¿Me puedes enviar el cronograma actualizado?`)}
+            href={waLink(`Hola Rigoberto, acabo de ver el simulador de pagos del ${model.modelo}. ¿Me puedes enviar el cronograma actualizado?`)}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3.5 rounded-lg font-heading font-bold text-lg hover:bg-primary/90 transition-colors"
