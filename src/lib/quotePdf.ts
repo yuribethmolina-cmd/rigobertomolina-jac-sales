@@ -43,7 +43,7 @@ export const generateQuotePdf = (d: QuoteData) => {
     92
   );
 
-  let y = 150;
+  let y = 140;
 
   if (d.nombre) {
     doc.setTextColor(...GRAY);
@@ -124,19 +124,19 @@ export const generateQuotePdf = (d: QuoteData) => {
   y += 14;
 
   const lines = doc.splitTextToSize(d.mensaje, W - M * 2 - 24) as string[];
-  const boxH = lines.length * 15 + 24;
+  const boxH = lines.length * 14 + 20;
   doc.setDrawColor(220, 227, 235);
   doc.setFillColor(250, 252, 253);
   doc.roundedRect(M, y, W - M * 2, boxH, 6, 6, "FD");
   doc.setFont("helvetica", "normal");
   doc.setFontSize(10.5);
   doc.setTextColor(40, 52, 66);
-  doc.text(lines, M + 12, y + 22);
-  y += boxH + 20;
+  doc.text(lines, M + 12, y + 20, { lineHeightFactor: 1.33 });
+  y += boxH + 18;
 
   /* Link (salta de página si no cabe sobre el pie) */
   const pageH = doc.internal.pageSize.getHeight();
-  if (y > pageH - 90) {
+  if (y > pageH - 72) {
     doc.addPage();
     y = 90;
   }
