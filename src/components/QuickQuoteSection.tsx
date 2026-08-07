@@ -7,8 +7,9 @@ import {
   waLink,
   type CarModel,
 } from "@/lib/constants";
-import { Download, MessageSquareText, Send, Zap } from "lucide-react";
+import { Download, MessageSquareText, Zap } from "lucide-react";
 import CopyableMessage from "./CopyableMessage";
+import WhatsAppButton from "./WhatsAppButton";
 import { generateQuotePdf } from "@/lib/quotePdf";
 import { planModels } from "@/lib/paymentPlans";
 
