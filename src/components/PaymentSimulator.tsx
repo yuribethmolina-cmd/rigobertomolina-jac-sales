@@ -106,8 +106,8 @@ const PaymentSimulator = () => {
           {/* Fácil */}
           <div className={`rounded-2xl border overflow-hidden ${facilRows ? "border-border" : "border-border/50 opacity-60"}`}>
             <div className="bg-primary text-primary-foreground p-4 text-center">
-              <h3 className="font-heading font-bold text-lg">📅 Pago Fácil</h3>
-              <p className="text-xs text-primary-foreground/70 mt-1">12 pagos · cuotas más bajas</p>
+              <h3 className="font-heading font-bold text-lg">Pago Fácil</h3>
+              <p className="text-xs text-primary-foreground/70 mt-1">Afiliación + 12 cuotas + cuota final</p>
             </div>
             {facilRows ? (
               <div className="divide-y divide-border">
