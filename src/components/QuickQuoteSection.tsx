@@ -316,13 +316,22 @@ const QuickQuoteSection = () => {
             <CopyableMessage message={message} label="Mensaje que se enviará" />
           </div>
 
-          <div className="mt-5 grid sm:grid-cols-[1fr_auto] gap-3">
+          <div className="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-3">
             <WhatsAppButton
               message={message}
               label="Enviar por WhatsApp"
               className="w-full"
               disabled={!model}
             />
+            <button
+              type="button"
+              onClick={handleCopyMessage}
+              disabled={!model}
+              className="w-full inline-flex items-center justify-center gap-2 rounded-xl border-2 border-primary text-primary font-heading font-bold px-6 py-4 hover:bg-primary/10 transition-colors disabled:opacity-40"
+            >
+              {messageCopied ? <Check size={18} /> : <Copy size={18} />}
+              {messageCopied ? "Copiado" : "Copiar mensaje"}
+            </button>
             <button
               type="button"
               onClick={handleDownloadPdf}
