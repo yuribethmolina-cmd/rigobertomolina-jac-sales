@@ -8,6 +8,8 @@ export interface QuoteData {
   planDetalle: string;
   cuota: string;
   nombre?: string;
+  /* Filas [concepto, monto] del desglose estimado */
+  desglose?: [string, string][];
   mensaje: string;
   waUrl: string;
 }
@@ -84,8 +86,37 @@ export const generateQuotePdf = (d: QuoteData) => {
   doc.setFontSize(20);
   doc.text(d.cuota, W - M - 16, y + 34, { align: "right" });
 
-  /* WhatsApp message */
   y += 92;
+
+  /* Desglose */
+  if (d.desglose?.length) {
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.setTextColor(...NAVY);
+    doc.text("Desglose estimado", M, y);
+    y += 16;
+    d.desglose.forEach(([k, v], i) => {
+      const last = i === d.desglose!.length - 1;
+      if (last) {
+        doc.setFillColor(232, 249, 251);
+        doc.rect(M, y - 14, W - M * 2, 30, "F");
+      } else if (i % 2 === 0) {
+        doc.setFillColor(244, 247, 250);
+        doc.rect(M, y - 14, W - M * 2, 30, "F");
+      }
+      doc.setFont("helvetica", last ? "bold" : "normal");
+      doc.setFontSize(11);
+      doc.setTextColor(...(last ? NAVY : GRAY));
+      doc.text(k, M + 12, y + 5);
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(...NAVY);
+      doc.text(v, W - M - 12, y + 5, { align: "right" });
+      y += 30;
+    });
+    y += 20;
+  }
+
+  /* WhatsApp message */
   doc.setFont("helvetica", "bold");
   doc.setFontSize(11);
   doc.setTextColor(...NAVY);
