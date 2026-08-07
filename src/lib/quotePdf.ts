@@ -86,7 +86,7 @@ export const generateQuotePdf = (d: QuoteData) => {
   doc.setFontSize(20);
   doc.text(d.cuota, W - M - 16, y + 34, { align: "right" });
 
-  y += 92;
+  y += 78;
 
   /* Desglose */
   if (d.desglose?.length) {
@@ -99,10 +99,10 @@ export const generateQuotePdf = (d: QuoteData) => {
       const last = i === d.desglose!.length - 1;
       if (last) {
         doc.setFillColor(232, 249, 251);
-        doc.rect(M, y - 14, W - M * 2, 30, "F");
+        doc.rect(M, y - 13, W - M * 2, 26, "F");
       } else if (i % 2 === 0) {
         doc.setFillColor(244, 247, 250);
-        doc.rect(M, y - 14, W - M * 2, 30, "F");
+        doc.rect(M, y - 13, W - M * 2, 26, "F");
       }
       doc.setFont("helvetica", last ? "bold" : "normal");
       doc.setFontSize(11);
@@ -110,10 +110,10 @@ export const generateQuotePdf = (d: QuoteData) => {
       doc.text(k, M + 12, y + 5);
       doc.setFont("helvetica", "bold");
       doc.setTextColor(...NAVY);
-      doc.text(v, W - M - 12, y + 5, { align: "right" });
-      y += 30;
+      doc.text(v, W - M - 12, y + 4, { align: "right" });
+      y += 26;
     });
-    y += 20;
+    y += 14;
   }
 
   /* WhatsApp message */
@@ -132,7 +132,7 @@ export const generateQuotePdf = (d: QuoteData) => {
   doc.setFontSize(10.5);
   doc.setTextColor(40, 52, 66);
   doc.text(lines, M + 12, y + 22);
-  y += boxH + 26;
+  y += boxH + 20;
 
   /* Link (salta de página si no cabe sobre el pie) */
   const pageH = doc.internal.pageSize.getHeight();
