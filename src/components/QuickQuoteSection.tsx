@@ -134,6 +134,28 @@ const QuickQuoteSection = () => {
     ].join("\n");
   }, [model, nombre, planName, planDetail, cuota, breakdown]);
 
+  const handleCopyMessage = async () => {
+    if (!message) return;
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(message);
+      } else {
+        const ta = document.createElement("textarea");
+        ta.value = message;
+        ta.setAttribute("readonly", "");
+        ta.style.position = "absolute";
+        ta.style.left = "-9999px";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+      }
+      toast.success("Mensaje copiado al portapapeles");
+    } catch {
+      toast.error("No se pudo copiar el mensaje");
+    }
+  };
+
   const handleDownloadPdf = () => {
     if (!model) return;
     generateQuotePdf({
