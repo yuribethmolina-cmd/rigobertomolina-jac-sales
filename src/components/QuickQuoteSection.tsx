@@ -7,7 +7,8 @@ import {
   waLink,
   type CarModel,
 } from "@/lib/constants";
-import { Download, MessageSquareText, Zap } from "lucide-react";
+import { Download, MessageSquareText, Copy, Check, Zap } from "lucide-react";
+import { toast } from "sonner";
 import CopyableMessage from "./CopyableMessage";
 import WhatsAppButton from "./WhatsAppButton";
 import { generateQuotePdf } from "@/lib/quotePdf";
@@ -61,6 +62,7 @@ const QuickQuoteSection = () => {
   const [modelName, setModelName] = useState<string>(allModels[0]?.name ?? "");
   const [plan, setPlan] = useState<PlanKey>("directa");
   const [nombre, setNombre] = useState("");
+  const [messageCopied, setMessageCopied] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem("rm_nombre");
@@ -132,6 +134,30 @@ const QuickQuoteSection = () => {
       `¿Me confirmas disponibilidad y los pasos para iniciar?`,
     ].join("\n");
   }, [model, nombre, planName, planDetail, cuota, breakdown]);
+
+  const handleCopyMessage = async () => {
+    if (!message) return;
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(message);
+      } else {
+        const ta = document.createElement("textarea");
+        ta.value = message;
+        ta.setAttribute("readonly", "");
+        ta.style.position = "absolute";
+        ta.style.left = "-9999px";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+      }
+      setMessageCopied(true);
+      window.setTimeout(() => setMessageCopied(false), 2000);
+      toast.success("Mensaje copiado al portapapeles");
+    } catch {
+      toast.error("No se pudo copiar el mensaje");
+    }
+  };
 
   const handleDownloadPdf = () => {
     if (!model) return;
@@ -290,13 +316,22 @@ const QuickQuoteSection = () => {
             <CopyableMessage message={message} label="Mensaje que se enviará" />
           </div>
 
-          <div className="mt-5 grid sm:grid-cols-[1fr_auto] gap-3">
+          <div className="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-3">
             <WhatsAppButton
               message={message}
               label="Enviar por WhatsApp"
               className="w-full"
               disabled={!model}
             />
+            <button
+              type="button"
+              onClick={handleCopyMessage}
+              disabled={!model}
+              className="w-full inline-flex items-center justify-center gap-2 rounded-xl border-2 border-primary text-primary font-heading font-bold px-6 py-4 hover:bg-primary/10 transition-colors disabled:opacity-40"
+            >
+              {messageCopied ? <Check size={18} /> : <Copy size={18} />}
+              {messageCopied ? "Copiado" : "Copiar mensaje"}
+            </button>
             <button
               type="button"
               onClick={handleDownloadPdf}
