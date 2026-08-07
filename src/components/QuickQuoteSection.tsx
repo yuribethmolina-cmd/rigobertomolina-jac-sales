@@ -7,8 +7,9 @@ import {
   waLink,
   type CarModel,
 } from "@/lib/constants";
-import { Download, MessageSquareText, Send, Zap } from "lucide-react";
+import { Download, MessageSquareText, Zap } from "lucide-react";
 import CopyableMessage from "./CopyableMessage";
+import WhatsAppButton from "./WhatsAppButton";
 import { generateQuotePdf } from "@/lib/quotePdf";
 import { planModels } from "@/lib/paymentPlans";
 
@@ -290,14 +291,12 @@ const QuickQuoteSection = () => {
           </div>
 
           <div className="mt-5 grid sm:grid-cols-[1fr_auto] gap-3">
-            <a
-              href={waLink(message)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground font-heading font-bold px-6 py-4 hover:opacity-90 transition-opacity"
-            >
-              <Send size={18} /> Enviar por WhatsApp
-            </a>
+            <WhatsAppButton
+              message={message}
+              label="Enviar por WhatsApp"
+              className="w-full"
+              disabled={!model}
+            />
             <button
               type="button"
               onClick={handleDownloadPdf}
