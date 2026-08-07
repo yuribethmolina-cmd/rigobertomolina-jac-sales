@@ -10,6 +10,7 @@ import {
 import { Download, MessageSquareText, Send, Zap } from "lucide-react";
 import CopyableMessage from "./CopyableMessage";
 import { generateQuotePdf } from "@/lib/quotePdf";
+import { planModels } from "@/lib/paymentPlans";
 
 /* Parse "$X.XXX,X" / "desde $X.XXX/mes" → number (formato VE) */
 const parsePrice = (s?: string): number | null => {
@@ -20,6 +21,8 @@ const parsePrice = (s?: string): number | null => {
   const n = parseFloat(`${intPart.replace(/\./g, "")}.${decPart}`);
   return isNaN(n) ? null : n;
 };
+
+const round1 = (n: number) => Math.round(n * 10) / 10;
 
 const fmt = (n: number) =>
   "$" + n.toLocaleString("es-VE", { minimumFractionDigits: 0, maximumFractionDigits: 1 });
@@ -83,6 +86,29 @@ const QuickQuoteSection = () => {
   const planName = plan === "directa" ? "Compra Directa" : "Pago Fácil";
   const planDetail = plan === "directa" ? "7 pagos" : "12 pagos";
 
+  /* Desglose: inicial (afiliación), cuotas mensuales y pago previo a la entrega.
+     Si el modelo está en la tabla comparativa se usan sus montos exactos. */
+  const breakdown = useMemo(() => {
+    if (!model || !cuota) return null;
+    const ref = planModels.find(
+      (pm) => pm.modelo.toLowerCase() === model.name.toLowerCase()
+    );
+
+    if (plan === "directa") {
+      const total = ref?.totalDirecta ?? cuota * 7;
+      const inicial = cuota;
+      const nCuotas = 5;
+      const preEntrega = round1(total - inicial - cuota * nCuotas);
+      return { inicial, inicialLabel: "Afiliación (a la firma)", nCuotas, cuota, preEntrega, total };
+    }
+
+    const inicial = ref?.afiliacionFacil ?? 999.9;
+    const nCuotas = 12;
+    const preEntrega = ref?.finalFacil ?? round1(cuota * 2.254);
+    const total = ref?.totalFacil ?? round1(inicial + cuota * nCuotas + preEntrega);
+    return { inicial, inicialLabel: "Afiliación (a la firma)", nCuotas, cuota, preEntrega, total };
+  }, [model, cuota, plan]);
+
   const message = useMemo(() => {
     if (!model) return "";
     return [
@@ -91,10 +117,20 @@ const QuickQuoteSection = () => {
       `Modelo: ${model.name} (${model.category})`,
       `Plan: ${planName} (${planDetail})`,
       cuota ? `Cuota estimada: ${fmt(cuota)}/mes` : `Cuota: por confirmar`,
+      ...(breakdown
+        ? [
+            ``,
+            `Desglose estimado:`,
+            `- Inicial (afiliación): ${fmt(breakdown.inicial)}`,
+            `- ${breakdown.nCuotas} cuotas de ${fmt(breakdown.cuota)}`,
+            `- Previo a entrega: ${fmt(breakdown.preEntrega)}`,
+            `- Total estimado: ${fmt(breakdown.total)}`,
+          ]
+        : []),
       ``,
       `¿Me confirmas disponibilidad y los pasos para iniciar?`,
     ].join("\n");
-  }, [model, nombre, planName, planDetail, cuota]);
+  }, [model, nombre, planName, planDetail, cuota, breakdown]);
 
   const handleDownloadPdf = () => {
     if (!model) return;
@@ -105,6 +141,14 @@ const QuickQuoteSection = () => {
       planDetalle: planDetail,
       cuota: cuota ? `${fmt(cuota)}/mes` : "Por confirmar",
       nombre: nombre || undefined,
+      desglose: breakdown
+        ? [
+            [breakdown.inicialLabel, fmt(breakdown.inicial)],
+            [`${breakdown.nCuotas} cuotas mensuales`, `${fmt(breakdown.cuota)} c/u`],
+            ["Pago previo a la entrega", fmt(breakdown.preEntrega)],
+            ["Total estimado", fmt(breakdown.total)],
+          ]
+        : undefined,
       mensaje: message,
       waUrl: waLink(message),
     });
@@ -206,6 +250,40 @@ const QuickQuoteSection = () => {
               ))}
             </div>
           </div>
+
+          {breakdown && (
+            <div className="mt-6">
+              <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
+                Desglose de la cuota estimada
+              </p>
+              <div className="rounded-xl border border-border overflow-hidden text-sm">
+                <div className="divide-y divide-border">
+                  <div className="flex justify-between px-4 py-3">
+                    <span className="text-muted-foreground">{breakdown.inicialLabel}</span>
+                    <span className="font-heading font-bold">{fmt(breakdown.inicial)}</span>
+                  </div>
+                  <div className="flex justify-between px-4 py-3">
+                    <span className="text-muted-foreground">
+                      {breakdown.nCuotas} cuotas mensuales
+                    </span>
+                    <span className="font-heading font-bold">
+                      {fmt(breakdown.cuota)} <span className="text-muted-foreground font-normal">c/u</span>
+                    </span>
+                  </div>
+                  <div className="flex justify-between px-4 py-3">
+                    <span className="text-muted-foreground">Pago previo a la entrega</span>
+                    <span className="font-heading font-bold">{fmt(breakdown.preEntrega)}</span>
+                  </div>
+                  <div className="flex justify-between px-4 py-3 bg-primary/10">
+                    <span className="font-heading font-bold">TOTAL ESTIMADO</span>
+                    <span className="font-heading font-bold text-primary">
+                      {fmt(breakdown.total)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
           <div className="mt-6">
             <CopyableMessage message={message} label="Mensaje que se enviará" />

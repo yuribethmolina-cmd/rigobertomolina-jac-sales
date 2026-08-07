@@ -8,6 +8,8 @@ export interface QuoteData {
   planDetalle: string;
   cuota: string;
   nombre?: string;
+  /* Filas [concepto, monto] del desglose estimado */
+  desglose?: [string, string][];
   mensaje: string;
   waUrl: string;
 }
@@ -41,7 +43,7 @@ export const generateQuotePdf = (d: QuoteData) => {
     92
   );
 
-  let y = 150;
+  let y = 140;
 
   if (d.nombre) {
     doc.setTextColor(...GRAY);
@@ -84,8 +86,37 @@ export const generateQuotePdf = (d: QuoteData) => {
   doc.setFontSize(20);
   doc.text(d.cuota, W - M - 16, y + 34, { align: "right" });
 
+  y += 78;
+
+  /* Desglose */
+  if (d.desglose?.length) {
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.setTextColor(...NAVY);
+    doc.text("Desglose estimado", M, y);
+    y += 16;
+    d.desglose.forEach(([k, v], i) => {
+      const last = i === d.desglose!.length - 1;
+      if (last) {
+        doc.setFillColor(232, 249, 251);
+        doc.rect(M, y - 13, W - M * 2, 26, "F");
+      } else if (i % 2 === 0) {
+        doc.setFillColor(244, 247, 250);
+        doc.rect(M, y - 13, W - M * 2, 26, "F");
+      }
+      doc.setFont("helvetica", last ? "bold" : "normal");
+      doc.setFontSize(11);
+      doc.setTextColor(...(last ? NAVY : GRAY));
+      doc.text(k, M + 12, y + 5);
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(...NAVY);
+      doc.text(v, W - M - 12, y + 4, { align: "right" });
+      y += 26;
+    });
+    y += 14;
+  }
+
   /* WhatsApp message */
-  y += 92;
   doc.setFont("helvetica", "bold");
   doc.setFontSize(11);
   doc.setTextColor(...NAVY);
@@ -93,17 +124,22 @@ export const generateQuotePdf = (d: QuoteData) => {
   y += 14;
 
   const lines = doc.splitTextToSize(d.mensaje, W - M * 2 - 24) as string[];
-  const boxH = lines.length * 15 + 24;
+  const boxH = lines.length * 14 + 20;
   doc.setDrawColor(220, 227, 235);
   doc.setFillColor(250, 252, 253);
   doc.roundedRect(M, y, W - M * 2, boxH, 6, 6, "FD");
   doc.setFont("helvetica", "normal");
   doc.setFontSize(10.5);
   doc.setTextColor(40, 52, 66);
-  doc.text(lines, M + 12, y + 22);
-  y += boxH + 26;
+  doc.text(lines, M + 12, y + 20, { lineHeightFactor: 1.33 });
+  y += boxH + 18;
 
-  /* Link */
+  /* Link (salta de página si no cabe sobre el pie) */
+  const pageH = doc.internal.pageSize.getHeight();
+  if (y > pageH - 72) {
+    doc.addPage();
+    y = 90;
+  }
   doc.setTextColor(...TEAL);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(11);
@@ -112,7 +148,7 @@ export const generateQuotePdf = (d: QuoteData) => {
   });
 
   /* Footer */
-  const H = doc.internal.pageSize.getHeight();
+  const H = pageH;
   doc.setFont("helvetica", "normal");
   doc.setFontSize(9);
   doc.setTextColor(...GRAY);
