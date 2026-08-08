@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { MessageCircle, Phone, Mail, ArrowRight } from "lucide-react";
 import { waLink, WHATSAPP_DISPLAY, EMAIL } from "@/lib/constants";
+import { trackContact } from "@/lib/track";
 
 const modelOptions = [
   "--- Comerciales ---",
@@ -29,6 +30,7 @@ const ContactSection = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const msg = `Hola Rigoberto, soy ${form.name}. Me interesa el ${form.model}. ${form.message}. Mi teléfono: ${form.phone}`;
+    trackContact("whatsapp", { model: form.model || null, source: "formulario-contacto" });
     window.open(waLink(msg), "_blank");
   };
 
