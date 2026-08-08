@@ -70,6 +70,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      claim_admin: { Args: never; Returns: boolean }
       contact_stats: { Args: { days?: number }; Returns: Json }
       has_role: {
         Args: {
