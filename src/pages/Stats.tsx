@@ -157,7 +157,7 @@ const Stats = () => {
           Personas que iniciaron contacto desde la página (WhatsApp, mensajes copiados y cotizaciones descargadas).
         </p>
 
-        <div className="flex gap-2 mt-6">
+        <div className="flex flex-wrap items-center gap-2 mt-6">
           {RANGES.map((r) => (
             <button
               key={r}
@@ -170,7 +170,16 @@ const Stats = () => {
               {r} días
             </button>
           ))}
+          <button
+            type="button"
+            onClick={handleExport}
+            disabled={!stats}
+            className="ml-auto inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-heading font-bold bg-primary text-primary-foreground disabled:opacity-50"
+          >
+            <Download size={16} /> Exportar CSV
+          </button>
         </div>
+
 
         {loading && <p className="mt-10 text-muted-foreground">Cargando datos...</p>}
 
