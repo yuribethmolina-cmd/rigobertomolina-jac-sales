@@ -20,14 +20,25 @@ const RequireAdmin = ({ children }: Props) => {
         setStatus("anon");
         return;
       }
-      const { data, error } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", user.id)
-        .eq("role", "admin")
-        .maybeSingle();
+      const isAdmin = async () => {
+        const { data, error } = await supabase
+          .from("user_roles")
+          .select("role")
+          .eq("user_id", user.id)
+          .eq("role", "admin")
+          .maybeSingle();
+        return !error && !!data;
+      };
+
+      let allowed = await isAdmin();
+      if (!allowed) {
+        // Primera cuenta registrada se convierte en administradora
+        const { data: claimed } = await supabase.rpc("claim_admin");
+        allowed = claimed === true && (await isAdmin());
+      }
       if (!active) return;
-      setStatus(!error && data ? "allowed" : "denied");
+      setStatus(allowed ? "allowed" : "denied");
+
     };
 
     const { data: sub } = supabase.auth.onAuthStateChange(() => {
