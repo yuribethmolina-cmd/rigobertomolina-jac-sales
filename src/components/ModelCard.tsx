@@ -1,4 +1,5 @@
 import { CarModel, waLink, waModelMessage } from "@/lib/constants";
+import { trackContact } from "@/lib/track";
 import { Cog, Compass, ArrowRight } from "lucide-react";
 
 interface Props {
@@ -74,6 +75,7 @@ const ModelCard = ({ model }: Props) => {
           href={waLink(waModelMessage(model.name))}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => trackContact("whatsapp", { model: model.name, source: "tarjeta-modelo" })}
           className="mt-auto pt-4 w-full inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 font-heading text-sm font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
         >
           Consultar este modelo <ArrowRight size={16} />

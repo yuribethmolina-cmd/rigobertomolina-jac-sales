@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { MessageCircle, Phone, Mail, ArrowRight } from "lucide-react";
 import { waLink, WHATSAPP_DISPLAY, EMAIL } from "@/lib/constants";
+import { trackContact } from "@/lib/track";
 
 const modelOptions = [
   "--- Comerciales ---",
@@ -29,6 +30,7 @@ const ContactSection = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const msg = `Hola Rigoberto, soy ${form.name}. Me interesa el ${form.model}. ${form.message}. Mi teléfono: ${form.phone}`;
+    trackContact("whatsapp", { model: form.model || null, source: "formulario-contacto" });
     window.open(waLink(msg), "_blank");
   };
 
@@ -48,6 +50,7 @@ const ContactSection = () => {
             href={waLink()}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackContact("whatsapp", { source: "seccion-contacto" })}
             className="relative bg-whatsapp/10 border-2 border-whatsapp/50 rounded-xl py-6 px-5 text-center group hover:border-primary/50 transition-colors duration-200 md:scale-105"
           >
             <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs bg-whatsapp text-whatsapp-foreground px-3 py-1 rounded-full uppercase tracking-wide font-bold">

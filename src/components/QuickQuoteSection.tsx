@@ -13,6 +13,7 @@ import CopyableMessage from "./CopyableMessage";
 import WhatsAppButton from "./WhatsAppButton";
 import { generateQuotePdf } from "@/lib/quotePdf";
 import { planModels } from "@/lib/paymentPlans";
+import { trackContact } from "@/lib/track";
 
 /* Parse "$X.XXX,X" / "desde $X.XXX/mes" → number (formato VE) */
 const parsePrice = (s?: string): number | null => {
@@ -137,6 +138,7 @@ const QuickQuoteSection = () => {
 
   const handleCopyMessage = async () => {
     if (!message) return;
+    trackContact("copy", { model: model?.name, plan: planName, source: "cotizacion-rapida" });
     try {
       if (navigator.clipboard?.writeText) {
         await navigator.clipboard.writeText(message);
@@ -161,6 +163,7 @@ const QuickQuoteSection = () => {
 
   const handleDownloadPdf = () => {
     if (!model) return;
+    trackContact("pdf", { model: model.name, plan: planName, source: "cotizacion-rapida" });
     generateQuotePdf({
       modelo: model.name,
       categoria: model.category,
@@ -322,6 +325,9 @@ const QuickQuoteSection = () => {
               label="Enviar por WhatsApp"
               className="w-full"
               disabled={!model}
+              model={model?.name}
+              plan={planName}
+              source="cotizacion-rapida"
             />
             <button
               type="button"
