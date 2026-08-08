@@ -290,10 +290,6 @@ const Stats = () => {
             ))}
           </div>
         </section>
-      </main>
-    </>
-  );
-
 
         {!loading && !stats && (
           <p className="mt-10 text-muted-foreground">No se pudieron cargar las estadísticas. Intenta de nuevo.</p>
@@ -301,6 +297,7 @@ const Stats = () => {
       </main>
     </>
   );
+
 };
 
 export default Stats;
