@@ -104,17 +104,37 @@ const Auth = () => {
             <label htmlFor="password" className="block text-xs uppercase tracking-wider font-bold text-muted-foreground mb-2">
               Contraseña
             </label>
-            <input
-              id="password"
-              type="password"
-              required
-              minLength={6}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full rounded-lg bg-secondary border-2 border-border px-4 py-3 text-foreground focus:border-primary outline-none"
-              autoComplete={mode === "signin" ? "current-password" : "new-password"}
-            />
+            <div className="relative">
+              <input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                required
+                minLength={6}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full rounded-lg bg-secondary border-2 border-border px-4 py-3 pr-12 text-foreground focus:border-primary outline-none"
+                autoComplete={mode === "signin" ? "current-password" : "new-password"}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((v) => !v)}
+                aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary"
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
           </div>
+          <label className="flex items-center gap-2 text-sm text-muted-foreground cursor-pointer">
+            <input
+              type="checkbox"
+              checked={remember}
+              onChange={(e) => setRemember(e.target.checked)}
+              className="h-4 w-4 rounded border-border accent-primary"
+            />
+            Recordar mi correo en este dispositivo
+          </label>
+
           <button
             type="submit"
             disabled={loading}
