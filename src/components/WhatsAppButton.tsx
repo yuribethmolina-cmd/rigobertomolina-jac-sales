@@ -1,11 +1,15 @@
 import { Send } from "lucide-react";
 import { waLink } from "@/lib/constants";
+import { trackContact } from "@/lib/track";
 
 interface WhatsAppButtonProps {
   message: string;
   label?: string;
   className?: string;
   disabled?: boolean;
+  model?: string | null;
+  plan?: string | null;
+  source?: string;
 }
 
 const WhatsAppButton = ({
@@ -13,9 +17,13 @@ const WhatsAppButton = ({
   label = "Enviar por WhatsApp",
   className = "",
   disabled = false,
+  model,
+  plan,
+  source = "whatsapp-button",
 }: WhatsAppButtonProps) => {
   const handleClick = () => {
     if (!message) return;
+    trackContact("whatsapp", { model, plan, source });
     window.open(waLink(message), "_blank", "noopener,noreferrer");
   };
 
