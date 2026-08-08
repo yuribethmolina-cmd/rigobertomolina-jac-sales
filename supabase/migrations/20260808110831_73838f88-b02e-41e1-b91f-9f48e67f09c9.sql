@@ -1,0 +1,1 @@
+DELETE FROM public.contact_events WHERE source = 'boton-flotante' AND created_at < now();
