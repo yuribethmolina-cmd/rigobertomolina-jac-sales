@@ -325,6 +325,9 @@ const QuickQuoteSection = () => {
               label="Enviar por WhatsApp"
               className="w-full"
               disabled={!model}
+              model={model?.name}
+              plan={planName}
+              source="cotizacion-rapida"
             />
             <button
               type="button"
