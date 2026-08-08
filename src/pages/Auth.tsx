@@ -2,15 +2,27 @@ import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { ArrowLeft, Lock } from "lucide-react";
+import { ArrowLeft, Eye, EyeOff, Lock } from "lucide-react";
 import { toast } from "sonner";
+
+const REMEMBER_KEY = "rm-auth-remember";
 
 const Auth = () => {
   const navigate = useNavigate();
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [remember, setRemember] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem(REMEMBER_KEY);
+    if (saved) {
+      setEmail(saved);
+      setRemember(true);
+    }
+  }, []);
 
   useEffect(() => {
     const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
@@ -21,6 +33,7 @@ const Auth = () => {
     });
     return () => sub.subscription.unsubscribe();
   }, [navigate]);
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
