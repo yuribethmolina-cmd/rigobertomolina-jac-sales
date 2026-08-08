@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { ArrowLeft, MessageCircle, Copy, FileDown, BarChart3 } from "lucide-react";
+import { logAudit } from "@/lib/audit";
+import { toast } from "sonner";
+import { ArrowLeft, MessageCircle, Copy, FileDown, BarChart3, Download, History } from "lucide-react";
+
 
 interface Row {
   count: number;
