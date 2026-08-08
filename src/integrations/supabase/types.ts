@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_audit_log: {
+        Row: {
+          created_at: string
+          details: Json
+          event: string
+          id: string
+          page: string | null
+          user_email: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          details?: Json
+          event: string
+          id?: string
+          page?: string | null
+          user_email?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          details?: Json
+          event?: string
+          id?: string
+          page?: string | null
+          user_email?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       contact_events: {
         Row: {
           action: string
