@@ -73,9 +73,19 @@ const Stats = () => {
       </Helmet>
 
       <main className="section-container py-16">
-        <Link to="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary">
-          <ArrowLeft size={16} /> Volver al inicio
-        </Link>
+        <div className="flex items-center justify-between gap-4">
+          <Link to="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary">
+            <ArrowLeft size={16} /> Volver al inicio
+          </Link>
+          <button
+            type="button"
+            onClick={() => supabase.auth.signOut()}
+            className="text-sm font-heading font-bold text-muted-foreground hover:text-primary"
+          >
+            Cerrar sesión
+          </button>
+        </div>
+
 
         <h1 className="font-heading text-3xl md:text-4xl font-bold mt-6 flex items-center gap-3">
           <BarChart3 className="text-primary" /> Estadísticas de contacto
