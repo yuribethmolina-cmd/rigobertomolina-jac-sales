@@ -40,10 +40,43 @@ const ACTION_ICON: Record<string, typeof MessageCircle> = {
 
 const RANGES = [7, 30, 90] as const;
 
+interface AuditRow {
+  id: string;
+  event: string;
+  user_email: string | null;
+  details: Record<string, unknown> | null;
+  created_at: string;
+}
+
+const EVENT_LABEL: Record<string, string> = {
+  stats_view: "Acceso al panel",
+  export_download: "Exportación descargada",
+};
+
 const Stats = () => {
   const [days, setDays] = useState<number>(30);
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
+  const [audit, setAudit] = useState<AuditRow[]>([]);
+
+  const loadAudit = useCallback(async () => {
+    const { data, error } = await supabase
+      .from("admin_audit_log")
+      .select("id, event, user_email, details, created_at")
+      .order("created_at", { ascending: false })
+      .limit(50);
+    if (error) {
+      console.error("audit log read failed:", error.message);
+      return;
+    }
+    setAudit((data ?? []) as unknown as AuditRow[]);
+  }, []);
+
+  // Registra el acceso al panel una sola vez por sesión de página
+  useEffect(() => {
+    logAudit("stats_view", { range_days: days }).then(loadAudit);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     let active = true;
@@ -65,7 +98,34 @@ const Stats = () => {
     };
   }, [days]);
 
+  const handleExport = async () => {
+    if (!stats) return;
+    const rows: string[][] = [["seccion", "clave", "valor"]];
+    rows.push(["resumen", "contactos_totales", String(stats.total)]);
+    rows.push(["resumen", "whatsapp", String(stats.whatsapp)]);
+    stats.by_action.forEach((r) => rows.push(["accion", r.action ?? "", String(r.count)]));
+    stats.by_model.forEach((r) => rows.push(["modelo", r.model ?? "", String(r.count)]));
+    stats.by_plan.forEach((r) => rows.push(["plan", r.plan ?? "", String(r.count)]));
+    stats.by_day.forEach((r) => rows.push(["dia", r.day ?? "", String(r.count)]));
+
+    const csv = rows
+      .map((r) => r.map((c) => `"${c.replace(/"/g, '""')}"`).join(","))
+      .join("\n");
+    const blob = new Blob([`\uFEFF${csv}`], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `estadisticas-${days}dias-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+
+    await logAudit("export_download", { format: "csv", range_days: days, rows: rows.length - 1 });
+    await loadAudit();
+    toast.success("Exportación descargada y registrada en la auditoría.");
+  };
+
   const maxDay = Math.max(1, ...(stats?.by_day ?? []).map((d) => d.count));
+
 
   return (
     <>
