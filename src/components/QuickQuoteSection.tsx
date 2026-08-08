@@ -13,6 +13,7 @@ import CopyableMessage from "./CopyableMessage";
 import WhatsAppButton from "./WhatsAppButton";
 import { generateQuotePdf } from "@/lib/quotePdf";
 import { planModels } from "@/lib/paymentPlans";
+import { trackContact } from "@/lib/track";
 
 /* Parse "$X.XXX,X" / "desde $X.XXX/mes" → number (formato VE) */
 const parsePrice = (s?: string): number | null => {
