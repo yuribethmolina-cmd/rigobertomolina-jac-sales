@@ -50,6 +50,7 @@ const ContactSection = () => {
             href={waLink()}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackContact("whatsapp", { source: "seccion-contacto" })}
             className="relative bg-whatsapp/10 border-2 border-whatsapp/50 rounded-xl py-6 px-5 text-center group hover:border-primary/50 transition-colors duration-200 md:scale-105"
           >
             <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs bg-whatsapp text-whatsapp-foreground px-3 py-1 rounded-full uppercase tracking-wide font-bold">
