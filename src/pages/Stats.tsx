@@ -266,6 +266,35 @@ const Stats = () => {
           </div>
         )}
 
+        <section className="mt-12">
+          <h2 className="font-heading text-xl font-bold mb-3 flex items-center gap-2">
+            <History size={18} className="text-primary" /> Registro de auditoría
+          </h2>
+          <p className="text-sm text-muted-foreground mb-3">
+            Últimos 50 accesos al panel y descargas de exportaciones, con fecha y hora.
+          </p>
+          <div className="rounded-xl border border-border divide-y divide-border overflow-hidden">
+            {audit.length === 0 && (
+              <p className="px-4 py-4 text-sm text-muted-foreground">Sin registros todavía.</p>
+            )}
+            {audit.map((row) => (
+              <div key={row.id} className="flex flex-wrap items-center justify-between gap-2 px-4 py-3">
+                <span className="text-sm font-heading font-bold">
+                  {EVENT_LABEL[row.event] ?? row.event}
+                </span>
+                <span className="text-xs text-muted-foreground">{row.user_email ?? "Cuenta sin correo"}</span>
+                <span className="text-xs text-muted-foreground">
+                  {new Date(row.created_at).toLocaleString("es-VE")}
+                </span>
+              </div>
+            ))}
+          </div>
+        </section>
+      </main>
+    </>
+  );
+
+
         {!loading && !stats && (
           <p className="mt-10 text-muted-foreground">No se pudieron cargar las estadísticas. Intenta de nuevo.</p>
         )}
