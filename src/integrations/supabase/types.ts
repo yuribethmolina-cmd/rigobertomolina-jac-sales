@@ -14,13 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      contact_events: {
+        Row: {
+          action: string
+          created_at: string
+          id: string
+          model: string | null
+          page: string | null
+          plan: string | null
+          source: string | null
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          id?: string
+          model?: string | null
+          page?: string | null
+          plan?: string | null
+          source?: string | null
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          id?: string
+          model?: string | null
+          page?: string | null
+          plan?: string | null
+          source?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      contact_stats: { Args: { days?: number }; Returns: Json }
     }
     Enums: {
       [_ in never]: never
