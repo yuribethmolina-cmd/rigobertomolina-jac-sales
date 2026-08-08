@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { ArrowLeft, MessageCircle, Copy, FileDown, BarChart3 } from "lucide-react";
+import { logAudit } from "@/lib/audit";
+import { toast } from "sonner";
+import { ArrowLeft, MessageCircle, Copy, FileDown, BarChart3, Download, History } from "lucide-react";
+
 
 interface Row {
   count: number;
@@ -37,10 +40,43 @@ const ACTION_ICON: Record<string, typeof MessageCircle> = {
 
 const RANGES = [7, 30, 90] as const;
 
+interface AuditRow {
+  id: string;
+  event: string;
+  user_email: string | null;
+  details: Record<string, unknown> | null;
+  created_at: string;
+}
+
+const EVENT_LABEL: Record<string, string> = {
+  stats_view: "Acceso al panel",
+  export_download: "Exportación descargada",
+};
+
 const Stats = () => {
   const [days, setDays] = useState<number>(30);
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
+  const [audit, setAudit] = useState<AuditRow[]>([]);
+
+  const loadAudit = useCallback(async () => {
+    const { data, error } = await supabase
+      .from("admin_audit_log")
+      .select("id, event, user_email, details, created_at")
+      .order("created_at", { ascending: false })
+      .limit(50);
+    if (error) {
+      console.error("audit log read failed:", error.message);
+      return;
+    }
+    setAudit((data ?? []) as unknown as AuditRow[]);
+  }, []);
+
+  // Registra el acceso al panel una sola vez por sesión de página
+  useEffect(() => {
+    logAudit("stats_view", { range_days: days }).then(loadAudit);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     let active = true;
@@ -62,7 +98,34 @@ const Stats = () => {
     };
   }, [days]);
 
+  const handleExport = async () => {
+    if (!stats) return;
+    const rows: string[][] = [["seccion", "clave", "valor"]];
+    rows.push(["resumen", "contactos_totales", String(stats.total)]);
+    rows.push(["resumen", "whatsapp", String(stats.whatsapp)]);
+    stats.by_action.forEach((r) => rows.push(["accion", r.action ?? "", String(r.count)]));
+    stats.by_model.forEach((r) => rows.push(["modelo", r.model ?? "", String(r.count)]));
+    stats.by_plan.forEach((r) => rows.push(["plan", r.plan ?? "", String(r.count)]));
+    stats.by_day.forEach((r) => rows.push(["dia", r.day ?? "", String(r.count)]));
+
+    const csv = rows
+      .map((r) => r.map((c) => `"${c.replace(/"/g, '""')}"`).join(","))
+      .join("\n");
+    const blob = new Blob([`\uFEFF${csv}`], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `estadisticas-${days}dias-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+
+    await logAudit("export_download", { format: "csv", range_days: days, rows: rows.length - 1 });
+    await loadAudit();
+    toast.success("Exportación descargada y registrada en la auditoría.");
+  };
+
   const maxDay = Math.max(1, ...(stats?.by_day ?? []).map((d) => d.count));
+
 
   return (
     <>
@@ -94,7 +157,7 @@ const Stats = () => {
           Personas que iniciaron contacto desde la página (WhatsApp, mensajes copiados y cotizaciones descargadas).
         </p>
 
-        <div className="flex gap-2 mt-6">
+        <div className="flex flex-wrap items-center gap-2 mt-6">
           {RANGES.map((r) => (
             <button
               key={r}
@@ -107,7 +170,16 @@ const Stats = () => {
               {r} días
             </button>
           ))}
+          <button
+            type="button"
+            onClick={handleExport}
+            disabled={!stats}
+            className="ml-auto inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-heading font-bold bg-primary text-primary-foreground disabled:opacity-50"
+          >
+            <Download size={16} /> Exportar CSV
+          </button>
         </div>
+
 
         {loading && <p className="mt-10 text-muted-foreground">Cargando datos...</p>}
 
@@ -194,12 +266,38 @@ const Stats = () => {
           </div>
         )}
 
+        <section className="mt-12">
+          <h2 className="font-heading text-xl font-bold mb-3 flex items-center gap-2">
+            <History size={18} className="text-primary" /> Registro de auditoría
+          </h2>
+          <p className="text-sm text-muted-foreground mb-3">
+            Últimos 50 accesos al panel y descargas de exportaciones, con fecha y hora.
+          </p>
+          <div className="rounded-xl border border-border divide-y divide-border overflow-hidden">
+            {audit.length === 0 && (
+              <p className="px-4 py-4 text-sm text-muted-foreground">Sin registros todavía.</p>
+            )}
+            {audit.map((row) => (
+              <div key={row.id} className="flex flex-wrap items-center justify-between gap-2 px-4 py-3">
+                <span className="text-sm font-heading font-bold">
+                  {EVENT_LABEL[row.event] ?? row.event}
+                </span>
+                <span className="text-xs text-muted-foreground">{row.user_email ?? "Cuenta sin correo"}</span>
+                <span className="text-xs text-muted-foreground">
+                  {new Date(row.created_at).toLocaleString("es-VE")}
+                </span>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {!loading && !stats && (
           <p className="mt-10 text-muted-foreground">No se pudieron cargar las estadísticas. Intenta de nuevo.</p>
         )}
       </main>
     </>
   );
+
 };
 
 export default Stats;
