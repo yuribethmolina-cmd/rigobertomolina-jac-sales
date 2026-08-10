@@ -30,12 +30,8 @@ const RequireAdmin = ({ children }: Props) => {
         return !error && !!data;
       };
 
-      let allowed = await isAdmin();
-      if (!allowed) {
-        // Primera cuenta registrada se convierte en administradora
-        const { data: claimed } = await supabase.rpc("claim_admin");
-        allowed = claimed === true && (await isAdmin());
-      }
+      const allowed = await isAdmin();
+
       if (!active) return;
       setStatus(allowed ? "allowed" : "denied");
 
