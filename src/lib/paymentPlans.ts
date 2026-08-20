@@ -47,8 +47,8 @@ export const planModels: PlanModel[] = [
   },
   {
     modelo: "La Venezolana 4x2",
-    cuotaDirecta: 3267,
-    totalDirecta: 22874,
+    cuotaDirecta: 3320,
+    totalDirecta: 23239,
     afiliacionFacil: AFILIACION_FACIL,
     cuotaFacil: 1634.9,
     finalFacil: 3738.9,
