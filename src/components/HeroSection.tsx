@@ -90,7 +90,7 @@ const HeroSection = () => {
             ? "translate-y-0 opacity-100"
             : "-translate-y-8 opacity-0 pointer-events-none"
         }`}
-        style={{ top: scrolled ? '4.5rem' : '9rem' }}
+        style={{ top: '9rem' }}
       >
         <div className="py-6 px-6 flex flex-col gap-1">
           {navLinks.map((link, i) => (
