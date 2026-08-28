@@ -670,7 +670,9 @@ export const pickupModels: CarModel[] = [
       tecnologia: ["Sensor de estacionamiento trasero"],
       equipamiento: ["Neumáticos 265/60R18", "Rines de aluminio", "Luces LED DRL", "Escalones laterales", "Incluye BELJIMMY 125 (moto 125cc)"],
     },
+  },
   {
+
     name: "T5 LA VENEZOLANA 4X2 DIESEL",
     tagline: "Diésel 2.8L de 145 Hp con 1.000 kg de carga",
     transmission: "Manual",
