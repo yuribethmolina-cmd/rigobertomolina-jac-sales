@@ -10,6 +10,7 @@ import Review from "./pages/Review.tsx";
 import ModerateReviews from "./pages/ModerateReviews.tsx";
 import Contact from "./pages/Contact.tsx";
 import Auth from "./pages/Auth.tsx";
+import DigitalCard from "./pages/DigitalCard.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import RequireAdmin from "./components/RequireAdmin.tsx";
 
