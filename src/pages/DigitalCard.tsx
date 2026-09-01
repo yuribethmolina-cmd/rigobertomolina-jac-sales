@@ -55,34 +55,41 @@ const DigitalCard = () => {
     toast.success("Contacto descargado. Abre el archivo para guardarlo.");
   };
 
+  const downloadStoryImage = (blobUrl?: string) => {
+    const a = document.createElement("a");
+    a.href = blobUrl ?? "/instagram-story-card.jpg";
+    a.download = "rigoberto-molina-tarjeta.jpg";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    if (blobUrl) URL.revokeObjectURL(blobUrl);
+    toast.success("Imagen descargada. Súbela a tu historia o post de Instagram.");
+  };
+
   const shareStoryImage = async () => {
+    let blob: Blob | null = null;
     try {
       const res = await fetch("/instagram-story-card.jpg");
-      const blob = await res.blob();
+      blob = await res.blob();
       const file = new File([blob], "rigoberto-molina-tarjeta.jpg", {
         type: "image/jpeg",
       });
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      if (navigator.canShare?.({ files: [file] })) {
         await navigator.share({
           files: [file],
           title: "Tarjeta de Rigoberto Molina",
           text: "Vendedor JAC Caracas — rigobertomolina.com/tarjeta",
         });
-      } else {
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "rigoberto-molina-tarjeta.jpg";
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        URL.revokeObjectURL(url);
-        toast.success("Imagen descargada. Súbela a tu historia o post de Instagram.");
+        return;
       }
-    } catch {
-      toast.error("No se pudo compartir la imagen. Descarga manual: /instagram-story-card.jpg");
+    } catch (err) {
+      // User cancelled the native share sheet: do nothing.
+      if (err instanceof DOMException && err.name === "AbortError") return;
     }
+    // Any other case: fall back to downloading the image.
+    downloadStoryImage(blob ? URL.createObjectURL(blob) : undefined);
   };
+
 
   const share = async () => {
     if (navigator.share) {
