@@ -105,6 +105,7 @@ const Stats = () => {
   const [loading, setLoading] = useState(true);
   const [audit, setAudit] = useState<AuditRow[]>([]);
   const [reviews, setReviews] = useState<ReviewRow[]>([]);
+  const pendingReviews = reviews.filter((r) => !r.approved).length;
   const [quotes, setQuotes] = useState<QuoteRow[]>([]);
   const [contacts, setContacts] = useState<ContactRow[]>([]);
 
