@@ -147,6 +147,42 @@ const buildFiaoSchedule = (q: { firma: number; preEntrega: number; cuota: number
   { type: "ORDINARY", count: 12, amount: q.cuota, label: "12 cuotas ordinarias mensuales (catálogo 06 ago)" },
 ];
 
+const CATALOGO_RUTA48_17_AGO = "CREDIJAC RUTA 48 17 DE AGOSTO";
+
+/* Cronogramas CrediJAC Ruta 48 trazables al catálogo del 17 de agosto.
+   Estructura oficial: pago 1 con la firma + 15 pagos de inicial del mismo
+   importe + cuota especial previa a la entrega + 32 pagos fijos mensuales.
+   Solo los vehículos listados aquí tienen importes: no se extrapola. */
+const ruta48Quotas: {
+  vehicleId: string;
+  firma: number;
+  preEntrega: number;
+  fija: number;
+}[] = [
+  { vehicleId: "arena-sport-manual", firma: 499.3, preEntrega: 2887.9, fija: 655.5 },
+  { vehicleId: "arena-sport-automatico", firma: 540.4, preEntrega: 3082.0, fija: 709.5 },
+  { vehicleId: "arena-pro", firma: 593.1, preEntrega: 3330.5, fija: 778.7 },
+  { vehicleId: "nevado-manual", firma: 654.9, preEntrega: 3622.1, fija: 859.9 },
+  { vehicleId: "tepuy-pro", firma: 901.9, preEntrega: 4787.3, fija: 1184.2 },
+  { vehicleId: "savanna", firma: 967.4, preEntrega: 5096.2, fija: 1270.2 },
+  { vehicleId: "rf8", firma: 1512.2, preEntrega: 7665.6, fija: 1985.4 },
+  { vehicleId: "gx7", firma: 864.8, preEntrega: 4612.3, fija: 1135.5 },
+  { vehicleId: "la-venezolana-a-gasolina-4x2", firma: 647.3, preEntrega: 3633.2, fija: 849.9 },
+  { vehicleId: "la-venezolana-a-diesel-4x2", firma: 667.9, preEntrega: 3730.2, fija: 876.9 },
+  { vehicleId: "la-venezolana-a-diesel-4x4", firma: 748.3, preEntrega: 4109.5, fija: 982.4 },
+  { vehicleId: "t5-la-venezolana-4x2-diesel-2-8l", firma: 660.9, preEntrega: 3697.6, fija: 867.8 },
+  { vehicleId: "la-venezolana-pa-l-campo-4x4-diesel", firma: 844.8, preEntrega: 4564.8, fija: 1109.2 },
+  { vehicleId: "la-venezolana-pro-4x4", firma: 886.2, preEntrega: 4760.3, fija: 1163.6 },
+  { vehicleId: "limited", firma: 1100.6, preEntrega: 5771.5, fija: 1445.1 },
+];
+
+const buildRuta48Schedule = (q: { firma: number; preEntrega: number; fija: number }): PaymentStage[] => [
+  { type: "SIGNATURE", count: 1, amount: q.firma, label: "Pago 1 con la firma del contrato" },
+  { type: "INITIAL", count: 15, amount: q.firma, label: "15 pagos adicionales de inicial" },
+  { type: "PRE_DELIVERY", count: 1, amount: q.preEntrega, label: "Cuota especial previa a la entrega" },
+  { type: "FIXED", count: 32, amount: q.fija, label: "32 pagos fijos mensuales" },
+];
+
 export const vehicleFinancing: VehicleFinancing[] = [
   ...monthlyQuotas.flatMap((q) => {
     const plan = getPlan(q.planId);
@@ -170,7 +206,16 @@ export const vehicleFinancing: VehicleFinancing[] = [
     amountsSource: CATALOGO_FIAO_06_AGO,
     schedule: buildFiaoSchedule(q),
   })),
+  ...ruta48Quotas.map((q) => ({
+    vehicleId: q.vehicleId,
+    planId: "credijac-ruta-48",
+    currency: "USD" as const,
+    amountsSourceStatus: "VERIFIED_17_AUG" as SourceStatus,
+    amountsSource: CATALOGO_RUTA48_17_AGO,
+    schedule: buildRuta48Schedule(q),
+  })),
 ];
+
 
 /** Cronograma sin importes: solo estructura oficial del plan. */
 const templateSchedule = (plan: FinancingPlan): PaymentStage[] =>
