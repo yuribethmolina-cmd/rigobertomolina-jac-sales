@@ -77,9 +77,15 @@ const Review = () => {
         <meta name="robots" content="noindex" />
       </Helmet>
 
-      <div className="w-full max-w-md rounded-2xl border border-primary/20 bg-[hsl(212,52%,13%)] p-6 md:p-8">
+      <div className="w-full max-w-md rounded-2xl border border-primary/20 bg-[hsl(212,52%,13%)] p-6 md:p-8 relative">
+        <Link
+          to="/"
+          className="absolute top-4 left-4 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-muted-foreground hover:text-primary transition-colors"
+        >
+          <ArrowLeft size={16} /> Inicio
+        </Link>
         {done ? (
-          <div className="text-center py-8">
+          <div className="text-center py-8 pt-10">
             <CheckCircle2 className="mx-auto text-primary" size={48} />
             <h1 className="mt-4 font-heading text-2xl font-bold uppercase text-foreground">
               ¡Gracias por tu reseña!
