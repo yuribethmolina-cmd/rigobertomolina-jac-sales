@@ -7,6 +7,7 @@ import Index from "./pages/Index.tsx";
 import ModelDetail from "./pages/ModelDetail.tsx";
 import Stats from "./pages/Stats.tsx";
 import Review from "./pages/Review.tsx";
+import Contact from "./pages/Contact.tsx";
 import Auth from "./pages/Auth.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import RequireAdmin from "./components/RequireAdmin.tsx";
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/modelo/:slug" element={<ModelDetail />} />
           <Route path="/acceso" element={<Auth />} />
           <Route path="/resena" element={<Review />} />
+          <Route path="/contacto" element={<Contact />} />
           <Route
             path="/estadisticas"
             element={

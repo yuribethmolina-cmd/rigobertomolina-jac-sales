@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { logAudit } from "@/lib/audit";
 import { toast } from "sonner";
-import { ArrowLeft, MessageCircle, Copy, FileDown, BarChart3, Download, History, Star, Link2, Trash2, ClipboardList } from "lucide-react";
+import { ArrowLeft, MessageCircle, Copy, FileDown, BarChart3, Download, History, Star, Link2, Trash2, ClipboardList, Inbox } from "lucide-react";
 
 
 interface Row {
@@ -76,6 +76,16 @@ interface QuoteRow {
   created_at: string;
 }
 
+interface ContactRow {
+  id: string;
+  full_name: string;
+  phone: string | null;
+  email: string | null;
+  message: string;
+  status: "nuevo" | "contactado" | "cerrado";
+  created_at: string;
+}
+
 const QUOTE_STATUS_LABEL: Record<QuoteRow["status"], string> = {
   nuevo: "Nuevo",
   contactado: "Contactado",
@@ -93,6 +103,43 @@ const Stats = () => {
   const [audit, setAudit] = useState<AuditRow[]>([]);
   const [reviews, setReviews] = useState<ReviewRow[]>([]);
   const [quotes, setQuotes] = useState<QuoteRow[]>([]);
+  const [contacts, setContacts] = useState<ContactRow[]>([]);
+
+  const loadContacts = useCallback(async () => {
+    const { data, error } = await supabase
+      .from("contact_messages")
+      .select("id, full_name, phone, email, message, status, created_at")
+      .order("created_at", { ascending: false })
+      .limit(100);
+    if (error) {
+      console.error("contact_messages read failed:", error.message);
+      return;
+    }
+    setContacts((data ?? []) as unknown as ContactRow[]);
+  }, []);
+
+  const setContactStatus = async (row: ContactRow) => {
+    const next = QUOTE_STATUS_ORDER[(QUOTE_STATUS_ORDER.indexOf(row.status) + 1) % QUOTE_STATUS_ORDER.length];
+    const { error } = await supabase
+      .from("contact_messages")
+      .update({ status: next })
+      .eq("id", row.id);
+    if (error) {
+      toast.error("No se pudo actualizar el estado.");
+      return;
+    }
+    loadContacts();
+  };
+
+  const deleteContact = async (id: string) => {
+    const { error } = await supabase.from("contact_messages").delete().eq("id", id);
+    if (error) {
+      toast.error("No se pudo eliminar el mensaje.");
+      return;
+    }
+    toast.success("Mensaje eliminado.");
+    loadContacts();
+  };
 
   const loadQuotes = useCallback(async () => {
     const { data, error } = await supabase
@@ -146,7 +193,8 @@ const Stats = () => {
   useEffect(() => {
     loadReviews();
     loadQuotes();
-  }, [loadReviews, loadQuotes]);
+    loadContacts();
+  }, [loadReviews, loadQuotes, loadContacts]);
 
   const copyReviewLink = async () => {
     try {
@@ -385,6 +433,57 @@ const Stats = () => {
             </section>
           </div>
         )}
+
+        <section className="mt-12">
+          <h2 className="font-heading text-xl font-bold mb-3 flex items-center gap-2">
+            <Inbox size={18} className="text-primary" /> Mensajes de contacto
+          </h2>
+          <p className="text-sm text-muted-foreground mb-3">
+            Consultas recibidas desde la página de contacto. Toca el estado para moverlo: Nuevo → Contactado → Cerrado.
+          </p>
+          <div className="rounded-xl border border-border divide-y divide-border overflow-hidden">
+            {contacts.length === 0 && (
+              <p className="px-4 py-4 text-sm text-muted-foreground">Aún no hay mensajes recibidos.</p>
+            )}
+            {contacts.map((c) => (
+              <div key={c.id} className="px-4 py-3">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <span className="text-sm font-heading font-bold">{c.full_name}</span>
+                  <button
+                    type="button"
+                    onClick={() => setContactStatus(c)}
+                    className={`text-xs font-bold px-2.5 py-1 rounded-full border ${
+                      c.status === "nuevo"
+                        ? "border-primary text-primary"
+                        : c.status === "contactado"
+                          ? "border-amber-500 text-amber-500"
+                          : "border-border text-muted-foreground"
+                    }`}
+                  >
+                    {QUOTE_STATUS_LABEL[c.status]}
+                  </button>
+                </div>
+                <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
+                  {c.phone && <a href={`tel:${c.phone}`} className="hover:text-primary font-bold">{c.phone}</a>}
+                  {c.email && <a href={`mailto:${c.email}`} className="hover:text-primary">{c.email}</a>}
+                </div>
+                <p className="mt-1 text-sm text-muted-foreground">{c.message}</p>
+                <div className="mt-2 flex items-center gap-3">
+                  <span className="text-xs text-muted-foreground">
+                    {new Date(c.created_at).toLocaleString("es-VE")}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => deleteContact(c.id)}
+                    className="inline-flex items-center gap-1 text-xs font-bold text-muted-foreground hover:text-destructive"
+                  >
+                    <Trash2 size={12} /> Eliminar
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
 
         <section className="mt-12">
           <h2 className="font-heading text-xl font-bold mb-3 flex items-center gap-2">

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { MessageCircle } from "lucide-react";
 import { waLink, WHATSAPP_DISPLAY, INSTAGRAM, INSTAGRAM_HANDLE } from "@/lib/constants";
 
@@ -7,6 +8,12 @@ const FooterSection = () => (
       <p className="font-heading text-lg font-bold">Rigoberto Molina · Embajador de la marca JAC · Caracas, Venezuela</p>
       <p className="text-muted-foreground text-sm">Catálogo Compra Directa & Pago Fácil · Bel · JAC Venezuela · Agosto 2026</p>
       <p className="text-muted-foreground text-sm">Lunes a Sábado · {WHATSAPP_DISPLAY}</p>
+
+      <p className="mt-4">
+        <Link to="/contacto" className="text-sm font-heading font-bold text-primary hover:underline">
+          Formulario de contacto
+        </Link>
+      </p>
 
       <div className="flex justify-center gap-3 mt-4">
         <a
