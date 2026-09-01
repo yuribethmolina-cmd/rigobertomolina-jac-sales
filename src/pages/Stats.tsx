@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { logAudit } from "@/lib/audit";
 import { toast } from "sonner";
-import { ArrowLeft, MessageCircle, Copy, FileDown, BarChart3, Download, History, Star, Link2, Trash2 } from "lucide-react";
+import { ArrowLeft, MessageCircle, Copy, FileDown, BarChart3, Download, History, Star, Link2, Trash2, ClipboardList } from "lucide-react";
 
 
 interface Row {
@@ -385,6 +385,63 @@ const Stats = () => {
             </section>
           </div>
         )}
+
+        <section className="mt-12">
+          <h2 className="font-heading text-xl font-bold mb-3 flex items-center gap-2">
+            <ClipboardList size={18} className="text-primary" /> Solicitudes de cotización
+          </h2>
+          <p className="text-sm text-muted-foreground mb-3">
+            Formulario de cotización del sitio. Toca el estado para moverlo: Nuevo → Contactado → Cerrado.
+          </p>
+          <div className="rounded-xl border border-border divide-y divide-border overflow-hidden">
+            {quotes.length === 0 && (
+              <p className="px-4 py-4 text-sm text-muted-foreground">Aún no hay solicitudes recibidas.</p>
+            )}
+            {quotes.map((q) => (
+              <div key={q.id} className="px-4 py-3">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <span className="text-sm font-heading font-bold">
+                    {q.full_name}
+                    <span className="ml-2 text-xs text-muted-foreground font-normal">
+                      · {q.vehicle_name} · {q.plan_name}
+                    </span>
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setQuoteStatus(q)}
+                    className={`text-xs font-bold px-2.5 py-1 rounded-full border ${
+                      q.status === "nuevo"
+                        ? "border-primary text-primary"
+                        : q.status === "contactado"
+                          ? "border-amber-500 text-amber-500"
+                          : "border-border text-muted-foreground"
+                    }`}
+                  >
+                    {QUOTE_STATUS_LABEL[q.status]}
+                  </button>
+                </div>
+                <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
+                  <a href={`tel:${q.phone}`} className="hover:text-primary font-bold">{q.phone}</a>
+                  {q.email && <a href={`mailto:${q.email}`} className="hover:text-primary">{q.email}</a>}
+                  {q.city && <span>{q.city}</span>}
+                </div>
+                {q.message && <p className="mt-1 text-sm text-muted-foreground">{q.message}</p>}
+                <div className="mt-2 flex items-center gap-3">
+                  <span className="text-xs text-muted-foreground">
+                    {new Date(q.created_at).toLocaleString("es-VE")}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => deleteQuote(q.id)}
+                    className="inline-flex items-center gap-1 text-xs font-bold text-muted-foreground hover:text-destructive"
+                  >
+                    <Trash2 size={12} /> Eliminar
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
 
         <section className="mt-12">
           <h2 className="font-heading text-xl font-bold mb-3 flex items-center gap-2">
