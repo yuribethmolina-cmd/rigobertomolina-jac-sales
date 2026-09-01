@@ -222,15 +222,15 @@ const DigitalCard = () => {
           <div className="flex-1 flex items-center rounded-xl border border-border bg-card px-3 py-3 overflow-hidden">
             <input
               readOnly
-              value={VCF_URL}
+              value={CARD_URL}
               onFocus={(e) => e.currentTarget.select()}
-              aria-label="Link del contacto"
+              aria-label="Link de la tarjeta"
               className="w-full bg-transparent text-xs text-foreground outline-none truncate font-mono"
             />
           </div>
           <button
             type="button"
-            onClick={copyVcfUrl}
+            onClick={copyUrl}
             className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-heading font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
           >
             {copied ? <Check size={16} /> : <Share2 size={16} />}
