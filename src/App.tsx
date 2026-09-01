@@ -7,6 +7,7 @@ import Index from "./pages/Index.tsx";
 import ModelDetail from "./pages/ModelDetail.tsx";
 import Stats from "./pages/Stats.tsx";
 import Review from "./pages/Review.tsx";
+import ModerateReviews from "./pages/ModerateReviews.tsx";
 import Contact from "./pages/Contact.tsx";
 import Auth from "./pages/Auth.tsx";
 import NotFound from "./pages/NotFound.tsx";
