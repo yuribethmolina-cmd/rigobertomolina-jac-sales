@@ -4,7 +4,9 @@ import { supabase } from "@/integrations/supabase/client";
 import { vehicles } from "@/data/vehicles";
 import { financingPlans } from "@/data/financingPlans";
 import { toast } from "sonner";
-import { Send, Loader2, CheckCircle2 } from "lucide-react";
+import { Send, Loader2, CheckCircle2, MessageCircle } from "lucide-react";
+import { waLink } from "@/lib/constants";
+import { trackContact } from "@/lib/track";
 
 const quoteSchema = z.object({
   fullName: z.string().trim().min(2, "Escribe tu nombre completo").max(100, "Máximo 100 caracteres"),
@@ -37,6 +39,7 @@ const QuoteFormSection = () => {
   const [errors, setErrors] = useState<Partial<Record<keyof QuoteForm, string>>>({});
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
+  const [waUrl, setWaUrl] = useState("");
 
   const modelOptions = useMemo(
     () => [...vehicles].sort((a, b) => a.displayName.localeCompare(b.displayName, "es")),
@@ -50,6 +53,24 @@ const QuoteFormSection = () => {
   const set = (key: keyof QuoteForm, value: string) => {
     setForm((f) => ({ ...f, [key]: value }));
     setErrors((e) => ({ ...e, [key]: undefined }));
+  };
+
+  const buildWhatsAppMessage = (data: QuoteForm) => {
+    const lines = [
+      `Hola Rigoberto, quiero cotizar un vehículo.`,
+      ``,
+      `Nombre: ${data.fullName}`,
+      `Teléfono: ${data.phone}`,
+    ];
+    if (data.email) lines.push(`Correo: ${data.email}`);
+    if (data.city) lines.push(`Ciudad: ${data.city}`);
+    lines.push(`Modelo: ${data.vehicleName}`);
+    lines.push(`Plan: ${data.planName}`);
+    if (data.message) {
+      lines.push(``);
+      lines.push(`Mensaje: ${data.message}`);
+    }
+    return lines.join("\n");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -84,8 +105,10 @@ const QuoteFormSection = () => {
     }
     supabase.functions.invoke("send-quote-email", { body: { quoteId: inserted.id } })
       .catch((e) => console.error("quote email failed:", e));
+    trackContact("whatsapp", { model: parsed.data.vehicleName, plan: parsed.data.planName, source: "quote-form" });
     setSent(true);
-    toast.success("Solicitud enviada. Rigoberto te contactará pronto.");
+    setWaUrl(waLink(buildWhatsAppMessage(parsed.data)));
+    toast.success("Solicitud enviada. También puedes escribirle ahora por WhatsApp.");
   };
 
   const err = (k: keyof QuoteForm) =>
@@ -108,10 +131,20 @@ const QuoteFormSection = () => {
             <p className="mt-2 text-sm text-muted-foreground">
               Gracias, {form.fullName.split(" ")[0]}. Revisaré tu solicitud de {form.vehicleName} ({form.planName}) y te contactaré al {form.phone}.
             </p>
+            <a
+              href={waUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackContact("whatsapp", { model: form.vehicleName, plan: form.planName, source: "quote-form-success" })}
+              className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[#25D366] px-6 py-4 font-heading font-bold text-white hover:bg-[#1ebe5d] transition-colors"
+            >
+              <MessageCircle size={18} />
+              Enviar también por WhatsApp
+            </a>
             <button
               type="button"
-              onClick={() => { setForm(EMPTY); setSent(false); }}
-              className="mt-6 text-sm font-heading font-bold text-primary hover:underline"
+              onClick={() => { setForm(EMPTY); setSent(false); setWaUrl(""); }}
+              className="mt-3 text-sm font-heading font-bold text-primary hover:underline"
             >
               Enviar otra solicitud
             </button>
