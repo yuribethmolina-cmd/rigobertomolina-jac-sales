@@ -9,9 +9,13 @@ const FooterSection = () => (
       <p className="text-muted-foreground text-sm">Catálogo Compra Directa & Pago Fácil · Bel · JAC Venezuela · Agosto 2026</p>
       <p className="text-muted-foreground text-sm">Lunes a Sábado · {WHATSAPP_DISPLAY}</p>
 
-      <p className="mt-4">
+      <p className="mt-4 flex items-center justify-center gap-3 flex-wrap">
         <Link to="/contacto" className="text-sm font-heading font-bold text-primary hover:underline">
           Formulario de contacto
+        </Link>
+        <span className="text-muted-foreground/40">·</span>
+        <Link to="/tarjeta" className="text-sm font-heading font-bold text-primary hover:underline">
+          Tarjeta de presentación
         </Link>
       </p>
 
