@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { logAudit } from "@/lib/audit";
 import { toast } from "sonner";
-import { ArrowLeft, MessageCircle, Copy, FileDown, BarChart3, Download, History } from "lucide-react";
+import { ArrowLeft, MessageCircle, Copy, FileDown, BarChart3, Download, History, Star, Link2, Trash2 } from "lucide-react";
 
 
 interface Row {
@@ -53,11 +53,72 @@ const EVENT_LABEL: Record<string, string> = {
   export_download: "Exportación descargada",
 };
 
+interface ReviewRow {
+  id: string;
+  customer_name: string;
+  vehicle_name: string | null;
+  rating: number;
+  message: string;
+  approved: boolean;
+  created_at: string;
+}
+
+const REVIEW_URL = "https://rigobertomolina.com/resena";
+
 const Stats = () => {
   const [days, setDays] = useState<number>(30);
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
   const [audit, setAudit] = useState<AuditRow[]>([]);
+  const [reviews, setReviews] = useState<ReviewRow[]>([]);
+
+  const loadReviews = useCallback(async () => {
+    const { data, error } = await supabase
+      .from("reviews")
+      .select("id, customer_name, vehicle_name, rating, message, approved, created_at")
+      .order("created_at", { ascending: false })
+      .limit(50);
+    if (error) {
+      console.error("reviews read failed:", error.message);
+      return;
+    }
+    setReviews((data ?? []) as unknown as ReviewRow[]);
+  }, []);
+
+  useEffect(() => {
+    loadReviews();
+  }, [loadReviews]);
+
+  const copyReviewLink = async () => {
+    try {
+      await navigator.clipboard.writeText(REVIEW_URL);
+      toast.success("Link de reseñas copiado. Envíalo a tu cliente después de la compra.");
+    } catch {
+      toast.error(`No se pudo copiar. Copia manualmente: ${REVIEW_URL}`);
+    }
+  };
+
+  const toggleReviewApproved = async (row: ReviewRow) => {
+    const { error } = await supabase
+      .from("reviews")
+      .update({ approved: !row.approved })
+      .eq("id", row.id);
+    if (error) {
+      toast.error("No se pudo actualizar la reseña.");
+      return;
+    }
+    loadReviews();
+  };
+
+  const deleteReview = async (id: string) => {
+    const { error } = await supabase.from("reviews").delete().eq("id", id);
+    if (error) {
+      toast.error("No se pudo eliminar la reseña.");
+      return;
+    }
+    toast.success("Reseña eliminada.");
+    loadReviews();
+  };
 
   const loadAudit = useCallback(async () => {
     const { data, error } = await supabase
