@@ -135,7 +135,7 @@ const QuoteFormSection = () => {
               href={waUrl}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => trackContact("whatsapp", form.vehicleName).catch(() => {})}
+              onClick={() => trackContact("whatsapp", { model: form.vehicleName, plan: form.planName, source: "quote-form-success" })}
               className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[#25D366] px-6 py-4 font-heading font-bold text-white hover:bg-[#1ebe5d] transition-colors"
             >
               <MessageCircle size={18} />
