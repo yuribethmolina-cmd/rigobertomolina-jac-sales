@@ -25,6 +25,7 @@ const App = () => (
           <Route path="/modelo/:slug" element={<ModelDetail />} />
           <Route path="/acceso" element={<Auth />} />
           <Route path="/resena" element={<Review />} />
+          <Route path="/contacto" element={<Contact />} />
           <Route
             path="/estadisticas"
             element={
