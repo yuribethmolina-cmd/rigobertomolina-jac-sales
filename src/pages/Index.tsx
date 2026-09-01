@@ -10,6 +10,7 @@ import FinancingExplorer from "@/components/FinancingExplorer";
 import QuickQuoteSection from "@/components/QuickQuoteSection";
 import HowToBuySection from "@/components/HowToBuySection";
 import FAQSection from "@/components/FAQSection";
+import ReviewsSection from "@/components/ReviewsSection";
 import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
 import FooterSection from "@/components/FooterSection";
@@ -37,6 +38,7 @@ const Index = () => (
     <QuickQuoteSection />
     <HowToBuySection />
     <FAQSection />
+    <ReviewsSection />
     <AboutSection />
     <ContactSection />
     <FooterSection />
