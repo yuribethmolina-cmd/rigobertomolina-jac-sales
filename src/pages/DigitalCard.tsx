@@ -175,6 +175,14 @@ const DigitalCard = () => {
             <Download size={20} /> Abrir contacto (tarjeta)
           </a>
 
+          <button
+            type="button"
+            onClick={shareStoryImage}
+            className="flex w-full items-center justify-center gap-3 rounded-xl border border-primary/40 bg-card px-5 py-4 font-heading font-bold text-foreground hover:border-primary/50 hover:text-primary transition-colors"
+          >
+            <Instagram size={20} /> Compartir en Instagram
+          </button>
+
           <a
             href={waLink("Hola Rigoberto, te contacto desde tu tarjeta digital. Quiero información sobre un modelo JAC.")}
             target="_blank"
