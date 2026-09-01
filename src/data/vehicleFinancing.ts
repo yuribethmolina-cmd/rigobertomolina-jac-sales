@@ -105,6 +105,25 @@ const monthlyQuotas: { vehicleId: string; planId: string; cuota: number }[] = [
   { vehicleId: "m4-carroza", planId: "pago-facil", cuota: 3875 },
   { vehicleId: "m4-carroza", planId: "compra-directa", cuota: 6386 },];
 
+const CATALOGO_FIAO_06_AGO = "Catálogo Llévatelo Fiao 06 de agosto de 2026";
+
+/* Cronogramas Llévatelo Fiao trazables al catálogo del 6 de agosto (OCR).
+   Estructura documentada: pago a la firma + 5 pagos de igual monto (inicial)
+   + pre-entrega + 12 cuotas ordinarias. */
+const fiaoQuotas: {
+  vehicleId: string;
+  firma: number;
+  preEntrega: number;
+  cuota: number;
+}[] = [
+  { vehicleId: "arena-sport-manual", firma: 1298.7, preEntrega: 3559.2, cuota: 974.0 },
+  { vehicleId: "arena-sport-automatico", firma: 1419.9, preEntrega: 3841.5, cuota: 1064.9 },
+  { vehicleId: "arena-pro", firma: 1564.2, preEntrega: 4177.8, cuota: 1173.2 },
+  { vehicleId: "tepuy-pro", firma: 2487.4, preEntrega: 6328.9, cuota: 1865.6 },
+  { vehicleId: "la-venezolana-a-diesel-4x2", firma: 1861.5, preEntrega: 4917.5, cuota: 1396.1 },
+  { vehicleId: "la-venezolana-a-diesel-4x4", firma: 2063.5, preEntrega: 5388.1, cuota: 1547.6 },
+];
+
 /** Cronograma con importes conocidos (Pago Fácil y Compra Directa). */
 const buildScheduleFor = (plan: FinancingPlan, cuota: number): PaymentStage[] => {
   if (plan.id === "pago-facil") {
@@ -121,20 +140,37 @@ const buildScheduleFor = (plan: FinancingPlan, cuota: number): PaymentStage[] =>
   ];
 };
 
-export const vehicleFinancing: VehicleFinancing[] = monthlyQuotas.flatMap((q) => {
-  const plan = getPlan(q.planId);
-  if (!plan) return [];
-  return [
-    {
-      vehicleId: q.vehicleId,
-      planId: q.planId,
-      currency: "USD" as const,
-      amountsSourceStatus: plan.sourceStatus,
-      amountsSource: CATALOGO_17_AGO,
-      schedule: buildScheduleFor(plan, q.cuota),
-    },
-  ];
-});
+const buildFiaoSchedule = (q: { firma: number; preEntrega: number; cuota: number }): PaymentStage[] => [
+  { type: "SIGNATURE", count: 1, amount: q.firma, label: "Pago a la firma del contrato" },
+  { type: "INITIAL", count: 5, amount: q.firma, label: "5 pagos para completar la inicial" },
+  { type: "PRE_DELIVERY", count: 1, amount: q.preEntrega, label: "Cuota especial previa a la entrega" },
+  { type: "ORDINARY", count: 12, amount: q.cuota, label: "12 cuotas ordinarias mensuales (catálogo 06 ago)" },
+];
+
+export const vehicleFinancing: VehicleFinancing[] = [
+  ...monthlyQuotas.flatMap((q) => {
+    const plan = getPlan(q.planId);
+    if (!plan) return [];
+    return [
+      {
+        vehicleId: q.vehicleId,
+        planId: q.planId,
+        currency: "USD" as const,
+        amountsSourceStatus: plan.sourceStatus,
+        amountsSource: CATALOGO_17_AGO,
+        schedule: buildScheduleFor(plan, q.cuota),
+      },
+    ];
+  }),
+  ...fiaoQuotas.map((q) => ({
+    vehicleId: q.vehicleId,
+    planId: "llevatelo-fiao",
+    currency: "USD" as const,
+    amountsSourceStatus: "REVIEW_NOT_VERIFIED" as SourceStatus,
+    amountsSource: CATALOGO_FIAO_06_AGO,
+    schedule: buildFiaoSchedule(q),
+  })),
+];
 
 /** Cronograma sin importes: solo estructura oficial del plan. */
 const templateSchedule = (plan: FinancingPlan): PaymentStage[] =>
