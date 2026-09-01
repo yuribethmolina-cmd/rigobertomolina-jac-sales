@@ -93,6 +93,12 @@ const Review = () => {
             <p className="mt-3 text-muted-foreground text-sm leading-relaxed">
               Tu opinión es muy importante para nosotros y para futuros compradores.
             </p>
+            <Link
+              to="/"
+              className="mt-5 inline-flex items-center justify-center gap-1.5 rounded-lg border border-primary/30 px-4 py-2 text-sm font-bold uppercase tracking-wider text-primary hover:bg-primary/10 transition-colors"
+            >
+              <ArrowLeft size={16} /> Volver al inicio
+            </Link>
           </div>
         ) : (
           <>
