@@ -4,18 +4,19 @@ import { modelPath } from "@/lib/modelLinks";
 import ShareModelButton from "@/components/ShareModelButton";
 import catalogSpecs from "@/lib/catalogSpecs";
 import { ChevronDown } from "lucide-react";
-import type { CatalogModel } from "./ModelsSection";
+import type { Vehicle } from "@/data/vehicles";
+import { pagoFacilMonthly } from "@/data/vehicleFinancing";
+import { fmtUsd0, NOT_VERIFIED_LABEL } from "@/data/financingPlans";
 
 interface Props {
-  model: CatalogModel;
+  vehicle: Vehicle;
   isExpanded: boolean;
   onToggle: () => void;
 }
 
-const CatalogCard = ({ model, isExpanded, onToggle }: Props) => {
-  const hasCD = model.priceCD && model.priceCD !== "Consultar";
-  const hasPF = model.pricePF && model.pricePF !== "Consultar";
-  const specs = catalogSpecs[model.name];
+const CatalogCard = ({ vehicle, isExpanded, onToggle }: Props) => {
+  const specs = catalogSpecs[vehicle.canonicalName] ?? catalogSpecs[vehicle.aliases[0] ?? ""];
+  const pagoFacil = pagoFacilMonthly(vehicle.id);
 
   return (
     <div className="group rounded-xl overflow-hidden border border-[hsla(186,100%,39%,0.15)] bg-[hsl(212,52%,13%)] hover:border-primary hover:shadow-[0_0_20px_hsla(186,100%,39%,0.2)] transition-all duration-300 flex flex-col">
@@ -24,16 +25,16 @@ const CatalogCard = ({ model, isExpanded, onToggle }: Props) => {
         className="relative h-[150px] md:h-[180px] bg-[hsl(213,45%,11%)] cursor-pointer"
         onClick={onToggle}
       >
-        <img src={model.image} alt={model.name} className="w-full h-full object-cover" loading="lazy" />
-        {model.featured && (
+        <img src={vehicle.image} alt={vehicle.displayName} className="w-full h-full object-cover" loading="lazy" />
+        {vehicle.featured && (
           <span className="absolute top-3 left-3 z-10 px-3 py-1 text-[10px] font-bold rounded-full bg-primary text-primary-foreground uppercase tracking-wider">
-            ⭐ {model.featured}
+            ⭐ {vehicle.featured}
           </span>
         )}
         <span className="absolute top-3 right-3 text-[10px] text-muted-foreground/40 font-bold tracking-widest select-none">
           JAC | bel
         </span>
-        {model.referentialImage && (
+        {vehicle.referentialImage && (
           <span className="absolute bottom-8 right-3 text-[9px] text-muted-foreground bg-background/70 px-2 py-0.5 rounded">
             📷 Imagen referencial
           </span>
@@ -50,10 +51,10 @@ const CatalogCard = ({ model, isExpanded, onToggle }: Props) => {
       {/* Content */}
       <div className="p-4 flex flex-col flex-1">
         <h3 className="font-heading text-base md:text-lg font-bold uppercase leading-tight text-foreground">
-          {model.name}
+          {vehicle.displayName}
         </h3>
-        {model.tagline && (
-          <p className="text-muted-foreground text-[13px] mt-1 line-clamp-1">{model.tagline}</p>
+        {vehicle.tagline && (
+          <p className="text-muted-foreground text-[13px] mt-1 line-clamp-1">{vehicle.tagline}</p>
         )}
 
         {/* Discoverable specs button */}
@@ -97,40 +98,36 @@ const CatalogCard = ({ model, isExpanded, onToggle }: Props) => {
           </div>
         </div>
 
-        {/* Price pills */}
-        <div className="flex flex-wrap gap-2 mt-3 mb-4">
-          {hasCD && (
-            <span className="pill">Compra Directa {model.priceCD}</span>
-          )}
-          {hasPF && (
-            <span className="pill">Pago Fácil {model.pricePF}</span>
-          )}
-          {!hasCD && !hasPF && (
-            <span className="pill">Consultar precio</span>
+        {/* Referencia de financiamiento — siempre indicando plan y etapa */}
+        <div className="mt-3 mb-4">
+          {pagoFacil ? (
+            <span className="pill">Pago Fácil desde {fmtUsd0(pagoFacil)} por cuota mensual</span>
+          ) : (
+            <span className="pill">{NOT_VERIFIED_LABEL}</span>
           )}
         </div>
 
         {/* CTA buttons */}
         <div className="mt-auto flex flex-col gap-2">
           <Link
-            to={modelPath(model.name)}
+            to={modelPath(vehicle.id)}
             className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary/10 border border-primary/30 text-primary h-10 px-3 font-heading text-sm font-bold hover:bg-primary/20 transition-colors"
           >
-            Ver precios y formas de pago
+            Ver opciones de financiamiento
           </Link>
           <div className="flex gap-2">
             <a
-              href={waLink(waModelMessage(model.name))}
+              href={waLink(waModelMessage(vehicle.displayName))}
               target="_blank"
               rel="noopener noreferrer"
               className="flex-[3] inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary h-10 px-3 font-heading text-sm font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
             >
               WhatsApp
             </a>
-            <ShareModelButton model={model.name} compact />
-            {model.fichaUrl && (
+            <ShareModelButton model={vehicle.displayName} slug={vehicle.id} compact />
+            {vehicle.fichaUrl && (
               <a
-                href={model.fichaUrl}
+                href={vehicle.fichaUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-[2] inline-flex items-center justify-center gap-1.5 rounded-lg border border-primary text-primary h-10 px-3 font-heading text-sm font-bold hover:bg-primary/10 transition-colors"
