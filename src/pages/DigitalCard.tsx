@@ -55,6 +55,35 @@ const DigitalCard = () => {
     toast.success("Contacto descargado. Abre el archivo para guardarlo.");
   };
 
+  const shareStoryImage = async () => {
+    try {
+      const res = await fetch("/instagram-story-card.jpg");
+      const blob = await res.blob();
+      const file = new File([blob], "rigoberto-molina-tarjeta.jpg", {
+        type: "image/jpeg",
+      });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: "Tarjeta de Rigoberto Molina",
+          text: "Vendedor JAC Caracas — rigobertomolina.com/tarjeta",
+        });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "rigoberto-molina-tarjeta.jpg";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        toast.success("Imagen descargada. Súbela a tu historia o post de Instagram.");
+      }
+    } catch {
+      toast.error("No se pudo compartir la imagen. Descarga manual: /instagram-story-card.jpg");
+    }
+  };
+
   const share = async () => {
     if (navigator.share) {
       try {
@@ -145,6 +174,14 @@ const DigitalCard = () => {
           >
             <Download size={20} /> Abrir contacto (tarjeta)
           </a>
+
+          <button
+            type="button"
+            onClick={shareStoryImage}
+            className="flex w-full items-center justify-center gap-3 rounded-xl border border-primary/40 bg-card px-5 py-4 font-heading font-bold text-foreground hover:border-primary/50 hover:text-primary transition-colors"
+          >
+            <Instagram size={20} /> Compartir en Instagram
+          </button>
 
           <a
             href={waLink("Hola Rigoberto, te contacto desde tu tarjeta digital. Quiero información sobre un modelo JAC.")}
