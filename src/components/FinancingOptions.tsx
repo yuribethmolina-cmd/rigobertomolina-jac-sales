@@ -19,7 +19,7 @@ interface Props {
 
 const FinancingOptions = ({ vehicle, source = "opciones-financiamiento" }: Props) => {
   const options = financingOptionsFor(vehicle.id);
-  const [activeId, setActiveId] = useState(options[0]?.id ?? options[0]?.plan.id ?? "");
+  const [activeId, setActiveId] = useState(options[0]?.plan.id ?? "");
   const active = options.find((o) => o.plan.id === activeId) ?? options[0];
 
   if (!active) return null;
