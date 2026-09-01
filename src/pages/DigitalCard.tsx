@@ -29,8 +29,7 @@ const CARD_URL = "https://rigobertomolina.com/tarjeta";
 const REVIEW_URL = "https://rigobertomolina.com/resena";
 const SITE_URL = "https://rigobertomolina.com";
 
-/** Minimal vCard 3.0 string for "Save to contacts". */
-const VCF_URL = "https://rigobertomolina.com/rigoberto-molina.vcf";
+/** QR and share links point to the visual card page, not the raw vCard. */
 
 const DigitalCard = () => {
   const [copied, setCopied] = useState(false);
