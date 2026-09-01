@@ -63,6 +63,27 @@ interface ReviewRow {
   created_at: string;
 }
 
+interface QuoteRow {
+  id: string;
+  full_name: string;
+  phone: string;
+  email: string | null;
+  city: string | null;
+  vehicle_name: string;
+  plan_name: string;
+  message: string | null;
+  status: "nuevo" | "contactado" | "cerrado";
+  created_at: string;
+}
+
+const QUOTE_STATUS_LABEL: Record<QuoteRow["status"], string> = {
+  nuevo: "Nuevo",
+  contactado: "Contactado",
+  cerrado: "Cerrado",
+};
+
+const QUOTE_STATUS_ORDER: QuoteRow["status"][] = ["nuevo", "contactado", "cerrado"];
+
 const REVIEW_URL = "https://rigobertomolina.com/resena";
 
 const Stats = () => {
@@ -71,6 +92,43 @@ const Stats = () => {
   const [loading, setLoading] = useState(true);
   const [audit, setAudit] = useState<AuditRow[]>([]);
   const [reviews, setReviews] = useState<ReviewRow[]>([]);
+  const [quotes, setQuotes] = useState<QuoteRow[]>([]);
+
+  const loadQuotes = useCallback(async () => {
+    const { data, error } = await supabase
+      .from("quote_requests")
+      .select("id, full_name, phone, email, city, vehicle_name, plan_name, message, status, created_at")
+      .order("created_at", { ascending: false })
+      .limit(100);
+    if (error) {
+      console.error("quote_requests read failed:", error.message);
+      return;
+    }
+    setQuotes((data ?? []) as unknown as QuoteRow[]);
+  }, []);
+
+  const setQuoteStatus = async (row: QuoteRow) => {
+    const next = QUOTE_STATUS_ORDER[(QUOTE_STATUS_ORDER.indexOf(row.status) + 1) % QUOTE_STATUS_ORDER.length];
+    const { error } = await supabase
+      .from("quote_requests")
+      .update({ status: next })
+      .eq("id", row.id);
+    if (error) {
+      toast.error("No se pudo actualizar el estado.");
+      return;
+    }
+    loadQuotes();
+  };
+
+  const deleteQuote = async (id: string) => {
+    const { error } = await supabase.from("quote_requests").delete().eq("id", id);
+    if (error) {
+      toast.error("No se pudo eliminar la solicitud.");
+      return;
+    }
+    toast.success("Solicitud eliminada.");
+    loadQuotes();
+  };
 
   const loadReviews = useCallback(async () => {
     const { data, error } = await supabase
@@ -87,7 +145,8 @@ const Stats = () => {
 
   useEffect(() => {
     loadReviews();
-  }, [loadReviews]);
+    loadQuotes();
+  }, [loadReviews, loadQuotes]);
 
   const copyReviewLink = async () => {
     try {
