@@ -1,0 +1,2 @@
+ALTER TABLE public.reviews DROP CONSTRAINT IF EXISTS reviews_photo_url_len;
+ALTER TABLE public.reviews ADD CONSTRAINT reviews_photo_url_len CHECK (photo_url IS NULL OR char_length(photo_url) <= 300000);

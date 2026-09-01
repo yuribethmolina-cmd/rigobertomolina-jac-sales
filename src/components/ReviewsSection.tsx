@@ -9,6 +9,7 @@ interface Review {
   vehicle_name: string | null;
   rating: number;
   message: string;
+  photo_url: string | null;
   created_at: string;
 }
 
@@ -19,7 +20,7 @@ const ReviewsSection = () => {
   useEffect(() => {
     supabase
       .from("reviews")
-      .select("id, customer_name, vehicle_name, rating, message, created_at")
+      .select("id, customer_name, vehicle_name, rating, message, photo_url, created_at")
       .eq("approved", true)
       .order("created_at", { ascending: false })
       .limit(9)

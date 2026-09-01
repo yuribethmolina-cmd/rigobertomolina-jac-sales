@@ -30,6 +30,7 @@ const Index = () => (
     </Helmet>
     <HeroSection />
     <CredibilityStrip />
+    <ReviewsSection />
     <ModelsSection />
     <ComparisonSection />
     <PurchasePlansSection />
@@ -40,7 +41,6 @@ const Index = () => (
     <QuoteFormSection />
     <HowToBuySection />
     <FAQSection />
-    <ReviewsSection />
     <AboutSection />
     <ContactSection />
     <FooterSection />
