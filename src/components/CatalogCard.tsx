@@ -5,8 +5,9 @@ import ShareModelButton from "@/components/ShareModelButton";
 import catalogSpecs from "@/lib/catalogSpecs";
 import { ChevronDown } from "lucide-react";
 import type { Vehicle } from "@/data/vehicles";
-import { pagoFacilMonthly } from "@/data/vehicleFinancing";
+import { pagoFacilMonthly, compraDirectaMonthly, financingOptionsFor } from "@/data/vehicleFinancing";
 import { fmtUsd0, NOT_VERIFIED_LABEL } from "@/data/financingPlans";
+import { Plus } from "lucide-react";
 
 interface Props {
   vehicle: Vehicle;
@@ -17,6 +18,8 @@ interface Props {
 const CatalogCard = ({ vehicle, isExpanded, onToggle }: Props) => {
   const specs = catalogSpecs[vehicle.canonicalName] ?? catalogSpecs[vehicle.aliases[0] ?? ""];
   const pagoFacil = pagoFacilMonthly(vehicle.id);
+  const compraDirecta = compraDirectaMonthly(vehicle.id);
+  const totalPlans = financingOptionsFor(vehicle.id).length;
 
   return (
     <div className="group rounded-xl overflow-hidden border border-[hsla(186,100%,39%,0.15)] bg-[hsl(212,52%,13%)] hover:border-primary hover:shadow-[0_0_20px_hsla(186,100%,39%,0.2)] transition-all duration-300 flex flex-col">
@@ -98,12 +101,26 @@ const CatalogCard = ({ vehicle, isExpanded, onToggle }: Props) => {
           </div>
         </div>
 
-        {/* Referencia de financiamiento — siempre indicando plan y etapa */}
-        <div className="mt-3 mb-4">
-          {pagoFacil ? (
-            <span className="pill">Pago Fácil desde {fmtUsd0(pagoFacil)} por cuota mensual</span>
-          ) : (
+        {/* Referencia de financiamiento — Compra Directa primero, Pago Fácil segundo */}
+        <div className="mt-3 mb-4 flex flex-wrap items-center gap-1.5">
+          {compraDirecta && (
+            <span className="pill">💳 Compra Directa {fmtUsd0(compraDirecta)}/mes</span>
+          )}
+          {pagoFacil && (
+            <span className="pill">📅 Pago Fácil {fmtUsd0(pagoFacil)}/mes</span>
+          )}
+          {!compraDirecta && !pagoFacil && (
             <span className="pill">{NOT_VERIFIED_LABEL}</span>
+          )}
+          {totalPlans > 0 && (
+            <Link
+              to={modelPath(vehicle.id)}
+              className="inline-flex items-center gap-0.5 rounded-full border border-primary/40 bg-primary/10 px-2.5 py-1 text-[11px] font-bold text-primary hover:bg-primary/20 transition-colors"
+              title="Ver todos los métodos de pago"
+            >
+              <Plus size={11} />
+              {totalPlans} métodos de pago
+            </Link>
           )}
         </div>
 

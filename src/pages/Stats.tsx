@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { logAudit } from "@/lib/audit";
 import { toast } from "sonner";
-import { ArrowLeft, MessageCircle, Copy, FileDown, BarChart3, Download, History } from "lucide-react";
+import { ArrowLeft, MessageCircle, Copy, FileDown, BarChart3, Download, History, Star, Link2, Trash2 } from "lucide-react";
 
 
 interface Row {
@@ -53,11 +53,72 @@ const EVENT_LABEL: Record<string, string> = {
   export_download: "Exportación descargada",
 };
 
+interface ReviewRow {
+  id: string;
+  customer_name: string;
+  vehicle_name: string | null;
+  rating: number;
+  message: string;
+  approved: boolean;
+  created_at: string;
+}
+
+const REVIEW_URL = "https://rigobertomolina.com/resena";
+
 const Stats = () => {
   const [days, setDays] = useState<number>(30);
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
   const [audit, setAudit] = useState<AuditRow[]>([]);
+  const [reviews, setReviews] = useState<ReviewRow[]>([]);
+
+  const loadReviews = useCallback(async () => {
+    const { data, error } = await supabase
+      .from("reviews")
+      .select("id, customer_name, vehicle_name, rating, message, approved, created_at")
+      .order("created_at", { ascending: false })
+      .limit(50);
+    if (error) {
+      console.error("reviews read failed:", error.message);
+      return;
+    }
+    setReviews((data ?? []) as unknown as ReviewRow[]);
+  }, []);
+
+  useEffect(() => {
+    loadReviews();
+  }, [loadReviews]);
+
+  const copyReviewLink = async () => {
+    try {
+      await navigator.clipboard.writeText(REVIEW_URL);
+      toast.success("Link de reseñas copiado. Envíalo a tu cliente después de la compra.");
+    } catch {
+      toast.error(`No se pudo copiar. Copia manualmente: ${REVIEW_URL}`);
+    }
+  };
+
+  const toggleReviewApproved = async (row: ReviewRow) => {
+    const { error } = await supabase
+      .from("reviews")
+      .update({ approved: !row.approved })
+      .eq("id", row.id);
+    if (error) {
+      toast.error("No se pudo actualizar la reseña.");
+      return;
+    }
+    loadReviews();
+  };
+
+  const deleteReview = async (id: string) => {
+    const { error } = await supabase.from("reviews").delete().eq("id", id);
+    if (error) {
+      toast.error("No se pudo eliminar la reseña.");
+      return;
+    }
+    toast.success("Reseña eliminada.");
+    loadReviews();
+  };
 
   const loadAudit = useCallback(async () => {
     const { data, error } = await supabase
@@ -265,6 +326,68 @@ const Stats = () => {
             </section>
           </div>
         )}
+
+        <section className="mt-12">
+          <h2 className="font-heading text-xl font-bold mb-3 flex items-center gap-2">
+            <Star size={18} className="text-primary" /> Reseñas de clientes
+          </h2>
+          <p className="text-sm text-muted-foreground mb-3">
+            Comparte este link con tus clientes al final de la compra para que dejen su reseña.
+          </p>
+          <button
+            type="button"
+            onClick={copyReviewLink}
+            className="mb-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-heading font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+          >
+            <Link2 size={16} /> Copiar link de reseñas
+          </button>
+          <div className="rounded-xl border border-border divide-y divide-border overflow-hidden">
+            {reviews.length === 0 && (
+              <p className="px-4 py-4 text-sm text-muted-foreground">Aún no hay reseñas recibidas.</p>
+            )}
+            {reviews.map((r) => (
+              <div key={r.id} className="px-4 py-3">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <span className="text-sm font-heading font-bold">
+                    {r.customer_name}
+                    {r.vehicle_name && (
+                      <span className="ml-2 text-xs text-muted-foreground font-normal">· {r.vehicle_name}</span>
+                    )}
+                  </span>
+                  <span className="flex items-center gap-0.5" aria-label={`${r.rating} de 5 estrellas`}>
+                    {[1, 2, 3, 4, 5].map((n) => (
+                      <Star
+                        key={n}
+                        size={13}
+                        className={n <= r.rating ? "fill-amber-400 text-amber-400" : "text-muted-foreground/30"}
+                      />
+                    ))}
+                  </span>
+                </div>
+                <p className="mt-1 text-sm text-muted-foreground">{r.message}</p>
+                <div className="mt-2 flex items-center gap-3">
+                  <span className="text-xs text-muted-foreground">
+                    {new Date(r.created_at).toLocaleString("es-VE")}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => toggleReviewApproved(r)}
+                    className={`text-xs font-bold ${r.approved ? "text-primary" : "text-muted-foreground hover:text-primary"}`}
+                  >
+                    {r.approved ? "Aprobada" : "Marcar como aprobada"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => deleteReview(r.id)}
+                    className="inline-flex items-center gap-1 text-xs font-bold text-muted-foreground hover:text-destructive"
+                  >
+                    <Trash2 size={12} /> Eliminar
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
 
         <section className="mt-12">
           <h2 className="font-heading text-xl font-bold mb-3 flex items-center gap-2">
