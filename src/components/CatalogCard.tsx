@@ -1,4 +1,7 @@
+import { Link } from "react-router-dom";
 import { waLink, waModelMessage } from "@/lib/constants";
+import { modelPath } from "@/lib/modelLinks";
+import ShareModelButton from "@/components/ShareModelButton";
 import catalogSpecs from "@/lib/catalogSpecs";
 import { ChevronDown } from "lucide-react";
 import type { CatalogModel } from "./ModelsSection";
@@ -108,26 +111,36 @@ const CatalogCard = ({ model, isExpanded, onToggle }: Props) => {
         </div>
 
         {/* CTA buttons */}
-        <div className="mt-auto flex gap-2">
-          <a
-            href={waLink(waModelMessage(model.name))}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-[3] inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary h-10 px-3 font-heading text-sm font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
+        <div className="mt-auto flex flex-col gap-2">
+          <Link
+            to={modelPath(model.name)}
+            className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary/10 border border-primary/30 text-primary h-10 px-3 font-heading text-sm font-bold hover:bg-primary/20 transition-colors"
           >
-            WhatsApp
-          </a>
-          {model.fichaUrl && (
+            Ver precios y formas de pago
+          </Link>
+          <div className="flex gap-2">
             <a
-              href={model.fichaUrl}
+              href={waLink(waModelMessage(model.name))}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-[2] inline-flex items-center justify-center gap-1.5 rounded-lg border border-primary text-primary h-10 px-3 font-heading text-sm font-bold hover:bg-primary/10 transition-colors"
+              className="flex-[3] inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary h-10 px-3 font-heading text-sm font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
             >
-              Ver ficha
+              WhatsApp
             </a>
-          )}
+            <ShareModelButton model={model.name} compact />
+            {model.fichaUrl && (
+              <a
+                href={model.fichaUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-[2] inline-flex items-center justify-center gap-1.5 rounded-lg border border-primary text-primary h-10 px-3 font-heading text-sm font-bold hover:bg-primary/10 transition-colors"
+              >
+                Ver ficha
+              </a>
+            )}
+          </div>
         </div>
+
       </div>
     </div>
   );

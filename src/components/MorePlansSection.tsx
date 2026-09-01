@@ -9,9 +9,9 @@ const PRECIO_MAX = 300000;
 type VehicleType = "SUV" | "Camioneta" | "Comercial";
 const vehicleTypes: VehicleType[] = ["SUV", "Camioneta", "Comercial"];
 
-type ModelQuota = { model: string; cuota: number; cuota2?: number };
+export type ModelQuota = { model: string; cuota: number; cuota2?: number };
 
-type Plan = {
+export type Plan = {
   id: string;
   title: string;
   tagline: string;
@@ -31,7 +31,7 @@ type Plan = {
 
 // Cuotas extraídas vía OCR de los catálogos oficiales JAC/Bel Agosto 2026.
 // Para Fiao/Ruta66/Travesía la secuencia de modelos es idéntica entre planes.
-const morePlans: Plan[] = [
+export const morePlans: Plan[] = [
   {
     id: "credijac",
     title: "Credijac 35×35",

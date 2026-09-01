@@ -102,7 +102,7 @@ const electricos: CatalogModel[] = [
 const tabs = ["SUV", "SEDÁN", "PICKUP", "VAN", "CAMIONES", "UTILITARIOS", "ELÉCTRICO"] as const;
 type Tab = (typeof tabs)[number];
 
-const tabData: Record<Tab, CatalogModel[]> = {
+export const tabData: Record<Tab, CatalogModel[]> = {
   SUV: suv,
   SEDÁN: sedan,
   PICKUP: pickup,
@@ -111,6 +111,12 @@ const tabData: Record<Tab, CatalogModel[]> = {
   UTILITARIOS: utilitarios,
   ELÉCTRICO: electricos,
 };
+
+export const allCatalogModels: CatalogModel[] = Object.values(tabData).flat();
+
+export const catalogCategoryOf = (name: string): string | undefined =>
+  (Object.keys(tabData) as Tab[]).find((t) => tabData[t].some((m) => m.name === name));
+
 
 const ModelsSection = () => {
   const [active, setActive] = useState<Tab>("SUV");
