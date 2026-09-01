@@ -37,6 +37,7 @@ const App = () => (
             }
           />
           <Route path="/contacto" element={<Contact />} />
+          <Route path="/tarjeta" element={<DigitalCard />} />
           <Route
             path="/estadisticas"
             element={
