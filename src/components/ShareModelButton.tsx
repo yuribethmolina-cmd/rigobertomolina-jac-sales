@@ -6,12 +6,14 @@ import { trackContact } from "@/lib/track";
 
 interface Props {
   model: string;
+  /** Slug/id explícito del vehículo; si no se pasa se deriva del nombre. */
+  slug?: string;
   className?: string;
   label?: string;
   compact?: boolean;
 }
 
-const ShareModelButton = ({ model, className = "", label = "Compartir", compact = false }: Props) => {
+const ShareModelButton = ({ model, slug, className = "", label = "Compartir", compact = false }: Props) => {
   const [done, setDone] = useState(false);
 
   const copyToClipboard = async (text: string) => {
@@ -33,7 +35,7 @@ const ShareModelButton = ({ model, className = "", label = "Compartir", compact 
   const handleShare = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    const url = modelUrl(model);
+    const url = modelUrl(slug ?? model);
     const message = shareModelMessage(model, url);
     trackContact("copy", { model, source: "compartir-modelo" });
 
