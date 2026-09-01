@@ -311,13 +311,26 @@ const Stats = () => {
           <Link to="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary">
             <ArrowLeft size={16} /> Volver al inicio
           </Link>
-          <button
-            type="button"
-            onClick={() => supabase.auth.signOut()}
-            className="text-sm font-heading font-bold text-muted-foreground hover:text-primary"
-          >
-            Cerrar sesión
-          </button>
+          <div className="flex items-center gap-4">
+            <Link
+              to="/resenas/moderar"
+              className="inline-flex items-center gap-2 rounded-lg bg-primary text-primary-foreground px-4 py-2 text-sm font-heading font-bold"
+            >
+              <Star size={16} /> Moderar reseñas
+              {pendingReviews > 0 && (
+                <span className="rounded-full bg-background px-2 py-0.5 text-xs font-bold text-foreground">
+                  {pendingReviews}
+                </span>
+              )}
+            </Link>
+            <button
+              type="button"
+              onClick={() => supabase.auth.signOut()}
+              className="text-sm font-heading font-bold text-muted-foreground hover:text-primary"
+            >
+              Cerrar sesión
+            </button>
+          </div>
         </div>
 
 
