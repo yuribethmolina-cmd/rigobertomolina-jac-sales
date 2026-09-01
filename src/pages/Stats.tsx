@@ -103,6 +103,43 @@ const Stats = () => {
   const [audit, setAudit] = useState<AuditRow[]>([]);
   const [reviews, setReviews] = useState<ReviewRow[]>([]);
   const [quotes, setQuotes] = useState<QuoteRow[]>([]);
+  const [contacts, setContacts] = useState<ContactRow[]>([]);
+
+  const loadContacts = useCallback(async () => {
+    const { data, error } = await supabase
+      .from("contact_messages")
+      .select("id, full_name, phone, email, message, status, created_at")
+      .order("created_at", { ascending: false })
+      .limit(100);
+    if (error) {
+      console.error("contact_messages read failed:", error.message);
+      return;
+    }
+    setContacts((data ?? []) as unknown as ContactRow[]);
+  }, []);
+
+  const setContactStatus = async (row: ContactRow) => {
+    const next = QUOTE_STATUS_ORDER[(QUOTE_STATUS_ORDER.indexOf(row.status) + 1) % QUOTE_STATUS_ORDER.length];
+    const { error } = await supabase
+      .from("contact_messages")
+      .update({ status: next })
+      .eq("id", row.id);
+    if (error) {
+      toast.error("No se pudo actualizar el estado.");
+      return;
+    }
+    loadContacts();
+  };
+
+  const deleteContact = async (id: string) => {
+    const { error } = await supabase.from("contact_messages").delete().eq("id", id);
+    if (error) {
+      toast.error("No se pudo eliminar el mensaje.");
+      return;
+    }
+    toast.success("Mensaje eliminado.");
+    loadContacts();
+  };
 
   const loadQuotes = useCallback(async () => {
     const { data, error } = await supabase
@@ -156,7 +193,8 @@ const Stats = () => {
   useEffect(() => {
     loadReviews();
     loadQuotes();
-  }, [loadReviews, loadQuotes]);
+    loadContacts();
+  }, [loadReviews, loadQuotes, loadContacts]);
 
   const copyReviewLink = async () => {
     try {
