@@ -14,7 +14,6 @@ import {
   Check,
   Phone,
   Facebook,
-  Twitter,
   Send,
 } from "lucide-react";
 import {
@@ -274,14 +273,24 @@ const DigitalCard = () => {
               <span>Facebook</span>
             </a>
             <a
-              href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(VCF_URL)}&text=${encodeURIComponent("Tarjeta de contacto de Rigoberto Molina · Vendedor JAC Caracas")}`}
+              href={INSTAGRAM}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Compartir por X"
+              aria-label={`Instagram ${INSTAGRAM_HANDLE}`}
+              onClick={async (e) => {
+                e.preventDefault();
+                try {
+                  await navigator.clipboard.writeText(VCF_URL);
+                  toast.success("Link copiado. Pégalo en tu DM o historia de Instagram.");
+                } catch {
+                  /* ignore */
+                }
+                window.open(INSTAGRAM, "_blank", "noopener,noreferrer");
+              }}
               className="flex flex-col items-center gap-1 rounded-xl border border-border bg-card px-2 py-3 text-xs font-semibold text-foreground hover:border-primary/50 hover:text-primary transition-colors"
             >
-              <Twitter size={18} />
-              <span>X</span>
+              <Instagram size={18} />
+              <span>Instagram</span>
             </a>
             <a
               href={`https://t.me/share/url?url=${encodeURIComponent(VCF_URL)}&text=${encodeURIComponent("Tarjeta de contacto de Rigoberto Molina · Vendedor JAC Caracas")}`}
