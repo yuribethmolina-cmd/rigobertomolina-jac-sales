@@ -4,9 +4,12 @@ import { supabase } from "@/integrations/supabase/client";
 import { vehicles } from "@/data/vehicles";
 import { financingPlans } from "@/data/financingPlans";
 import { toast } from "sonner";
-import { Send, Loader2, CheckCircle2, MessageCircle } from "lucide-react";
+import { Send, Loader2, CheckCircle2, MessageCircle, FileDown } from "lucide-react";
 import { waLink } from "@/lib/constants";
 import { trackContact } from "@/lib/track";
+import { generateQuoteRequestPdf } from "@/lib/quotePdf";
+import { financingOptionsFor } from "@/data/vehicleFinancing";
+import { FINANCING_DISCLAIMER, fmtUsd } from "@/data/financingPlans";
 
 const quoteSchema = z.object({
   fullName: z.string().trim().min(2, "Escribe tu nombre completo").max(100, "Máximo 100 caracteres"),
@@ -111,6 +114,67 @@ const QuoteFormSection = () => {
     toast.success("Solicitud enviada. También puedes escribirle ahora por WhatsApp.");
   };
 
+  const handleDownloadPdf = () => {
+    const vehicle = vehicles.find((v) => v.displayName === form.vehicleName);
+    const option = vehicle
+      ? financingOptionsFor(vehicle.id).find((o) => o.plan.name === form.planName)
+      : undefined;
+
+    const cronograma: [string, string][] = [];
+    let montoDestacado: string | undefined;
+    let montoEtiqueta = "Cuota mensual estimada";
+
+    if (option?.hasAmounts) {
+      option.schedule.forEach((s) => {
+        const monto = s.amount === null ? "Por confirmar" : fmtUsd(s.amount);
+        cronograma.push([
+          s.count > 1 ? `${s.label} (${s.count} pagos)` : s.label,
+          s.count > 1 && s.amount !== null ? `${monto} c/u` : monto,
+        ]);
+      });
+      const ordinary = option.schedule.find(
+        (s) => s.type === "ORDINARY" || s.type === "FIXED"
+      );
+      if (ordinary?.amount) montoDestacado = fmtUsd(ordinary.amount);
+      const total = option.schedule.reduce(
+        (acc, s) => acc + (s.amount ?? 0) * s.count,
+        0
+      );
+      if (total > 0) cronograma.push(["Total estimado del plan", fmtUsd(total)]);
+    } else if (option) {
+      option.schedule.forEach((s) => {
+        cronograma.push([
+          s.count > 1 ? `${s.label} (${s.count} pagos)` : s.label,
+          "Por confirmar",
+        ]);
+      });
+      montoDestacado = "Consultar";
+      montoEtiqueta = "Monto por confirmar";
+    }
+
+    generateQuoteRequestPdf({
+      nombre: form.fullName,
+      telefono: form.phone,
+      email: form.email || undefined,
+      ciudad: form.city || undefined,
+      modelo: form.vehicleName,
+      categoria: vehicle?.category,
+      plan: form.planName,
+      planDescripcion: option?.plan.description,
+      cronograma: cronograma.length ? cronograma : undefined,
+      montoDestacado,
+      montoEtiqueta,
+      mensaje: form.message || undefined,
+      disclaimer: FINANCING_DISCLAIMER,
+    });
+
+    trackContact("pdf", {
+      model: form.vehicleName,
+      plan: form.planName,
+      source: "quote-form",
+    });
+  };
+
   const err = (k: keyof QuoteForm) =>
     errors[k] ? <p className="mt-1 text-xs text-destructive">{errors[k]}</p> : null;
 
@@ -141,6 +205,14 @@ const QuoteFormSection = () => {
               <MessageCircle size={18} />
               Enviar también por WhatsApp
             </a>
+            <button
+              type="button"
+              onClick={handleDownloadPdf}
+              className="mt-3 w-full inline-flex items-center justify-center gap-2 rounded-lg border-2 border-primary px-6 py-3 font-heading font-bold text-primary hover:bg-primary/10 transition-colors"
+            >
+              <FileDown size={18} />
+              Descargar cotización en PDF
+            </button>
             <button
               type="button"
               onClick={() => { setForm(EMPTY); setSent(false); setWaUrl(""); }}
