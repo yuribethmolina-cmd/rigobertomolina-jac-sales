@@ -9,6 +9,7 @@ interface Review {
   vehicle_name: string | null;
   rating: number;
   message: string;
+  photo_url: string | null;
   created_at: string;
 }
 
@@ -19,7 +20,7 @@ const ReviewsSection = () => {
   useEffect(() => {
     supabase
       .from("reviews")
-      .select("id, customer_name, vehicle_name, rating, message, created_at")
+      .select("id, customer_name, vehicle_name, rating, message, photo_url, created_at")
       .eq("approved", true)
       .order("created_at", { ascending: false })
       .limit(9)
@@ -50,6 +51,14 @@ const ReviewsSection = () => {
               key={r.id}
               className="rounded-xl border border-border bg-card p-6 flex flex-col gap-3"
             >
+              {r.photo_url && (
+                <img
+                  src={r.photo_url}
+                  alt={`Foto del vehículo de ${r.customer_name}`}
+                  className="h-40 w-full rounded-lg object-cover"
+                  loading="lazy"
+                />
+              )}
               <div
                 className="flex gap-1"
                 aria-label={`Calificación: ${r.rating} de 5 estrellas`}

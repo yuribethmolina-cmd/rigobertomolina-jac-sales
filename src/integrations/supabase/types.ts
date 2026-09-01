@@ -150,6 +150,7 @@ export type Database = {
           customer_name: string
           id: string
           message: string
+          photo_url: string | null
           rating: number
           vehicle_name: string | null
         }
@@ -159,6 +160,7 @@ export type Database = {
           customer_name: string
           id?: string
           message: string
+          photo_url?: string | null
           rating: number
           vehicle_name?: string | null
         }
@@ -168,6 +170,7 @@ export type Database = {
           customer_name?: string
           id?: string
           message?: string
+          photo_url?: string | null
           rating?: number
           vehicle_name?: string | null
         }

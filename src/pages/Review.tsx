@@ -3,7 +3,28 @@ import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import { vehicles } from "@/data/vehicles";
 import { toast } from "sonner";
-import { Star, Send, CheckCircle2 } from "lucide-react";
+import { Star, Send, CheckCircle2, Camera, X } from "lucide-react";
+
+const compressPhoto = (file: File): Promise<string> =>
+  new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      const max = 900;
+      const scale = Math.min(1, max / Math.max(img.width, img.height));
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.round(img.width * scale);
+      canvas.height = Math.round(img.height * scale);
+      canvas.getContext("2d")!.drawImage(img, 0, 0, canvas.width, canvas.height);
+      resolve(canvas.toDataURL("image/jpeg", 0.75));
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      reject(new Error("invalid image"));
+    };
+    img.src = url;
+  });
 
 const Review = () => {
   const [customerName, setCustomerName] = useState("");
@@ -11,8 +32,19 @@ const Review = () => {
   const [rating, setRating] = useState(0);
   const [hovered, setHovered] = useState(0);
   const [message, setMessage] = useState("");
+  const [photo, setPhoto] = useState<string | null>(null);
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState(false);
+
+  const onPhoto = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      setPhoto(await compressPhoto(file));
+    } catch {
+      toast.error("No se pudo leer la imagen. Prueba con otra.");
+    }
+  };
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,6 +58,7 @@ const Review = () => {
       vehicle_name: vehicleName || null,
       rating,
       message: message.trim(),
+      photo_url: photo,
     });
     setSending(false);
     if (error) {
@@ -136,6 +169,40 @@ const Review = () => {
                   className="w-full rounded-lg border border-primary/25 bg-background/60 px-3 py-2.5 text-sm text-foreground outline-none focus:border-primary resize-none"
                   placeholder="¿Cómo te atendieron? ¿Recomendarías comprar aquí?"
                 />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1.5">
+                  Foto de tu JAC (opcional)
+                </label>
+                {photo ? (
+                  <div className="relative inline-block">
+                    <img
+                      src={photo}
+                      alt="Foto adjunta a la reseña"
+                      className="h-28 rounded-lg border border-primary/25 object-cover"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setPhoto(null)}
+                      aria-label="Quitar foto"
+                      className="absolute -top-2 -right-2 rounded-full bg-background border border-primary/40 p-1 text-muted-foreground hover:text-foreground"
+                    >
+                      <X size={14} />
+                    </button>
+                  </div>
+                ) : (
+                  <label className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-dashed border-primary/40 px-4 py-3 text-sm text-muted-foreground hover:border-primary hover:text-foreground transition-colors">
+                    <Camera size={16} />
+                    Adjuntar foto
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={onPhoto}
+                      className="hidden"
+                    />
+                  </label>
+                )}
               </div>
 
               <button
