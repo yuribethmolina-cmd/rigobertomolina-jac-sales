@@ -66,7 +66,7 @@ const QuoteFormSection = () => {
     }
 
     setSending(true);
-    const { error } = await supabase.from("quote_requests").insert({
+    const { data: inserted, error } = await supabase.from("quote_requests").insert({
       full_name: parsed.data.fullName,
       phone: parsed.data.phone,
       email: parsed.data.email || null,
@@ -74,14 +74,16 @@ const QuoteFormSection = () => {
       vehicle_name: parsed.data.vehicleName,
       plan_name: parsed.data.planName,
       message: parsed.data.message || null,
-    });
+    }).select("id").single();
     setSending(false);
 
-    if (error) {
-      console.error("quote_requests insert failed:", error.message);
+    if (error || !inserted) {
+      console.error("quote_requests insert failed:", error?.message);
       toast.error("No se pudo enviar la solicitud. Intenta de nuevo o escribe por WhatsApp.");
       return;
     }
+    supabase.functions.invoke("send-quote-email", { body: { quoteId: inserted.id } })
+      .catch((e) => console.error("quote email failed:", e));
     setSent(true);
     toast.success("Solicitud enviada. Rigoberto te contactará pronto.");
   };
