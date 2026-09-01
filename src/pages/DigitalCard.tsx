@@ -28,20 +28,7 @@ const REVIEW_URL = "https://rigobertomolina.com/resena";
 const SITE_URL = "https://rigobertomolina.com";
 
 /** Minimal vCard 3.0 string for "Save to contacts". */
-const vCard = [
-  "BEGIN:VCARD",
-  "VERSION:3.0",
-  "N:Molina;Rigoberto;;;",
-  "FN:Rigoberto Molina",
-  "ORG:JAC Venezuela;Vendedor Independiente",
-  "TITLE:Vendedor JAC Caracas",
-  `TEL;TYPE=CELL,WHATSAPP:${WHATSAPP_NUMBER}`,
-  `EMAIL:${EMAIL}`,
-  `URL:${SITE_URL}`,
-  `URL:${REVIEW_URL}`,
-  "NOTE:Vendedor independiente de la marca JAC en Caracas. Compra Directa y Pago Facil.",
-  "END:VCARD",
-].join("\r\n");
+const VCF_URL = "https://rigobertomolina.com/rigoberto-molina.vcf";
 
 const DigitalCard = () => {
   const [copied, setCopied] = useState(false);
@@ -58,15 +45,12 @@ const DigitalCard = () => {
   };
 
   const downloadVcf = () => {
-    const blob = new Blob([vCard], { type: "text/vcard;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
-    a.href = url;
+    a.href = "/rigoberto-molina.vcf";
     a.download = "rigoberto-molina.vcf";
     document.body.appendChild(a);
     a.click();
     a.remove();
-    URL.revokeObjectURL(url);
     toast.success("Contacto descargado. Abre el archivo para guardarlo.");
   };
 
@@ -75,14 +59,25 @@ const DigitalCard = () => {
       try {
         await navigator.share({
           title: "Tarjeta de Rigoberto Molina · Vendedor JAC",
-          text: "Conoce el catálogo JAC Venezuela con Rigoberto Molina.",
-          url: CARD_URL,
+          text: "Toca para guardar el contacto de Rigoberto Molina en tu teléfono.",
+          url: VCF_URL,
         });
       } catch {
         /* cancelled */
       }
     } else {
-      void copyUrl();
+      void copyVcfUrl();
+    }
+  };
+
+  const copyVcfUrl = async () => {
+    try {
+      await navigator.clipboard.writeText(VCF_URL);
+      setCopied(true);
+      toast.success("Link del contacto copiado. Al abrirlo se guarda la tarjeta.");
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      toast.error(`No se pudo copiar. Copia manualmente: ${VCF_URL}`);
     }
   };
 
@@ -153,6 +148,14 @@ const DigitalCard = () => {
         {/* Action buttons */}
         <div className="mt-5 space-y-3">
           <a
+            href="/rigoberto-molina.vcf"
+            download="rigoberto-molina.vcf"
+            className="flex w-full items-center justify-center gap-3 rounded-xl bg-primary px-5 py-4 font-heading font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
+          >
+            <Download size={20} /> Abrir contacto (tarjeta)
+          </a>
+
+          <a
             href={waLink("Hola Rigoberto, te contacto desde tu tarjeta digital. Quiero información sobre un modelo JAC.")}
             target="_blank"
             rel="noopener noreferrer"
@@ -217,15 +220,15 @@ const DigitalCard = () => {
           <div className="flex-1 flex items-center rounded-xl border border-border bg-card px-3 py-3 overflow-hidden">
             <input
               readOnly
-              value={CARD_URL}
+              value={VCF_URL}
               onFocus={(e) => e.currentTarget.select()}
-              aria-label="Link de la tarjeta"
+              aria-label="Link del contacto"
               className="w-full bg-transparent text-xs text-foreground outline-none truncate font-mono"
             />
           </div>
           <button
             type="button"
-            onClick={copyUrl}
+            onClick={copyVcfUrl}
             className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-heading font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
           >
             {copied ? <Check size={16} /> : <Share2 size={16} />}
