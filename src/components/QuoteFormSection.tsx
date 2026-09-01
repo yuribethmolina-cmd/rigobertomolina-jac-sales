@@ -39,6 +39,7 @@ const QuoteFormSection = () => {
   const [errors, setErrors] = useState<Partial<Record<keyof QuoteForm, string>>>({});
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
+  const [waUrl, setWaUrl] = useState("");
 
   const modelOptions = useMemo(
     () => [...vehicles].sort((a, b) => a.displayName.localeCompare(b.displayName, "es")),
