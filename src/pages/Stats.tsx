@@ -96,6 +96,7 @@ const QUOTE_STATUS_LABEL: Record<QuoteRow["status"], string> = {
 const QUOTE_STATUS_ORDER: QuoteRow["status"][] = ["nuevo", "contactado", "cerrado"];
 
 import ReviewInviteGenerator from "@/components/ReviewInviteGenerator";
+import ShareReviewLink from "@/components/ShareReviewLink";
 
 const REVIEW_URL = "https://rigobertomolina.com/resena";
 
@@ -566,15 +567,8 @@ const Stats = () => {
             <Star size={18} className="text-primary" /> Reseñas de clientes
           </h2>
           <p className="text-sm text-muted-foreground mb-3">
-            Comparte este link con tus clientes al final de la compra para que dejen su reseña.
+            Para un link con vehículo y plan preseleccionados, usa el generador de abajo.
           </p>
-          <button
-            type="button"
-            onClick={copyReviewLink}
-            className="mb-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-heading font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
-          >
-            <Link2 size={16} /> Copiar link de reseñas
-          </button>
           <ReviewInviteGenerator />
           <div className="rounded-xl border border-border divide-y divide-border overflow-hidden">
             {reviews.length === 0 && (
