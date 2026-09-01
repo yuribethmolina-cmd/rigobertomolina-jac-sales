@@ -3,7 +3,8 @@ import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import { vehicles } from "@/data/vehicles";
 import { toast } from "sonner";
-import { Star, Send, CheckCircle2, Camera, X } from "lucide-react";
+import { Star, Send, CheckCircle2, Camera, X, ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const compressPhoto = (file: File): Promise<string> =>
   new Promise((resolve, reject) => {
