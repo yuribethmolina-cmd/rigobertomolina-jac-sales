@@ -62,7 +62,9 @@ const Review = () => {
     const finalMessage = presetPlan
       ? `Compré con ${presetPlan.name}. ${message.trim()}`
       : message.trim();
+    const reviewId = crypto.randomUUID();
     const { error } = await supabase.from("reviews").insert({
+      id: reviewId,
       customer_name: customerName.trim(),
       vehicle_name: vehicleName || null,
       rating,
@@ -75,6 +77,9 @@ const Review = () => {
       return;
     }
     setDone(true);
+    supabase.functions
+      .invoke("send-review-email", { body: { reviewId } })
+      .catch(() => {});
   };
 
   return (
