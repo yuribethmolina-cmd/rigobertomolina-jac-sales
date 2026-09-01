@@ -104,9 +104,15 @@ const DigitalCard = () => {
           <div className="pointer-events-none absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />
 
           <div className="relative p-8 text-center">
-            {/* Monogram */}
-            <div className="mx-auto mb-5 flex h-24 w-24 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-primary/70 ring-2 ring-primary/40 shadow-lg">
-              <span className="font-heading text-4xl font-black tracking-tight text-primary-foreground">
+            {/* Profile photo with RM badge */}
+            <div className="relative mx-auto mb-5 h-24 w-24">
+              <img
+                src="/rigoberto.png"
+                alt="Rigoberto Molina"
+                className="h-24 w-24 rounded-2xl object-cover object-top ring-2 ring-primary/40 shadow-lg"
+                loading="eager"
+              />
+              <span className="absolute -bottom-2 -right-2 flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary/70 ring-2 ring-background text-xs font-heading font-black tracking-tight text-primary-foreground shadow">
                 RM
               </span>
             </div>
