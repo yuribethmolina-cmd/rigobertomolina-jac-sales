@@ -59,6 +59,7 @@ interface ReviewRow {
   vehicle_name: string | null;
   rating: number;
   message: string;
+  photo_url: string | null;
   approved: boolean;
   created_at: string;
 }
@@ -180,7 +181,7 @@ const Stats = () => {
   const loadReviews = useCallback(async () => {
     const { data, error } = await supabase
       .from("reviews")
-      .select("id, customer_name, vehicle_name, rating, message, approved, created_at")
+      .select("id, customer_name, vehicle_name, rating, message, photo_url, approved, created_at")
       .order("created_at", { ascending: false })
       .limit(50);
     if (error) {
@@ -562,6 +563,9 @@ const Stats = () => {
             )}
             {reviews.map((r) => (
               <div key={r.id} className="px-4 py-3">
+                {r.photo_url && (
+                  <img src={r.photo_url} alt="Foto de la reseña" className="mb-2 h-28 w-auto rounded-md border border-border object-cover" />
+                )}
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <span className="text-sm font-heading font-bold">
                     {r.customer_name}
