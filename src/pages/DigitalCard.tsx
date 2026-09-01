@@ -13,6 +13,9 @@ import {
   ArrowLeft,
   Check,
   Phone,
+  Facebook,
+  Twitter,
+  Send,
 } from "lucide-react";
 import {
   WHATSAPP_DISPLAY,
