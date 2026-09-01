@@ -253,7 +253,7 @@ const DigitalCard = () => {
           </p>
           <div className="grid grid-cols-4 gap-3">
             <a
-              href={waLink("Conoce a Rigoberto Molina, vendedor JAC en Caracas. Guarda su contacto: " + VCF_URL)}
+              href={waLink("Conoce a Rigoberto Molina, vendedor JAC en Caracas. Mira su tarjeta digital: " + CARD_URL)}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Compartir por WhatsApp"
@@ -263,7 +263,7 @@ const DigitalCard = () => {
               <span>WhatsApp</span>
             </a>
             <a
-              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(VCF_URL)}`}
+              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(CARD_URL)}`}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Compartir por Facebook"
@@ -280,7 +280,7 @@ const DigitalCard = () => {
               onClick={async (e) => {
                 e.preventDefault();
                 try {
-                  await navigator.clipboard.writeText(VCF_URL);
+                  await navigator.clipboard.writeText(CARD_URL);
                   toast.success("Link copiado. Pégalo en tu DM o historia de Instagram.");
                 } catch {
                   /* ignore */
@@ -293,7 +293,7 @@ const DigitalCard = () => {
               <span>Instagram</span>
             </a>
             <a
-              href={`https://t.me/share/url?url=${encodeURIComponent(VCF_URL)}&text=${encodeURIComponent("Tarjeta de contacto de Rigoberto Molina · Vendedor JAC Caracas")}`}
+              href={`https://t.me/share/url?url=${encodeURIComponent(CARD_URL)}&text=${encodeURIComponent("Tarjeta digital de Rigoberto Molina · Vendedor JAC Caracas")}`}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Compartir por Telegram"
