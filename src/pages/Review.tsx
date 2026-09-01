@@ -3,7 +3,8 @@ import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import { vehicles } from "@/data/vehicles";
 import { toast } from "sonner";
-import { Star, Send, CheckCircle2, Camera, X } from "lucide-react";
+import { Star, Send, CheckCircle2, Camera, X, ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const compressPhoto = (file: File): Promise<string> =>
   new Promise((resolve, reject) => {
@@ -76,9 +77,15 @@ const Review = () => {
         <meta name="robots" content="noindex" />
       </Helmet>
 
-      <div className="w-full max-w-md rounded-2xl border border-primary/20 bg-[hsl(212,52%,13%)] p-6 md:p-8">
+      <div className="w-full max-w-md rounded-2xl border border-primary/20 bg-[hsl(212,52%,13%)] p-6 md:p-8 relative">
+        <Link
+          to="/"
+          className="absolute top-4 left-4 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-muted-foreground hover:text-primary transition-colors"
+        >
+          <ArrowLeft size={16} /> Inicio
+        </Link>
         {done ? (
-          <div className="text-center py-8">
+          <div className="text-center py-8 pt-10">
             <CheckCircle2 className="mx-auto text-primary" size={48} />
             <h1 className="mt-4 font-heading text-2xl font-bold uppercase text-foreground">
               ¡Gracias por tu reseña!
@@ -86,6 +93,12 @@ const Review = () => {
             <p className="mt-3 text-muted-foreground text-sm leading-relaxed">
               Tu opinión es muy importante para nosotros y para futuros compradores.
             </p>
+            <Link
+              to="/"
+              className="mt-5 inline-flex items-center justify-center gap-1.5 rounded-lg border border-primary/30 px-4 py-2 text-sm font-bold uppercase tracking-wider text-primary hover:bg-primary/10 transition-colors"
+            >
+              <ArrowLeft size={16} /> Volver al inicio
+            </Link>
           </div>
         ) : (
           <>
