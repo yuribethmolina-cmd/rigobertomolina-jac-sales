@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { logAudit } from "@/lib/audit";
 import { toast } from "sonner";
-import { ArrowLeft, MessageCircle, Copy, FileDown, BarChart3, Download, History, Star, Link2, Trash2, ClipboardList, Inbox } from "lucide-react";
+import { ArrowLeft, MessageCircle, Copy, FileDown, BarChart3, Download, History, Star, Trash2, ClipboardList, Inbox } from "lucide-react";
 
 
 interface Row {
@@ -96,8 +96,8 @@ const QUOTE_STATUS_LABEL: Record<QuoteRow["status"], string> = {
 const QUOTE_STATUS_ORDER: QuoteRow["status"][] = ["nuevo", "contactado", "cerrado"];
 
 import ReviewInviteGenerator from "@/components/ReviewInviteGenerator";
+import ShareReviewLink from "@/components/ShareReviewLink";
 
-const REVIEW_URL = "https://rigobertomolina.com/resena";
 
 const Stats = () => {
   const [days, setDays] = useState<number>(30);
@@ -200,14 +200,6 @@ const Stats = () => {
     loadContacts();
   }, [loadReviews, loadQuotes, loadContacts]);
 
-  const copyReviewLink = async () => {
-    try {
-      await navigator.clipboard.writeText(REVIEW_URL);
-      toast.success("Link de reseñas copiado. Envíalo a tu cliente después de la compra.");
-    } catch {
-      toast.error(`No se pudo copiar. Copia manualmente: ${REVIEW_URL}`);
-    }
-  };
 
   const toggleReviewApproved = async (row: ReviewRow) => {
     const { error } = await supabase
@@ -341,6 +333,8 @@ const Stats = () => {
         <p className="text-muted-foreground mt-2">
           Personas que iniciaron contacto desde la página (WhatsApp, mensajes copiados y cotizaciones descargadas).
         </p>
+
+        <ShareReviewLink />
 
         <div className="flex flex-wrap items-center gap-2 mt-6">
           {RANGES.map((r) => (
@@ -564,15 +558,8 @@ const Stats = () => {
             <Star size={18} className="text-primary" /> Reseñas de clientes
           </h2>
           <p className="text-sm text-muted-foreground mb-3">
-            Comparte este link con tus clientes al final de la compra para que dejen su reseña.
+            Para un link con vehículo y plan preseleccionados, usa el generador de abajo.
           </p>
-          <button
-            type="button"
-            onClick={copyReviewLink}
-            className="mb-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-heading font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
-          >
-            <Link2 size={16} /> Copiar link de reseñas
-          </button>
           <ReviewInviteGenerator />
           <div className="rounded-xl border border-border divide-y divide-border overflow-hidden">
             {reviews.length === 0 && (
