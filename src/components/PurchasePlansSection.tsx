@@ -1,77 +1,10 @@
-import { Check, ArrowRight } from "lucide-react";
+import { Check, ArrowRight, AlertTriangle } from "lucide-react";
 import { waLink } from "@/lib/constants";
+import { financingPlans, FINANCING_DISCLAIMER } from "@/data/financingPlans";
 
-const plans = [
-  {
-    icon: "💳",
-    badge: null,
-    title: "Compra Directa",
-    tagline: "Rápido y sin complicaciones",
-    accent: "neutral" as const,
-    features: [
-      "Afiliación inicial el Día 1",
-      "5 cuotas mensuales iguales",
-      "Pago final previo a entrega",
-      "Total en ~7 meses",
-      "Sin requisitos adicionales",
-    ],
-    cta: { label: "Ver cuotas por modelo", href: "#modelos" },
-  },
-  {
-    icon: "📅",
-    badge: "MÁS POPULAR",
-    title: "Pago Fácil",
-    tagline: "Cuotas más bajas, más tiempo",
-    accent: "teal" as const,
-    features: [
-      "Afiliación inicial el Día 1",
-      "10 cuotas mensuales reducidas",
-      "Última cuota antes de la entrega",
-      "Total en ~12 meses",
-      "Sin requisitos adicionales",
-    ],
-    cta: { label: "Ver cuotas por modelo", href: "#modelos" },
-  },
-  {
-    icon: "🏦",
-    badge: null,
-    title: "Crédito Bel",
-    tagline: "Financiamiento a largo plazo",
-    accent: "amber" as const,
-    features: [
-      "Financiamiento personalizado",
-      "Para venezolanos mayores de 18 años",
-      "Solicitud por correo o app appbel.com.ve",
-      "Respuesta a tu correo electrónico",
-      "Consulta requisitos con Rigoberto",
-    ],
-    cta: {
-      label: "Consultar requisitos",
-      href: waLink("Hola Rigoberto, quiero información sobre el crédito JAC de Bel"),
-      external: true,
-    },
-  },
-];
-
-const tableRows = [
-  { label: "Cuotas mensuales", directa: "5 iguales", facil: "10 reducidas", bel: "A convenir" },
-  { label: "Plazo total", directa: "~7 meses", facil: "~12 meses", bel: "Largo plazo" },
-  { label: "Requisitos extra", directa: "Ninguno", facil: "Ninguno", bel: "Sí (ver doc.)" },
-  { label: "Ideal para", directa: "Pago rápido", facil: "Cuota baja", bel: "Financiamiento" },
-  { label: "Gestión", directa: "Con Rigoberto", facil: "Con Rigoberto", bel: "App + correo" },
-];
-
-const accentBorder = {
-  neutral: "border-border",
-  teal: "border-primary shadow-[0_0_24px_-4px_hsl(var(--primary)/0.4)]",
-  amber: "border-amber-500/40",
-};
-
-const accentCtaBg = {
-  neutral: "bg-primary hover:bg-primary/90 text-primary-foreground",
-  teal: "bg-primary hover:bg-primary/90 text-primary-foreground",
-  amber: "bg-amber-500 hover:bg-amber-600 text-white",
-};
+/* Todas las estructuras provienen de la fuente única src/data/financingPlans.ts */
+const verified = financingPlans.filter((p) => p.sourceStatus === "VERIFIED_17_AUG");
+const inReview = financingPlans.filter((p) => p.sourceStatus === "REVIEW_NOT_VERIFIED");
 
 const PurchasePlansSection = () => (
   <section id="planes" className="py-20 section-divider">
@@ -80,107 +13,71 @@ const PurchasePlansSection = () => (
       <div className="text-center">
         <h2 className="section-title">¿Cuál es tu plan?</h2>
         <p className="section-subtitle">
-          JAC tiene tres formas de llevarte tu carro — elige la que más te convenga
+          {verified.length} planes vigentes de JAC — elige el que más te convenga
         </p>
         <div className="teal-underline mx-auto" />
       </div>
 
-      {/* Cards */}
-      <div className="mt-14 grid md:grid-cols-3 gap-6">
-        {plans.map((plan) => (
+      {/* Cards de planes verificados */}
+      <div className="mt-14 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {verified.map((plan) => (
           <div
-            key={plan.title}
-            className={`relative rounded-2xl border-2 ${accentBorder[plan.accent]} card-glow flex flex-col p-6`}
+            key={plan.id}
+            className="rounded-2xl border border-primary/30 bg-gradient-to-b from-secondary to-background p-6 flex flex-col"
           >
-            {plan.badge && (
-              <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-[11px] font-bold px-4 py-1 rounded-full uppercase tracking-wider">
-                {plan.badge}
-              </span>
-            )}
+            <h3 className="font-heading text-xl font-bold">{plan.name}</h3>
+            <p className="text-sm text-muted-foreground mt-1">{plan.description}</p>
 
-            <span className="text-4xl">{plan.icon}</span>
-            <h3 className="font-heading text-xl font-bold mt-3">{plan.title}</h3>
-            <p className="text-muted-foreground text-sm mt-1">{plan.tagline}</p>
-
-            <ul className="mt-5 space-y-2.5 flex-1">
-              {plan.features.map((f) => (
-                <li key={f} className="flex items-start gap-2 text-sm">
-                  <Check size={16} className="text-primary shrink-0 mt-0.5" />
-                  <span>{f}</span>
+            <ul className="mt-4 space-y-2 flex-1">
+              {plan.template.map((stage) => (
+                <li key={stage.label} className="flex items-start gap-2 text-sm text-foreground">
+                  <Check size={15} className="text-primary mt-0.5 shrink-0" />
+                  <span>
+                    {stage.count > 1 ? `${stage.count} × ` : ""}
+                    {stage.label}
+                  </span>
                 </li>
               ))}
             </ul>
 
             <a
-              href={plan.cta.href}
-              {...((plan.cta as any).external
-                ? { target: "_blank", rel: "noopener noreferrer" }
-                : {})}
-              className={`mt-6 inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 font-heading text-sm font-bold transition-colors ${accentCtaBg[plan.accent]}`}
+              href="#simulador"
+              className="mt-5 inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3 font-heading text-sm font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
             >
-              {plan.cta.label} <ArrowRight size={16} />
+              Ver opciones de financiamiento <ArrowRight size={16} />
             </a>
           </div>
         ))}
       </div>
 
-      {/* Comparison Table */}
-      <div className="mt-16">
-        <h3 className="font-heading text-xl font-bold text-center mb-6">Compara los planes</h3>
-        <div className="rounded-2xl overflow-hidden border border-border">
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr>
-                  <th className="bg-secondary p-4 text-left font-semibold">Característica</th>
-                  <th className="bg-secondary p-4 text-center font-semibold">Compra Directa</th>
-                  <th className="bg-primary text-primary-foreground p-4 text-center font-semibold">
-                    Pago Fácil
-                  </th>
-                  <th className="bg-amber-500/20 text-amber-500 p-4 text-center font-semibold">
-                    Crédito Bel
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {tableRows.map((row, i) => (
-                  <tr key={row.label}>
-                    <td className={`p-4 font-semibold text-muted-foreground ${i % 2 === 0 ? "bg-secondary/50" : ""}`}>
-                      {row.label}
-                    </td>
-                    <td className={`p-4 text-center ${i % 2 === 0 ? "bg-secondary/50" : ""}`}>
-                      {row.directa}
-                    </td>
-                    <td className={`p-4 text-center ${i % 2 === 0 ? "bg-primary/10" : "bg-primary/5"}`}>
-                      {row.facil}
-                    </td>
-                    <td className={`p-4 text-center ${i % 2 === 0 ? "bg-amber-500/10" : "bg-amber-500/5"}`}>
-                      {row.bel}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+      {/* Planes sin documento vigente */}
+      {inReview.length > 0 && (
+        <div className="mt-10 rounded-xl border border-amber-500/40 bg-amber-500/5 p-5">
+          <p className="flex items-start gap-2 font-heading text-sm font-bold text-amber-500">
+            <AlertTriangle size={16} className="mt-0.5 shrink-0" />
+            Planes en revisión
+          </p>
+          <p className="text-sm text-muted-foreground mt-2">
+            {inReview.map((p) => p.name).join(", ")} siguen disponibles para consulta, pero no contamos con
+            documento vigente del 17 de agosto para publicar sus cronogramas. Consulta disponibilidad y
+            condiciones por WhatsApp.
+          </p>
+          <a
+            href={waLink(
+              "Hola Rigoberto, quiero información y condiciones actualizadas de los planes Compra Directa, Crédito Bel y Travesía."
+            )}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 inline-flex items-center gap-2 rounded-lg border border-amber-500/50 px-4 py-2 font-heading text-sm font-bold text-amber-500 hover:bg-amber-500/10 transition-colors"
+          >
+            Consultar requisitos <ArrowRight size={15} />
+          </a>
         </div>
-      </div>
+      )}
 
-      {/* Disclaimer */}
-      <p className="mt-8 text-center text-xs text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-        * Compra Directa y Pago Fácil: montos referenciales del catálogo Agosto 2026, sujetos a variación.
-        Crédito Bel: sujeto a aprobación. ¿Tienes dudas sobre cuál plan es para ti? Escríbele a Rigoberto.
+      <p className="mt-8 text-xs text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+        {FINANCING_DISCLAIMER}
       </p>
-
-      <div className="mt-6 text-center">
-        <a
-          href={waLink("Hola Rigoberto, quiero que me ayudes a elegir un plan de compra JAC")}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-heading text-sm font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
-        >
-          Hablar con Rigoberto sobre planes <ArrowRight size={16} />
-        </a>
-      </div>
     </div>
   </section>
 );
