@@ -62,19 +62,24 @@ const Review = () => {
     const finalMessage = presetPlan
       ? `Compré con ${presetPlan.name}. ${message.trim()}`
       : message.trim();
-    const { error } = await supabase.from("reviews").insert({
+    const { data: inserted, error } = await supabase.from("reviews").insert({
       customer_name: customerName.trim(),
       vehicle_name: vehicleName || null,
       rating,
       message: finalMessage,
       photo_url: photo,
-    });
+    }).select("id").single();
     setSending(false);
     if (error) {
       toast.error("No se pudo enviar la reseña. Intenta de nuevo.");
       return;
     }
     setDone(true);
+    if (inserted?.id) {
+      supabase.functions
+        .invoke("send-review-email", { body: { reviewId: inserted.id } })
+        .catch(() => {});
+    }
   };
 
   return (
