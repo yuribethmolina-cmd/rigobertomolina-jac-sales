@@ -105,7 +105,7 @@ const QuoteFormSection = () => {
     }
     supabase.functions.invoke("send-quote-email", { body: { quoteId: inserted.id } })
       .catch((e) => console.error("quote email failed:", e));
-    trackContact("whatsapp", parsed.data.vehicleName).catch(() => {});
+    trackContact("whatsapp", { model: parsed.data.vehicleName, plan: parsed.data.planName, source: "quote-form" });
     setSent(true);
     setWaUrl(waLink(buildWhatsAppMessage(parsed.data)));
     toast.success("Solicitud enviada. También puedes escribirle ahora por WhatsApp.");
