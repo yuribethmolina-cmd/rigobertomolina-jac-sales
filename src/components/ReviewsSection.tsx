@@ -51,6 +51,14 @@ const ReviewsSection = () => {
               key={r.id}
               className="rounded-xl border border-border bg-card p-6 flex flex-col gap-3"
             >
+              {r.photo_url && (
+                <img
+                  src={r.photo_url}
+                  alt={`Foto del vehículo de ${r.customer_name}`}
+                  className="h-40 w-full rounded-lg object-cover"
+                  loading="lazy"
+                />
+              )}
               <div
                 className="flex gap-1"
                 aria-label={`Calificación: ${r.rating} de 5 estrellas`}
