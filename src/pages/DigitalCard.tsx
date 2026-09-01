@@ -28,20 +28,7 @@ const REVIEW_URL = "https://rigobertomolina.com/resena";
 const SITE_URL = "https://rigobertomolina.com";
 
 /** Minimal vCard 3.0 string for "Save to contacts". */
-const vCard = [
-  "BEGIN:VCARD",
-  "VERSION:3.0",
-  "N:Molina;Rigoberto;;;",
-  "FN:Rigoberto Molina",
-  "ORG:JAC Venezuela;Vendedor Independiente",
-  "TITLE:Vendedor JAC Caracas",
-  `TEL;TYPE=CELL,WHATSAPP:${WHATSAPP_NUMBER}`,
-  `EMAIL:${EMAIL}`,
-  `URL:${SITE_URL}`,
-  `URL:${REVIEW_URL}`,
-  "NOTE:Vendedor independiente de la marca JAC en Caracas. Compra Directa y Pago Facil.",
-  "END:VCARD",
-].join("\r\n");
+const VCF_URL = "https://rigobertomolina.com/rigoberto-molina.vcf";
 
 const DigitalCard = () => {
   const [copied, setCopied] = useState(false);
