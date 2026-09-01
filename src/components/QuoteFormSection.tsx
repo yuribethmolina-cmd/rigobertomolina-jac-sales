@@ -131,10 +131,20 @@ const QuoteFormSection = () => {
             <p className="mt-2 text-sm text-muted-foreground">
               Gracias, {form.fullName.split(" ")[0]}. Revisaré tu solicitud de {form.vehicleName} ({form.planName}) y te contactaré al {form.phone}.
             </p>
+            <a
+              href={waUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackContact("whatsapp", form.vehicleName).catch(() => {})}
+              className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[#25D366] px-6 py-4 font-heading font-bold text-white hover:bg-[#1ebe5d] transition-colors"
+            >
+              <MessageCircle size={18} />
+              Enviar también por WhatsApp
+            </a>
             <button
               type="button"
-              onClick={() => { setForm(EMPTY); setSent(false); }}
-              className="mt-6 text-sm font-heading font-bold text-primary hover:underline"
+              onClick={() => { setForm(EMPTY); setSent(false); setWaUrl(""); }}
+              className="mt-3 text-sm font-heading font-bold text-primary hover:underline"
             >
               Enviar otra solicitud
             </button>
