@@ -95,6 +95,8 @@ const QUOTE_STATUS_LABEL: Record<QuoteRow["status"], string> = {
 
 const QUOTE_STATUS_ORDER: QuoteRow["status"][] = ["nuevo", "contactado", "cerrado"];
 
+import ReviewInviteGenerator from "@/components/ReviewInviteGenerator";
+
 const REVIEW_URL = "https://rigobertomolina.com/resena";
 
 const Stats = () => {
@@ -557,6 +559,7 @@ const Stats = () => {
           >
             <Link2 size={16} /> Copiar link de reseñas
           </button>
+          <ReviewInviteGenerator />
           <div className="rounded-xl border border-border divide-y divide-border overflow-hidden">
             {reviews.length === 0 && (
               <p className="px-4 py-4 text-sm text-muted-foreground">Aún no hay reseñas recibidas.</p>
