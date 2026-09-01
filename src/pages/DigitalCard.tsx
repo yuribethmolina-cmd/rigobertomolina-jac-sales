@@ -148,6 +148,14 @@ const DigitalCard = () => {
         {/* Action buttons */}
         <div className="mt-5 space-y-3">
           <a
+            href="/rigoberto-molina.vcf"
+            download="rigoberto-molina.vcf"
+            className="flex w-full items-center justify-center gap-3 rounded-xl bg-primary px-5 py-4 font-heading font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
+          >
+            <Download size={20} /> Abrir contacto (tarjeta)
+          </a>
+
+          <a
             href={waLink("Hola Rigoberto, te contacto desde tu tarjeta digital. Quiero información sobre un modelo JAC.")}
             target="_blank"
             rel="noopener noreferrer"
