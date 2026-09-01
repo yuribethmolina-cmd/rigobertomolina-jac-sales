@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { logAudit } from "@/lib/audit";
 import { toast } from "sonner";
-import { ArrowLeft, MessageCircle, Copy, FileDown, BarChart3, Download, History, Star, Link2, Trash2, ClipboardList, Inbox } from "lucide-react";
+import { ArrowLeft, MessageCircle, Copy, FileDown, BarChart3, Download, History, Star, Trash2, ClipboardList, Inbox } from "lucide-react";
 
 
 interface Row {
@@ -201,14 +201,6 @@ const Stats = () => {
     loadContacts();
   }, [loadReviews, loadQuotes, loadContacts]);
 
-  const copyReviewLink = async () => {
-    try {
-      await navigator.clipboard.writeText(REVIEW_URL);
-      toast.success("Link de reseñas copiado. Envíalo a tu cliente después de la compra.");
-    } catch {
-      toast.error(`No se pudo copiar. Copia manualmente: ${REVIEW_URL}`);
-    }
-  };
 
   const toggleReviewApproved = async (row: ReviewRow) => {
     const { error } = await supabase
