@@ -4,7 +4,9 @@ import { supabase } from "@/integrations/supabase/client";
 import { vehicles } from "@/data/vehicles";
 import { financingPlans } from "@/data/financingPlans";
 import { toast } from "sonner";
-import { Send, Loader2, CheckCircle2 } from "lucide-react";
+import { Send, Loader2, CheckCircle2, MessageCircle } from "lucide-react";
+import { waLink } from "@/lib/constants";
+import { trackContact } from "@/lib/track";
 
 const quoteSchema = z.object({
   fullName: z.string().trim().min(2, "Escribe tu nombre completo").max(100, "Máximo 100 caracteres"),
