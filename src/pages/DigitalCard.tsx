@@ -13,6 +13,9 @@ import {
   ArrowLeft,
   Check,
   Phone,
+  Facebook,
+  Twitter,
+  Send,
 } from "lucide-react";
 import {
   WHATSAPP_DISPLAY,
@@ -242,6 +245,55 @@ const DigitalCard = () => {
           >
             <Share2 size={16} />
           </button>
+        </div>
+
+        {/* Social share buttons */}
+        <div className="mt-4">
+          <p className="mb-2 text-center text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
+            Compartir por redes
+          </p>
+          <div className="grid grid-cols-4 gap-3">
+            <a
+              href={waLink("Conoce a Rigoberto Molina, vendedor JAC en Caracas. Guarda su contacto: " + VCF_URL)}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Compartir por WhatsApp"
+              className="flex flex-col items-center gap-1 rounded-xl bg-whatsapp px-2 py-3 text-xs font-semibold text-whatsapp-foreground hover:bg-whatsapp/90 transition-colors"
+            >
+              <MessageCircle size={18} />
+              <span>WhatsApp</span>
+            </a>
+            <a
+              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(VCF_URL)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Compartir por Facebook"
+              className="flex flex-col items-center gap-1 rounded-xl border border-border bg-card px-2 py-3 text-xs font-semibold text-foreground hover:border-primary/50 hover:text-primary transition-colors"
+            >
+              <Facebook size={18} />
+              <span>Facebook</span>
+            </a>
+            <a
+              href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(VCF_URL)}&text=${encodeURIComponent("Tarjeta de contacto de Rigoberto Molina · Vendedor JAC Caracas")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Compartir por X"
+              className="flex flex-col items-center gap-1 rounded-xl border border-border bg-card px-2 py-3 text-xs font-semibold text-foreground hover:border-primary/50 hover:text-primary transition-colors"
+            >
+              <Twitter size={18} />
+              <span>X</span>
+            </a>
+            <a
+              href={`https://t.me/share/url?url=${encodeURIComponent(VCF_URL)}&text=${encodeURIComponent("Tarjeta de contacto de Rigoberto Molina · Vendedor JAC Caracas")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Compartir por Telegram"
+              className="flex flex-col items-center gap-1 rounded-xl border border-border bg-card px-2 py-3 text-xs font-semibold text-foreground hover:border-primary/50 hover:text-primary transition-colors"
+            >
+              <Send size={18} />
+              <span>Telegram</span>
+            </a>
+          </div>
         </div>
 
         <p className="mt-6 text-center text-[11px] text-muted-foreground">
