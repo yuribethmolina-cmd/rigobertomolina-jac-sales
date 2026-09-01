@@ -61,14 +61,14 @@ const DigitalCard = () => {
       try {
         await navigator.share({
           title: "Tarjeta de Rigoberto Molina · Vendedor JAC",
-          text: "Toca para guardar el contacto de Rigoberto Molina en tu teléfono.",
-          url: VCF_URL,
+          text: "Toca para ver la tarjeta digital de Rigoberto Molina, vendedor JAC en Caracas.",
+          url: CARD_URL,
         });
       } catch {
         /* cancelled */
       }
     } else {
-      void copyVcfUrl();
+      void copyUrl();
     }
   };
 
