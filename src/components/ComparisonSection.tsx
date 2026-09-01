@@ -1,20 +1,34 @@
 import { waLink, waModelMessage } from "@/lib/constants";
 import { ArrowRight, Calculator } from "lucide-react";
+import { Link } from "react-router-dom";
+import { findVehicle } from "@/data/vehicles";
+import { pagoFacilMonthly } from "@/data/vehicleFinancing";
+import { NOT_VERIFIED_LABEL, fmtUsd0, FINANCING_DISCLAIMER } from "@/data/financingPlans";
 
-const data = [
-  { label: "Transmisión", arena_mt: "Manual", arena_at: "Automática", nevado_mt: "Manual", nevado_at: "Automática" },
-  { label: "Ideal para", arena_mt: "Ciudad", arena_at: "Ciudad", nevado_mt: "Ciudad y carretera", nevado_at: "Ciudad y carretera" },
-  { label: "Cuota ref.", arena_mt: "$2.564/mes", arena_at: "$3.236/mes", nevado_mt: "$3.018/mes", nevado_at: "$3.715/mes" },
-  { label: "Total Directa", arena_mt: "$17.948", arena_at: "$22.652", nevado_mt: "$21.130", nevado_at: "$26.006", isTotal: true },
-  { label: "Total Fácil", arena_mt: "$22.132", arena_at: "$23.876", nevado_mt: "$29.436", nevado_at: "$33.714", isTotal: true },
-  { label: "Tamaño", arena_mt: "Compacto", arena_at: "Compacto", nevado_mt: "Mediano", nevado_at: "Mediano" },
+/* Comparativa de SUV — los montos provienen de la fuente única. */
+const COMPARE_IDS = [
+  "arena-sport-manual",
+  "arena-sport-automatico",
+  "nevado-manual",
+  "nevado-automatico",
 ];
 
-const models = [
-  { key: "arena_mt", name: "Arena MT", featured: false },
-  { key: "arena_at", name: "Arena AT", featured: false },
-  { key: "nevado_mt", name: "Nevado MT", featured: true },
-  { key: "nevado_at", name: "Nevado AT", featured: false },
+const models = COMPARE_IDS.map((id) => findVehicle(id)).filter(
+  (v): v is NonNullable<ReturnType<typeof findVehicle>> => Boolean(v)
+);
+
+const cuotaLabel = (id: string) => {
+  const v = pagoFacilMonthly(id);
+  return v ? `${fmtUsd0(v)}/mes` : NOT_VERIFIED_LABEL;
+};
+
+const rows: { label: string; value: (id: string) => string; isTotal?: boolean }[] = [
+  {
+    label: "Transmisión",
+    value: (id) => (findVehicle(id)?.displayName.toLowerCase().includes("autom") ? "Automática" : "Manual"),
+  },
+  { label: "Categoría", value: (id) => findVehicle(id)?.category ?? "—" },
+  { label: "Cuota Pago Fácil", value: cuotaLabel, isTotal: true },
 ];
 
 /* ── Mobile: card-per-model ── */
@@ -22,153 +36,108 @@ const MobileCards = () => (
   <div className="flex flex-col gap-5 md:hidden mt-10">
     {models.map((m) => (
       <div
-        key={m.key}
-        className={`rounded-2xl overflow-hidden border ${
-          m.featured ? "border-primary" : "border-border"
-        }`}
+        key={m.id}
+        className={`rounded-2xl overflow-hidden border ${m.featured ? "border-primary" : "border-border"}`}
       >
         {m.featured && (
           <div className="bg-primary text-primary-foreground text-xs font-bold text-center py-1.5 tracking-wide uppercase">
-            ⭐ Recomendado
+            Recomendado
           </div>
         )}
         <div className="bg-gradient-to-b from-secondary to-background p-5">
-          <h3 className="font-heading text-lg font-bold text-center">{m.name}</h3>
+          <h3 className="font-heading text-lg font-bold text-center">{m.displayName}</h3>
           <div className="mt-4 space-y-3">
-            {data.map((row, i) => (
+            {rows.map((row, i) => (
               <div
                 key={row.label}
-                className={`flex justify-between text-sm px-3 py-2 rounded-lg ${
-                  i % 2 === 0 ? "bg-secondary" : ""
-                }`}
+                className={`flex justify-between gap-3 text-sm px-3 py-2 rounded-lg ${i % 2 === 0 ? "bg-secondary" : ""}`}
               >
                 <span className="text-muted-foreground">{row.label}</span>
-                <span className={`font-semibold ${(row as any).isTotal ? "text-primary font-bold" : ""}`}>
-                  {(row as Record<string, string>)[m.key]}
+                <span className={`font-semibold text-right ${row.isTotal ? "text-primary font-bold" : ""}`}>
+                  {row.value(m.id)}
                 </span>
               </div>
             ))}
           </div>
           <a
-            href={waLink(waModelMessage(m.name))}
+            href={waLink(waModelMessage(m.displayName))}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3 font-heading text-sm font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
           >
             Consultar este modelo <ArrowRight size={16} />
           </a>
-          <a
-            href="#simulador"
-            className="mt-2 w-full inline-flex items-center justify-center gap-2 rounded-lg border border-primary px-5 py-2.5 font-heading text-sm font-bold text-primary hover:bg-primary/10 transition-colors"
+          <Link
+            to={`/modelo/${m.id}`}
+            className="mt-2 w-full inline-flex items-center justify-center gap-2 rounded-lg border border-primary/40 px-5 py-3 font-heading text-sm font-bold text-primary hover:bg-primary/10 transition-colors"
           >
-            <Calculator size={14} /> Ver desglose de pagos
-          </a>
+            Ver planes y cronogramas
+          </Link>
         </div>
       </div>
     ))}
   </div>
 );
 
-/* ── Desktop: enhanced table ── */
+/* ── Desktop table ── */
 const DesktopTable = () => (
-  <div className="hidden md:block mt-10 rounded-2xl overflow-hidden border border-border">
-    <table className="w-full text-sm">
+  <div className="hidden md:block mt-10 overflow-x-auto">
+    <table className="w-full min-w-[640px] text-sm">
       <thead>
-        <tr>
-          <th className="bg-secondary p-4 text-left" />
-          {models.map((m) => (
+        <tr className="bg-primary text-primary-foreground">
+          <th className="p-3 text-left rounded-tl-lg font-heading font-bold">Característica</th>
+          {models.map((m, i) => (
             <th
-              key={m.key}
-              className={`p-4 text-center font-heading font-bold text-base relative ${
-                m.featured
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-secondary text-foreground"
-              }`}
+              key={m.id}
+              className={`p-3 text-center font-heading font-bold ${i === models.length - 1 ? "rounded-tr-lg" : ""}`}
             >
-              {m.featured && (
-                <span className="absolute -top-0 left-1/2 -translate-x-1/2 -translate-y-full bg-primary text-primary-foreground text-[10px] font-bold px-3 py-1 rounded-t-lg uppercase tracking-wide">
-                  ⭐ Recomendado
-                </span>
-              )}
-              {m.name}
+              {m.displayName}
             </th>
           ))}
         </tr>
       </thead>
       <tbody>
-        {data.map((row, i) => (
-          <tr key={row.label}>
-            <td className={`p-4 font-semibold text-muted-foreground ${i % 2 === 0 ? "bg-secondary" : ""}`}>
-              {row.label}
-            </td>
+        {rows.map((row, i) => (
+          <tr key={row.label} className={i % 2 === 0 ? "bg-card" : "bg-secondary/50"}>
+            <td className="p-3 font-semibold text-muted-foreground">{row.label}</td>
             {models.map((m) => (
               <td
-                key={m.key}
-                className={`p-4 text-center ${
-                  m.featured
-                    ? i % 2 === 0
-                      ? "bg-primary/10"
-                      : "bg-primary/5"
-                    : i % 2 === 0
-                      ? "bg-secondary"
-                      : ""
-                }`}
+                key={m.id}
+                className={`p-3 text-center ${row.isTotal ? "text-primary font-bold" : "font-semibold"}`}
               >
-                <span className={(row as any).isTotal ? "font-bold text-primary" : ""}>
-                  {(row as Record<string, string>)[m.key]}
-                </span>
+                {row.value(m.id)}
               </td>
             ))}
           </tr>
         ))}
-        {/* CTA row */}
-        <tr>
-          <td className="p-4 bg-secondary" />
-          {models.map((m) => (
-            <td
-              key={m.key}
-              className={`p-4 text-center ${m.featured ? "bg-primary/5" : "bg-secondary"}`}
-            >
-              <a
-                href={waLink(waModelMessage(m.name))}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm font-bold text-primary hover:underline"
-              >
-                Consultar <ArrowRight size={14} />
-              </a>
-              <a
-                href="#simulador"
-                className="mt-1 inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors"
-              >
-                <Calculator size={12} /> Ver desglose
-              </a>
-            </td>
-          ))}
-        </tr>
       </tbody>
     </table>
   </div>
 );
 
 const ComparisonSection = () => (
-  <section className="py-20 bg-secondary/30 section-divider">
+  <section id="comparar" className="py-20 section-divider">
     <div className="section-container">
       <div className="text-center">
-        <h2 className="section-title">¿Cuál Nevado o Arena es para ti?</h2>
-        <p className="section-subtitle">Los modelos más consultados, lado a lado</p>
+        <h2 className="section-title">Compara los SUV más buscados</h2>
+        <p className="section-subtitle">Cuota mensual documentada del plan Pago Fácil</p>
         <div className="teal-underline mx-auto" />
       </div>
 
-      <DesktopTable />
       <MobileCards />
+      <DesktopTable />
 
-      <div className="mt-8 max-w-2xl mx-auto border-2 border-amber-500/50 bg-amber-500/10 rounded-xl p-4 flex items-start gap-3">
-        <span className="text-amber-500 text-lg shrink-0">⚠️</span>
-        <p className="text-sm leading-relaxed">
-          <strong className="text-amber-500">Precios referenciales.</strong>{" "}
-          Cuotas del catálogo <strong>Agosto 2026</strong>, <strong>sujetas a cambio</strong>. Consulta por WhatsApp para montos actualizados.
-        </p>
+      <p className="mt-6 text-xs text-muted-foreground max-w-3xl mx-auto text-center">
+        {FINANCING_DISCLAIMER}
+      </p>
+
+      <div className="mt-8 text-center">
+        <a
+          href="#simulador"
+          className="inline-flex items-center gap-2 rounded-lg border border-primary px-6 py-3 font-heading text-sm font-bold text-primary hover:bg-primary/10 transition-colors"
+        >
+          <Calculator size={16} /> Ver todos los planes
+        </a>
       </div>
     </div>
   </section>
