@@ -329,6 +329,68 @@ const Stats = () => {
 
         <section className="mt-12">
           <h2 className="font-heading text-xl font-bold mb-3 flex items-center gap-2">
+            <Star size={18} className="text-primary" /> Reseñas de clientes
+          </h2>
+          <p className="text-sm text-muted-foreground mb-3">
+            Comparte este link con tus clientes al final de la compra para que dejen su reseña.
+          </p>
+          <button
+            type="button"
+            onClick={copyReviewLink}
+            className="mb-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-heading font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+          >
+            <Link2 size={16} /> Copiar link de reseñas
+          </button>
+          <div className="rounded-xl border border-border divide-y divide-border overflow-hidden">
+            {reviews.length === 0 && (
+              <p className="px-4 py-4 text-sm text-muted-foreground">Aún no hay reseñas recibidas.</p>
+            )}
+            {reviews.map((r) => (
+              <div key={r.id} className="px-4 py-3">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <span className="text-sm font-heading font-bold">
+                    {r.customer_name}
+                    {r.vehicle_name && (
+                      <span className="ml-2 text-xs text-muted-foreground font-normal">· {r.vehicle_name}</span>
+                    )}
+                  </span>
+                  <span className="flex items-center gap-0.5" aria-label={`${r.rating} de 5 estrellas`}>
+                    {[1, 2, 3, 4, 5].map((n) => (
+                      <Star
+                        key={n}
+                        size={13}
+                        className={n <= r.rating ? "fill-amber-400 text-amber-400" : "text-muted-foreground/30"}
+                      />
+                    ))}
+                  </span>
+                </div>
+                <p className="mt-1 text-sm text-muted-foreground">{r.message}</p>
+                <div className="mt-2 flex items-center gap-3">
+                  <span className="text-xs text-muted-foreground">
+                    {new Date(r.created_at).toLocaleString("es-VE")}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => toggleReviewApproved(r)}
+                    className={`text-xs font-bold ${r.approved ? "text-primary" : "text-muted-foreground hover:text-primary"}`}
+                  >
+                    {r.approved ? "Aprobada" : "Marcar como aprobada"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => deleteReview(r.id)}
+                    className="inline-flex items-center gap-1 text-xs font-bold text-muted-foreground hover:text-destructive"
+                  >
+                    <Trash2 size={12} /> Eliminar
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-12">
+          <h2 className="font-heading text-xl font-bold mb-3 flex items-center gap-2">
             <History size={18} className="text-primary" /> Registro de auditoría
           </h2>
           <p className="text-sm text-muted-foreground mb-3">
