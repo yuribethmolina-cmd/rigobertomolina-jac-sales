@@ -342,6 +342,8 @@ const Stats = () => {
           Personas que iniciaron contacto desde la página (WhatsApp, mensajes copiados y cotizaciones descargadas).
         </p>
 
+        <ShareReviewLink />
+
         <div className="flex flex-wrap items-center gap-2 mt-6">
           {RANGES.map((r) => (
             <button
