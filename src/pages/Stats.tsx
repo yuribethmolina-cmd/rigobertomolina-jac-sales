@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { logAudit } from "@/lib/audit";
 import { toast } from "sonner";
-import { ArrowLeft, MessageCircle, Copy, FileDown, BarChart3, Download, History, Star, Link2, Trash2, ClipboardList } from "lucide-react";
+import { ArrowLeft, MessageCircle, Copy, FileDown, BarChart3, Download, History, Star, Link2, Trash2, ClipboardList, Inbox } from "lucide-react";
 
 
 interface Row {
@@ -72,6 +72,16 @@ interface QuoteRow {
   vehicle_name: string;
   plan_name: string;
   message: string | null;
+  status: "nuevo" | "contactado" | "cerrado";
+  created_at: string;
+}
+
+interface ContactRow {
+  id: string;
+  full_name: string;
+  phone: string | null;
+  email: string | null;
+  message: string;
   status: "nuevo" | "contactado" | "cerrado";
   created_at: string;
 }
