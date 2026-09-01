@@ -2,9 +2,10 @@ import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import { vehicles } from "@/data/vehicles";
+import { getPlan } from "@/data/financingPlans";
 import { toast } from "sonner";
-import { Star, Send, CheckCircle2, Camera, X, ArrowLeft } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Star, Send, CheckCircle2, Camera, X, ArrowLeft, BadgeCheck } from "lucide-react";
+import { Link, useSearchParams } from "react-router-dom";
 
 const compressPhoto = (file: File): Promise<string> =>
   new Promise((resolve, reject) => {
@@ -28,8 +29,12 @@ const compressPhoto = (file: File): Promise<string> =>
   });
 
 const Review = () => {
+  const [searchParams] = useSearchParams();
+  const presetVehicle = vehicles.find((v) => v.id === searchParams.get("modelo"));
+  const presetPlan = searchParams.get("plan") ? getPlan(searchParams.get("plan")!) : undefined;
+
   const [customerName, setCustomerName] = useState("");
-  const [vehicleName, setVehicleName] = useState("");
+  const [vehicleName, setVehicleName] = useState(presetVehicle?.displayName ?? "");
   const [rating, setRating] = useState(0);
   const [hovered, setHovered] = useState(0);
   const [message, setMessage] = useState("");
@@ -54,11 +59,14 @@ const Review = () => {
       return;
     }
     setSending(true);
+    const finalMessage = presetPlan
+      ? `Compré con ${presetPlan.name}. ${message.trim()}`
+      : message.trim();
     const { error } = await supabase.from("reviews").insert({
       customer_name: customerName.trim(),
       vehicle_name: vehicleName || null,
       rating,
-      message: message.trim(),
+      message: finalMessage,
       photo_url: photo,
     });
     setSending(false);
@@ -108,6 +116,20 @@ const Review = () => {
             <p className="mt-2 text-sm text-muted-foreground text-center">
               Cuéntanos cómo te fue con la compra de tu JAC
             </p>
+            {(presetVehicle || presetPlan) && (
+              <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
+                {presetVehicle && (
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/15 px-3 py-1 text-xs font-bold text-primary">
+                    <BadgeCheck size={13} /> {presetVehicle.displayName}
+                  </span>
+                )}
+                {presetPlan && (
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/15 px-3 py-1 text-xs font-bold text-primary">
+                    <BadgeCheck size={13} /> {presetPlan.name}
+                  </span>
+                )}
+              </div>
+            )}
 
             <form onSubmit={submit} className="mt-6 flex flex-col gap-4">
               <div>
