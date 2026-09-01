@@ -8,6 +8,7 @@ import PlanComparator from "@/components/PlanComparator";
 import PaymentSection from "@/components/PaymentSection";
 import FinancingExplorer from "@/components/FinancingExplorer";
 import QuickQuoteSection from "@/components/QuickQuoteSection";
+import QuoteFormSection from "@/components/QuoteFormSection";
 import HowToBuySection from "@/components/HowToBuySection";
 import FAQSection from "@/components/FAQSection";
 import ReviewsSection from "@/components/ReviewsSection";
@@ -36,6 +37,7 @@ const Index = () => (
     <PaymentSection />
     <FinancingExplorer />
     <QuickQuoteSection />
+    <QuoteFormSection />
     <HowToBuySection />
     <FAQSection />
     <ReviewsSection />
