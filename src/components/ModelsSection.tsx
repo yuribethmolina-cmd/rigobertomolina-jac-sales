@@ -39,11 +39,11 @@ const pickup: CatalogModel[] = [
 ];
 
 const van: CatalogModel[] = [
-  { name: "Savanna", image: "https://jacvenezuela.com/wp-content/uploads/2024/09/js8-Savanna-jac-motors-venezuela-1024x427.jpg", tagline: "Minivan espaciosa para familias grandes", priceCD: "$7.288/mes", pricePF: "Consultar", fichaUrl: "https://jacvenezuela.com/portfolio/savanna/" },
+  { name: "Savanna", image: "https://jacvenezuela.com/wp-content/uploads/2024/09/js8-Savanna-jac-motors-venezuela-1024x427.jpg", tagline: "Minivan espaciosa para familias grandes", priceCD: "$4.924/mes", pricePF: "Consultar", fichaUrl: "https://jacvenezuela.com/portfolio/savanna/" },
   { name: "Sunray V4 Pasajeros", image: "https://jacvenezuela.com/wp-content/uploads/2026/05/SUNRAY-V4-PASAJEROS-11-1-PUESTOS-1-1024x427.png", tagline: "Van V4 para transporte de pasajeros", priceCD: "Consultar", pricePF: "Consultar" },
-  { name: "Sunray V4 Carga", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/jac-SUNRAY-V4-CARGA-1024x427.png", tagline: "Van V4 para carga", priceCD: "Consultar", pricePF: "Consultar" },
-  { name: "Sunray V6 Pasajeros", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/SUNRAY-V6-171-1024x427.webp", tagline: "Van para transporte colectivo o corporativo", priceCD: "$4.908/mes", pricePF: "$2.785/mes", fichaUrl: "https://jacvenezuela.com/portfolio/sunray-v6-pasajeros/" },
-  { name: "Sunray V6 Carga", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/SUNRAY-V6-CARGA-1-1024x425.webp", tagline: "Van de carga versátil y eficiente", priceCD: "$5.529/mes", pricePF: "$3.119/mes", fichaUrl: "https://jacvenezuela.com/portfolio/sunray-v6-carga-2/" },
+  { name: "Sunray V4 Carga", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/jac-SUNRAY-V4-CARGA-1024x427.png", tagline: "Van V4 para carga", priceCD: "$5.238/mes", pricePF: "Consultar" },
+  { name: "Sunray V6 Pasajeros", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/SUNRAY-V6-171-1024x427.webp", tagline: "Van para transporte colectivo o corporativo", priceCD: "$5.945/mes", pricePF: "$2.785/mes", fichaUrl: "https://jacvenezuela.com/portfolio/sunray-v6-pasajeros/" },
+  { name: "Sunray V6 Carga", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/SUNRAY-V6-CARGA-1-1024x425.webp", tagline: "Van de carga versátil y eficiente", priceCD: "$5.643/mes", pricePF: "$3.119/mes", fichaUrl: "https://jacvenezuela.com/portfolio/sunray-v6-carga-2/" },
   { name: "Sunray V6 Van Escolar", image: "https://jacvenezuela.com/wp-content/uploads/2026/05/SUNRAY-V6-ESCOLAR-1024x427.png", tagline: "Van escolar — consulta disponibilidad", priceCD: "Consultar", pricePF: "Consultar" },
   { name: "Autobús 28+6+1 Puestos", image: "https://jacvenezuela.com/wp-content/uploads/2026/06/AUTOBUS-2861-PUESTOS-1-1024x427.png", tagline: "Autobús de transporte colectivo — consulta disponibilidad", priceCD: "Consultar", pricePF: "Consultar" },
 ];
@@ -77,7 +77,7 @@ const camiones: CatalogModel[] = [
   { name: "Leyenda Cava Refrigerada", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/LEYENDA-1024x425.webp", tagline: "Cava refrigerada en chasis Leyenda", priceCD: "Consultar", pricePF: "Consultar", referentialImage: true },
   { name: "Leyenda Brazo Hidráulico", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/LEYENDA-1024x425.webp", tagline: "Brazo hidráulico en chasis Leyenda", priceCD: "Consultar", pricePF: "Consultar", referentialImage: true },
   { name: "Cavalino", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/CAVALINO-1024x425.webp", tagline: "Chuto 22 Ton", priceCD: "$7.606/mes", pricePF: "$3.896/mes", fichaUrl: "https://jacvenezuela.com/portfolio/cavalino/" },
-  { name: "Bachaco 400 HP", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/CHUTO-4251-430-1024x425.webp", priceCD: "$9.728/mes", pricePF: "$5.429/mes", fichaUrl: "https://jacvenezuela.com/portfolio/chuto-4251-430-hp/" },
+  { name: "Bachaco 400 HP", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/CHUTO-4251-430-1024x425.webp", priceCD: "$10.249/mes", pricePF: "$5.429/mes", fichaUrl: "https://jacvenezuela.com/portfolio/chuto-4251-430-hp/" },
   { name: "Chuto 4251 430 HP", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/CHUTO-4251-430-1024x425.webp", priceCD: "$11.960/mes", pricePF: "$6.193/mes", fichaUrl: "https://jacvenezuela.com/portfolio/chuto-4251-430-hp/" },
   { name: "Minero 14M3", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/Minero-14m3-Capacidad-Tolva-1024x425.jpg", priceCD: "$10.669/mes", pricePF: "$5.512/mes", fichaUrl: "https://jacvenezuela.com/portfolio/minero-14m3/" },
   { name: "Minero 20M3", image: "https://jacvenezuela.com/wp-content/uploads/2025/03/Minero-20m3-Capacidad-Tolva-1024x425.webp", priceCD: "$14.109/mes", pricePF: "$7.327/mes", fichaUrl: "https://jacvenezuela.com/portfolio/minero-20m3/" },
