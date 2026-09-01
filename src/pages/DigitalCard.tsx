@@ -59,14 +59,25 @@ const DigitalCard = () => {
       try {
         await navigator.share({
           title: "Tarjeta de Rigoberto Molina · Vendedor JAC",
-          text: "Conoce el catálogo JAC Venezuela con Rigoberto Molina.",
-          url: CARD_URL,
+          text: "Toca para guardar el contacto de Rigoberto Molina en tu teléfono.",
+          url: VCF_URL,
         });
       } catch {
         /* cancelled */
       }
     } else {
-      void copyUrl();
+      void copyVcfUrl();
+    }
+  };
+
+  const copyVcfUrl = async () => {
+    try {
+      await navigator.clipboard.writeText(VCF_URL);
+      setCopied(true);
+      toast.success("Link del contacto copiado. Al abrirlo se guarda la tarjeta.");
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      toast.error(`No se pudo copiar. Copia manualmente: ${VCF_URL}`);
     }
   };
 
