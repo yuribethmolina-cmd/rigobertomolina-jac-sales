@@ -29,8 +29,7 @@ const CARD_URL = "https://rigobertomolina.com/tarjeta";
 const REVIEW_URL = "https://rigobertomolina.com/resena";
 const SITE_URL = "https://rigobertomolina.com";
 
-/** Minimal vCard 3.0 string for "Save to contacts". */
-const VCF_URL = "https://rigobertomolina.com/rigoberto-molina.vcf";
+/** QR and share links point to the visual card page, not the raw vCard. */
 
 const DigitalCard = () => {
   const [copied, setCopied] = useState(false);
@@ -61,27 +60,17 @@ const DigitalCard = () => {
       try {
         await navigator.share({
           title: "Tarjeta de Rigoberto Molina · Vendedor JAC",
-          text: "Toca para guardar el contacto de Rigoberto Molina en tu teléfono.",
-          url: VCF_URL,
+          text: "Toca para ver la tarjeta digital de Rigoberto Molina, vendedor JAC en Caracas.",
+          url: CARD_URL,
         });
       } catch {
         /* cancelled */
       }
     } else {
-      void copyVcfUrl();
+      void copyUrl();
     }
   };
 
-  const copyVcfUrl = async () => {
-    try {
-      await navigator.clipboard.writeText(VCF_URL);
-      setCopied(true);
-      toast.success("Link del contacto copiado. Al abrirlo se guarda la tarjeta.");
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      toast.error(`No se pudo copiar. Copia manualmente: ${VCF_URL}`);
-    }
-  };
 
   return (
     <main className="min-h-screen bg-background flex flex-col items-center px-4 py-10">
@@ -222,15 +211,15 @@ const DigitalCard = () => {
           <div className="flex-1 flex items-center rounded-xl border border-border bg-card px-3 py-3 overflow-hidden">
             <input
               readOnly
-              value={VCF_URL}
+              value={CARD_URL}
               onFocus={(e) => e.currentTarget.select()}
-              aria-label="Link del contacto"
+              aria-label="Link de la tarjeta"
               className="w-full bg-transparent text-xs text-foreground outline-none truncate font-mono"
             />
           </div>
           <button
             type="button"
-            onClick={copyVcfUrl}
+            onClick={copyUrl}
             className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-heading font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
           >
             {copied ? <Check size={16} /> : <Share2 size={16} />}
@@ -253,7 +242,7 @@ const DigitalCard = () => {
           </p>
           <div className="grid grid-cols-4 gap-3">
             <a
-              href={waLink("Conoce a Rigoberto Molina, vendedor JAC en Caracas. Guarda su contacto: " + VCF_URL)}
+              href={waLink("Conoce a Rigoberto Molina, vendedor JAC en Caracas. Mira su tarjeta digital: " + CARD_URL)}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Compartir por WhatsApp"
@@ -263,7 +252,7 @@ const DigitalCard = () => {
               <span>WhatsApp</span>
             </a>
             <a
-              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(VCF_URL)}`}
+              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(CARD_URL)}`}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Compartir por Facebook"
@@ -280,7 +269,7 @@ const DigitalCard = () => {
               onClick={async (e) => {
                 e.preventDefault();
                 try {
-                  await navigator.clipboard.writeText(VCF_URL);
+                  await navigator.clipboard.writeText(CARD_URL);
                   toast.success("Link copiado. Pégalo en tu DM o historia de Instagram.");
                 } catch {
                   /* ignore */
@@ -293,7 +282,7 @@ const DigitalCard = () => {
               <span>Instagram</span>
             </a>
             <a
-              href={`https://t.me/share/url?url=${encodeURIComponent(VCF_URL)}&text=${encodeURIComponent("Tarjeta de contacto de Rigoberto Molina · Vendedor JAC Caracas")}`}
+              href={`https://t.me/share/url?url=${encodeURIComponent(CARD_URL)}&text=${encodeURIComponent("Tarjeta digital de Rigoberto Molina · Vendedor JAC Caracas")}`}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Compartir por Telegram"
