@@ -98,7 +98,6 @@ const QUOTE_STATUS_ORDER: QuoteRow["status"][] = ["nuevo", "contactado", "cerrad
 import ReviewInviteGenerator from "@/components/ReviewInviteGenerator";
 import ShareReviewLink from "@/components/ShareReviewLink";
 
-const REVIEW_URL = "https://rigobertomolina.com/resena";
 
 const Stats = () => {
   const [days, setDays] = useState<number>(30);
