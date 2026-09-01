@@ -54,6 +54,24 @@ const QuoteFormSection = () => {
     setErrors((e) => ({ ...e, [key]: undefined }));
   };
 
+  const buildWhatsAppMessage = (data: QuoteForm) => {
+    const lines = [
+      `Hola Rigoberto, quiero cotizar un vehículo.`,
+      ``,
+      `Nombre: ${data.fullName}`,
+      `Teléfono: ${data.phone}`,
+    ];
+    if (data.email) lines.push(`Correo: ${data.email}`);
+    if (data.city) lines.push(`Ciudad: ${data.city}`);
+    lines.push(`Modelo: ${data.vehicleName}`);
+    lines.push(`Plan: ${data.planName}`);
+    if (data.message) {
+      lines.push(``);
+      lines.push(`Mensaje: ${data.message}`);
+    }
+    return lines.join("\n");
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const parsed = quoteSchema.safeParse(form);
@@ -86,8 +104,10 @@ const QuoteFormSection = () => {
     }
     supabase.functions.invoke("send-quote-email", { body: { quoteId: inserted.id } })
       .catch((e) => console.error("quote email failed:", e));
+    trackContact("whatsapp", parsed.data.vehicleName).catch(() => {});
     setSent(true);
-    toast.success("Solicitud enviada. Rigoberto te contactará pronto.");
+    setWaUrl(waLink(buildWhatsAppMessage(parsed.data)));
+    toast.success("Solicitud enviada. También puedes escribirle ahora por WhatsApp.");
   };
 
   const err = (k: keyof QuoteForm) =>
