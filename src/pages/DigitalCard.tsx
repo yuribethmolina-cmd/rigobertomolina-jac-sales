@@ -71,16 +71,6 @@ const DigitalCard = () => {
     }
   };
 
-  const copyVcfUrl = async () => {
-    try {
-      await navigator.clipboard.writeText(VCF_URL);
-      setCopied(true);
-      toast.success("Link del contacto copiado. Al abrirlo se guarda la tarjeta.");
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      toast.error(`No se pudo copiar. Copia manualmente: ${VCF_URL}`);
-    }
-  };
 
   return (
     <main className="min-h-screen bg-background flex flex-col items-center px-4 py-10">
