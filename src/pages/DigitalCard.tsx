@@ -45,15 +45,12 @@ const DigitalCard = () => {
   };
 
   const downloadVcf = () => {
-    const blob = new Blob([vCard], { type: "text/vcard;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
-    a.href = url;
+    a.href = "/rigoberto-molina.vcf";
     a.download = "rigoberto-molina.vcf";
     document.body.appendChild(a);
     a.click();
     a.remove();
-    URL.revokeObjectURL(url);
     toast.success("Contacto descargado. Abre el archivo para guardarlo.");
   };
 
