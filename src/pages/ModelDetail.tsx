@@ -70,7 +70,7 @@ const ModelDetail = () => {
               {vehicle.tagline && <p className="text-muted-foreground mt-2">{vehicle.tagline}</p>}
             </div>
             <div className="flex gap-2">
-              <ShareModelButton model={vehicle.id} />
+              <ShareModelButton model={vehicle.displayName} slug={vehicle.id} />
               {vehicle.fichaUrl && (
                 <a
                   href={vehicle.fichaUrl}
