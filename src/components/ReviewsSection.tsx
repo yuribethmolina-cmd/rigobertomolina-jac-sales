@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Check, Star, Undo2 } from "lucide-react";
-import { toast } from "sonner";
+import { Star } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 interface Review {
@@ -18,69 +17,26 @@ interface Review {
 const ReviewsSection = () => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loaded, setLoaded] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [busyId, setBusyId] = useState<string | null>(null);
 
-  const load = useCallback(async (admin: boolean) => {
-    let query = supabase
+  const load = useCallback(async () => {
+    const { data } = await supabase
       .from("reviews")
       .select(
         "id, customer_name, vehicle_name, rating, message, photo_url, approved, created_at",
       )
+      .eq("approved", true)
       .order("created_at", { ascending: false })
-      .limit(admin ? 30 : 9);
-    if (!admin) query = query.eq("approved", true);
-    const { data } = await query;
+      .limit(9);
     setReviews((data as Review[]) ?? []);
     setLoaded(true);
   }, []);
 
   useEffect(() => {
-    let active = true;
-
-    const check = async () => {
-      const { data: userData } = await supabase.auth.getUser();
-      const user = userData.user;
-      let admin = false;
-      if (user) {
-        const { data } = await supabase
-          .from("user_roles")
-          .select("role")
-          .eq("user_id", user.id)
-          .eq("role", "admin")
-          .maybeSingle();
-        admin = !!data;
-      }
-      if (!active) return;
-      setIsAdmin(admin);
-      load(admin);
-    };
-
-    const { data: sub } = supabase.auth.onAuthStateChange(() => check());
-    check();
-
-    return () => {
-      active = false;
-      sub.subscription.unsubscribe();
-    };
+    load();
   }, [load]);
 
-  const setApproved = async (id: string, approved: boolean) => {
-    setBusyId(id);
-    const { error } = await supabase.from("reviews").update({ approved }).eq("id", id);
-    setBusyId(null);
-    if (error) {
-      toast.error("No se pudo actualizar la reseña");
-      return;
-    }
-    setReviews((prev) => prev.map((r) => (r.id === id ? { ...r, approved } : r)));
-    toast.success(approved ? "Reseña publicada en la web" : "Reseña retirada de la web");
-  };
-
   if (!loaded) return null;
-  if (reviews.length === 0 && !isAdmin) return null;
-
-  const pendingCount = reviews.filter((r) => !r.approved).length;
+  if (reviews.length === 0) return null;
 
   return (
     <section id="resenas" className="py-20 bg-background">
@@ -95,28 +51,11 @@ const ReviewsSection = () => {
           <div className="w-16 h-1 bg-primary mx-auto mt-6 rounded-full" />
         </div>
 
-        {isAdmin && pendingCount > 0 && (
-          <div className="max-w-6xl mx-auto mb-8 rounded-xl border border-primary/40 bg-primary/5 p-4 flex flex-wrap items-center justify-between gap-3">
-            <p className="text-sm text-foreground">
-              Tienes {pendingCount} reseña{pendingCount === 1 ? "" : "s"} pendiente{pendingCount === 1 ? "" : "s"} por aprobar.
-            </p>
-            <Link
-              to="/resenas/moderar"
-              className="rounded-lg bg-primary text-primary-foreground font-heading font-bold px-4 py-2 text-sm"
-            >
-              Abrir moderación completa
-            </Link>
-          </div>
-        )}
-
-
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
           {reviews.map((r) => (
             <article
               key={r.id}
-              className={`rounded-xl border bg-card p-6 flex flex-col gap-3 ${
-                r.approved ? "border-border" : "border-primary/50"
-              }`}
+              className="rounded-xl border border-border bg-card p-6 flex flex-col gap-3"
             >
               {r.photo_url && (
                 <img
@@ -125,11 +64,6 @@ const ReviewsSection = () => {
                   className="h-40 w-full rounded-lg object-cover"
                   loading="lazy"
                 />
-              )}
-              {isAdmin && !r.approved && (
-                <span className="self-start rounded-full bg-primary/15 text-primary text-xs font-heading font-bold px-3 py-1">
-                  Pendiente por aprobar
-                </span>
               )}
               <div
                 className="flex gap-1"
@@ -155,28 +89,6 @@ const ReviewsSection = () => {
                 </span>
                 {r.vehicle_name ? ` · ${r.vehicle_name}` : ""}
               </footer>
-              {isAdmin && (
-                <button
-                  type="button"
-                  disabled={busyId === r.id}
-                  onClick={() => setApproved(r.id, !r.approved)}
-                  className={`inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-heading font-bold disabled:opacity-50 ${
-                    r.approved
-                      ? "border border-border text-foreground"
-                      : "bg-primary text-primary-foreground"
-                  }`}
-                >
-                  {r.approved ? (
-                    <>
-                      <Undo2 className="w-4 h-4" /> Retirar de la web
-                    </>
-                  ) : (
-                    <>
-                      <Check className="w-4 h-4" /> Aprobar y publicar
-                    </>
-                  )}
-                </button>
-              )}
             </article>
           ))}
         </div>
