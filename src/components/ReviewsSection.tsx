@@ -43,10 +43,10 @@ const ReviewsSection = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Lo que dicen nuestros clientes
+            Lo que dicen mis clientes
           </h2>
           <p className="text-muted-foreground">
-            Reseñas reales de compradores que estrenaron su JAC con nosotros.
+            Reseñas reales de compradores que estrenaron su JAC.
           </p>
           <div className="w-16 h-1 bg-primary mx-auto mt-6 rounded-full" />
         </div>
