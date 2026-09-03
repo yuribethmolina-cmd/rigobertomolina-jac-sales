@@ -95,13 +95,10 @@ const ReviewsSection = () => {
           <div className="w-16 h-1 bg-primary mx-auto mt-6 rounded-full" />
         </div>
 
-        {isAdmin && (
+        {isAdmin && pendingCount > 0 && (
           <div className="max-w-6xl mx-auto mb-8 rounded-xl border border-primary/40 bg-primary/5 p-4 flex flex-wrap items-center justify-between gap-3">
             <p className="text-sm text-foreground">
-              Modo administrador: puedes aprobar o retirar reseñas aquí mismo.
-              {pendingCount > 0
-                ? ` Tienes ${pendingCount} pendiente${pendingCount === 1 ? "" : "s"}.`
-                : " No hay pendientes."}
+              Tienes {pendingCount} reseña{pendingCount === 1 ? "" : "s"} pendiente{pendingCount === 1 ? "" : "s"} por aprobar.
             </p>
             <Link
               to="/resenas/moderar"
@@ -111,6 +108,7 @@ const ReviewsSection = () => {
             </Link>
           </div>
         )}
+
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
           {reviews.map((r) => (
