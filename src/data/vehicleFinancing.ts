@@ -34,7 +34,7 @@ const CATALOGO_17_AGO = "Catálogo Compra Directa / Pago Fácil 17 de agosto de 
    `compra-directa` = cuota de los 7 pagos (plan pendiente de revalidación). */
 const monthlyQuotas: { vehicleId: string; planId: string; cuota: number }[] = [
   { vehicleId: "arena-sport-manual", planId: "pago-facil", cuota: 1242 },
-  { vehicleId: "arena-sport-manual", planId: "compra-directa", cuota: 2568 },
+  { vehicleId: "arena-sport-manual", planId: "compra-directa", cuota: 2758.4 },
   { vehicleId: "arena-sport-automatico", planId: "pago-facil", cuota: 1351 },
   { vehicleId: "arena-sport-automatico", planId: "compra-directa", cuota: 2775 },
   { vehicleId: "arena-pro", planId: "pago-facil", cuota: 1491 },
