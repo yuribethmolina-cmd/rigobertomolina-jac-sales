@@ -284,7 +284,7 @@ export const financingOptionsFor = (vehicleKey: string): FinancingOption[] => {
   return financingPlans
     .filter(
       (plan) =>
-        plan.sourceStatus === "VERIFIED_17_AUG" ||
+        plan.sourceStatus !== "REVIEW_NOT_VERIFIED" ||
         rows.some((r) => r.planId === plan.id)
     )
     .map((plan) => {
