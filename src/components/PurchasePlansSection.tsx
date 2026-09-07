@@ -3,7 +3,7 @@ import { waLink } from "@/lib/constants";
 import { financingPlans, FINANCING_DISCLAIMER } from "@/data/financingPlans";
 
 /* Todas las estructuras provienen de la fuente única src/data/financingPlans.ts */
-const verified = financingPlans.filter((p) => p.sourceStatus === "VERIFIED_17_AUG");
+const verified = financingPlans.filter((p) => p.sourceStatus !== "REVIEW_NOT_VERIFIED");
 const inReview = financingPlans.filter((p) => p.sourceStatus === "REVIEW_NOT_VERIFIED");
 
 const PurchasePlansSection = () => (

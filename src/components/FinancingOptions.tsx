@@ -93,7 +93,7 @@ const FinancingOptions = ({ vehicle, source = "opciones-financiamiento" }: Props
               Plan en revisión: sin documento vigente del 17 de agosto. Confirma condiciones antes de contratar.
             </p>
           )}
-          {active.plan.sourceStatus === "VERIFIED_17_AUG" && !active.hasAmounts && (
+          {active.plan.sourceStatus !== "REVIEW_NOT_VERIFIED" && !active.hasAmounts && (
             <p className="flex items-start gap-2 text-xs text-amber-500">
               <AlertTriangle size={14} className="mt-0.5 shrink-0" />
               Estructura verificada con el documento del 17 de agosto. Los importes se confirman por WhatsApp.
