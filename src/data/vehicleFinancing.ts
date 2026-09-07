@@ -248,6 +248,14 @@ export const vehicleFinancing: VehicleFinancing[] = [
     amountsSource: CATALOGO_RUTA48_17_AGO,
     schedule: buildRuta48Schedule(q),
   })),
+  ...compraDirectaSep.map((q) => ({
+    vehicleId: q.vehicleId,
+    planId: "compra-directa",
+    currency: "USD" as const,
+    amountsSourceStatus: "VERIFIED_04_SEP" as SourceStatus,
+    amountsSource: CATALOGO_CD_04_SEP,
+    schedule: buildCompraDirectaSchedule(q.monto),
+  })),
 ];
 
 
