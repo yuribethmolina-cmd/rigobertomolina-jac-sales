@@ -189,7 +189,7 @@ export const financingPlans: FinancingPlan[] = [
 ];
 
 export const VERIFIED_PLAN_IDS = financingPlans
-  .filter((p) => p.sourceStatus === "VERIFIED_17_AUG")
+  .filter((p) => p.sourceStatus !== "REVIEW_NOT_VERIFIED")
   .map((p) => p.id);
 
 export const getPlan = (id: string) => financingPlans.find((p) => p.id === id);
