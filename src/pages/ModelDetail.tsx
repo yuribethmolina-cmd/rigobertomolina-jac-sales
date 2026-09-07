@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { ArrowLeft, AlertTriangle, FileText } from "lucide-react";
 import { findVehicle } from "@/data/vehicles";
-import { pagoFacilMonthly } from "@/data/vehicleFinancing";
+import { pagoFacilMonthly, compraDirectaMonthly } from "@/data/vehicleFinancing";
 import { FINANCING_DISCLAIMER, NOT_VERIFIED_LABEL, fmtUsd0 } from "@/data/financingPlans";
 import FinancingOptions from "@/components/FinancingOptions";
 import ShareModelButton from "@/components/ShareModelButton";
@@ -28,6 +28,7 @@ const ModelDetail = () => {
   }
 
   const cuota = pagoFacilMonthly(vehicle.id);
+  const compraDirecta = compraDirectaMonthly(vehicle.id);
   const specs = catalogSpecs[vehicle.canonicalName] ?? catalogSpecs[vehicle.displayName];
   const url = `${SITE_URL}/modelo/${vehicle.id}`;
   const description = cuota
