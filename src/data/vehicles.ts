@@ -334,6 +334,17 @@ export const vehicles: Vehicle[] = [
     sourceStatus: "VERIFIED_17_AUG",
   },
   {
+    id: "sunray-v6-motorhome",
+    canonicalName: "Sunray V6 Motorhome",
+    displayName: "Sunray V6 Motorhome",
+    aliases: ["SUNRAY V6 MOTORHOME", "Sunray V6 Motorhome"],
+    category: "VAN",
+    tagline: "Van motorhome equipada para viajar",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/03/SUNRAY-V6-CARGA-1-1024x425.webp",
+    referentialImage: true,
+    sourceStatus: "VERIFIED_04_SEP",
+  },
+  {
     id: "sunray-v6-van-escolar",
     canonicalName: "Sunray V6 Escolar",
     displayName: "Sunray V6 Escolar",
