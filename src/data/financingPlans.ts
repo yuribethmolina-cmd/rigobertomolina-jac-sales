@@ -148,14 +148,14 @@ export const financingPlans: FinancingPlan[] = [
   {
     id: "compra-directa",
     name: "Compra Directa",
-    effectiveDate: "2026-08-17",
-    source: "CATÁLOGO COMPRA DIRECTA 17 DE AGOSTO (pendiente de revalidación)",
-    sourceStatus: "REVIEW_NOT_VERIFIED",
+    effectiveDate: "04 de septiembre",
+    source: "COMPRA DIRECTA — 04 DE SEPTIEMBRE",
+    sourceStatus: "VERIFIED_04_SEP",
     description:
-      "Pago a la firma, 5 cuotas mensuales y un pago previo a la entrega. Estructura pendiente de revalidación con documento vigente.",
+      "Pago a la firma del contrato, 5 cuotas mensuales y consecutivas y un pago previo a la entrega.",
     template: [
-      { type: "SIGNATURE", count: 1, label: "Afiliación / pago a la firma" },
-      { type: "ORDINARY", count: 5, label: "Cuotas mensuales" },
+      { type: "SIGNATURE", count: 1, label: "Pago a la firma del contrato" },
+      { type: "ORDINARY", count: 5, label: "5 cuotas mensuales y consecutivas" },
       { type: "PRE_DELIVERY", count: 1, label: "Pago previo a la entrega" },
     ],
   },
