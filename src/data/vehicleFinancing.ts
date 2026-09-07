@@ -298,7 +298,7 @@ export interface FinancingOption {
 
 /**
  * Opciones de financiamiento de una configuración.
- * Devuelve los 6 planes verificados del 17 de agosto y, si existen datos
+ * Devuelve los planes vigentes y, si existen datos
  * previos, los planes en revisión — siempre identificados como tales.
  */
 export const financingOptionsFor = (vehicleKey: string): FinancingOption[] => {

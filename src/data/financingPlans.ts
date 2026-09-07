@@ -47,7 +47,7 @@ export const FINANCING_DISCLAIMER =
 
 export const NOT_VERIFIED_LABEL = "Consultar disponibilidad y condiciones";
 
-/* ── Planes vigentes: Compra Directa (04 sep) y catálogos del 17 de agosto ── */
+/* ── Planes vigentes: Compra Directa y Pago Fácil (04 sep) y catálogos del 17 de agosto ── */
 export const financingPlans: FinancingPlan[] = [
   {
     id: "compra-directa",
