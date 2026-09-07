@@ -36,8 +36,6 @@ export interface CarModel {
   traction: string;
   colors?: { name: string; hex: string }[];
   price?: string;
-  priceDirecta?: string;
-  priceFacil?: string;
   featured?: string;
   specs?: CarSpecs;
   image?: string;
