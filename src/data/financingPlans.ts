@@ -47,7 +47,7 @@ export const FINANCING_DISCLAIMER =
 
 export const NOT_VERIFIED_LABEL = "Consultar disponibilidad y condiciones";
 
-/* ── 6 planes verificados con los documentos del 17 de agosto ── */
+/* ── Planes vigentes: Compra Directa (04 sep) y catálogos del 17 de agosto ── */
 export const financingPlans: FinancingPlan[] = [
   {
     id: "compra-directa",
@@ -157,7 +157,7 @@ export const financingPlans: FinancingPlan[] = [
     ],
   },
 
-  /* ── Planes existentes SIN documento del 17 de agosto ──
+  /* ── Planes existentes SIN documento vigente ──
      No se eliminan, no se mezclan con los verificados. ── */
   {
     id: "credito-bel",
