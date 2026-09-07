@@ -7,7 +7,7 @@
    - Los planes sin documento vigente quedan en REVIEW_NOT_VERIFIED.
    ══════════════════════════════════════════════════════════════ */
 
-export type SourceStatus = "VERIFIED_17_AUG" | "REVIEW_NOT_VERIFIED";
+export type SourceStatus = "VERIFIED_17_AUG" | "VERIFIED_04_SEP" | "REVIEW_NOT_VERIFIED";
 
 export type StageType =
   | "SIGNATURE"      // pago a la firma del contrato
