@@ -89,21 +89,90 @@ const fiaoQuotas: {
   { vehicleId: "la-venezolana-a-diesel-4x4", firma: 2063.5, preEntrega: 5388.1, cuota: 1547.6 },
 ];
 
-/** Cronograma con importes conocidos (Pago Fácil y Compra Directa). */
-const buildScheduleFor = (plan: FinancingPlan, cuota: number): PaymentStage[] => {
-  if (plan.id === "pago-facil") {
-    return [
-      { type: "SIGNATURE", count: 1, amount: PAGO_FACIL_SIGNATURE, label: "Pago a la firma del contrato" },
-      { type: "ORDINARY", count: 12, amount: cuota, label: "12 cuotas consecutivas y mensuales" },
-      { type: "PRE_DELIVERY", count: 1, amount: null, label: "Pago previo a la entrega" },
-    ];
-  }
-  return [
-    { type: "SIGNATURE", count: 1, amount: cuota, label: "Afiliación / pago a la firma" },
-    { type: "ORDINARY", count: 5, amount: cuota, label: "5 cuotas mensuales" },
-    { type: "PRE_DELIVERY", count: 1, amount: null, label: "Pago previo a la entrega" },
-  ];
-};
+/** Cronograma de Pago Fácil con importes conocidos. */
+const buildScheduleFor = (plan: FinancingPlan, cuota: number): PaymentStage[] => [
+  { type: "SIGNATURE", count: 1, amount: PAGO_FACIL_SIGNATURE, label: "Pago a la firma del contrato" },
+  { type: "ORDINARY", count: 12, amount: cuota, label: "12 cuotas consecutivas y mensuales" },
+  { type: "PRE_DELIVERY", count: 1, amount: null, label: "Pago previo a la entrega" },
+];
+
+/* ── COMPRA DIRECTA — catálogo del 04 de septiembre ──
+   Estructura: 1 pago a la firma + 5 cuotas mensuales y consecutivas +
+   1 pago previo a la entrega. En este catálogo las tres etapas tienen el
+   mismo importe, tal como aparece impreso en cada página. 65 configuraciones. */
+const compraDirectaSep: { vehicleId: string; monto: number }[] = [
+  { vehicleId: "arena-sport-manual", monto: 2758.4 },
+  { vehicleId: "arena-sport-automatico", monto: 2965.4 },
+  { vehicleId: "arena-pro", monto: 3230.5 },
+  { vehicleId: "nevado-manual", monto: 3605.0 },
+  { vehicleId: "tepuy-pro", monto: 4847.9 },
+  { vehicleId: "savanna", monto: 5135.0 },
+  { vehicleId: "rf8", monto: 8045.2 },
+  { vehicleId: "gx7", monto: 4661.2 },
+  { vehicleId: "la-venezolana-a-gasolina-4x2", monto: 3573.3 },
+  { vehicleId: "la-venezolana-pa-l-campo-4x2-gasolina", monto: 3930.6 },
+  { vehicleId: "la-venezolana-a-diesel-4x2", monto: 3676.8 },
+  { vehicleId: "la-venezolana-pa-l-campo-4x2-diesel", monto: 4034.1 },
+  { vehicleId: "la-venezolana-a-diesel-4x4", monto: 4081.4 },
+  { vehicleId: "t5-la-venezolana-4x2-diesel-2-8l", monto: 3642.0 },
+  { vehicleId: "la-venezolana-pa-l-campo-4x4-diesel", monto: 4443.9 },
+  { vehicleId: "la-venezolana-pro-4x4", monto: 4775.7 },
+  { vehicleId: "la-venezolana-pro-4x4-pa-l-campo", monto: 5186.5 },
+  { vehicleId: "limited", monto: 5854.4 },
+  { vehicleId: "aventura-a-gasolina", monto: 5763.3 },
+  { vehicleId: "aventura-pro-a-gasolina", monto: 7066.6 },
+  { vehicleId: "x100-ferretero", monto: 2679.1 },
+  { vehicleId: "urban-chasis-largo-3-ton", monto: 3680.6 },
+  { vehicleId: "urban-3-ton", monto: 3883.4 },
+  { vehicleId: "c-3500-ferretero-4x4", monto: 4914.9 },
+  { vehicleId: "doble-cabina-ferretero", monto: 4309.8 },
+  { vehicleId: "6t-chasis", monto: 5285.4 },
+  { vehicleId: "6t-ferretero", monto: 5650.3 },
+  { vehicleId: "bufalo-12-ton", monto: 7921.8 },
+  { vehicleId: "bufalo-xl", monto: 8344.5 },
+  { vehicleId: "leyenda-20-ton", monto: 11486.7 },
+  { vehicleId: "leyenda-380-hp", monto: 12639.0 },
+  { vehicleId: "minero-20m3", monto: 12279.7 },
+  { vehicleId: "minero-28m3", monto: 18152.5 },
+  { vehicleId: "minero-14m3", monto: 10669.1 },
+  { vehicleId: "cavalino", monto: 7986.2 },
+  { vehicleId: "bachaco-400-hp", monto: 10840.5 },
+  { vehicleId: "chuto-4251-430-hp", monto: 12551.8 },
+  { vehicleId: "sunray-v4-pasajeros", monto: 6006.3 },
+  { vehicleId: "sunray-v4-carga", monto: 5618.4 },
+  { vehicleId: "sunray-v6-pasajeros", monto: 6324.9 },
+  { vehicleId: "sunray-v6-carga", monto: 6022.8 },
+  { vehicleId: "sunray-v6-motorhome", monto: 13500.0 },
+  { vehicleId: "sunray-v6-van-escolar", monto: 7150.2 },
+  { vehicleId: "sunray-v4-ambulancia", monto: 7738.6 },
+  { vehicleId: "autobus-28-6-1-puestos", monto: 10774.4 },
+  { vehicleId: "compactador-5-ton", monto: 9203.1 },
+  { vehicleId: "compactador-10m3", monto: 12912.8 },
+  { vehicleId: "x100-cava-seca", monto: 3330.8 },
+  { vehicleId: "x100-cava-de-conservacion", monto: 3623.5 },
+  { vehicleId: "urban-cava-seca", monto: 4443.0 },
+  { vehicleId: "urban-cava-de-conservacion", monto: 4801.4 },
+  { vehicleId: "urban-cava-refrigerada", monto: 6100.3 },
+  { vehicleId: "6t-cava-seca", monto: 6368.9 },
+  { vehicleId: "6t-cava-de-conservacion", monto: 7089.8 },
+  { vehicleId: "6t-cava-refrigerada", monto: 8940.3 },
+  { vehicleId: "6t-brazo-hidraulico", monto: 10243.3 },
+  { vehicleId: "bufalo-cava-seca", monto: 9659.0 },
+  { vehicleId: "bufalo-cava-de-conservacion", monto: 10383.6 },
+  { vehicleId: "bufalo-cava-refrigerada", monto: 12709.0 },
+  { vehicleId: "bufalo-brazo-hidraulico", monto: 17365.6 },
+  { vehicleId: "leyenda-cava-seca", monto: 13890.0 },
+  { vehicleId: "leyenda-cava-refrigerada", monto: 16101.1 },
+  { vehicleId: "leyenda-brazo-hidraulico", monto: 21979.9 },
+  { vehicleId: "doble-cabina-brazo-elevador-20m", monto: 10401.7 },
+  { vehicleId: "volkan-mezclador-9m3", monto: 17756.0 },
+];
+
+const buildCompraDirectaSchedule = (monto: number): PaymentStage[] => [
+  { type: "SIGNATURE", count: 1, amount: monto, label: "Pago a la firma del contrato" },
+  { type: "ORDINARY", count: 5, amount: monto, label: "5 cuotas mensuales y consecutivas" },
+  { type: "PRE_DELIVERY", count: 1, amount: monto, label: "Pago previo a la entrega" },
+];
 
 const buildFiaoSchedule = (q: { firma: number; preEntrega: number; cuota: number }): PaymentStage[] => [
   { type: "SIGNATURE", count: 1, amount: q.firma, label: "Pago a la firma del contrato" },
