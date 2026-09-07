@@ -249,20 +249,14 @@ const buildRuta48Schedule = (q: { firma: number; preEntrega: number; fija: numbe
 ];
 
 export const vehicleFinancing: VehicleFinancing[] = [
-  ...monthlyQuotas.flatMap((q) => {
-    const plan = getPlan(q.planId);
-    if (!plan) return [];
-    return [
-      {
-        vehicleId: q.vehicleId,
-        planId: q.planId,
-        currency: "USD" as const,
-        amountsSourceStatus: plan.sourceStatus,
-        amountsSource: CATALOGO_17_AGO,
-        schedule: buildScheduleFor(plan, q.cuota),
-      },
-    ];
-  }),
+  ...pagoFacilSep.map((q) => ({
+    vehicleId: q.vehicleId,
+    planId: "pago-facil",
+    currency: "USD" as const,
+    amountsSourceStatus: "VERIFIED_04_SEP" as SourceStatus,
+    amountsSource: CATALOGO_PF_04_SEP,
+    schedule: buildPagoFacilSchedule(q),
+  })),
   ...fiaoQuotas.map((q) => ({
     vehicleId: q.vehicleId,
     planId: "llevatelo-fiao",
