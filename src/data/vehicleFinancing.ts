@@ -27,11 +27,12 @@ export interface VehicleFinancing {
 
 const PAGO_FACIL_SIGNATURE = 999.9;
 
-const CATALOGO_17_AGO = "Catálogo Compra Directa / Pago Fácil 17 de agosto de 2026";
+const CATALOGO_17_AGO = "Catálogo Pago Fácil 17 de agosto de 2026";
 
-/* Cuotas mensuales trazables al catálogo del 17 de agosto.
-   `pago-facil` = cuota mensual de las 12 cuotas.
-   `compra-directa` = cuota de los 7 pagos (plan pendiente de revalidación). */
+const CATALOGO_CD_04_SEP = "COMPRA DIRECTA — 04 DE SEPTIEMBRE";
+
+/* Cuotas mensuales de Pago Fácil trazables al catálogo del 17 de agosto.
+   Compra Directa NO vive aquí: su fuente es el catálogo del 04 de septiembre. */
 const monthlyQuotas: { vehicleId: string; planId: string; cuota: number }[] = [
   { vehicleId: "arena-sport-manual", planId: "pago-facil", cuota: 1242 },
   { vehicleId: "arena-sport-automatico", planId: "pago-facil", cuota: 1351 },
