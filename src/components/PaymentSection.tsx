@@ -6,7 +6,7 @@ import { vehicles } from "@/data/vehicles";
 import { pagoFacilMonthly } from "@/data/vehicleFinancing";
 
 /* Estructuras y montos: fuente única en src/data. Sin cifras hardcodeadas. */
-const verifiedPlans = financingPlans.filter((p) => p.sourceStatus === "VERIFIED_17_AUG");
+const verifiedPlans = financingPlans.filter((p) => p.sourceStatus !== "REVIEW_NOT_VERIFIED");
 
 /* Referencia de cuota mensual documentada (Pago Fácil, 12 cuotas). */
 const quotaRows = vehicles

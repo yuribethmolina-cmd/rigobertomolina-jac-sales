@@ -90,13 +90,13 @@ const FinancingOptions = ({ vehicle, source = "opciones-financiamiento" }: Props
           {active.plan.sourceStatus === "REVIEW_NOT_VERIFIED" && (
             <p className="flex items-start gap-2 text-xs text-amber-500">
               <AlertTriangle size={14} className="mt-0.5 shrink-0" />
-              Plan en revisión: sin documento vigente del 17 de agosto. Confirma condiciones antes de contratar.
+              Plan en revisión: sin documento vigente. Confirma condiciones antes de contratar.
             </p>
           )}
-          {active.plan.sourceStatus === "VERIFIED_17_AUG" && !active.hasAmounts && (
+          {active.plan.sourceStatus !== "REVIEW_NOT_VERIFIED" && !active.hasAmounts && (
             <p className="flex items-start gap-2 text-xs text-amber-500">
               <AlertTriangle size={14} className="mt-0.5 shrink-0" />
-              Estructura verificada con el documento del 17 de agosto. Los importes se confirman por WhatsApp.
+              Estructura verificada con el catálogo vigente. Los importes se confirman por WhatsApp.
             </p>
           )}
           <p className="text-xs text-muted-foreground leading-relaxed">{FINANCING_DISCLAIMER}</p>

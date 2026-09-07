@@ -7,7 +7,7 @@
    - Los planes sin documento vigente quedan en REVIEW_NOT_VERIFIED.
    ══════════════════════════════════════════════════════════════ */
 
-export type SourceStatus = "VERIFIED_17_AUG" | "REVIEW_NOT_VERIFIED";
+export type SourceStatus = "VERIFIED_17_AUG" | "VERIFIED_04_SEP" | "REVIEW_NOT_VERIFIED";
 
 export type StageType =
   | "SIGNATURE"      // pago a la firma del contrato
@@ -47,8 +47,22 @@ export const FINANCING_DISCLAIMER =
 
 export const NOT_VERIFIED_LABEL = "Consultar disponibilidad y condiciones";
 
-/* ── 6 planes verificados con los documentos del 17 de agosto ── */
+/* ── Planes vigentes: Compra Directa (04 sep) y catálogos del 17 de agosto ── */
 export const financingPlans: FinancingPlan[] = [
+  {
+    id: "compra-directa",
+    name: "Compra Directa",
+    effectiveDate: "04 de septiembre",
+    source: "COMPRA DIRECTA — 04 DE SEPTIEMBRE",
+    sourceStatus: "VERIFIED_04_SEP",
+    description:
+      "Pago a la firma del contrato, 5 cuotas mensuales y consecutivas y un pago previo a la entrega.",
+    template: [
+      { type: "SIGNATURE", count: 1, label: "Pago a la firma del contrato" },
+      { type: "ORDINARY", count: 5, label: "5 cuotas mensuales y consecutivas" },
+      { type: "PRE_DELIVERY", count: 1, label: "Pago previo a la entrega" },
+    ],
+  },
   {
     id: "pago-facil",
     name: "Pago Fácil",
@@ -143,22 +157,8 @@ export const financingPlans: FinancingPlan[] = [
     ],
   },
 
-  /* ── Planes existentes SIN documento del 17 de agosto ──
+  /* ── Planes existentes SIN documento vigente ──
      No se eliminan, no se mezclan con los verificados. ── */
-  {
-    id: "compra-directa",
-    name: "Compra Directa",
-    effectiveDate: "2026-08-17",
-    source: "CATÁLOGO COMPRA DIRECTA 17 DE AGOSTO (pendiente de revalidación)",
-    sourceStatus: "REVIEW_NOT_VERIFIED",
-    description:
-      "Pago a la firma, 5 cuotas mensuales y un pago previo a la entrega. Estructura pendiente de revalidación con documento vigente.",
-    template: [
-      { type: "SIGNATURE", count: 1, label: "Afiliación / pago a la firma" },
-      { type: "ORDINARY", count: 5, label: "Cuotas mensuales" },
-      { type: "PRE_DELIVERY", count: 1, label: "Pago previo a la entrega" },
-    ],
-  },
   {
     id: "credito-bel",
     name: "Crédito Bel",
@@ -189,7 +189,7 @@ export const financingPlans: FinancingPlan[] = [
 ];
 
 export const VERIFIED_PLAN_IDS = financingPlans
-  .filter((p) => p.sourceStatus === "VERIFIED_17_AUG")
+  .filter((p) => p.sourceStatus !== "REVIEW_NOT_VERIFIED")
   .map((p) => p.id);
 
 export const getPlan = (id: string) => financingPlans.find((p) => p.id === id);

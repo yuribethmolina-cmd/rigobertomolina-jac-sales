@@ -3,7 +3,7 @@ import { waLink } from "@/lib/constants";
 import { financingPlans, FINANCING_DISCLAIMER } from "@/data/financingPlans";
 
 /* Todas las estructuras provienen de la fuente única src/data/financingPlans.ts */
-const verified = financingPlans.filter((p) => p.sourceStatus === "VERIFIED_17_AUG");
+const verified = financingPlans.filter((p) => p.sourceStatus !== "REVIEW_NOT_VERIFIED");
 const inReview = financingPlans.filter((p) => p.sourceStatus === "REVIEW_NOT_VERIFIED");
 
 const PurchasePlansSection = () => (
@@ -59,12 +59,12 @@ const PurchasePlansSection = () => (
           </p>
           <p className="text-sm text-muted-foreground mt-2">
             {inReview.map((p) => p.name).join(", ")} siguen disponibles para consulta, pero no contamos con
-            documento vigente del 17 de agosto para publicar sus cronogramas. Consulta disponibilidad y
+            documento vigente para publicar sus cronogramas. Consulta disponibilidad y
             condiciones por WhatsApp.
           </p>
           <a
             href={waLink(
-              "Hola Rigoberto, quiero información y condiciones actualizadas de los planes Compra Directa, Crédito Bel y Travesía."
+              "Hola Rigoberto, quiero información y condiciones actualizadas de los planes Crédito Bel y Travesía."
             )}
             target="_blank"
             rel="noopener noreferrer"
