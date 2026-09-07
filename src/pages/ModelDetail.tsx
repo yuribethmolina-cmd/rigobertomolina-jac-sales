@@ -84,16 +84,32 @@ const ModelDetail = () => {
             </div>
           </div>
 
-          {/* Cuota destacada */}
-          <div className="mt-6 rounded-xl border border-primary/25 bg-primary/5 px-5 py-4">
-            <p className="text-xs uppercase tracking-wider text-muted-foreground">Pago Fácil · cuota mensual</p>
-            <p className="font-heading text-2xl font-bold text-primary mt-1">
-              {cuota ? `${fmtUsd0(cuota)} / mes` : NOT_VERIFIED_LABEL}
-            </p>
-            <p className="text-xs text-muted-foreground mt-1">
-              Corresponde a cada una de las 12 cuotas mensuales, no al precio total del vehículo.
-            </p>
+          {/* Cuotas destacadas */}
+          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            <div className="rounded-xl border border-primary/25 bg-primary/5 px-5 py-4">
+              <p className="text-xs uppercase tracking-wider text-muted-foreground">
+                Compra Directa · cuota
+              </p>
+              <p className="font-heading text-2xl font-bold text-primary mt-1">
+                {compraDirecta ? `${fmtUsd0(compraDirecta)} / mes` : NOT_VERIFIED_LABEL}
+              </p>
+              <p className="text-xs text-muted-foreground mt-1">
+                Pago a la firma, 5 cuotas mensuales y consecutivas y un pago previo a la entrega.
+              </p>
+            </div>
+            <div className="rounded-xl border border-primary/25 bg-primary/5 px-5 py-4">
+              <p className="text-xs uppercase tracking-wider text-muted-foreground">
+                Pago Fácil · cuota mensual
+              </p>
+              <p className="font-heading text-2xl font-bold text-primary mt-1">
+                {cuota ? `${fmtUsd0(cuota)} / mes` : NOT_VERIFIED_LABEL}
+              </p>
+              <p className="text-xs text-muted-foreground mt-1">
+                Corresponde a cada una de las 12 cuotas mensuales, no al precio total del vehículo.
+              </p>
+            </div>
           </div>
+
 
           {vehicle.sourceStatus === "REVIEW_NOT_VERIFIED" && (
             <div className="mt-4 flex items-start gap-2 rounded-xl border border-amber-500/40 bg-amber-500/5 p-4">
