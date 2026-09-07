@@ -50,6 +50,20 @@ export const NOT_VERIFIED_LABEL = "Consultar disponibilidad y condiciones";
 /* ── 6 planes verificados con los documentos del 17 de agosto ── */
 export const financingPlans: FinancingPlan[] = [
   {
+    id: "compra-directa",
+    name: "Compra Directa",
+    effectiveDate: "04 de septiembre",
+    source: "COMPRA DIRECTA — 04 DE SEPTIEMBRE",
+    sourceStatus: "VERIFIED_04_SEP",
+    description:
+      "Pago a la firma del contrato, 5 cuotas mensuales y consecutivas y un pago previo a la entrega.",
+    template: [
+      { type: "SIGNATURE", count: 1, label: "Pago a la firma del contrato" },
+      { type: "ORDINARY", count: 5, label: "5 cuotas mensuales y consecutivas" },
+      { type: "PRE_DELIVERY", count: 1, label: "Pago previo a la entrega" },
+    ],
+  },
+  {
     id: "pago-facil",
     name: "Pago Fácil",
     effectiveDate: "2026-08-17",
@@ -145,20 +159,6 @@ export const financingPlans: FinancingPlan[] = [
 
   /* ── Planes existentes SIN documento del 17 de agosto ──
      No se eliminan, no se mezclan con los verificados. ── */
-  {
-    id: "compra-directa",
-    name: "Compra Directa",
-    effectiveDate: "04 de septiembre",
-    source: "COMPRA DIRECTA — 04 DE SEPTIEMBRE",
-    sourceStatus: "VERIFIED_04_SEP",
-    description:
-      "Pago a la firma del contrato, 5 cuotas mensuales y consecutivas y un pago previo a la entrega.",
-    template: [
-      { type: "SIGNATURE", count: 1, label: "Pago a la firma del contrato" },
-      { type: "ORDINARY", count: 5, label: "5 cuotas mensuales y consecutivas" },
-      { type: "PRE_DELIVERY", count: 1, label: "Pago previo a la entrega" },
-    ],
-  },
   {
     id: "credito-bel",
     name: "Crédito Bel",
