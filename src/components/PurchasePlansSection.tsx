@@ -59,12 +59,12 @@ const PurchasePlansSection = () => (
           </p>
           <p className="text-sm text-muted-foreground mt-2">
             {inReview.map((p) => p.name).join(", ")} siguen disponibles para consulta, pero no contamos con
-            documento vigente del 17 de agosto para publicar sus cronogramas. Consulta disponibilidad y
+            documento vigente para publicar sus cronogramas. Consulta disponibilidad y
             condiciones por WhatsApp.
           </p>
           <a
             href={waLink(
-              "Hola Rigoberto, quiero información y condiciones actualizadas de los planes Compra Directa, Crédito Bel y Travesía."
+              "Hola Rigoberto, quiero información y condiciones actualizadas de los planes Crédito Bel y Travesía."
             )}
             target="_blank"
             rel="noopener noreferrer"

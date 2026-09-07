@@ -99,7 +99,7 @@ const ModelDetail = () => {
             <div className="mt-4 flex items-start gap-2 rounded-xl border border-amber-500/40 bg-amber-500/5 p-4">
               <AlertTriangle size={16} className="text-amber-500 mt-0.5 shrink-0" />
               <p className="text-sm text-muted-foreground">
-                Esta configuración no aparece en los catálogos del 17 de agosto. Consulta disponibilidad y
+                Esta configuración no aparece en los catálogos vigentes. Consulta disponibilidad y
                 condiciones vigentes por WhatsApp.
               </p>
             </div>
