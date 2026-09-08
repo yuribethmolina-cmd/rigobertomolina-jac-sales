@@ -1,15 +1,37 @@
 import { Link, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { ArrowLeft, AlertTriangle, FileText } from "lucide-react";
+import { ArrowLeft, AlertTriangle, FileText, Check } from "lucide-react";
 import { findVehicle } from "@/data/vehicles";
 import { pagoFacilMonthly, compraDirectaMonthly } from "@/data/vehicleFinancing";
-import { FINANCING_DISCLAIMER, NOT_VERIFIED_LABEL, fmtUsd0 } from "@/data/financingPlans";
+import {
+  FINANCING_DISCLAIMER,
+  NOT_VERIFIED_LABEL,
+  fmtUsd0,
+  DIRECT_PLAN_REQUIREMENTS,
+  CREDIT_PLAN_REQUIREMENTS,
+  REQUIREMENTS_NOTE,
+} from "@/data/financingPlans";
 import FinancingOptions from "@/components/FinancingOptions";
 import ShareModelButton from "@/components/ShareModelButton";
 import FooterSection from "@/components/FooterSection";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import catalogSpecs from "@/lib/catalogSpecs";
 import { SITE_URL } from "@/lib/modelLinks";
+import { waLink } from "@/lib/constants";
+
+const REQUIREMENT_GROUPS = [
+  {
+    title: "Pago programado",
+    plans: "Compra Directa y Pago Fácil — sin evaluación de crédito.",
+    items: DIRECT_PLAN_REQUIREMENTS,
+  },
+  {
+    title: "Evaluación de crédito",
+    plans:
+      "Facilito de JAC, Llévatelo Fiao, CrediJAC 35x35, CrediJAC Ruta 48 y CrediExpress de JAC.",
+    items: CREDIT_PLAN_REQUIREMENTS,
+  },
+];
 
 const ModelDetail = () => {
   const { slug } = useParams();
@@ -141,6 +163,57 @@ const ModelDetail = () => {
 
           {/* Planes */}
           <FinancingOptions vehicle={vehicle} source="detalle-modelo" />
+
+          {/* Requisitos por plan */}
+          <section className="mt-10">
+            <h2 className="font-heading text-xl font-bold">Requisitos</h2>
+            <p className="text-sm text-muted-foreground mt-1">
+              Documentos que necesitas para reservar tu {vehicle.displayName}.
+            </p>
+
+            <div className="mt-4 grid gap-4 md:grid-cols-2">
+              {REQUIREMENT_GROUPS.map((group) => (
+                <div
+                  key={group.title}
+                  className="rounded-xl border border-primary/15 bg-background/60 p-5"
+                >
+                  <span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-primary">
+                    {group.title}
+                  </span>
+                  <p className="text-xs text-muted-foreground mt-2">{group.plans}</p>
+                  <ul className="mt-3 space-y-1.5">
+                    {group.items.map((item) => (
+                      <li key={item} className="flex items-start gap-2 text-sm">
+                        <Check size={14} className="text-primary mt-0.5 shrink-0" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+
+            <p className="mt-3 text-xs text-muted-foreground">{REQUIREMENTS_NOTE}</p>
+
+            <div className="mt-4 flex flex-wrap gap-3">
+              <a
+                href={waLink(
+                  `Hola Rigoberto, quiero conocer los recaudos para comprar el ${vehicle.displayName}.`,
+                )}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 font-heading text-sm font-bold text-primary-foreground hover:opacity-90 transition-opacity"
+              >
+                Consultar recaudos
+              </a>
+              <Link
+                to="/creditos"
+                className="inline-flex items-center gap-2 rounded-lg border border-primary/40 px-5 py-3 font-heading text-sm font-bold text-primary hover:bg-primary/10 transition-colors"
+              >
+                Ver detalle de cada crédito
+              </Link>
+            </div>
+          </section>
 
           <p className="mt-8 text-xs text-muted-foreground leading-relaxed">{FINANCING_DISCLAIMER}</p>
         </div>
