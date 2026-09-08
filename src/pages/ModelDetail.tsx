@@ -98,6 +98,11 @@ const ModelDetail = () => {
                 {vehicle.displayName}
               </h1>
               {vehicle.tagline && <p className="text-muted-foreground mt-2">{vehicle.tagline}</p>}
+              {vehicle.unavailable && (
+                <p className="mt-2 inline-flex items-center gap-2 rounded-lg bg-amber-500/15 border border-amber-500/40 px-3 py-1.5 text-sm font-bold text-amber-400">
+                  Este modelo no está disponible por los momentos. Consulta disponibilidad y alternativas con Rigoberto.
+                </p>
+              )}
             </div>
             <div className="flex gap-2">
               <ShareModelButton model={vehicle.displayName} slug={vehicle.id} />
