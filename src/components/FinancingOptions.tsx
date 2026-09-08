@@ -23,6 +23,7 @@ import {
 import { financingOptionsFor } from "@/data/vehicleFinancing";
 import type { Vehicle } from "@/data/vehicles";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import SharePlanButton from "@/components/SharePlanButton";
 import { cn } from "@/lib/utils";
 
 export const waPlanMessage = (vehicleName: string, planName: string) =>
