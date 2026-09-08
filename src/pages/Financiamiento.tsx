@@ -1,7 +1,13 @@
 import { Helmet } from "react-helmet-async";
 import { Check, MessageCircle, ClipboardList, Car, BadgeCheck, Shield, Banknote, ArrowRight } from "lucide-react";
 import { waLink } from "@/lib/constants";
-import { financingPlans, FINANCING_DISCLAIMER } from "@/data/financingPlans";
+import {
+  financingPlans,
+  FINANCING_DISCLAIMER,
+  requirementsForPlan,
+  requiresCreditEvaluation,
+  REQUIREMENTS_NOTE,
+} from "@/data/financingPlans";
 import FooterSection from "@/components/FooterSection";
 
 const WA_MSG_CREDITO =
