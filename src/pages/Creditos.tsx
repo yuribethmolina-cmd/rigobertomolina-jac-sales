@@ -8,6 +8,7 @@ import {
   ArrowRight,
   AlertTriangle,
   Banknote,
+  FileUp,
   ShieldCheck,
 } from "lucide-react";
 import { waLink } from "@/lib/constants";
