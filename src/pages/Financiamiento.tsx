@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { Check, MessageCircle, ClipboardList, Car, BadgeCheck, Shield, Banknote, ArrowRight, ArrowLeft } from "lucide-react";
+import { Check, MessageCircle, ClipboardList, Car, BadgeCheck, Shield, Banknote, ArrowRight, ArrowLeft, Share2 } from "lucide-react";
 import financiamientoHero from "@/assets/financiamiento-hero.jpg";
 import { waLink } from "@/lib/constants";
 import {
