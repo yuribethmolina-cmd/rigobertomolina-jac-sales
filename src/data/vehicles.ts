@@ -34,6 +34,8 @@ export interface Vehicle {
   referentialImage?: boolean;
   fichaUrl?: string;
   sourceStatus: SourceStatus;
+  /** Marca el modelo como no disponible temporalmente (sin stock). */
+  unavailable?: boolean;
 }
 
 export const vehicles: Vehicle[] = [
@@ -92,6 +94,7 @@ export const vehicles: Vehicle[] = [
     image: "https://jacvenezuela.com/wp-content/uploads/2024/09/nevado-automatico-2025-de-jac-motors-venezuela-1024x427.jpg",
     fichaUrl: "https://jacvenezuela.com/portfolio/nevado-automatico/",
     sourceStatus: "REVIEW_NOT_VERIFIED",
+    unavailable: true,
   },
   {
     id: "tepuy-pro",

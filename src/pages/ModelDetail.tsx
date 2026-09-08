@@ -78,12 +78,17 @@ const ModelDetail = () => {
             <ArrowLeft size={16} /> Volver al catálogo
           </Link>
 
-          <div className="mt-6 rounded-2xl overflow-hidden border border-primary/20">
+          <div className="mt-6 rounded-2xl overflow-hidden border border-primary/20 relative">
             <img
               src={vehicle.image}
               alt={`${vehicle.displayName} — JAC Venezuela`}
-              className="w-full h-[220px] md:h-[340px] object-cover"
+              className={`w-full h-[220px] md:h-[340px] object-cover ${vehicle.unavailable ? "grayscale opacity-60" : ""}`}
             />
+            {vehicle.unavailable && (
+              <span className="absolute top-4 left-1/2 -translate-x-1/2 px-5 py-2 text-xs font-bold rounded-full bg-amber-500 text-black uppercase tracking-wider shadow-lg whitespace-nowrap">
+                No disponible por los momentos
+              </span>
+            )}
           </div>
 
           <div className="mt-6 flex flex-wrap items-start justify-between gap-4">
@@ -93,6 +98,11 @@ const ModelDetail = () => {
                 {vehicle.displayName}
               </h1>
               {vehicle.tagline && <p className="text-muted-foreground mt-2">{vehicle.tagline}</p>}
+              {vehicle.unavailable && (
+                <p className="mt-2 inline-flex items-center gap-2 rounded-lg bg-amber-500/15 border border-amber-500/40 px-3 py-1.5 text-sm font-bold text-amber-400">
+                  Este modelo no está disponible por los momentos. Consulta disponibilidad y alternativas con Rigoberto.
+                </p>
+              )}
             </div>
             <div className="flex gap-2">
               <ShareModelButton model={vehicle.displayName} slug={vehicle.id} />
