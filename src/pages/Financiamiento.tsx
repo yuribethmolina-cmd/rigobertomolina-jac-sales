@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 import { Check, MessageCircle, ClipboardList, Car, BadgeCheck, Shield, Banknote, ArrowRight } from "lucide-react";
 import { waLink } from "@/lib/constants";
 import {
@@ -63,14 +64,22 @@ const Financiamiento = () => (
         <p className="mt-4 text-muted-foreground text-lg">
           Toda la información que necesitas para comprar tu JAC nuevo: planes disponibles, requisitos y cómo empezar.
         </p>
-        <a
-          href={waLink(WA_MSG_CREDITO)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-6 inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-heading font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
-        >
-          <MessageCircle size={18} /> Consultar con Rigoberto
-        </a>
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+          <a
+            href={waLink(WA_MSG_CREDITO)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-heading font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
+          >
+            <MessageCircle size={18} /> Consultar con Rigoberto
+          </a>
+          <Link
+            to="/creditos"
+            className="inline-flex items-center gap-2 rounded-xl border border-primary/40 px-6 py-3.5 font-heading font-bold text-primary hover:bg-primary/5 transition-colors"
+          >
+            <ClipboardList size={18} /> Ver créditos y requisitos
+          </Link>
+        </div>
       </div>
     </section>
 
