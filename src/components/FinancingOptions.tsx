@@ -64,6 +64,7 @@ const FinancingOptions = ({ vehicle, source = "opciones-financiamiento" }: Props
           return (
             <AccordionItem
               key={opt.plan.id}
+              id={`plan-${opt.plan.id}`}
               value={opt.plan.id}
               className={cn(
                 "rounded-xl border overflow-hidden border-b",
