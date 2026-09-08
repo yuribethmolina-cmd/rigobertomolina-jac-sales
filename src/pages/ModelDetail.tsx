@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { ArrowLeft, AlertTriangle, FileText, Check } from "lucide-react";
+import { ArrowLeft, AlertTriangle, Check, Camera } from "lucide-react";
 import { findVehicle } from "@/data/vehicles";
 import { pagoFacilMonthly, compraDirectaMonthly } from "@/data/vehicleFinancing";
 import {
@@ -101,7 +101,7 @@ const ModelDetail = () => {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 rounded-lg border border-primary/40 px-5 py-3 font-heading text-sm font-bold text-primary hover:bg-primary/10 transition-colors"
                 >
-                  <FileText size={15} /> Ver ficha
+                  <Camera size={15} /> Así se ve el auto
                 </a>
               )}
             </div>
