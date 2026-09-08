@@ -200,7 +200,8 @@ const Financiamiento = () => (
         </p>
         <div className="teal-underline mx-auto" />
 
-        <div className="mt-10 overflow-x-auto rounded-2xl border border-border">
+        {/* Tabla — solo escritorio */}
+        <div className="mt-10 hidden md:block overflow-x-auto rounded-2xl border border-border">
           <table className="w-full text-sm">
             <thead>
               <tr className="bg-secondary/60">
@@ -261,6 +262,44 @@ const Financiamiento = () => (
               })}
             </tbody>
           </table>
+        </div>
+
+        {/* Tarjetas — solo móvil */}
+        <div className="mt-10 md:hidden space-y-4">
+          {planCompareRows.map((row) => {
+            const totalCuotas =
+              row.cuotasIniciales > 0
+                ? `${row.cuotasIniciales} iniciales + ${row.cuotasMensuales} mensuales`
+                : `${row.cuotasMensuales}`;
+            const cuotaText = row.cuotaRange
+              ? row.cuotaRange.min === row.cuotaRange.max
+                ? fmtUsd(row.cuotaRange.min)
+                : `${fmtUsd(row.cuotaRange.min)} a ${fmtUsd(row.cuotaRange.max)}`
+              : "Consultar";
+            return (
+              <div key={row.plan.id} className="rounded-2xl border border-border bg-secondary/40 p-4">
+                <h3 className="font-heading text-base font-bold text-foreground mb-3">{row.plan.name}</h3>
+                <div className="grid grid-cols-2 gap-3 text-sm">
+                  <div>
+                    <p className="text-xs text-muted-foreground uppercase tracking-wide font-bold">Firma</p>
+                    <p className="text-foreground font-semibold mt-0.5">{row.firma}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground uppercase tracking-wide font-bold">Pre-entrega</p>
+                    <p className="text-foreground font-semibold mt-0.5">{row.preEntrega}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground uppercase tracking-wide font-bold">Cuota mensual</p>
+                    <p className="text-foreground font-semibold mt-0.5">{cuotaText}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground uppercase tracking-wide font-bold">N.º de cuotas</p>
+                    <p className="text-foreground font-semibold mt-0.5">{totalCuotas}</p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
 
         <p className="mt-6 text-center text-xs text-muted-foreground leading-relaxed max-w-2xl mx-auto">
