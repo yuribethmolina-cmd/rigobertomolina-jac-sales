@@ -384,7 +384,6 @@ const Financiamiento = () => (
                   label="Compartir requisitos"
                 />
               </div>
-              </div>
             );
           })}
         </div>
