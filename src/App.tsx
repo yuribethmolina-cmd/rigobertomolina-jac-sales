@@ -14,6 +14,7 @@ import DigitalCard from "./pages/DigitalCard.tsx";
 import Financiamiento from "./pages/Financiamiento.tsx";
 import PlanesFinanciamiento from "./pages/PlanesFinanciamiento.tsx";
 import Creditos from "./pages/Creditos.tsx";
+import EnviarDocumentos from "./pages/EnviarDocumentos.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import RequireAdmin from "./components/RequireAdmin.tsx";
 
