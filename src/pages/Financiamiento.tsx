@@ -19,6 +19,50 @@ const WA_MSG_CREDITO =
 
 const verifiedPlans = financingPlans.filter((p) => p.sourceStatus !== "REVIEW_NOT_VERIFIED");
 
+/* ── Datos para el comparador ── */
+
+interface PlanCompareRow {
+  plan: FinancingPlan;
+  firma: string;
+  preEntrega: string;
+  cuotasIniciales: number;
+  cuotasMensuales: number;
+  cuotaRange: { min: number; max: number } | null;
+}
+
+/** Rango de cuota mensual documentada para un plan, calculado desde
+ *  los cronogramas trazables de vehicleFinancing. */
+const cuotaRangeForPlan = (planId: string): { min: number; max: number } | null => {
+  const rows = vehicleFinancing.filter((f) => f.planId === planId);
+  const amounts: number[] = [];
+  for (const row of rows) {
+    for (const s of row.schedule) {
+      if ((s.type === "ORDINARY" || s.type === "FIXED") && s.amount !== null) {
+        amounts.push(s.amount);
+      }
+    }
+  }
+  if (amounts.length === 0) return null;
+  return { min: Math.min(...amounts), max: Math.max(...amounts) };
+};
+
+const planCompareRows: PlanCompareRow[] = verifiedPlans.map((plan) => {
+  const firmaStage = plan.template.find((s) => s.type === "SIGNATURE");
+  const preEntregaStage = plan.template.find((s) => s.type === "PRE_DELIVERY");
+  const iniciales = plan.template.filter((s) => s.type === "INITIAL");
+  const mensuales = plan.template.filter(
+    (s) => s.type === "ORDINARY" || s.type === "FIXED" || s.type === "SPECIAL"
+  );
+  return {
+    plan,
+    firma: firmaStage ? `${firmaStage.count} pago` : "No aplica",
+    preEntrega: preEntregaStage ? `${preEntregaStage.count} pago` : "No aplica",
+    cuotasIniciales: iniciales.reduce((sum, s) => sum + s.count, 0),
+    cuotasMensuales: mensuales.reduce((sum, s) => sum + s.count, 0),
+    cuotaRange: cuotaRangeForPlan(plan.id),
+  };
+});
+
 const benefits = [
   {
     icon: Banknote,
