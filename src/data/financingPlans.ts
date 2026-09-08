@@ -47,6 +47,45 @@ export const FINANCING_DISCLAIMER =
 
 export const NOT_VERIFIED_LABEL = "Consultar disponibilidad y condiciones";
 
+/* ── Requisitos por tipo de plan ── */
+
+/** Planes de pago programado sin evaluación crediticia. */
+export const DIRECT_PLAN_REQUIREMENTS = [
+  "Cédula de identidad vigente del comprador",
+  "RIF vigente (persona natural o jurídica)",
+  "Correo electrónico y número de teléfono de contacto",
+  "Pago inicial según el cronograma del plan",
+  "Firma del contrato de compra",
+];
+
+/** Planes con evaluación de crédito (CrediJAC y similares). */
+export const CREDIT_PLAN_REQUIREMENTS = [
+  "Cédula de identidad vigente",
+  "RIF vigente",
+  "Recibo de servicio público (dirección de habitación)",
+  "Balance personal firmado por contador público",
+  "Referencia bancaria",
+  "Últimos 3 estados de cuenta bancarios",
+  "2 referencias personales",
+  "Constancia de trabajo o certificación de ingresos",
+];
+
+export const REQUIREMENTS_NOTE =
+  "Recaudos referenciales. El asesor puede solicitar documentos adicionales según el plan y las condiciones vigentes.";
+
+const CREDIT_PLAN_IDS = [
+  "facilito",
+  "llevatelo-fiao",
+  "credijac-35x35",
+  "credijac-ruta-48",
+  "crediexpress",
+];
+
+export const requirementsForPlan = (planId: string) =>
+  CREDIT_PLAN_IDS.includes(planId) ? CREDIT_PLAN_REQUIREMENTS : DIRECT_PLAN_REQUIREMENTS;
+
+export const requiresCreditEvaluation = (planId: string) => CREDIT_PLAN_IDS.includes(planId);
+
 /* ── Planes vigentes: Compra Directa y Pago Fácil (04 sep) y catálogos del 17 de agosto ── */
 export const financingPlans: FinancingPlan[] = [
   {
