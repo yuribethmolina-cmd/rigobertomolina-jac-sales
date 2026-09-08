@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AlertTriangle, ChevronDown } from "lucide-react";
+import { AlertTriangle, Check, ChevronDown } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -9,6 +9,9 @@ import {
 import {
   FINANCING_DISCLAIMER,
   NOT_VERIFIED_LABEL,
+  REQUIREMENTS_NOTE,
+  requirementsForPlan,
+  requiresCreditEvaluation,
   fmtUsd,
 } from "@/data/financingPlans";
 import { financingOptionsFor } from "@/data/vehicleFinancing";
