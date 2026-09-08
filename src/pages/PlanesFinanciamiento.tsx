@@ -7,6 +7,7 @@ import {
   financingPlans,
   FINANCING_DISCLAIMER,
   PENDING_REQUIREMENTS_NOTE,
+  APPLICATION_FORM_NOTE,
   REQUIREMENTS_NOTE,
   requirementsForPlan,
   requiresCreditEvaluation,
@@ -193,6 +194,9 @@ const PlanesFinanciamiento = () => {
             );
           })}
 
+          <p className="rounded-xl border border-amber-500/40 bg-amber-500/10 p-4 text-sm font-bold text-amber-500">
+            {APPLICATION_FORM_NOTE}
+          </p>
           <p className="text-xs text-muted-foreground leading-relaxed">{FINANCING_DISCLAIMER}</p>
           <p className="text-xs text-muted-foreground leading-relaxed">{REQUIREMENTS_NOTE}</p>
         </div>

@@ -23,6 +23,7 @@ import {
 } from "@/data/financingPlans";
 import FooterSection from "@/components/FooterSection";
 import ModelRequirementsSection from "@/components/ModelRequirementsSection";
+import ApplicationFormButton from "@/components/ApplicationFormButton";
 
 const Creditos = () => (
   <>
@@ -164,9 +165,10 @@ const Creditos = () => (
           })}
         </div>
 
-        <p className="mt-10 mx-auto max-w-2xl rounded-xl border border-amber-500/40 bg-amber-500/10 p-4 text-center text-sm font-bold text-amber-500">
-          {APPLICATION_FORM_NOTE}
-        </p>
+        <div className="mt-10 mx-auto max-w-2xl rounded-xl border border-amber-500/40 bg-amber-500/10 p-4 text-center">
+          <p className="text-sm font-bold text-amber-500">{APPLICATION_FORM_NOTE}</p>
+          <ApplicationFormButton className="mt-3" />
+        </div>
         <p className="mt-4 text-center text-xs text-muted-foreground leading-relaxed max-w-2xl mx-auto">
           {REQUIREMENTS_NOTE}
         </p>
