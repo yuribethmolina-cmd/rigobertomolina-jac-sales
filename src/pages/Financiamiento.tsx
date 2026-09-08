@@ -11,10 +11,7 @@ import {
   requiresCreditEvaluation,
   APPLICATION_FORM_NOTE,
   REQUIREMENTS_NOTE,
-  fmtUsd,
-  type FinancingPlan,
 } from "@/data/financingPlans";
-import { vehicleFinancing } from "@/data/vehicleFinancing";
 import FooterSection from "@/components/FooterSection";
 import SharePlanButton from "@/components/SharePlanButton";
 
@@ -22,50 +19,6 @@ const WA_MSG_CREDITO =
   "Hola Rigoberto, vi la página de financiamiento y quiero saber qué plan me conviene más. ¿Puedes asesorarme?";
 
 const verifiedPlans = financingPlans.filter((p) => p.sourceStatus !== "REVIEW_NOT_VERIFIED");
-
-/* ── Datos para el comparador ── */
-
-interface PlanCompareRow {
-  plan: FinancingPlan;
-  firma: string;
-  preEntrega: string;
-  cuotasIniciales: number;
-  cuotasMensuales: number;
-  cuotaRange: { min: number; max: number } | null;
-}
-
-/** Rango de cuota mensual documentada para un plan, calculado desde
- *  los cronogramas trazables de vehicleFinancing. */
-const cuotaRangeForPlan = (planId: string): { min: number; max: number } | null => {
-  const rows = vehicleFinancing.filter((f) => f.planId === planId);
-  const amounts: number[] = [];
-  for (const row of rows) {
-    for (const s of row.schedule) {
-      if ((s.type === "ORDINARY" || s.type === "FIXED") && s.amount !== null) {
-        amounts.push(s.amount);
-      }
-    }
-  }
-  if (amounts.length === 0) return null;
-  return { min: Math.min(...amounts), max: Math.max(...amounts) };
-};
-
-const planCompareRows: PlanCompareRow[] = verifiedPlans.map((plan) => {
-  const firmaStage = plan.template.find((s) => s.type === "SIGNATURE");
-  const preEntregaStage = plan.template.find((s) => s.type === "PRE_DELIVERY");
-  const iniciales = plan.template.filter((s) => s.type === "INITIAL");
-  const mensuales = plan.template.filter(
-    (s) => s.type === "ORDINARY" || s.type === "FIXED" || s.type === "SPECIAL"
-  );
-  return {
-    plan,
-    firma: firmaStage ? `${firmaStage.count} pago` : "No aplica",
-    preEntrega: preEntregaStage ? `${preEntregaStage.count} pago` : "No aplica",
-    cuotasIniciales: iniciales.reduce((sum, s) => sum + s.count, 0),
-    cuotasMensuales: mensuales.reduce((sum, s) => sum + s.count, 0),
-    cuotaRange: cuotaRangeForPlan(plan.id),
-  };
-});
 
 const benefits = [
   {
@@ -222,123 +175,6 @@ const Financiamiento = () => (
             Ver el detalle de cada plan <ArrowRight size={16} />
           </Link>
         </div>
-      </div>
-    </section>
-
-    {/* Comparador de planes */}
-    <section className="py-16 section-divider">
-      <div className="section-container">
-        <h2 className="section-title text-center">Comparador de planes</h2>
-        <p className="section-subtitle text-center">
-          Firma, cuota mensual, cuotas y pre-entrega lado a lado
-        </p>
-        <div className="teal-underline mx-auto" />
-
-        {/* Tabla — solo escritorio */}
-        <div className="mt-10 hidden md:block overflow-x-auto rounded-2xl border border-border">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="bg-secondary/60">
-                <th className="text-left px-4 py-3 font-heading font-bold text-foreground whitespace-nowrap">
-                  Plan
-                </th>
-                <th className="text-center px-4 py-3 font-heading font-bold text-foreground whitespace-nowrap">
-                  Firma
-                </th>
-                <th className="text-center px-4 py-3 font-heading font-bold text-foreground whitespace-nowrap">
-                  Cuota mensual
-                </th>
-                <th className="text-center px-4 py-3 font-heading font-bold text-foreground whitespace-nowrap">
-                  N.º de cuotas
-                </th>
-                <th className="text-center px-4 py-3 font-heading font-bold text-foreground whitespace-nowrap">
-                  Pre-entrega
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border">
-              {planCompareRows.map((row) => {
-                const totalCuotas =
-                  row.cuotasIniciales > 0
-                    ? `${row.cuotasIniciales} iniciales + ${row.cuotasMensuales} mensuales`
-                    : `${row.cuotasMensuales}`;
-                return (
-                  <tr key={row.plan.id} className="bg-background/40 hover:bg-secondary/30 transition-colors">
-                    <td className="px-4 py-3.5">
-                      <span className="font-heading font-bold text-foreground">{row.plan.name}</span>
-                    </td>
-                    <td className="px-4 py-3.5 text-center whitespace-nowrap text-foreground">
-                      {row.firma}
-                    </td>
-                    <td className="px-4 py-3.5 text-center whitespace-nowrap text-foreground">
-                      {row.cuotaRange ? (
-                        row.cuotaRange.min === row.cuotaRange.max ? (
-                          fmtUsd(row.cuotaRange.min)
-                        ) : (
-                          <span>
-                            {fmtUsd(row.cuotaRange.min)}
-                            <span className="text-muted-foreground"> a </span>
-                            {fmtUsd(row.cuotaRange.max)}
-                          </span>
-                        )
-                      ) : (
-                        <span className="text-muted-foreground">Consultar</span>
-                      )}
-                    </td>
-                    <td className="px-4 py-3.5 text-center whitespace-nowrap text-foreground">
-                      {totalCuotas}
-                    </td>
-                    <td className="px-4 py-3.5 text-center whitespace-nowrap text-foreground">
-                      {row.preEntrega}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-
-        {/* Tarjetas — solo móvil */}
-        <div className="mt-10 md:hidden space-y-4">
-          {planCompareRows.map((row) => {
-            const totalCuotas =
-              row.cuotasIniciales > 0
-                ? `${row.cuotasIniciales} iniciales + ${row.cuotasMensuales} mensuales`
-                : `${row.cuotasMensuales}`;
-            const cuotaText = row.cuotaRange
-              ? row.cuotaRange.min === row.cuotaRange.max
-                ? fmtUsd(row.cuotaRange.min)
-                : `${fmtUsd(row.cuotaRange.min)} a ${fmtUsd(row.cuotaRange.max)}`
-              : "Consultar";
-            return (
-              <div key={row.plan.id} className="rounded-2xl border border-border bg-secondary/40 p-4">
-                <h3 className="font-heading text-base font-bold text-foreground mb-3">{row.plan.name}</h3>
-                <div className="grid grid-cols-2 gap-3 text-sm">
-                  <div>
-                    <p className="text-xs text-muted-foreground uppercase tracking-wide font-bold">Firma</p>
-                    <p className="text-foreground font-semibold mt-0.5">{row.firma}</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground uppercase tracking-wide font-bold">Pre-entrega</p>
-                    <p className="text-foreground font-semibold mt-0.5">{row.preEntrega}</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground uppercase tracking-wide font-bold">Cuota mensual</p>
-                    <p className="text-foreground font-semibold mt-0.5">{cuotaText}</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground uppercase tracking-wide font-bold">N.º de cuotas</p>
-                    <p className="text-foreground font-semibold mt-0.5">{totalCuotas}</p>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        <p className="mt-6 text-center text-xs text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-          La cuota mensual varía según el modelo y configuración. El rango mostrado corresponde a los cronogramas documentados. {FINANCING_DISCLAIMER}
-        </p>
       </div>
     </section>
 
