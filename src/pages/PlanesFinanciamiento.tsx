@@ -172,20 +172,20 @@ const PlanesFinanciamiento = () => {
                   </div>
                 </div>
 
-                <div className="mt-5 flex flex-wrap gap-3">
+                <div className="mt-5 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                   <a
                     href={waLink(
                       `Hola Rigoberto, me interesa el plan ${plan.name}. ¿Me confirmas cuotas, recaudos y disponibilidad?`
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 font-heading text-sm font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-5 py-2.5 font-heading text-sm font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
                   >
                     <MessageCircle size={15} /> Consultar este plan
                   </a>
                   <Link
                     to="/creditos"
-                    className="inline-flex items-center gap-2 rounded-lg border border-primary/40 px-5 py-2.5 font-heading text-sm font-bold text-primary hover:bg-primary/5 transition-colors"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg border border-primary/40 px-5 py-2.5 font-heading text-sm font-bold text-primary hover:bg-primary/5 transition-colors"
                   >
                     Ver por modelo <ArrowRight size={15} />
                   </Link>

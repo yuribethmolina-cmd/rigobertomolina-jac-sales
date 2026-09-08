@@ -250,20 +250,20 @@ const Creditos = () => {
           <p className="text-muted-foreground mt-2 mb-6">
             Rigoberto te ayuda a comparar y te confirma los recaudos exactos para el modelo que te interesa.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-3">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
             <a
               href={waLink(
                 "Hola Rigoberto, estuve revisando los planes JAC y quiero que me asesores sobre cuál me conviene."
               )}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-heading font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-heading font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
             >
               <MessageCircle size={18} /> Hablar con Rigoberto
             </a>
             <Link
               to="/financiamiento"
-              className="inline-flex items-center gap-2 rounded-xl border border-primary/40 px-6 py-3.5 font-heading font-bold text-primary hover:bg-primary/5 transition-colors"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl border border-primary/40 px-6 py-3.5 font-heading font-bold text-primary hover:bg-primary/5 transition-colors"
             >
               Ver resumen de financiamiento <ArrowRight size={16} />
             </Link>

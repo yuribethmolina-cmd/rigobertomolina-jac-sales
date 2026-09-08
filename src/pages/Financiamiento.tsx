@@ -83,18 +83,18 @@ const Financiamiento = () => (
           Dos formas de estrenar tu JAC: pago programado (sin crédito) y planes de crédito con
           evaluación directa. Revisa los planes disponibles, los requisitos y cómo empezar.
         </p>
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+        <div className="mt-6 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
           <a
             href={waLink(WA_MSG_CREDITO)}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-heading font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-heading font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
           >
             <MessageCircle size={18} /> Consultar con Rigoberto
           </a>
           <Link
             to="/creditos"
-            className="inline-flex items-center gap-2 rounded-xl border border-primary/40 px-6 py-3.5 font-heading font-bold text-primary hover:bg-primary/5 transition-colors"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl border border-primary/40 px-6 py-3.5 font-heading font-bold text-primary hover:bg-primary/5 transition-colors"
           >
             <ClipboardList size={18} /> Ver planes y requisitos
           </Link>
@@ -104,7 +104,7 @@ const Financiamiento = () => (
             )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-xl border border-border px-6 py-3.5 font-heading font-bold text-foreground hover:border-primary/40 hover:text-primary transition-colors"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl border border-border px-6 py-3.5 font-heading font-bold text-foreground hover:border-primary/40 hover:text-primary transition-colors"
           >
             <Share2 size={18} /> Compartir página
           </a>
