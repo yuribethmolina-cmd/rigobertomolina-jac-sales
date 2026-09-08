@@ -8,9 +8,12 @@ import {
 } from "@/components/ui/accordion";
 import {
   FINANCING_DISCLAIMER,
+  DE_UNA_DISCLAIMER,
   NOT_VERIFIED_LABEL,
+  PENDING_REQUIREMENTS_NOTE,
   REQUIREMENTS_NOTE,
   requirementsForPlan,
+  requirementsStatusForPlan,
   requiresCreditEvaluation,
   fmtUsd,
 } from "@/data/financingPlans";
@@ -156,22 +159,30 @@ const FinancingOptions = ({ vehicle, source = "opciones-financiamiento" }: Props
                     <p className="font-heading text-sm font-bold">
                       Requisitos para este plan
                     </p>
-                    <p className="text-xs text-muted-foreground mt-0.5">
-                      {requiresCreditEvaluation(opt.plan.id)
-                        ? "Incluye evaluación de crédito."
-                        : "Sin evaluación de crédito."}
-                    </p>
-                    <ul className="mt-2 space-y-1.5">
-                      {requirementsForPlan(opt.plan.id).map((req) => (
-                        <li key={req} className="flex items-start gap-2 text-sm text-foreground">
-                          <Check size={14} className="mt-1 shrink-0 text-primary" />
-                          <span>{req}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
-                      {REQUIREMENTS_NOTE}
-                    </p>
+                    {requirementsStatusForPlan(opt.plan.id) ? (
+                      <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
+                        {PENDING_REQUIREMENTS_NOTE}
+                      </p>
+                    ) : (
+                      <>
+                        <p className="text-xs text-muted-foreground mt-0.5">
+                          {requiresCreditEvaluation(opt.plan.id)
+                            ? "Incluye evaluación de crédito."
+                            : "Sin evaluación de crédito."}
+                        </p>
+                        <ul className="mt-2 space-y-1.5">
+                          {requirementsForPlan(opt.plan.id).map((req) => (
+                            <li key={req} className="flex items-start gap-2 text-sm text-foreground">
+                              <Check size={14} className="mt-1 shrink-0 text-primary" />
+                              <span>{req}</span>
+                            </li>
+                          ))}
+                        </ul>
+                        <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
+                          {REQUIREMENTS_NOTE}
+                        </p>
+                      </>
+                    )}
                   </div>
 
 
@@ -192,6 +203,11 @@ const FinancingOptions = ({ vehicle, source = "opciones-financiamiento" }: Props
                     <p className="text-xs text-muted-foreground leading-relaxed">
                       {FINANCING_DISCLAIMER}
                     </p>
+                    {opt.plan.id === "llevatelo-de-una" && (
+                      <p className="text-xs text-muted-foreground leading-relaxed">
+                        {DE_UNA_DISCLAIMER}
+                      </p>
+                    )}
                   </div>
 
                   <WhatsAppButton
