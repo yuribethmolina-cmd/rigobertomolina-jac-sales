@@ -11,6 +11,7 @@ import ModerateReviews from "./pages/ModerateReviews.tsx";
 import Contact from "./pages/Contact.tsx";
 import Auth from "./pages/Auth.tsx";
 import DigitalCard from "./pages/DigitalCard.tsx";
+import Financiamiento from "./pages/Financiamiento.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import RequireAdmin from "./components/RequireAdmin.tsx";
 
@@ -38,6 +39,7 @@ const App = () => (
           />
           <Route path="/contacto" element={<Contact />} />
           <Route path="/tarjeta" element={<DigitalCard />} />
+          <Route path="/financiamiento" element={<Financiamiento />} />
           <Route
             path="/estadisticas"
             element={
