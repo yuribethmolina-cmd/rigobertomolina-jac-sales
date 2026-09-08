@@ -1,15 +1,37 @@
 import { Link, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { ArrowLeft, AlertTriangle, FileText } from "lucide-react";
+import { ArrowLeft, AlertTriangle, FileText, Check } from "lucide-react";
 import { findVehicle } from "@/data/vehicles";
 import { pagoFacilMonthly, compraDirectaMonthly } from "@/data/vehicleFinancing";
-import { FINANCING_DISCLAIMER, NOT_VERIFIED_LABEL, fmtUsd0 } from "@/data/financingPlans";
+import {
+  FINANCING_DISCLAIMER,
+  NOT_VERIFIED_LABEL,
+  fmtUsd0,
+  DIRECT_PLAN_REQUIREMENTS,
+  CREDIT_PLAN_REQUIREMENTS,
+  REQUIREMENTS_NOTE,
+} from "@/data/financingPlans";
 import FinancingOptions from "@/components/FinancingOptions";
 import ShareModelButton from "@/components/ShareModelButton";
 import FooterSection from "@/components/FooterSection";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import catalogSpecs from "@/lib/catalogSpecs";
 import { SITE_URL } from "@/lib/modelLinks";
+import { waLink } from "@/lib/constants";
+
+const REQUIREMENT_GROUPS = [
+  {
+    title: "Pago programado",
+    plans: "Compra Directa y Pago Fácil — sin evaluación de crédito.",
+    items: DIRECT_PLAN_REQUIREMENTS,
+  },
+  {
+    title: "Evaluación de crédito",
+    plans:
+      "Facilito de JAC, Llévatelo Fiao, CrediJAC 35x35, CrediJAC Ruta 48 y CrediExpress de JAC.",
+    items: CREDIT_PLAN_REQUIREMENTS,
+  },
+];
 
 const ModelDetail = () => {
   const { slug } = useParams();
@@ -175,9 +197,9 @@ const ModelDetail = () => {
 
             <div className="mt-4 flex flex-wrap gap-3">
               <a
-                href={`https://wa.me/584241234567?text=${encodeURIComponent(
+                href={waLink(
                   `Hola Rigoberto, quiero conocer los recaudos para comprar el ${vehicle.displayName}.`,
-                )}`}
+                )}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 font-heading text-sm font-bold text-primary-foreground hover:opacity-90 transition-opacity"
