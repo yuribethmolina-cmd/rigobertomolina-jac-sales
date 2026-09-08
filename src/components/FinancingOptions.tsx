@@ -149,6 +149,30 @@ const FinancingOptions = ({ vehicle, source = "opciones-financiamiento" }: Props
                     </>
                   )}
 
+                  <div className="rounded-lg border border-border bg-background/40 p-3">
+                    <p className="font-heading text-sm font-bold">
+                      Requisitos para este plan
+                    </p>
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      {requiresCreditEvaluation(opt.plan.id)
+                        ? "Incluye evaluación de crédito."
+                        : "Sin evaluación de crédito."}
+                    </p>
+                    <ul className="mt-2 space-y-1.5">
+                      {requirementsForPlan(opt.plan.id).map((req) => (
+                        <li key={req} className="flex items-start gap-2 text-sm text-foreground">
+                          <Check size={14} className="mt-1 shrink-0 text-primary" />
+                          <span>{req}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
+                      {REQUIREMENTS_NOTE}
+                    </p>
+                  </div>
+
+
+
                   <div className="space-y-2">
                     {opt.plan.sourceStatus === "REVIEW_NOT_VERIFIED" && (
                       <p className="flex items-start gap-2 text-xs text-amber-500">
