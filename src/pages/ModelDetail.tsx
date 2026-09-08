@@ -11,6 +11,7 @@ import {
   fmtUsd0,
   DIRECT_PLAN_REQUIREMENTS,
   CREDIT_PLAN_REQUIREMENTS,
+  APPLICATION_FORM_NOTE,
   REQUIREMENTS_NOTE,
 } from "@/data/financingPlans";
 import FinancingOptions from "@/components/FinancingOptions";
@@ -206,6 +207,9 @@ const ModelDetail = () => {
               ))}
             </div>
 
+            <p className="mt-4 rounded-lg border border-amber-500/40 bg-amber-500/10 p-3 text-sm font-bold text-amber-500">
+              {APPLICATION_FORM_NOTE}
+            </p>
             <p className="mt-3 text-xs text-muted-foreground">{REQUIREMENTS_NOTE}</p>
 
             <div className="mt-4 flex flex-wrap gap-3">

@@ -55,6 +55,7 @@ export const NOT_VERIFIED_LABEL = "Consultar disponibilidad y condiciones";
 
 /** Planes de pago programado sin evaluación crediticia. */
 export const DIRECT_PLAN_REQUIREMENTS = [
+  "Planilla de solicitud descargada, llena y firmada (obligatoria)",
   "Cédula de identidad vigente del comprador",
   "RIF vigente (persona natural o jurídica)",
   "Correo electrónico y número de teléfono de contacto",
@@ -64,6 +65,7 @@ export const DIRECT_PLAN_REQUIREMENTS = [
 
 /** Planes con evaluación de crédito (CrediJAC y similares). */
 export const CREDIT_PLAN_REQUIREMENTS = [
+  "Planilla de solicitud descargada, llena y firmada (obligatoria)",
   "Cédula de identidad vigente",
   "RIF vigente",
   "Recibo de servicio público (dirección de habitación)",
@@ -74,8 +76,13 @@ export const CREDIT_PLAN_REQUIREMENTS = [
   "Constancia de trabajo o certificación de ingresos",
 ];
 
+/** Aviso destacado: la planilla es obligatoria y va junto con los recaudos. */
+export const APPLICATION_FORM_NOTE =
+  "Importante: descarga la planilla de solicitud, llénala, fírmala y envíala junto con todos los recaudos. Sin la planilla completa la solicitud no puede procesarse.";
+
 export const REQUIREMENTS_NOTE =
   "Recaudos referenciales. El asesor puede solicitar documentos adicionales según el plan y las condiciones vigentes.";
+
 
 const CREDIT_PLAN_IDS = [
   "facilito",

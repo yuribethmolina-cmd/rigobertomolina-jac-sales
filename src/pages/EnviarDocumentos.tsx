@@ -20,6 +20,7 @@ import { vehicles } from "@/data/vehicles";
 import {
   financingPlans,
   PENDING_REQUIREMENTS_NOTE,
+  APPLICATION_FORM_NOTE,
   REQUIREMENTS_NOTE,
   requirementsForPlan,
   requirementsStatusForPlan,
@@ -428,6 +429,10 @@ const EnviarDocumentos = () => {
                   </div>
                 )}
 
+                <div className="mt-4 rounded-xl border border-amber-500/40 bg-amber-500/10 p-4">
+                  <p className="text-sm font-bold text-amber-500">{APPLICATION_FORM_NOTE}</p>
+                  <ApplicationFormButton className="mt-3" />
+                </div>
                 <p className="mt-4 text-xs text-muted-foreground">
                   Formatos aceptados: fotos o PDF, hasta {MAX_FILE_MB} MB por archivo. {REQUIREMENTS_NOTE}
                 </p>
