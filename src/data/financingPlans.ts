@@ -7,7 +7,11 @@
    - Los planes sin documento vigente quedan en REVIEW_NOT_VERIFIED.
    ══════════════════════════════════════════════════════════════ */
 
-export type SourceStatus = "VERIFIED_17_AUG" | "VERIFIED_04_SEP" | "REVIEW_NOT_VERIFIED";
+export type SourceStatus =
+  | "VERIFIED_17_AUG"
+  | "VERIFIED_04_SEP"
+  | "VERIFIED_PROMO_SEP"
+  | "REVIEW_NOT_VERIFIED";
 
 export type StageType =
   | "SIGNATURE"      // pago a la firma del contrato
@@ -74,6 +78,7 @@ export const REQUIREMENTS_NOTE =
   "Recaudos referenciales. El asesor puede solicitar documentos adicionales según el plan y las condiciones vigentes.";
 
 const CREDIT_PLAN_IDS = [
+  "llevatelo-de-una",
   "facilito",
   "llevatelo-fiao",
   "credijac-35x35",
@@ -193,6 +198,21 @@ export const financingPlans: FinancingPlan[] = [
       { type: "INITIAL", count: 3, label: "Pagos de inicial fraccionada" },
       { type: "PRE_DELIVERY", count: 1, label: "Cuota especial previa a la entrega" },
       { type: "ORDINARY", count: 6, label: "Cuotas ordinarias mensuales" },
+    ],
+  },
+
+  {
+    id: "llevatelo-de-una",
+    name: "Llévatelo de Una",
+    effectiveDate: "08 de septiembre",
+    source: "PROMOCIÓN LLÉVATELO DE UNA — 08 DE SEPTIEMBRE",
+    sourceStatus: "VERIFIED_PROMO_SEP",
+    description:
+      "Pagas la primera cuota y te llevas el vehículo. El resto de la inicial se cancela en 3 cómodas cuotas mensuales y el saldo restante queda financiado en cuotas mensuales.",
+    template: [
+      { type: "SIGNATURE", count: 1, label: "Primera cuota: te llevas el vehículo" },
+      { type: "INITIAL", count: 3, label: "Cuotas mensuales del resto de la inicial" },
+      { type: "FIXED", count: 1, label: "Cuota mensual del saldo financiado" },
     ],
   },
 
