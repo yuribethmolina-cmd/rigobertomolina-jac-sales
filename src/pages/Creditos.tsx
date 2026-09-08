@@ -7,7 +7,7 @@ import {
   ArrowLeft,
   ArrowRight,
   AlertTriangle,
-  Banknote,
+  CalendarClock,
   FileUp,
   ShieldCheck,
   Hourglass,
@@ -26,6 +26,8 @@ import {
 import FooterSection from "@/components/FooterSection";
 import ModelRequirementsSection from "@/components/ModelRequirementsSection";
 import ApplicationFormButton from "@/components/ApplicationFormButton";
+import SiteHeader from "@/components/SiteHeader";
+import creditosHero from "@/assets/creditos-hero.jpg";
 
 const renderPlanCard = (plan: FinancingPlan) => {
   const isCredit = requiresCreditEvaluation(plan.id);
