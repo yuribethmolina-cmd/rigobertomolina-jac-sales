@@ -13,6 +13,7 @@ import {
   PENDING_REQUIREMENTS_NOTE,
   DIRECT_PLAN_REQUIREMENTS,
   CREDIT_PLAN_REQUIREMENTS,
+  APPLICATION_FORM_NOTE,
   REQUIREMENTS_NOTE,
 } from "@/data/financingPlans";
 import { waLink } from "@/lib/constants";
@@ -153,7 +154,10 @@ const ModelRequirementsSection = () => (
         })}
       </div>
 
-      <p className="mt-10 text-center text-xs text-muted-foreground max-w-2xl mx-auto">
+      <p className="mt-10 mx-auto max-w-2xl rounded-xl border border-amber-500/40 bg-amber-500/10 p-4 text-center text-sm font-bold text-amber-500">
+        {APPLICATION_FORM_NOTE}
+      </p>
+      <p className="mt-4 text-center text-xs text-muted-foreground max-w-2xl mx-auto">
         {REQUIREMENTS_NOTE}
       </p>
     </div>
