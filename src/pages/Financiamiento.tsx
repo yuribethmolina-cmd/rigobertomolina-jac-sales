@@ -14,6 +14,7 @@ import {
 } from "@/data/financingPlans";
 import { vehicleFinancing } from "@/data/vehicleFinancing";
 import FooterSection from "@/components/FooterSection";
+import SharePlanButton from "@/components/SharePlanButton";
 
 const WA_MSG_CREDITO =
   "Hola Rigoberto, vi la página de financiamiento y quiero saber qué plan me conviene más. ¿Puedes asesorarme?";
