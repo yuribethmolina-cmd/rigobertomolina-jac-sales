@@ -143,7 +143,7 @@ const Financiamiento = () => (
             to="/creditos"
             className="inline-flex items-center gap-2 rounded-xl border border-primary/40 px-6 py-3.5 font-heading font-bold text-primary hover:bg-primary/5 transition-colors"
           >
-            <ClipboardList size={18} /> Ver créditos y requisitos
+            <ClipboardList size={18} /> Ver planes y requisitos
           </Link>
         </div>
       </div>
