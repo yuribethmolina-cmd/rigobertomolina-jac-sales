@@ -139,16 +139,24 @@ const Creditos = () => (
                   )}
                 </div>
 
-                <a
-                  href={waLink(
-                    `Hola Rigoberto, quiero aplicar al plan ${plan.name}. ¿Me confirmas los recaudos vigentes y disponibilidad?`
-                  )}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-auto inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 font-heading text-sm font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
-                >
-                  <MessageCircle size={16} /> Aplicar a {plan.name}
-                </a>
+                <div className="mt-auto grid gap-2">
+                  <Link
+                    to={`/enviar-documentos?plan=${plan.id}`}
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 font-heading text-sm font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
+                  >
+                    <FileUp size={16} /> Enviar mis documentos
+                  </Link>
+                  <a
+                    href={waLink(
+                      `Hola Rigoberto, quiero aplicar al plan ${plan.name}. ¿Me confirmas los recaudos vigentes y disponibilidad?`
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-border px-5 py-3 font-heading text-sm font-bold hover:border-primary transition-colors"
+                  >
+                    <MessageCircle size={16} /> Aplicar a {plan.name}
+                  </a>
+                </div>
               </article>
             );
           })}
