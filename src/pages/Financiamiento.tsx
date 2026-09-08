@@ -104,6 +104,12 @@ const Financiamiento = () => (
     {/* Hero */}
     <section className="pt-16 pb-10 bg-secondary/40 border-b border-border">
       <div className="section-container text-center max-w-2xl">
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 text-sm font-bold text-primary hover:text-primary/80 transition-colors mb-4"
+        >
+          <ArrowLeft size={16} /> Volver al inicio
+        </Link>
         <p className="text-sm font-bold uppercase tracking-widest text-primary mb-3">
           Rigoberto Molina · Vendedor JAC Caracas
         </p>
