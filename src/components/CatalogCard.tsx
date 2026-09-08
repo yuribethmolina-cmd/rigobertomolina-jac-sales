@@ -3,7 +3,7 @@ import { waLink, waModelMessage } from "@/lib/constants";
 import { modelPath } from "@/lib/modelLinks";
 import ShareModelButton from "@/components/ShareModelButton";
 import catalogSpecs from "@/lib/catalogSpecs";
-import { ChevronDown, Camera } from "lucide-react";
+import { ChevronDown, Camera, ExternalLink } from "lucide-react";
 import type { Vehicle } from "@/data/vehicles";
 import { pagoFacilMonthly, compraDirectaMonthly, financingOptionsFor } from "@/data/vehicleFinancing";
 import { fmtUsd0, NOT_VERIFIED_LABEL } from "@/data/financingPlans";
@@ -147,10 +147,11 @@ const CatalogCard = ({ vehicle, isExpanded, onToggle }: Props) => {
                 href={vehicle.fichaUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                title="Se abre en una pestaña nueva — tu página queda abierta"
                 className="flex-[2] inline-flex items-center justify-center gap-1.5 rounded-lg border border-primary text-primary h-10 px-3 font-heading text-sm font-bold hover:bg-primary/10 transition-colors"
-                aria-label={`Ver fotos de ${vehicle.displayName} en JAC Motors Venezuela`}
+                aria-label={`Ver fotos de ${vehicle.displayName} en JAC Motors Venezuela (se abre en una pestaña nueva)`}
               >
-                <Camera size={14} /> Ver fotos
+                <Camera size={14} /> Ver fotos <ExternalLink size={12} className="opacity-70" />
               </a>
             )}
           </div>

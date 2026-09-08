@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { ArrowLeft, AlertTriangle, Check, Camera } from "lucide-react";
+import { ArrowLeft, AlertTriangle, Check, Camera, ExternalLink } from "lucide-react";
 import { findVehicle } from "@/data/vehicles";
 import { pagoFacilMonthly, compraDirectaMonthly } from "@/data/vehicleFinancing";
 import {
@@ -99,9 +99,10 @@ const ModelDetail = () => {
                   href={vehicle.fichaUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  title="Se abre en una pestaña nueva — tu página queda abierta"
                   className="inline-flex items-center gap-2 rounded-lg border border-primary/40 px-5 py-3 font-heading text-sm font-bold text-primary hover:bg-primary/10 transition-colors"
                 >
-                  <Camera size={15} /> Así se ve el auto
+                  <Camera size={15} /> Así se ve el auto <ExternalLink size={13} className="opacity-70" />
                 </a>
               )}
             </div>
