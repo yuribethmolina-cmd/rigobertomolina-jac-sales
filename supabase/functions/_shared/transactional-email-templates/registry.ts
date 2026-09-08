@@ -17,11 +17,15 @@ export interface TemplateEntry {
  *   import { template as welcomeTemplate } from './welcome.tsx'
  *   // then add to TEMPLATES: 'welcome': welcomeTemplate
  */
+import { template as creditApplicationConfirmation } from './credit-application-confirmation.tsx'
+import { template as creditApplicationNotification } from './credit-application-notification.tsx'
 import { template as quoteConfirmation } from './quote-confirmation.tsx'
 import { template as quoteNotification } from './quote-notification.tsx'
 import { template as reviewNotification } from './review-notification.tsx'
 
 export const TEMPLATES: Record<string, TemplateEntry> = {
+  'credit-application-confirmation': creditApplicationConfirmation,
+  'credit-application-notification': creditApplicationNotification,
   'quote-confirmation': quoteConfirmation,
   'quote-notification': quoteNotification,
   'review-notification': reviewNotification,
