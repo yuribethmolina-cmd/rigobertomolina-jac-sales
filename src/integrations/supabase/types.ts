@@ -104,6 +104,57 @@ export type Database = {
         }
         Relationships: []
       }
+      credit_applications: {
+        Row: {
+          created_at: string
+          documents: Json
+          email: string | null
+          full_name: string
+          id: string
+          id_number: string
+          message: string | null
+          monthly_income: string | null
+          occupation: string | null
+          phone: string
+          plan_id: string
+          plan_name: string
+          status: string
+          vehicle_name: string | null
+        }
+        Insert: {
+          created_at?: string
+          documents?: Json
+          email?: string | null
+          full_name: string
+          id?: string
+          id_number: string
+          message?: string | null
+          monthly_income?: string | null
+          occupation?: string | null
+          phone: string
+          plan_id: string
+          plan_name: string
+          status?: string
+          vehicle_name?: string | null
+        }
+        Update: {
+          created_at?: string
+          documents?: Json
+          email?: string | null
+          full_name?: string
+          id?: string
+          id_number?: string
+          message?: string | null
+          monthly_income?: string | null
+          occupation?: string | null
+          phone?: string
+          plan_id?: string
+          plan_name?: string
+          status?: string
+          vehicle_name?: string | null
+        }
+        Relationships: []
+      }
       quote_requests: {
         Row: {
           city: string | null
