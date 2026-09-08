@@ -109,42 +109,44 @@ const FinancingOptions = ({ vehicle, source = "opciones-financiamiento" }: Props
                       {NOT_VERIFIED_LABEL}. No tenemos un documento vigente para publicar el cronograma de este plan.
                     </p>
                   ) : (
-                    <ul className="divide-y divide-primary/10 rounded-lg border border-primary/15 overflow-hidden">
-                      {opt.schedule.map((stage, i) => (
-                        <li
-                          key={`${stage.type}-${i}`}
-                          className="px-3 py-2.5 flex items-start justify-between gap-3"
-                        >
-                          <div className="min-w-0">
-                            <p className="text-sm text-foreground font-medium">
-                              {stage.label}
-                            </p>
-                            {stage.count > 1 && (
-                              <p className="text-xs text-muted-foreground">
-                                {stage.count} pagos
-                              </p>
-                            )}
-                          </div>
-                          <p
-                            className={cn(
-                              "text-sm font-heading font-bold text-right whitespace-nowrap shrink-0",
-                              stage.amount === null
-                                ? "text-muted-foreground"
-                                : "text-foreground",
-                            )}
+                    <>
+                      <ul className="divide-y divide-primary/10 rounded-lg border border-primary/15 overflow-hidden">
+                        {opt.schedule.map((stage, i) => (
+                          <li
+                            key={`${stage.type}-${i}`}
+                            className="px-3 py-2.5 flex items-start justify-between gap-3"
                           >
-                            {stage.amount === null
-                              ? "—"
-                              : `${fmtUsd(stage.amount)}${stage.count > 1 ? " c/u" : ""}`}
-                          </p>
-                        </li>
-                      ))}
-                    </ul>
-                    {!opt.hasAmounts && (
-                      <p className="text-xs text-muted-foreground">
-                        {NOT_VERIFIED_LABEL}. Estructura oficial del plan; los importes se confirman por WhatsApp.
-                      </p>
-                    )}
+                            <div className="min-w-0">
+                              <p className="text-sm text-foreground font-medium">
+                                {stage.label}
+                              </p>
+                              {stage.count > 1 && (
+                                <p className="text-xs text-muted-foreground">
+                                  {stage.count} pagos
+                                </p>
+                              )}
+                            </div>
+                            <p
+                              className={cn(
+                                "text-sm font-heading font-bold text-right whitespace-nowrap shrink-0",
+                                stage.amount === null
+                                  ? "text-muted-foreground"
+                                  : "text-foreground",
+                              )}
+                            >
+                              {stage.amount === null
+                                ? "—"
+                                : `${fmtUsd(stage.amount)}${stage.count > 1 ? " c/u" : ""}`}
+                            </p>
+                          </li>
+                        ))}
+                      </ul>
+                      {!opt.hasAmounts && (
+                        <p className="text-xs text-muted-foreground">
+                          {NOT_VERIFIED_LABEL}. Estructura oficial del plan; los importes se confirman por WhatsApp.
+                        </p>
+                      )}
+                    </>
                   )}
 
                   <div className="space-y-2">
