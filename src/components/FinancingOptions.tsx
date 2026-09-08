@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, ChevronDown } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import {
   FINANCING_DISCLAIMER,
   NOT_VERIFIED_LABEL,
@@ -8,6 +14,7 @@ import {
 import { financingOptionsFor } from "@/data/vehicleFinancing";
 import type { Vehicle } from "@/data/vehicles";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { cn } from "@/lib/utils";
 
 export const waPlanMessage = (vehicleName: string, planName: string) =>
   `Hola Rigoberto, estoy viendo el ${vehicleName} y me interesa el plan ${planName}. ¿Me puedes enviar el cronograma actualizado y confirmar disponibilidad?`;
@@ -19,99 +26,153 @@ interface Props {
 
 const FinancingOptions = ({ vehicle, source = "opciones-financiamiento" }: Props) => {
   const options = financingOptionsFor(vehicle.id);
-  const [activeId, setActiveId] = useState(options[0]?.plan.id ?? "");
-  const active = options.find((o) => o.plan.id === activeId) ?? options[0];
+  const [openValue, setOpenValue] = useState<string>(options[0]?.plan.id ?? "");
 
-  if (!active) return null;
+  if (options.length === 0) return null;
 
   return (
     <section className="mt-8">
       <h2 className="font-heading text-xl font-bold">Opciones de financiamiento</h2>
       <p className="text-sm text-muted-foreground mt-1">
-        Selecciona un plan para ver el cronograma de pagos de esta configuración.
+        Toca cada plan para ver su cronograma de pagos.
       </p>
 
-      {/* Selector de planes */}
-      <div className="mt-4 overflow-x-auto pb-1">
-        <div className="flex gap-2 min-w-max">
-          {options.map((o) => (
-            <button
-              key={o.plan.id}
-              type="button"
-              onClick={() => setActiveId(o.plan.id)}
-              className={`px-4 py-2 rounded-lg text-sm font-heading font-bold border transition-colors ${
-                active.plan.id === o.plan.id
-                  ? "bg-primary text-primary-foreground border-primary"
-                  : "border-primary/30 text-primary hover:bg-primary/10"
-              }`}
+      <Accordion
+        type="single"
+        collapsible
+        value={openValue}
+        onValueChange={setOpenValue}
+        className="mt-4 space-y-2"
+      >
+        {options.map((opt) => {
+          const isOpen = openValue === opt.plan.id;
+          const keyAmount =
+            opt.schedule.find((s) => s.count > 1 && s.amount !== null)?.amount ??
+            opt.schedule.find((s) => s.amount !== null)?.amount;
+          const inReview = opt.plan.sourceStatus === "REVIEW_NOT_VERIFIED";
+
+          return (
+            <AccordionItem
+              key={opt.plan.id}
+              value={opt.plan.id}
+              className={cn(
+                "rounded-xl border overflow-hidden border-b",
+                isOpen
+                  ? "border-primary/40 bg-primary/5"
+                  : "border-border bg-secondary/40",
+              )}
             >
-              {o.plan.name}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Cronograma del plan activo */}
-      <div className="mt-4 rounded-xl border border-primary/20 overflow-hidden">
-        <div className="px-4 py-3 bg-primary/10">
-          <p className="font-heading text-sm font-bold text-primary">{active.plan.name}</p>
-          <p className="text-sm text-muted-foreground mt-1">{active.plan.description}</p>
-        </div>
-
-        {active.plan.template.length === 0 ? (
-          <p className="px-4 py-4 text-sm text-muted-foreground">
-            {NOT_VERIFIED_LABEL}. No tenemos un documento vigente para publicar el cronograma de este plan.
-          </p>
-        ) : (
-          <ul className="divide-y divide-primary/10">
-            {active.schedule.map((stage, i) => (
-              <li key={`${stage.type}-${i}`} className="px-4 py-3 flex items-start justify-between gap-4">
-                <div>
-                  <p className="text-sm text-foreground font-medium">{stage.label}</p>
-                  {stage.count > 1 && (
-                    <p className="text-xs text-muted-foreground">{stage.count} pagos</p>
-                  )}
+              <AccordionTrigger
+                className={cn(
+                  "px-4 py-3.5 hover:no-underline group",
+                  isOpen ? "text-primary" : "text-foreground",
+                )}
+              >
+                <div className="flex items-center justify-between gap-3 w-full pr-2">
+                  <div className="text-left min-w-0">
+                    <p className="font-heading text-sm font-bold truncate">
+                      {opt.plan.name}
+                    </p>
+                    <p className="text-xs text-muted-foreground mt-0.5 truncate">
+                      {inReview
+                        ? "En revisión"
+                        : keyAmount !== undefined && keyAmount !== null
+                          ? `Desde ${fmtUsd(keyAmount)} / mes`
+                          : NOT_VERIFIED_LABEL}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2 shrink-0">
+                    {inReview && (
+                      <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide text-amber-500 bg-amber-500/10 px-2 py-0.5 rounded-full">
+                        <AlertTriangle size={10} /> Revisión
+                      </span>
+                    )}
+                    <ChevronDown
+                      size={18}
+                      className={cn(
+                        "text-muted-foreground transition-transform duration-200",
+                        isOpen && "rotate-180 text-primary",
+                      )}
+                    />
+                  </div>
                 </div>
-                <p
-                  className={`text-sm font-heading font-bold text-right whitespace-nowrap ${
-                    stage.amount === null ? "text-muted-foreground" : "text-foreground"
-                  }`}
-                >
-                  {stage.amount === null
-                    ? NOT_VERIFIED_LABEL
-                    : `${fmtUsd(stage.amount)}${stage.count > 1 ? " c/u" : ""}`}
-                </p>
-              </li>
-            ))}
-          </ul>
-        )}
+              </AccordionTrigger>
 
-        <div className="px-4 py-3 border-t border-primary/10 space-y-2">
-          {active.plan.sourceStatus === "REVIEW_NOT_VERIFIED" && (
-            <p className="flex items-start gap-2 text-xs text-amber-500">
-              <AlertTriangle size={14} className="mt-0.5 shrink-0" />
-              Plan en revisión: sin documento vigente. Confirma condiciones antes de contratar.
-            </p>
-          )}
-          {active.plan.sourceStatus !== "REVIEW_NOT_VERIFIED" && !active.hasAmounts && (
-            <p className="flex items-start gap-2 text-xs text-amber-500">
-              <AlertTriangle size={14} className="mt-0.5 shrink-0" />
-              Estructura verificada con el catálogo vigente. Los importes se confirman por WhatsApp.
-            </p>
-          )}
-          <p className="text-xs text-muted-foreground leading-relaxed">{FINANCING_DISCLAIMER}</p>
-        </div>
-      </div>
+              <AccordionContent className="px-4 pb-0">
+                <div className="pt-1 pb-4 space-y-3">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {opt.plan.description}
+                  </p>
 
-      <div className="mt-4">
-        <WhatsAppButton
-          message={waPlanMessage(vehicle.displayName, active.plan.name)}
-          label={`Consultar ${active.plan.name} por WhatsApp`}
-          model={vehicle.displayName}
-          plan={active.plan.name}
-          source={source}
-        />
-      </div>
+                  {opt.plan.template.length === 0 ? (
+                    <p className="text-sm text-muted-foreground py-2">
+                      {NOT_VERIFIED_LABEL}. No tenemos un documento vigente para publicar el cronograma de este plan.
+                    </p>
+                  ) : (
+                    <ul className="divide-y divide-primary/10 rounded-lg border border-primary/15 overflow-hidden">
+                      {opt.schedule.map((stage, i) => (
+                        <li
+                          key={`${stage.type}-${i}`}
+                          className="px-3 py-2.5 flex items-start justify-between gap-3"
+                        >
+                          <div className="min-w-0">
+                            <p className="text-sm text-foreground font-medium">
+                              {stage.label}
+                            </p>
+                            {stage.count > 1 && (
+                              <p className="text-xs text-muted-foreground">
+                                {stage.count} pagos
+                              </p>
+                            )}
+                          </div>
+                          <p
+                            className={cn(
+                              "text-sm font-heading font-bold text-right whitespace-nowrap",
+                              stage.amount === null
+                                ? "text-muted-foreground"
+                                : "text-foreground",
+                            )}
+                          >
+                            {stage.amount === null
+                              ? NOT_VERIFIED_LABEL
+                              : `${fmtUsd(stage.amount)}${stage.count > 1 ? " c/u" : ""}`}
+                          </p>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
+                  <div className="space-y-2">
+                    {opt.plan.sourceStatus === "REVIEW_NOT_VERIFIED" && (
+                      <p className="flex items-start gap-2 text-xs text-amber-500">
+                        <AlertTriangle size={14} className="mt-0.5 shrink-0" />
+                        Plan en revisión: sin documento vigente. Confirma condiciones antes de contratar.
+                      </p>
+                    )}
+                    {opt.plan.sourceStatus !== "REVIEW_NOT_VERIFIED" && !opt.hasAmounts && (
+                      <p className="flex items-start gap-2 text-xs text-amber-500">
+                        <AlertTriangle size={14} className="mt-0.5 shrink-0" />
+                        Estructura verificada con el catálogo vigente. Los importes se confirman por WhatsApp.
+                      </p>
+                    )}
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      {FINANCING_DISCLAIMER}
+                    </p>
+                  </div>
+
+                  <WhatsAppButton
+                    message={waPlanMessage(vehicle.displayName, opt.plan.name)}
+                    label={`Consultar ${opt.plan.name} por WhatsApp`}
+                    model={vehicle.displayName}
+                    plan={opt.plan.name}
+                    source={source}
+                  />
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          );
+        })}
+      </Accordion>
     </section>
   );
 };
