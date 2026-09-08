@@ -109,9 +109,9 @@ const Financiamiento = () => (
         alt="Pickup JAC en showroom con iluminación elegante"
         width={1600}
         height={704}
-        className="absolute inset-0 h-full w-full object-cover opacity-30"
+        className="absolute inset-0 h-full w-full object-cover opacity-55"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background/95" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background/85" />
       <div className="relative section-container text-center max-w-2xl">
         <Link
           to="/"
