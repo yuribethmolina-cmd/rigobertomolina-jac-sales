@@ -3,7 +3,7 @@ import { waLink, waModelMessage } from "@/lib/constants";
 import { modelPath } from "@/lib/modelLinks";
 import ShareModelButton from "@/components/ShareModelButton";
 import catalogSpecs from "@/lib/catalogSpecs";
-import { ChevronDown, Camera } from "lucide-react";
+import { ChevronDown, Camera, ExternalLink } from "lucide-react";
 import type { Vehicle } from "@/data/vehicles";
 import { pagoFacilMonthly, compraDirectaMonthly, financingOptionsFor } from "@/data/vehicleFinancing";
 import { fmtUsd0, NOT_VERIFIED_LABEL } from "@/data/financingPlans";
