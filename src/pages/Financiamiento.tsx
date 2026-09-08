@@ -8,7 +8,10 @@ import {
   requirementsForPlan,
   requiresCreditEvaluation,
   REQUIREMENTS_NOTE,
+  fmtUsd,
+  type FinancingPlan,
 } from "@/data/financingPlans";
+import { vehicleFinancing } from "@/data/vehicleFinancing";
 import FooterSection from "@/components/FooterSection";
 
 const WA_MSG_CREDITO =
