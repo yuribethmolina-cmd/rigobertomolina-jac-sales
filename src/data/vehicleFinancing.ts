@@ -38,7 +38,7 @@ const PROMO_DE_UNA = "PROMOCIÓN LLÉVATELO DE UNA — 08 DE SEPTIEMBRE";
    resto de la inicial + saldo en cuotas mensuales. Importes de la promoción. */
 const deUnaQuotas: { vehicleId: string; primera: number; inicial: number; mensual: number }[] = [
   { vehicleId: "arena-sport-manual", primera: 2999, inicial: 2999, mensual: 799 },
-  { vehicleId: "arena-sport-automatico", primera: 3299, inicial: 3299, mensual: 886 },
+  { vehicleId: "arena-sport-automatico", primera: 3299, inicial: 3299, mensual: 888 },
   { vehicleId: "arena-pro", primera: 3599, inicial: 3599, mensual: 966 },
   { vehicleId: "tepuy-pro", primera: 5669, inicial: 5669, mensual: 1552 },
   { vehicleId: "la-venezolana-a-gasolina-4x2", primera: 4199, inicial: 4199, mensual: 1124 },
@@ -51,8 +51,8 @@ const buildDeUnaSchedule = (q: {
   mensual: number;
 }): PaymentStage[] => [
   { type: "SIGNATURE", count: 1, amount: q.primera, label: "Primera cuota: te llevas el vehículo" },
-  { type: "INITIAL", count: 3, amount: q.inicial, label: "3 cuotas mensuales del resto de la inicial" },
-  { type: "FIXED", count: 1, amount: q.mensual, label: "Cuota mensual del saldo financiado" },
+  { type: "INITIAL", count: 2, amount: q.inicial, label: "2 cuotas adicionales del mismo monto para completar la inicial" },
+  { type: "FIXED", count: 27, amount: q.mensual, label: "27 cuotas mensuales del saldo restante" },
 ];
 
 /* ── PAGO FÁCIL — catálogo del 04 de septiembre ──

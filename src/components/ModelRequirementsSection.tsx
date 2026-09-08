@@ -1,4 +1,4 @@
-import { Check, MessageCircle, Banknote, ShieldCheck } from "lucide-react";
+import { Check, MessageCircle, Banknote, ShieldCheck, ClipboardList } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -10,6 +10,7 @@ import { vehicleCategories, vehiclesByCategory } from "@/data/vehicles";
 import { financingOptionsFor } from "@/data/vehicleFinancing";
 import {
   requiresCreditEvaluation,
+  PENDING_REQUIREMENTS_NOTE,
   DIRECT_PLAN_REQUIREMENTS,
   CREDIT_PLAN_REQUIREMENTS,
   REQUIREMENTS_NOTE,
@@ -39,8 +40,9 @@ const ModelRequirementsSection = () => (
               <Accordion type="single" collapsible className="mt-3 space-y-2">
                 {models.map((vehicle) => {
                   const options = financingOptionsFor(vehicle.id).filter((o) => o.hasAmounts);
-                  const creditPlans = options.filter((o) => requiresCreditEvaluation(o.plan.id));
-                  const directPlans = options.filter((o) => !requiresCreditEvaluation(o.plan.id));
+                  const creditPlans = options.filter((o) => requiresCreditEvaluation(o.plan.id) === true);
+                  const directPlans = options.filter((o) => requiresCreditEvaluation(o.plan.id) === false);
+                  const pendingPlans = options.filter((o) => requiresCreditEvaluation(o.plan.id) === null);
                   return (
                     <AccordionItem
                       key={vehicle.id}
@@ -104,6 +106,20 @@ const ModelRequirementsSection = () => (
                                     </li>
                                   ))}
                                 </ul>
+                              </div>
+                            )}
+
+                            {pendingPlans.length > 0 && (
+                              <div className="rounded-lg border border-border p-4">
+                                <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                                  <ClipboardList size={12} /> Requisitos por confirmar
+                                </span>
+                                <p className="mt-1 text-xs text-muted-foreground">
+                                  {pendingPlans.map((o) => o.plan.name).join(" · ")}
+                                </p>
+                                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                                  {PENDING_REQUIREMENTS_NOTE}
+                                </p>
                               </div>
                             )}
                           </div>

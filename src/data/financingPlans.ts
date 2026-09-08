@@ -78,7 +78,6 @@ export const REQUIREMENTS_NOTE =
   "Recaudos referenciales. El asesor puede solicitar documentos adicionales según el plan y las condiciones vigentes.";
 
 const CREDIT_PLAN_IDS = [
-  "llevatelo-de-una",
   "facilito",
   "llevatelo-fiao",
   "credijac-35x35",
@@ -86,10 +85,27 @@ const CREDIT_PLAN_IDS = [
   "crediexpress",
 ];
 
-export const requirementsForPlan = (planId: string) =>
-  CREDIT_PLAN_IDS.includes(planId) ? CREDIT_PLAN_REQUIREMENTS : DIRECT_PLAN_REQUIREMENTS;
+/** Planes sin confirmación oficial sobre evaluación de crédito ni recaudos. */
+const PENDING_REQUIREMENTS_PLAN_IDS = ["llevatelo-de-una"];
 
-export const requiresCreditEvaluation = (planId: string) => CREDIT_PLAN_IDS.includes(planId);
+export const PENDING_REQUIREMENTS_NOTE =
+  "Requisitos, aprobación y condiciones sujetos a validación con el asesor.";
+
+export const requirementsStatusForPlan = (planId: string): "Por confirmar" | null =>
+  PENDING_REQUIREMENTS_PLAN_IDS.includes(planId) ? "Por confirmar" : null;
+
+export const requirementsForPlan = (planId: string): string[] => {
+  if (PENDING_REQUIREMENTS_PLAN_IDS.includes(planId)) return [];
+  return CREDIT_PLAN_IDS.includes(planId) ? CREDIT_PLAN_REQUIREMENTS : DIRECT_PLAN_REQUIREMENTS;
+};
+
+/** `null` = sin confirmación oficial: no afirmar ni negar evaluación de crédito. */
+export const requiresCreditEvaluation = (planId: string): boolean | null =>
+  PENDING_REQUIREMENTS_PLAN_IDS.includes(planId) ? null : CREDIT_PLAN_IDS.includes(planId);
+
+/** Aviso comercial de la promoción Llévatelo de Una, visible en todos los modelos. */
+export const DE_UNA_DISCLAIMER =
+  "Montos referenciales, sujetos a cambios y disponibilidad. Confirma requisitos, impuestos, seguro, placa y condiciones directamente con Rigoberto Molina.";
 
 /* ── Planes vigentes: Compra Directa y Pago Fácil (04 sep) y catálogos del 17 de agosto ── */
 export const financingPlans: FinancingPlan[] = [
@@ -208,11 +224,11 @@ export const financingPlans: FinancingPlan[] = [
     source: "PROMOCIÓN LLÉVATELO DE UNA — 08 DE SEPTIEMBRE",
     sourceStatus: "VERIFIED_PROMO_SEP",
     description:
-      "Pagas la primera cuota y te llevas el vehículo. El resto de la inicial se cancela en 3 cómodas cuotas mensuales y el saldo restante queda financiado en cuotas mensuales.",
+      "Pagas la primera cuota y te llevas el vehículo, sujeto a confirmación y disponibilidad. Completas la inicial con 2 cuotas adicionales del mismo monto y el saldo restante se paga en 27 cuotas mensuales.",
     template: [
       { type: "SIGNATURE", count: 1, label: "Primera cuota: te llevas el vehículo" },
-      { type: "INITIAL", count: 3, label: "Cuotas mensuales del resto de la inicial" },
-      { type: "FIXED", count: 1, label: "Cuota mensual del saldo financiado" },
+      { type: "INITIAL", count: 2, label: "Cuotas adicionales del mismo monto para completar la inicial" },
+      { type: "FIXED", count: 27, label: "Cuotas mensuales del saldo restante" },
     ],
   },
 
