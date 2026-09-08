@@ -1,7 +1,13 @@
 import { Helmet } from "react-helmet-async";
 import { Check, MessageCircle, ClipboardList, Car, BadgeCheck, Shield, Banknote, ArrowRight } from "lucide-react";
 import { waLink } from "@/lib/constants";
-import { financingPlans, FINANCING_DISCLAIMER } from "@/data/financingPlans";
+import {
+  financingPlans,
+  FINANCING_DISCLAIMER,
+  requirementsForPlan,
+  requiresCreditEvaluation,
+  REQUIREMENTS_NOTE,
+} from "@/data/financingPlans";
 import FooterSection from "@/components/FooterSection";
 
 const WA_MSG_CREDITO =
@@ -126,6 +132,60 @@ const Financiamiento = () => (
             </div>
           ))}
         </div>
+      </div>
+    </section>
+
+    {/* Requisitos por plan */}
+    <section className="py-16 section-divider">
+      <div className="section-container">
+        <h2 className="section-title text-center">Requisitos por plan</h2>
+        <p className="section-subtitle text-center">
+          Documentos que debes tener listos según el plan que elijas
+        </p>
+        <div className="teal-underline mx-auto" />
+
+        <div className="mt-10 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {verifiedPlans.map((plan) => {
+            const reqs = requirementsForPlan(plan.id);
+            const isCredit = requiresCreditEvaluation(plan.id);
+            return (
+              <div
+                key={plan.id}
+                className="rounded-2xl border border-border bg-secondary/40 p-5 flex flex-col gap-3"
+              >
+                <div className="flex items-center gap-2">
+                  <ClipboardList size={18} className="text-primary shrink-0" />
+                  <h3 className="font-heading text-base font-bold">{plan.name}</h3>
+                </div>
+                <span className="inline-flex w-fit items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-bold border bg-background/60 border-border text-muted-foreground">
+                  {isCredit ? "Evaluación de crédito" : "Pago programado"}
+                </span>
+                <ul className="mt-1 space-y-1.5 flex-1">
+                  {reqs.map((req) => (
+                    <li key={req} className="flex items-start gap-2 text-sm">
+                      <Check size={14} className="text-primary mt-0.5 shrink-0" />
+                      <span>{req}</span>
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href={waLink(
+                    `Hola Rigoberto, quiero aplicar al plan ${plan.name}. ¿Me confirmas los recaudos vigentes?`
+                  )}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 inline-flex items-center justify-center gap-2 rounded-lg border border-primary/40 px-4 py-2.5 font-heading text-sm font-bold text-primary hover:bg-primary/5 transition-colors"
+                >
+                  <MessageCircle size={14} /> Consultar recaudos
+                </a>
+              </div>
+            );
+          })}
+        </div>
+
+        <p className="mt-8 text-center text-xs text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+          {REQUIREMENTS_NOTE}
+        </p>
       </div>
     </section>
 
