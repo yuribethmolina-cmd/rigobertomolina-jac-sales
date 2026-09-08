@@ -7,7 +7,7 @@ import {
   ArrowLeft,
   ArrowRight,
   AlertTriangle,
-  Banknote,
+  CalendarClock,
   FileUp,
   ShieldCheck,
   Hourglass,
@@ -26,6 +26,8 @@ import {
 import FooterSection from "@/components/FooterSection";
 import ModelRequirementsSection from "@/components/ModelRequirementsSection";
 import ApplicationFormButton from "@/components/ApplicationFormButton";
+import SiteHeader from "@/components/SiteHeader";
+import creditosHero from "@/assets/creditos-hero.jpg";
 
 const renderPlanCard = (plan: FinancingPlan) => {
   const isCredit = requiresCreditEvaluation(plan.id);
@@ -59,7 +61,7 @@ const renderPlanCard = (plan: FinancingPlan) => {
               : "bg-background/60 border-border text-muted-foreground"
           }`}
         >
-          {isCredit ? <ShieldCheck size={12} /> : <Banknote size={12} />}
+          {isCredit ? <ShieldCheck size={12} /> : <CalendarClock size={12} />}
           {isCredit === null
             ? "Requisitos por confirmar"
             : isCredit
@@ -150,9 +152,18 @@ const Creditos = () => {
         />
       </Helmet>
 
+      <SiteHeader />
       {/* Hero */}
-      <section className="pt-16 pb-10 bg-secondary/40 border-b border-border">
-        <div className="section-container text-center max-w-2xl">
+      <section className="relative pt-28 md:pt-32 pb-10 border-b border-border overflow-hidden">
+        <img
+          src={creditosHero}
+          alt="Vehículos JAC en showroom con iluminación elegante"
+          width={1600}
+          height={704}
+          className="absolute inset-0 h-full w-full object-cover opacity-55"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background/85" />
+        <div className="relative section-container text-center max-w-2xl">
           <Link
             to="/financiamiento"
             className="mb-5 inline-flex items-center gap-2 text-sm font-bold text-primary hover:underline"
@@ -177,7 +188,7 @@ const Creditos = () => {
       <section className="py-16">
         <div className="section-container">
           <div className="flex items-center gap-2 mb-2">
-            <Banknote size={20} className="text-primary" />
+            <CalendarClock size={20} className="text-primary" />
             <h2 className="font-heading text-2xl font-bold">Planes de pago programado</h2>
           </div>
           <p className="text-sm text-muted-foreground mb-8 max-w-2xl">
