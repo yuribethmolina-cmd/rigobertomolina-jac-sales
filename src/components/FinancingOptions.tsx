@@ -14,6 +14,7 @@ import {
   DE_UNA_DISCLAIMER,
   NOT_VERIFIED_LABEL,
   PENDING_REQUIREMENTS_NOTE,
+  APPLICATION_FORM_NOTE,
   REQUIREMENTS_NOTE,
   requirementsForPlan,
   requirementsStatusForPlan,
@@ -183,9 +184,13 @@ const FinancingOptions = ({ vehicle, source = "opciones-financiamiento" }: Props
                             </li>
                           ))}
                         </ul>
+                        <p className="mt-2 rounded-lg border border-amber-500/40 bg-amber-500/10 p-2.5 text-xs font-bold leading-relaxed text-amber-500">
+                          {APPLICATION_FORM_NOTE}
+                        </p>
                         <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
                           {REQUIREMENTS_NOTE}
                         </p>
+
                       </>
                     )}
                   </div>

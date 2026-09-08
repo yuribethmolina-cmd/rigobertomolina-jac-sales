@@ -18,6 +18,7 @@ import {
   PENDING_REQUIREMENTS_NOTE,
   requirementsForPlan,
   requiresCreditEvaluation,
+  APPLICATION_FORM_NOTE,
   REQUIREMENTS_NOTE,
 } from "@/data/financingPlans";
 import FooterSection from "@/components/FooterSection";
@@ -163,7 +164,10 @@ const Creditos = () => (
           })}
         </div>
 
-        <p className="mt-10 text-center text-xs text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+        <p className="mt-10 mx-auto max-w-2xl rounded-xl border border-amber-500/40 bg-amber-500/10 p-4 text-center text-sm font-bold text-amber-500">
+          {APPLICATION_FORM_NOTE}
+        </p>
+        <p className="mt-4 text-center text-xs text-muted-foreground leading-relaxed max-w-2xl mx-auto">
           {REQUIREMENTS_NOTE}
         </p>
         <p className="mt-3 text-center text-xs text-muted-foreground leading-relaxed max-w-2xl mx-auto">
