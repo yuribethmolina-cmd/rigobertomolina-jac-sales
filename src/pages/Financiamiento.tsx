@@ -98,6 +98,16 @@ const Financiamiento = () => (
           >
             <ClipboardList size={18} /> Ver planes y requisitos
           </Link>
+          <a
+            href={`https://wa.me/?text=${encodeURIComponent(
+              "Mira los planes de financiamiento JAC con Rigoberto Molina: https://rigobertomolina.com/financiamiento"
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-xl border border-border px-6 py-3.5 font-heading font-bold text-foreground hover:border-primary/40 hover:text-primary transition-colors"
+          >
+            <Share2 size={18} /> Compartir página
+          </a>
         </div>
       </div>
     </section>
