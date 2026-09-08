@@ -99,7 +99,7 @@ const Financiamiento = () => (
       <title>Financiamiento JAC · Rigoberto Molina</title>
       <meta
         name="description"
-        content="Planes de crédito JAC Venezuela: CrediJAC 35x35, Facilito, Pago Fácil y más. Sin banco, montos fijos, seguro incluido. Consulta con Rigoberto Molina."
+        content="Planes de financiamiento JAC Venezuela: pago programado (Compra Directa, Pago Fácil) y crédito (CrediJAC 35x35, Facilito y más). Sin banco, montos fijos. Consulta con Rigoberto Molina."
       />
     </Helmet>
 
@@ -124,10 +124,11 @@ const Financiamiento = () => (
           Rigoberto Molina · Vendedor JAC Caracas
         </p>
         <h1 className="font-heading text-4xl font-bold leading-tight">
-          Planes de crédito y financiamiento JAC
+          Planes de financiamiento JAC
         </h1>
         <p className="mt-4 text-muted-foreground text-lg">
-          Toda la información que necesitas para comprar tu JAC nuevo: planes disponibles, requisitos y cómo empezar.
+          Dos formas de estrenar tu JAC: pago programado (sin crédito) y planes de crédito con
+          evaluación directa. Revisa los planes disponibles, los requisitos y cómo empezar.
         </p>
         <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
           <a
@@ -142,7 +143,7 @@ const Financiamiento = () => (
             to="/creditos"
             className="inline-flex items-center gap-2 rounded-xl border border-primary/40 px-6 py-3.5 font-heading font-bold text-primary hover:bg-primary/5 transition-colors"
           >
-            <ClipboardList size={18} /> Ver créditos y requisitos
+            <ClipboardList size={18} /> Ver planes y requisitos
           </Link>
         </div>
       </div>

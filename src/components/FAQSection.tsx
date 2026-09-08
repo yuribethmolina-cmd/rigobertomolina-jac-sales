@@ -93,7 +93,7 @@ const FAQSection = () => (
 
       <p className="mt-8 text-center text-sm text-muted-foreground">
         <a href="/creditos" className="font-bold text-primary underline">
-          Ver el detalle completo de cada crédito y sus recaudos
+          Ver el detalle completo de cada plan y sus recaudos
         </a>
       </p>
     </div>
