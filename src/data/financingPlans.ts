@@ -83,10 +83,11 @@ const CREDIT_PLAN_IDS = [
   "credijac-35x35",
   "credijac-ruta-48",
   "crediexpress",
+  "llevatelo-de-una",
 ];
 
 /** Planes sin confirmación oficial sobre evaluación de crédito ni recaudos. */
-const PENDING_REQUIREMENTS_PLAN_IDS = ["llevatelo-de-una"];
+const PENDING_REQUIREMENTS_PLAN_IDS: string[] = [];
 
 export const PENDING_REQUIREMENTS_NOTE =
   "Requisitos, aprobación y condiciones sujetos a validación con el asesor.";
