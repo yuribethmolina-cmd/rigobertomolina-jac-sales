@@ -191,6 +191,84 @@ const Financiamiento = () => (
       </div>
     </section>
 
+    {/* Comparador de planes */}
+    <section className="py-16 section-divider">
+      <div className="section-container">
+        <h2 className="section-title text-center">Comparador de planes</h2>
+        <p className="section-subtitle text-center">
+          Firma, cuota mensual, cuotas y pre-entrega lado a lado
+        </p>
+        <div className="teal-underline mx-auto" />
+
+        <div className="mt-10 overflow-x-auto rounded-2xl border border-border">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="bg-secondary/60">
+                <th className="text-left px-4 py-3 font-heading font-bold text-foreground whitespace-nowrap">
+                  Plan
+                </th>
+                <th className="text-center px-4 py-3 font-heading font-bold text-foreground whitespace-nowrap">
+                  Firma
+                </th>
+                <th className="text-center px-4 py-3 font-heading font-bold text-foreground whitespace-nowrap">
+                  Cuota mensual
+                </th>
+                <th className="text-center px-4 py-3 font-heading font-bold text-foreground whitespace-nowrap">
+                  N.º de cuotas
+                </th>
+                <th className="text-center px-4 py-3 font-heading font-bold text-foreground whitespace-nowrap">
+                  Pre-entrega
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border">
+              {planCompareRows.map((row) => {
+                const totalCuotas =
+                  row.cuotasIniciales > 0
+                    ? `${row.cuotasIniciales} iniciales + ${row.cuotasMensuales} mensuales`
+                    : `${row.cuotasMensuales}`;
+                return (
+                  <tr key={row.plan.id} className="bg-background/40 hover:bg-secondary/30 transition-colors">
+                    <td className="px-4 py-3.5">
+                      <span className="font-heading font-bold text-foreground">{row.plan.name}</span>
+                    </td>
+                    <td className="px-4 py-3.5 text-center whitespace-nowrap text-foreground">
+                      {row.firma}
+                    </td>
+                    <td className="px-4 py-3.5 text-center whitespace-nowrap text-foreground">
+                      {row.cuotaRange ? (
+                        row.cuotaRange.min === row.cuotaRange.max ? (
+                          fmtUsd(row.cuotaRange.min)
+                        ) : (
+                          <span>
+                            {fmtUsd(row.cuotaRange.min)}
+                            <span className="text-muted-foreground"> a </span>
+                            {fmtUsd(row.cuotaRange.max)}
+                          </span>
+                        )
+                      ) : (
+                        <span className="text-muted-foreground">Consultar</span>
+                      )}
+                    </td>
+                    <td className="px-4 py-3.5 text-center whitespace-nowrap text-foreground">
+                      {totalCuotas}
+                    </td>
+                    <td className="px-4 py-3.5 text-center whitespace-nowrap text-foreground">
+                      {row.preEntrega}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+
+        <p className="mt-6 text-center text-xs text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+          La cuota mensual varía según el modelo y configuración. El rango mostrado corresponde a los cronogramas documentados. {FINANCING_DISCLAIMER}
+        </p>
+      </div>
+    </section>
+
     {/* Requisitos por plan */}
     <section className="py-16 section-divider">
       <div className="section-container">
