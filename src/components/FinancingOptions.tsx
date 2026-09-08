@@ -127,19 +127,24 @@ const FinancingOptions = ({ vehicle, source = "opciones-financiamiento" }: Props
                           </div>
                           <p
                             className={cn(
-                              "text-sm font-heading font-bold text-right whitespace-nowrap",
+                              "text-sm font-heading font-bold text-right whitespace-nowrap shrink-0",
                               stage.amount === null
                                 ? "text-muted-foreground"
                                 : "text-foreground",
                             )}
                           >
                             {stage.amount === null
-                              ? NOT_VERIFIED_LABEL
+                              ? "—"
                               : `${fmtUsd(stage.amount)}${stage.count > 1 ? " c/u" : ""}`}
                           </p>
                         </li>
                       ))}
                     </ul>
+                    {!opt.hasAmounts && (
+                      <p className="text-xs text-muted-foreground">
+                        {NOT_VERIFIED_LABEL}. Estructura oficial del plan; los importes se confirman por WhatsApp.
+                      </p>
+                    )}
                   )}
 
                   <div className="space-y-2">
