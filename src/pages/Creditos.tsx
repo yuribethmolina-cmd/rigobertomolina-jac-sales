@@ -14,6 +14,7 @@ import { waLink } from "@/lib/constants";
 import {
   financingPlans,
   FINANCING_DISCLAIMER,
+  PENDING_REQUIREMENTS_NOTE,
   requirementsForPlan,
   requiresCreditEvaluation,
   REQUIREMENTS_NOTE,
@@ -89,7 +90,11 @@ const Creditos = () => (
                     }`}
                   >
                     {isCredit ? <ShieldCheck size={12} /> : <Banknote size={12} />}
-                    {isCredit ? "Evaluación de crédito" : "Pago programado"}
+                    {isCredit === null
+                      ? "Requisitos por confirmar"
+                      : isCredit
+                        ? "Evaluación de crédito"
+                        : "Pago programado"}
                   </span>
                 </div>
 
@@ -118,14 +123,20 @@ const Creditos = () => (
                   <h3 className="font-heading text-sm font-bold mb-2 inline-flex items-center gap-2">
                     <ClipboardList size={15} className="text-primary" /> Requisitos
                   </h3>
-                  <ul className="space-y-1.5">
-                    {reqs.map((req) => (
-                      <li key={req} className="flex items-start gap-2 text-sm">
-                        <Check size={14} className="text-primary mt-0.5 shrink-0" />
-                        <span>{req}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  {reqs.length > 0 ? (
+                    <ul className="space-y-1.5">
+                      {reqs.map((req) => (
+                        <li key={req} className="flex items-start gap-2 text-sm">
+                          <Check size={14} className="text-primary mt-0.5 shrink-0" />
+                          <span>{req}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {PENDING_REQUIREMENTS_NOTE}
+                    </p>
+                  )}
                 </div>
 
                 <a

@@ -5,6 +5,7 @@ import { waLink } from "@/lib/constants";
 import {
   financingPlans,
   FINANCING_DISCLAIMER,
+  PENDING_REQUIREMENTS_NOTE,
   requirementsForPlan,
   requiresCreditEvaluation,
   REQUIREMENTS_NOTE,
@@ -331,16 +332,26 @@ const Financiamiento = () => (
                   <h3 className="font-heading text-base font-bold">{plan.name}</h3>
                 </div>
                 <span className="inline-flex w-fit items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-bold border bg-background/60 border-border text-muted-foreground">
-                  {isCredit ? "Evaluación de crédito" : "Pago programado"}
+                  {isCredit === null
+                    ? "Requisitos por confirmar"
+                    : isCredit
+                      ? "Evaluación de crédito"
+                      : "Pago programado"}
                 </span>
-                <ul className="mt-1 space-y-1.5 flex-1">
-                  {reqs.map((req) => (
-                    <li key={req} className="flex items-start gap-2 text-sm">
-                      <Check size={14} className="text-primary mt-0.5 shrink-0" />
-                      <span>{req}</span>
-                    </li>
-                  ))}
-                </ul>
+                {reqs.length > 0 ? (
+                  <ul className="mt-1 space-y-1.5 flex-1">
+                    {reqs.map((req) => (
+                      <li key={req} className="flex items-start gap-2 text-sm">
+                        <Check size={14} className="text-primary mt-0.5 shrink-0" />
+                        <span>{req}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="mt-1 flex-1 text-sm text-muted-foreground leading-relaxed">
+                    {PENDING_REQUIREMENTS_NOTE}
+                  </p>
+                )}
                 <a
                   href={waLink(
                     `Hola Rigoberto, quiero aplicar al plan ${plan.name}. ¿Me confirmas los recaudos vigentes?`

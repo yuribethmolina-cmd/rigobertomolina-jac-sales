@@ -39,8 +39,9 @@ const ModelRequirementsSection = () => (
               <Accordion type="single" collapsible className="mt-3 space-y-2">
                 {models.map((vehicle) => {
                   const options = financingOptionsFor(vehicle.id).filter((o) => o.hasAmounts);
-                  const creditPlans = options.filter((o) => requiresCreditEvaluation(o.plan.id));
-                  const directPlans = options.filter((o) => !requiresCreditEvaluation(o.plan.id));
+                  const creditPlans = options.filter((o) => requiresCreditEvaluation(o.plan.id) === true);
+                  const directPlans = options.filter((o) => requiresCreditEvaluation(o.plan.id) === false);
+                  const pendingPlans = options.filter((o) => requiresCreditEvaluation(o.plan.id) === null);
                   return (
                     <AccordionItem
                       key={vehicle.id}
