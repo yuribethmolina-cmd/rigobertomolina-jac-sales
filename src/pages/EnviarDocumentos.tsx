@@ -213,7 +213,18 @@ const EnviarDocumentos = () => {
             Completa tus datos y adjunta los recaudos del plan que te interesa. Tu solicitud
             se envía al ejecutivo JAC para revisión y aprobación.
           </p>
+          <div className="mt-6 flex justify-center">
+            <ApplicationFormButton
+              modelo={form.vehicleName || undefined}
+              plan={form.planName || undefined}
+              label="Descargar planilla para llenar"
+            />
+          </div>
+          <p className="mt-2 text-xs text-muted-foreground">
+            Imprímela o llénala en digital y adjúntala junto con tus recaudos.
+          </p>
         </div>
+
       </section>
 
       <section className="py-12">
