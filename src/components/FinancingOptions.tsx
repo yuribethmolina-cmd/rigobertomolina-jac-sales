@@ -23,6 +23,7 @@ import {
 import { financingOptionsFor } from "@/data/vehicleFinancing";
 import type { Vehicle } from "@/data/vehicles";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import SharePlanButton from "@/components/SharePlanButton";
 import { cn } from "@/lib/utils";
 
 export const waPlanMessage = (vehicleName: string, planName: string) =>
@@ -63,6 +64,7 @@ const FinancingOptions = ({ vehicle, source = "opciones-financiamiento" }: Props
           return (
             <AccordionItem
               key={opt.plan.id}
+              id={`plan-${opt.plan.id}`}
               value={opt.plan.id}
               className={cn(
                 "rounded-xl border overflow-hidden border-b",
@@ -235,6 +237,12 @@ const FinancingOptions = ({ vehicle, source = "opciones-financiamiento" }: Props
                         className="flex-1"
                       />
                     </div>
+                    <SharePlanButton
+                      title={`${vehicle.displayName} — ${opt.plan.name}`}
+                      path={`/modelo/${vehicle.id}#plan-${opt.plan.id}`}
+                      label="Compartir esta opción"
+                      className="w-full"
+                    />
                   </div>
 
                 </div>
