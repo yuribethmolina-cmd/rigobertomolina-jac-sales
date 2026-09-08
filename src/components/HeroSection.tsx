@@ -7,6 +7,7 @@ const navLinks = [
   { label: "Modelos", href: "#modelos" },
   { label: "Pago", href: "#pago" },
   { label: "Simulador", href: "#simulador" },
+  { label: "Financiamiento", href: "/financiamiento" },
   { label: "Contacto", href: "/contacto" },
 ];
 
