@@ -195,6 +195,15 @@ const Financiamiento = () => (
         <p className="mt-8 text-center text-xs text-muted-foreground leading-relaxed max-w-2xl mx-auto">
           {REQUIREMENTS_NOTE}
         </p>
+
+        <div className="mt-6 text-center">
+          <Link
+            to="/creditos"
+            className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-heading font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
+          >
+            Ver el detalle completo de cada crédito <ArrowRight size={16} />
+          </Link>
+        </div>
       </div>
     </section>
 
