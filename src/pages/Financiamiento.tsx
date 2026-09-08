@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { Check, MessageCircle, ClipboardList, Car, BadgeCheck, Shield, Banknote, ArrowRight, ArrowLeft } from "lucide-react";
+import financiamientoHero from "@/assets/financiamiento-hero.jpg";
 import { waLink } from "@/lib/constants";
 import {
   financingPlans,
@@ -102,8 +103,16 @@ const Financiamiento = () => (
     </Helmet>
 
     {/* Hero */}
-    <section className="pt-16 pb-10 bg-secondary/40 border-b border-border">
-      <div className="section-container text-center max-w-2xl">
+    <section className="relative pt-16 pb-10 border-b border-border overflow-hidden">
+      <img
+        src={financiamientoHero}
+        alt="Pickup JAC en showroom con iluminación elegante"
+        width={1600}
+        height={704}
+        className="absolute inset-0 h-full w-full object-cover opacity-30"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background/95" />
+      <div className="relative section-container text-center max-w-2xl">
         <Link
           to="/"
           className="inline-flex items-center gap-2 text-sm font-bold text-primary hover:text-primary/80 transition-colors mb-4"
