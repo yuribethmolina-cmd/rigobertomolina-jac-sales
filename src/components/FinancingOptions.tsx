@@ -235,6 +235,12 @@ const FinancingOptions = ({ vehicle, source = "opciones-financiamiento" }: Props
                         className="flex-1"
                       />
                     </div>
+                    <SharePlanButton
+                      title={`${vehicle.displayName} — ${opt.plan.name}`}
+                      path={`/modelo/${vehicle.id}#plan-${opt.plan.id}`}
+                      label="Compartir esta opción"
+                      className="w-full"
+                    />
                   </div>
 
                 </div>
