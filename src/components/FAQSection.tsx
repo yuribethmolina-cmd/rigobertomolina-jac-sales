@@ -4,6 +4,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  DIRECT_PLAN_REQUIREMENTS,
+  CREDIT_PLAN_REQUIREMENTS,
+  REQUIREMENTS_NOTE,
+} from "@/data/financingPlans";
 
 const faqs = [
   {
@@ -39,8 +44,24 @@ const faqs = [
     a: "La entrega se coordina directamente contigo. Los puntos de entrega dependen de la logística vigente. Contáctame para conocer las opciones de entrega disponibles para tu zona.",
   },
   {
+    q: "¿Cuáles son los planes de crédito y pago disponibles?",
+    a: "Hay dos grupos. Pago programado, sin evaluación crediticia: Compra Directa (afiliación + 5 cuotas + pago previo a la entrega) y Pago Fácil (afiliación + 12 cuotas mensuales y pago previo a la entrega). Con evaluación de crédito: Facilito de JAC, Llévatelo Fiao, CrediJAC 35x35, CrediJAC Ruta 48 y CrediExpress de JAC. En la página de Créditos puedes ver el cronograma y los recaudos de cada uno.",
+  },
+  {
+    q: "¿Qué recaudos necesito para Compra Directa o Pago Fácil?",
+    a: `Al ser planes de pago programado no hay evaluación crediticia. Necesitas: ${DIRECT_PLAN_REQUIREMENTS.join("; ")}.`,
+  },
+  {
+    q: "¿Qué recaudos necesito para Facilito de JAC, Llévatelo Fiao, CrediJAC 35x35, CrediJAC Ruta 48 o CrediExpress de JAC?",
+    a: `Estos planes pasan por evaluación de crédito. Los recaudos son: ${CREDIT_PLAN_REQUIREMENTS.join("; ")}. Puedes enviar los documentos a creditos.jacmotorvzla@bel.com.ve o consultarme directamente para orientarte en el proceso.`,
+  },
+  {
     q: "¿Qué necesito para solicitar el Crédito Bel?",
-    a: "Para aplicar al crédito necesitas: cédula vigente, RIF, recibo de servicio público, balance personal firmado por contador, referencia bancaria, últimos 3 estados de cuenta, 2 referencias personales y constancia de trabajo o certificación de ingresos. Puedes enviar los documentos a creditos.jacmotorvzla@bel.com.ve o consultarme directamente para orientarte en el proceso.",
+    a: `El Crédito Bel se evalúa como los demás créditos: ${CREDIT_PLAN_REQUIREMENTS.join("; ")}. Su cronograma está en revisión, así que consúltame las condiciones vigentes antes de aplicar.`,
+  },
+  {
+    q: "¿Los recaudos son definitivos?",
+    a: REQUIREMENTS_NOTE,
   },
 ];
 
@@ -69,6 +90,12 @@ const FAQSection = () => (
           </AccordionItem>
         ))}
       </Accordion>
+
+      <p className="mt-8 text-center text-sm text-muted-foreground">
+        <a href="/creditos" className="font-bold text-primary underline">
+          Ver el detalle completo de cada crédito y sus recaudos
+        </a>
+      </p>
     </div>
   </section>
 );
