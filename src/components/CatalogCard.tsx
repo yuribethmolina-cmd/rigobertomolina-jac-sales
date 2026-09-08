@@ -28,10 +28,15 @@ const CatalogCard = ({ vehicle, isExpanded, onToggle }: Props) => {
         className="relative h-[150px] md:h-[180px] bg-[hsl(213,45%,11%)] cursor-pointer"
         onClick={onToggle}
       >
-        <img src={vehicle.image} alt={vehicle.displayName} className="w-full h-full object-cover" loading="lazy" />
+        <img src={vehicle.image} alt={vehicle.displayName} className={`w-full h-full object-cover ${vehicle.unavailable ? "grayscale opacity-60" : ""}`} loading="lazy" />
         {vehicle.featured && (
           <span className="absolute top-3 left-3 z-10 px-3 py-1 text-[10px] font-bold rounded-full bg-primary text-primary-foreground uppercase tracking-wider">
             ⭐ {vehicle.featured}
+          </span>
+        )}
+        {vehicle.unavailable && (
+          <span className="absolute top-3 left-1/2 -translate-x-1/2 z-20 px-4 py-1.5 text-[11px] font-bold rounded-full bg-amber-500 text-black uppercase tracking-wider shadow-lg whitespace-nowrap">
+            No disponible por los momentos
           </span>
         )}
         <span className="absolute top-3 right-3 text-[10px] text-muted-foreground/40 font-bold tracking-widest select-none">
