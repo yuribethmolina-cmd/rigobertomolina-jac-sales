@@ -64,7 +64,7 @@ const FinancingOptions = ({ vehicle, source = "opciones-financiamiento" }: Props
             >
               <AccordionTrigger
                 className={cn(
-                  "px-4 py-3.5 hover:no-underline group",
+                  "px-4 py-3.5 hover:no-underline group [&>svg]:hidden",
                   isOpen ? "text-primary" : "text-foreground",
                 )}
               >
