@@ -31,6 +31,30 @@ const CATALOGO_PF_04_SEP = "PAGO FÁCIL — 04 DE SEPTIEMBRE";
 
 const CATALOGO_CD_04_SEP = "COMPRA DIRECTA — 04 DE SEPTIEMBRE";
 
+const PROMO_DE_UNA = "PROMOCIÓN LLÉVATELO DE UNA — 08 DE SEPTIEMBRE";
+
+/* ── LLÉVATELO DE UNA — promoción del 08 de septiembre ──
+   Estructura: 1ra cuota (te llevas el vehículo) + 3 cuotas mensuales del
+   resto de la inicial + saldo en cuotas mensuales. Importes de la promoción. */
+const deUnaQuotas: { vehicleId: string; primera: number; inicial: number; mensual: number }[] = [
+  { vehicleId: "arena-sport-manual", primera: 2999, inicial: 2999, mensual: 799 },
+  { vehicleId: "arena-sport-automatico", primera: 3299, inicial: 3299, mensual: 886 },
+  { vehicleId: "arena-pro", primera: 3599, inicial: 3599, mensual: 966 },
+  { vehicleId: "tepuy-pro", primera: 5669, inicial: 5669, mensual: 1552 },
+  { vehicleId: "la-venezolana-a-gasolina-4x2", primera: 4199, inicial: 4199, mensual: 1124 },
+  { vehicleId: "la-venezolana-pro-4x4", primera: 5324, inicial: 5324, mensual: 1432 },
+];
+
+const buildDeUnaSchedule = (q: {
+  primera: number;
+  inicial: number;
+  mensual: number;
+}): PaymentStage[] => [
+  { type: "SIGNATURE", count: 1, amount: q.primera, label: "Primera cuota: te llevas el vehículo" },
+  { type: "INITIAL", count: 3, amount: q.inicial, label: "3 cuotas mensuales del resto de la inicial" },
+  { type: "FIXED", count: 1, amount: q.mensual, label: "Cuota mensual del saldo financiado" },
+];
+
 /* ── PAGO FÁCIL — catálogo del 04 de septiembre ──
    Estructura: US$ 999,90 a la firma + 12 cuotas consecutivas y mensuales +
    1 pago previo a la entrega. 64 configuraciones, importes exactos del PDF. */
@@ -272,6 +296,14 @@ export const vehicleFinancing: VehicleFinancing[] = [
     amountsSourceStatus: "VERIFIED_17_AUG" as SourceStatus,
     amountsSource: CATALOGO_RUTA48_17_AGO,
     schedule: buildRuta48Schedule(q),
+  })),
+  ...deUnaQuotas.map((q) => ({
+    vehicleId: q.vehicleId,
+    planId: "llevatelo-de-una",
+    currency: "USD" as const,
+    amountsSourceStatus: "VERIFIED_PROMO_SEP" as SourceStatus,
+    amountsSource: PROMO_DE_UNA,
+    schedule: buildDeUnaSchedule(q),
   })),
   ...compraDirectaSep.map((q) => ({
     vehicleId: q.vehicleId,
