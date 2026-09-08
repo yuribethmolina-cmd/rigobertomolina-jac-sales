@@ -1,6 +1,8 @@
 import { Link, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { ArrowLeft, AlertTriangle, Check, Camera, ExternalLink } from "lucide-react";
+import { ArrowLeft, AlertTriangle, Check, Camera, ExternalLink, FileUp } from "lucide-react";
+import ApplicationFormButton from "@/components/ApplicationFormButton";
+
 import { findVehicle } from "@/data/vehicles";
 import { pagoFacilMonthly, compraDirectaMonthly } from "@/data/vehicleFinancing";
 import {
@@ -197,13 +199,20 @@ const ModelDetail = () => {
             <p className="mt-3 text-xs text-muted-foreground">{REQUIREMENTS_NOTE}</p>
 
             <div className="mt-4 flex flex-wrap gap-3">
+              <Link
+                to={`/enviar-documentos?modelo=${encodeURIComponent(vehicle.displayName)}`}
+                className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 font-heading text-sm font-bold text-primary-foreground hover:opacity-90 transition-opacity"
+              >
+                <FileUp size={16} /> Enviar mis documentos
+              </Link>
+              <ApplicationFormButton modelo={vehicle.displayName} />
               <a
                 href={waLink(
                   `Hola Rigoberto, quiero conocer los recaudos para comprar el ${vehicle.displayName}.`,
                 )}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 font-heading text-sm font-bold text-primary-foreground hover:opacity-90 transition-opacity"
+                className="inline-flex items-center gap-2 rounded-lg border border-primary/40 px-5 py-3 font-heading text-sm font-bold text-primary hover:bg-primary/10 transition-colors"
               >
                 Consultar recaudos
               </a>
@@ -214,6 +223,7 @@ const ModelDetail = () => {
                 Ver detalle de cada crédito
               </Link>
             </div>
+
           </section>
 
           <p className="mt-8 text-xs text-muted-foreground leading-relaxed">{FINANCING_DISCLAIMER}</p>

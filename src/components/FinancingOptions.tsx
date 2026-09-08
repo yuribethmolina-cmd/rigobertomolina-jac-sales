@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { AlertTriangle, Check, ChevronDown } from "lucide-react";
+import { Link } from "react-router-dom";
+import { AlertTriangle, Check, ChevronDown, FileUp } from "lucide-react";
+import ApplicationFormButton from "@/components/ApplicationFormButton";
+
 import {
   Accordion,
   AccordionContent,
@@ -210,13 +213,30 @@ const FinancingOptions = ({ vehicle, source = "opciones-financiamiento" }: Props
                     )}
                   </div>
 
-                  <WhatsAppButton
-                    message={waPlanMessage(vehicle.displayName, opt.plan.name)}
-                    label={`Consultar ${opt.plan.name} por WhatsApp`}
-                    model={vehicle.displayName}
-                    plan={opt.plan.name}
-                    source={source}
-                  />
+                  <div className="space-y-2">
+                    <WhatsAppButton
+                      message={waPlanMessage(vehicle.displayName, opt.plan.name)}
+                      label={`Consultar ${opt.plan.name} por WhatsApp`}
+                      model={vehicle.displayName}
+                      plan={opt.plan.name}
+                      source={source}
+                    />
+                    <div className="flex flex-col sm:flex-row gap-2">
+                      <Link
+                        to={`/enviar-documentos?plan=${encodeURIComponent(opt.plan.id)}&modelo=${encodeURIComponent(vehicle.displayName)}`}
+                        className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg bg-primary/15 px-4 py-3 font-heading text-sm font-bold text-primary hover:bg-primary/25 transition-colors"
+                      >
+                        <FileUp size={16} /> Enviar mis documentos
+                      </Link>
+                      <ApplicationFormButton
+                        modelo={vehicle.displayName}
+                        plan={opt.plan.name}
+                        label="Descargar planilla"
+                        className="flex-1"
+                      />
+                    </div>
+                  </div>
+
                 </div>
               </AccordionContent>
             </AccordionItem>
