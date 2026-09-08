@@ -148,10 +148,12 @@ const CatalogCard = ({ vehicle, isExpanded, onToggle }: Props) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 title="Se abre en una pestaña nueva — tu página queda abierta"
-                className="flex-[2] inline-flex items-center justify-center gap-1.5 rounded-lg border border-primary text-primary h-10 px-3 font-heading text-sm font-bold hover:bg-primary/10 transition-colors"
+                className="inline-flex items-center justify-center gap-1 rounded-lg border border-primary/50 text-primary h-10 px-3 font-heading text-xs font-bold hover:bg-primary/10 transition-colors whitespace-nowrap"
                 aria-label={`Ver fotos de ${vehicle.displayName} en JAC Motors Venezuela (se abre en una pestaña nueva)`}
               >
-                <Camera size={14} /> Ver fotos <ExternalLink size={12} className="opacity-70" />
+                <Camera size={14} />
+                <span className="text-[11px] leading-none">Ver fotos</span>
+                <ExternalLink size={11} className="opacity-60" />
               </a>
             )}
           </div>
