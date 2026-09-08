@@ -19,6 +19,7 @@ import {
   REQUIREMENTS_NOTE,
 } from "@/data/financingPlans";
 import FooterSection from "@/components/FooterSection";
+import ModelRequirementsSection from "@/components/ModelRequirementsSection";
 
 const Creditos = () => (
   <>
@@ -150,6 +151,8 @@ const Creditos = () => (
         </p>
       </div>
     </section>
+
+    <ModelRequirementsSection />
 
     {/* CTA final */}
     <section className="py-16 bg-secondary/30 section-divider">

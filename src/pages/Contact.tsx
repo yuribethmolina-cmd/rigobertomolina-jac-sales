@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { waLink, WHATSAPP_DISPLAY, EMAIL, INSTAGRAM, INSTAGRAM_HANDLE } from "@/lib/constants";
 import { toast } from "sonner";
-import { ArrowLeft, Send, Loader2, CheckCircle2, MessageCircle, Mail, Instagram } from "lucide-react";
+import { ArrowLeft, Send, Loader2, CheckCircle2, MessageCircle, Mail, Instagram, Clock } from "lucide-react";
 
 const contactSchema = z.object({
   fullName: z.string().trim().min(2, "Escribe tu nombre completo").max(100, "Máximo 100 caracteres"),
@@ -112,6 +112,31 @@ const Contact = () => {
               <p className="mt-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">Instagram</p>
               <p className="text-sm font-heading font-bold mt-0.5">{INSTAGRAM_HANDLE}</p>
             </a>
+          </div>
+
+          <div className="card-glow mt-4 p-5">
+            <div className="flex items-center gap-2">
+              <Clock size={18} className="text-primary" />
+              <p className="font-heading text-sm font-bold">Horario de atención</p>
+            </div>
+            <ul className="mt-3 space-y-1.5 text-sm text-muted-foreground">
+              <li className="flex justify-between gap-4">
+                <span>Lunes a viernes</span>
+                <span className="font-bold text-foreground">8:00 a. m. — 5:00 p. m.</span>
+              </li>
+              <li className="flex justify-between gap-4">
+                <span>Sábados</span>
+                <span className="font-bold text-foreground">9:00 a. m. — 1:00 p. m.</span>
+              </li>
+              <li className="flex justify-between gap-4">
+                <span>Domingos y feriados</span>
+                <span className="font-bold text-foreground">Solo WhatsApp</span>
+              </li>
+            </ul>
+            <p className="mt-3 text-xs text-muted-foreground">
+              Horario de Venezuela (GMT-4). Fuera de ese horario respondo los mensajes de WhatsApp
+              al día siguiente hábil.
+            </p>
           </div>
 
           {sent ? (
