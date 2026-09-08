@@ -186,8 +186,23 @@ const Financiamiento = () => (
               >
                 Preguntar por este plan <ArrowRight size={14} />
               </a>
+              <SharePlanButton
+                title={plan.name}
+                path={`/financiamiento/planes#plan-${plan.id}`}
+                className="w-full"
+                label="Compartir este plan"
+              />
             </div>
           ))}
+        </div>
+
+        <div className="mt-8 text-center">
+          <Link
+            to="/financiamiento/planes"
+            className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-heading font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
+          >
+            Ver el detalle de cada plan <ArrowRight size={16} />
+          </Link>
         </div>
       </div>
     </section>
@@ -362,6 +377,13 @@ const Financiamiento = () => (
                 >
                   <MessageCircle size={14} /> Consultar recaudos
                 </a>
+                <SharePlanButton
+                  title={`Requisitos — ${plan.name}`}
+                  path={`/financiamiento/planes#plan-${plan.id}`}
+                  className="w-full"
+                  label="Compartir requisitos"
+                />
+              </div>
               </div>
             );
           })}
