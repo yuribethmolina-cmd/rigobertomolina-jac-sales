@@ -1,4 +1,4 @@
-import { Check, MessageCircle, Banknote, ShieldCheck } from "lucide-react";
+import { Check, MessageCircle, Banknote, ShieldCheck, ClipboardList } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
