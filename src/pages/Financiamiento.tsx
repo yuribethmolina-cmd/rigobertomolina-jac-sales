@@ -14,6 +14,7 @@ import {
 } from "@/data/financingPlans";
 import FooterSection from "@/components/FooterSection";
 import SharePlanButton from "@/components/SharePlanButton";
+import SiteHeader from "@/components/SiteHeader";
 
 const WA_MSG_CREDITO =
   "Hola Rigoberto, vi la página de financiamiento y quiero saber qué plan me conviene más. ¿Puedes asesorarme?";
@@ -56,8 +57,9 @@ const Financiamiento = () => (
       />
     </Helmet>
 
+    <SiteHeader />
     {/* Hero */}
-    <section className="relative pt-16 pb-10 border-b border-border overflow-hidden">
+    <section className="relative pt-28 md:pt-32 pb-10 border-b border-border overflow-hidden">
       <img
         src={financiamientoHero}
         alt="Pickup JAC en showroom con iluminación elegante"
