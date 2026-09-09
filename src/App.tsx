@@ -15,6 +15,8 @@ import Financiamiento from "./pages/Financiamiento.tsx";
 import PlanesFinanciamiento from "./pages/PlanesFinanciamiento.tsx";
 import Creditos from "./pages/Creditos.tsx";
 import EnviarDocumentos from "./pages/EnviarDocumentos.tsx";
+import Asesor from "./pages/Asesor.tsx";
+import AdvisorLauncher from "./components/advisor/AdvisorLauncher.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import RequireAdmin from "./components/RequireAdmin.tsx";
 
@@ -55,9 +57,12 @@ const App = () => (
             }
           />
 
+          <Route path="/asesor" element={<Asesor />} />
+
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <AdvisorLauncher />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
