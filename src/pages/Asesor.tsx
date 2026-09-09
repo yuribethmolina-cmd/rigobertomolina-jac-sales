@@ -29,6 +29,7 @@ const Asesor = () => (
         Asesor JAC de Rigoberto
       </h1>
       <p className="mt-2 text-sm text-muted-foreground">
+        Respondo todas tus preguntas aquí, incluso antes de que te comuniques con Rigoberto.
         Respuestas basadas únicamente en los catálogos vigentes de JAC. Si un dato no está
         documentado, te lo digo y lo confirmas con Rigoberto.
       </p>
