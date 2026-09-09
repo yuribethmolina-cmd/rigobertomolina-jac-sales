@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { MessageCircle, Phone, Mail, ArrowRight } from "lucide-react";
-import { waLink, WHATSAPP_DISPLAY, EMAIL } from "@/lib/constants";
+import { MessageCircle, Phone, Mail, ArrowRight, Instagram } from "lucide-react";
+import { waLink, WHATSAPP_DISPLAY, EMAIL, INSTAGRAM, INSTAGRAM_HANDLE } from "@/lib/constants";
 import { trackContact } from "@/lib/track";
 
 const modelOptions = [
@@ -82,6 +82,28 @@ const ContactSection = () => {
             <p className="font-heading font-bold mt-3">Correo</p>
             <p className="text-lg font-semibold mt-1">{EMAIL}</p>
             <span className="inline-block mt-3 text-sm font-semibold text-primary group-hover:underline">Enviar correo</span>
+          </a>
+        </div>
+
+        {/* Instagram follow */}
+        <div className="mt-10 max-w-2xl mx-auto">
+          <a
+            href={INSTAGRAM}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => trackContact("instagram", { source: "seccion-contacto" })}
+            className="flex items-center gap-4 rounded-xl border border-border bg-gradient-to-r from-primary/10 to-secondary p-5 hover:border-primary/60 transition-colors group"
+          >
+            <span className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-tr from-amber-500 via-pink-500 to-primary text-white shrink-0">
+              <Instagram size={22} />
+            </span>
+            <span className="flex-1 text-left">
+              <span className="block font-heading font-bold">Síguenos en Instagram</span>
+              <span className="block text-sm text-muted-foreground">{INSTAGRAM_HANDLE} · Novedades, fotos y promociones JAC</span>
+            </span>
+            <span className="inline-flex items-center gap-1 text-sm font-semibold text-primary group-hover:underline whitespace-nowrap">
+              Seguir <ArrowRight size={16} />
+            </span>
           </a>
         </div>
 
