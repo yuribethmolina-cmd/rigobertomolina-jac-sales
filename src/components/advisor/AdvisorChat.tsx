@@ -1,15 +1,11 @@
-import { useCallback, useRef, useState } from "react";
-import { ArrowRight, MessageCircle } from "lucide-react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { ArrowRight, MessageCircle, UserPlus } from "lucide-react";
 import {
   Conversation,
   ConversationContent,
   ConversationScrollButton,
 } from "@/components/ai-elements/conversation";
-import {
-  Message,
-  MessageContent,
-  MessageResponse,
-} from "@/components/ai-elements/message";
+import { Message, MessageContent, MessageResponse } from "@/components/ai-elements/message";
 import {
   PromptInput,
   PromptInputFooter,
@@ -18,10 +14,15 @@ import {
 } from "@/components/ai-elements/prompt-input";
 import { Shimmer } from "@/components/ai-elements/shimmer";
 import { Button } from "@/components/ui/button";
+import AdvisorModelCard from "@/components/advisor/AdvisorModelCard";
+import AdvisorCompare from "@/components/advisor/AdvisorCompare";
+import AdvisorLeadForm, { buildWhatsAppMessage } from "@/components/advisor/AdvisorLeadForm";
 import { supabase } from "@/integrations/supabase/client";
 import { waLink } from "@/lib/constants";
 import { trackContact } from "@/lib/track";
 import { toast } from "@/hooks/use-toast";
+import { detectVehicles } from "@/lib/advisorMatch";
+import type { Vehicle } from "@/data/vehicles";
 import asesorAvatar from "@/assets/asesor-avatar.png";
 
 interface ChatMessage {
@@ -30,20 +31,54 @@ interface ChatMessage {
   content: string;
 }
 
-const SUGGESTIONS = [
-  "Quiero una camioneta para trabajar",
-  "¿Cuál es la cuota más baja?",
-  "¿Qué recaudos piden para un crédito?",
-  "Quiero llevarme el carro de una",
+const FIRST_MESSAGE =
+  "Hola. Soy el asistente de Rigoberto Molina. Puedo ayudarte a encontrar un JAC según lo que necesitas, comparar modelos o entender las opciones de compra. ¿Qué estás buscando?";
+
+const QUICK_START = [
+  "Busco un carro familiar",
+  "Quiero una pickup",
+  "Busco algo económico",
+  "Quiero financiar",
+  "Quiero comparar modelos",
+  "Ya sé qué JAC quiero",
 ];
+
+/** Respuestas rápidas por etapa. El asesor pregunta una cosa a la vez. */
+const QUICK_REPLIES: string[][] = [
+  ["Ciudad", "Familia", "Trabajo", "Viajes", "Pickup o carga"],
+  ["SUV", "Sedán o compacto", "Pickup", "Camión o utilitario", "No estoy seguro"],
+  ["Compra Directa", "Financiamiento", "Quiero conocer ambas opciones"],
+  ["Prefiero manual", "Prefiero automática", "Me da igual"],
+];
+
+const INTENT = /(quiero|me interesa|comprar|avanzar|financ|cotiz|reserv|cuánto pago|cuanto pago)/i;
 
 const ENDPOINT = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/asesor`;
 
 const AdvisorChat = ({ compact = false }: { compact?: boolean }) => {
+  const [started, setStarted] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [status, setStatus] = useState<"ready" | "submitted" | "streaming">("ready");
+  const [compareIds, setCompareIds] = useState<string[]>([]);
+  const [showLead, setShowLead] = useState(false);
+  const [preferredModel, setPreferredModel] = useState("");
   const startedRef = useRef(false);
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+
+  const userTurns = messages.filter((m) => m.role === "user").length;
+  const buyingIntent =
+    compareIds.length > 0 ||
+    userTurns >= 3 ||
+    messages.some((m) => m.role === "user" && INTENT.test(m.content));
+
+  const focusInput = useCallback(() => {
+    requestAnimationFrame(() => textareaRef.current?.focus());
+  }, []);
+
+  useEffect(() => {
+    if (started) focusInput();
+  }, [started, focusInput]);
 
   const send = useCallback(
     async (text: string) => {
@@ -59,6 +94,7 @@ const AdvisorChat = ({ compact = false }: { compact?: boolean }) => {
       setMessages(history);
       setInput("");
       setStatus("submitted");
+      focusInput();
 
       const assistantId = crypto.randomUUID();
 
@@ -120,58 +156,148 @@ const AdvisorChat = ({ compact = false }: { compact?: boolean }) => {
         });
       } finally {
         setStatus("ready");
+        focusInput();
       }
     },
-    [messages, status]
+    [messages, status, focusInput]
   );
 
+  const begin = (seed?: string) => {
+    setStarted(true);
+    setMessages([{ id: crypto.randomUUID(), role: "assistant", content: FIRST_MESSAGE }]);
+    if (seed) {
+      trackContact("asesor-quickstart", { source: seed });
+      setTimeout(() => void send(seed), 0);
+    }
+  };
+
+  const toggleCompare = (id: string) => {
+    setCompareIds((prev) => {
+      if (prev.includes(id)) return prev.filter((x) => x !== id);
+      if (prev.length >= 3) return prev;
+      trackContact("asesor-comparar", { model: id, source: "asesor-ia" });
+      return [...prev, id];
+    });
+  };
+
+  const summary = useMemo(
+    () =>
+      messages
+        .slice(-8)
+        .map((m) => `${m.role === "user" ? "Cliente" : "Asesor"}: ${m.content}`)
+        .join("\n")
+        .slice(0, 4000),
+    [messages]
+  );
+
+  const quickReplies =
+    started && status === "ready" && userTurns < QUICK_REPLIES.length
+      ? QUICK_REPLIES[userTurns]
+      : [];
+
+  const recommendedFor = (m: ChatMessage): Vehicle[] =>
+    m.role === "assistant" && m.content ? detectVehicles(m.content) : [];
+
+  const height = compact ? "h-[70vh]" : "h-[calc(100vh-11rem)] max-h-[760px]";
+
+  if (!started) {
+    return (
+      <div className={`flex flex-col justify-center ${height} px-5 py-8`}>
+        <img
+          src={asesorAvatar}
+          alt="Asesor digital de Rigoberto Molina"
+          width={512}
+          height={512}
+          className="h-20 w-20"
+        />
+        <h2 className="mt-5 font-heading text-2xl font-bold text-foreground">
+          Encuentra el JAC ideal para ti
+        </h2>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Te ayudo a comparar modelos, entender planes y encontrar una opción según tu presupuesto.
+        </p>
+
+        <div className="mt-6 flex flex-col gap-2 sm:flex-row">
+          <Button className="w-full sm:w-auto" onClick={() => begin()}>
+            Comenzar asesoría
+          </Button>
+          <Button
+            variant="outline"
+            className="w-full sm:w-auto"
+            onClick={() => begin("Ya sé qué JAC quiero")}
+          >
+            Ya sé qué modelo quiero
+          </Button>
+        </div>
+
+        <div className="mt-6 flex flex-wrap gap-2">
+          {QUICK_START.map((q) => (
+            <button
+              key={q}
+              type="button"
+              onClick={() => begin(q)}
+              className="rounded-full border border-border px-4 py-2 text-sm text-foreground transition-colors hover:border-primary hover:text-primary"
+            >
+              {q}
+            </button>
+          ))}
+        </div>
+
+        <p className="mt-8 text-xs text-muted-foreground">
+          Información orientativa. Precios, disponibilidad y condiciones comerciales deben ser
+          confirmados directamente con Rigoberto Molina.
+        </p>
+      </div>
+    );
+  }
+
   return (
-    <div className={`flex flex-col ${compact ? "h-[70vh]" : "h-[calc(100vh-11rem)] max-h-[760px]"}`}>
+    <div className={`flex flex-col ${height}`}>
       <Conversation className="flex-1">
         <ConversationContent className="gap-6">
-          {messages.length === 0 && (
-            <div className="mx-auto max-w-md py-8 text-center">
-              <img
-                src={asesorAvatar}
-                alt="Asesor digital de Rigoberto Molina"
-                width={512}
-                height={512}
-                className="mx-auto h-20 w-20"
-              />
-              <h2 className="mt-4 text-xl font-semibold text-foreground">
-                Asesor JAC de Rigoberto
-              </h2>
-              <p className="mt-2 text-sm text-muted-foreground">
-                Cuéntame para qué necesitas el vehículo y cuánto puedes pagar al mes. Te digo qué
-                modelo y qué plan te conviene, con montos referenciales de los catálogos vigentes.
-              </p>
-              <div className="mt-6 flex flex-col gap-2">
-                {SUGGESTIONS.map((s) => (
-                  <button
-                    key={s}
-                    type="button"
-                    onClick={() => send(s)}
-                    className="flex items-center justify-between gap-2 rounded-lg border border-border px-4 py-3 text-left text-sm text-foreground transition-colors hover:border-primary hover:text-primary"
-                  >
-                    {s}
-                    <ArrowRight className="h-4 w-4 shrink-0" />
-                  </button>
-                ))}
+          {messages.map((m) => {
+            const models = recommendedFor(m);
+            return (
+              <div key={m.id} className="space-y-3">
+                <Message from={m.role}>
+                  <MessageContent>
+                    {m.role === "assistant" ? <MessageResponse>{m.content}</MessageResponse> : m.content}
+                  </MessageContent>
+                </Message>
+                {models.length > 0 && status === "ready" && (
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    {models.map((v) => (
+                      <AdvisorModelCard
+                        key={v.id}
+                        vehicle={v}
+                        selected={compareIds.includes(v.id)}
+                        onCompare={(id) => {
+                          setPreferredModel(v.displayName);
+                          toggleCompare(id);
+                        }}
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
-            </div>
+            );
+          })}
+
+          {compareIds.length >= 2 && (
+            <AdvisorCompare
+              ids={compareIds}
+              onRemove={(id) => setCompareIds((p) => p.filter((x) => x !== id))}
+              onClear={() => setCompareIds([])}
+            />
           )}
 
-          {messages.map((m) => (
-            <Message key={m.id} from={m.role}>
-              <MessageContent>
-                {m.role === "assistant" ? (
-                  <MessageResponse>{m.content}</MessageResponse>
-                ) : (
-                  m.content
-                )}
-              </MessageContent>
-            </Message>
-          ))}
+          {showLead && (
+            <AdvisorLeadForm
+              defaults={{ model_interest: preferredModel }}
+              summary={summary}
+              onDone={() => setShowLead(false)}
+            />
+          )}
 
           {status === "submitted" && <Shimmer>Consultando los catálogos...</Shimmer>}
         </ConversationContent>
@@ -179,6 +305,22 @@ const AdvisorChat = ({ compact = false }: { compact?: boolean }) => {
       </Conversation>
 
       <div className="border-t border-border px-4 pb-4 pt-3">
+        {quickReplies.length > 0 && (
+          <div className="mb-3 flex flex-wrap gap-2">
+            {quickReplies.map((q) => (
+              <button
+                key={q}
+                type="button"
+                onClick={() => void send(q)}
+                className="inline-flex items-center gap-1 rounded-full border border-border px-3 py-1.5 text-sm text-foreground transition-colors hover:border-primary hover:text-primary"
+              >
+                {q}
+                <ArrowRight className="h-3.5 w-3.5" />
+              </button>
+            ))}
+          </div>
+        )}
+
         <PromptInput
           onSubmit={(_m, e) => {
             e.preventDefault();
@@ -186,6 +328,7 @@ const AdvisorChat = ({ compact = false }: { compact?: boolean }) => {
           }}
         >
           <PromptInputTextarea
+            ref={textareaRef}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Escribe tu pregunta sobre modelos, cuotas o recaudos"
@@ -195,23 +338,48 @@ const AdvisorChat = ({ compact = false }: { compact?: boolean }) => {
           </PromptInputFooter>
         </PromptInput>
 
-        <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-muted-foreground">
-            Montos referenciales, sujetos a cambios y disponibilidad. Confirma condiciones con
-            Rigoberto Molina.
-          </p>
-          <Button asChild size="sm" variant="outline" className="w-full sm:w-auto">
-            <a
-              href={waLink("Hola Rigoberto, estuve conversando con tu asesor digital y quiero avanzar.")}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackContact("whatsapp", { source: "asesor-ia" })}
+        {buyingIntent && (
+          <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+            <Button
+              size="sm"
+              className="w-full sm:w-auto"
+              onClick={() => {
+                setShowLead(true);
+                trackContact("lead", { source: "asesor-ia-abrir" });
+              }}
             >
-              <MessageCircle className="mr-2 h-4 w-4" />
-              Hablar con Rigoberto
-            </a>
-          </Button>
-        </div>
+              <UserPlus className="mr-2 h-4 w-4" />
+              Dejar mis datos
+            </Button>
+            <Button asChild size="sm" variant="outline" className="w-full sm:w-auto">
+              <a
+                href={waLink(
+                  buildWhatsAppMessage({
+                    name: "",
+                    city: "",
+                    model_interest: preferredModel,
+                    use_case: "",
+                    purchase_method: "",
+                    initial_budget: "",
+                    monthly_budget: "",
+                    phone: "",
+                  })
+                )}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackContact("whatsapp", { source: "asesor-ia" })}
+              >
+                <MessageCircle className="mr-2 h-4 w-4" />
+                Hablar con Rigoberto por WhatsApp
+              </a>
+            </Button>
+          </div>
+        )}
+
+        <p className="mt-3 text-xs text-muted-foreground">
+          Información orientativa. Precios, disponibilidad y condiciones comerciales deben ser
+          confirmados directamente con Rigoberto Molina.
+        </p>
       </div>
     </div>
   );
