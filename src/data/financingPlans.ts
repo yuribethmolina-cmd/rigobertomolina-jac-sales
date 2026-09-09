@@ -91,6 +91,7 @@ const CREDIT_PLAN_IDS = [
   "credijac-ruta-48",
   "crediexpress",
   "llevatelo-de-una",
+  "credito-bel",
 ];
 
 /** Planes sin confirmación oficial sobre evaluación de crédito ni recaudos. */
