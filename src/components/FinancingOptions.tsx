@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { AlertTriangle, Check, ChevronDown, FileUp } from "lucide-react";
 import ApplicationFormButton from "@/components/ApplicationFormButton";
 
@@ -38,6 +38,22 @@ interface Props {
 const FinancingOptions = ({ vehicle, source = "opciones-financiamiento" }: Props) => {
   const options = financingOptionsFor(vehicle.id);
   const [openValue, setOpenValue] = useState<string>(options[0]?.plan.id ?? "");
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    if (!hash?.startsWith("#plan-")) return;
+    const planId = hash.slice("#plan-".length);
+    if (!options.some((o) => o.plan.id === planId)) return;
+    setOpenValue(planId);
+    const el = document.getElementById(`plan-${planId}`);
+    if (el) {
+      window.setTimeout(
+        () => el.scrollIntoView({ behavior: "smooth", block: "start" }),
+        150,
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hash, vehicle.id]);
 
   if (options.length === 0) return null;
 
@@ -57,9 +73,14 @@ const FinancingOptions = ({ vehicle, source = "opciones-financiamiento" }: Props
       >
         {options.map((opt) => {
           const isOpen = openValue === opt.plan.id;
+          /* La cuota mensual real es la última etapa recurrente del cronograma
+             (ORDINARY o FIXED), nunca los pagos de inicial. */
+          const monthlyStages = opt.schedule.filter(
+            (s) => (s.type === "ORDINARY" || s.type === "FIXED") && s.count > 1 && s.amount !== null,
+          );
           const keyAmount =
-            opt.schedule.find((s) => s.count > 1 && s.amount !== null)?.amount ??
-            opt.schedule.find((s) => s.amount !== null)?.amount;
+            monthlyStages[monthlyStages.length - 1]?.amount ??
+            opt.schedule.find((s) => s.count > 1 && s.amount !== null)?.amount;
           const inReview = opt.plan.sourceStatus === "REVIEW_NOT_VERIFIED";
 
           return (
