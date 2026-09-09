@@ -44,6 +44,54 @@ export type Database = {
         }
         Relationships: []
       }
+      advisor_leads: {
+        Row: {
+          city: string | null
+          conversation_summary: string | null
+          created_at: string
+          id: string
+          initial_budget: string | null
+          lead_score: string
+          model_interest: string | null
+          monthly_budget: string | null
+          name: string | null
+          phone: string | null
+          purchase_method: string | null
+          status: string
+          use_case: string | null
+        }
+        Insert: {
+          city?: string | null
+          conversation_summary?: string | null
+          created_at?: string
+          id?: string
+          initial_budget?: string | null
+          lead_score?: string
+          model_interest?: string | null
+          monthly_budget?: string | null
+          name?: string | null
+          phone?: string | null
+          purchase_method?: string | null
+          status?: string
+          use_case?: string | null
+        }
+        Update: {
+          city?: string | null
+          conversation_summary?: string | null
+          created_at?: string
+          id?: string
+          initial_budget?: string | null
+          lead_score?: string
+          model_interest?: string | null
+          monthly_budget?: string | null
+          name?: string | null
+          phone?: string | null
+          purchase_method?: string | null
+          status?: string
+          use_case?: string | null
+        }
+        Relationships: []
+      }
       contact_events: {
         Row: {
           action: string
