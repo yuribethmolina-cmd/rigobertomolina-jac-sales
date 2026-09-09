@@ -65,6 +65,8 @@ const AdvisorChat = ({ compact = false }: { compact?: boolean }) => {
   const [preferredModel, setPreferredModel] = useState("");
   const startedRef = useRef(false);
   const rootRef = useRef<HTMLDivElement | null>(null);
+  const messagesRef = useRef<ChatMessage[]>([]);
+  messagesRef.current = messages;
 
   const userTurns = messages.filter((m) => m.role === "user").length;
   const buyingIntent =
@@ -90,7 +92,10 @@ const AdvisorChat = ({ compact = false }: { compact?: boolean }) => {
         trackContact("asesor-chat", { source: "asesor-ia" });
       }
 
-      const history = [...messages, { id: crypto.randomUUID(), role: "user" as const, content: question }];
+      const history = [
+        ...messagesRef.current,
+        { id: crypto.randomUUID(), role: "user" as const, content: question },
+      ];
       setMessages(history);
       setInput("");
       setStatus("submitted");
@@ -159,12 +164,14 @@ const AdvisorChat = ({ compact = false }: { compact?: boolean }) => {
         focusInput();
       }
     },
-    [messages, status, focusInput]
+    [status, focusInput]
   );
 
   const begin = (seed?: string) => {
     setStarted(true);
-    setMessages([{ id: crypto.randomUUID(), role: "assistant", content: FIRST_MESSAGE }]);
+    const first: ChatMessage[] = [{ id: crypto.randomUUID(), role: "assistant", content: FIRST_MESSAGE }];
+    messagesRef.current = first;
+    setMessages(first);
     if (seed) {
       trackContact("asesor-quickstart", { source: seed });
       setTimeout(() => void send(seed), 0);
