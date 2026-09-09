@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { MessageCircle, Phone, Mail, ArrowRight } from "lucide-react";
-import { waLink, WHATSAPP_DISPLAY, EMAIL } from "@/lib/constants";
+import { MessageCircle, Phone, Mail, ArrowRight, Instagram } from "lucide-react";
+import { waLink, WHATSAPP_DISPLAY, EMAIL, INSTAGRAM, INSTAGRAM_HANDLE } from "@/lib/constants";
 import { trackContact } from "@/lib/track";
 
 const modelOptions = [
