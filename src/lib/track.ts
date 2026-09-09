@@ -6,6 +6,7 @@ export type ContactAction =
   | "pdf"
   | "email"
   | "call"
+  | "instagram"
   | "asesor-chat"
   | "asesor-quickstart"
   | "asesor-recomendacion"
