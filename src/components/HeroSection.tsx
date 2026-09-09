@@ -33,6 +33,7 @@ const HeroSection = () => {
         muted
         playsInline
         preload="metadata"
+        poster="/videos/hero-poster.jpg"
         disableRemotePlayback
         disablePictureInPicture
         controls={false}
@@ -40,6 +41,7 @@ const HeroSection = () => {
         tabIndex={-1}
         className="absolute inset-0 w-full h-full object-cover pointer-events-none [transform:translateZ(0)] [will-change:transform] [backface-visibility:hidden]"
       >
+        <source src="/videos/hero-mobile.mp4" type="video/mp4" media="(max-width: 768px)" />
         <source src="/videos/hero.mp4" type="video/mp4" />
       </video>
 
