@@ -88,6 +88,11 @@ const ReviewsSection = () => {
                   {r.customer_name}
                 </span>
                 {r.vehicle_name ? ` · ${r.vehicle_name}` : ""}
+                {` · ${new Date(r.created_at).toLocaleDateString("es-VE", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                })}`}
               </footer>
             </article>
           ))}
