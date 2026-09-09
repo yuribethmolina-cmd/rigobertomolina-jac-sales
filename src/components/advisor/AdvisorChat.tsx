@@ -64,7 +64,7 @@ const AdvisorChat = ({ compact = false }: { compact?: boolean }) => {
   const [showLead, setShowLead] = useState(false);
   const [preferredModel, setPreferredModel] = useState("");
   const startedRef = useRef(false);
-  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const rootRef = useRef<HTMLDivElement | null>(null);
 
   const userTurns = messages.filter((m) => m.role === "user").length;
   const buyingIntent =
@@ -73,7 +73,7 @@ const AdvisorChat = ({ compact = false }: { compact?: boolean }) => {
     messages.some((m) => m.role === "user" && INTENT.test(m.content));
 
   const focusInput = useCallback(() => {
-    requestAnimationFrame(() => textareaRef.current?.focus());
+    requestAnimationFrame(() => rootRef.current?.querySelector("textarea")?.focus());
   }, []);
 
   useEffect(() => {
@@ -252,7 +252,7 @@ const AdvisorChat = ({ compact = false }: { compact?: boolean }) => {
   }
 
   return (
-    <div className={`flex flex-col ${height}`}>
+    <div ref={rootRef} className={`flex flex-col ${height}`}>
       <Conversation className="flex-1">
         <ConversationContent className="gap-6">
           {messages.map((m) => {
@@ -328,7 +328,6 @@ const AdvisorChat = ({ compact = false }: { compact?: boolean }) => {
           }}
         >
           <PromptInputTextarea
-            ref={textareaRef}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Escribe tu pregunta sobre modelos, cuotas o recaudos"
