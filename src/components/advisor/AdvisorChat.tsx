@@ -32,7 +32,7 @@ interface ChatMessage {
 }
 
 const FIRST_MESSAGE =
-  "Hola. Soy el asistente de Rigoberto Molina. Puedo ayudarte a encontrar un JAC según lo que necesitas, comparar modelos o entender las opciones de compra. ¿Qué estás buscando?";
+  "Hola. Soy el asistente de Rigoberto Molina. Puedo ayudarte a encontrar un JAC según lo que necesitas, comparar modelos o entender las opciones de compra. Puedes hacerme todas tus preguntas aquí, incluso antes de comunicarte con Rigoberto. ¿Qué estás buscando?";
 
 const QUICK_START = [
   "Busco un carro familiar",
@@ -222,6 +222,7 @@ const AdvisorChat = ({ compact = false }: { compact?: boolean }) => {
         </h2>
         <p className="mt-2 text-sm text-muted-foreground">
           Te ayudo a comparar modelos, entender planes y encontrar una opción según tu presupuesto.
+          Respondo todas tus preguntas aquí mismo, incluso antes de comunicarte con Rigoberto.
         </p>
 
         <div className="mt-6 flex flex-col gap-2 sm:flex-row">
