@@ -1,6 +1,17 @@
 import { supabase } from "@/integrations/supabase/client";
 
-export type ContactAction = "whatsapp" | "copy" | "pdf" | "email" | "call" | "asesor-chat";
+export type ContactAction =
+  | "whatsapp"
+  | "copy"
+  | "pdf"
+  | "email"
+  | "call"
+  | "asesor-chat"
+  | "asesor-quickstart"
+  | "asesor-recomendacion"
+  | "asesor-comparar"
+  | "asesor-financiamiento"
+  | "lead";
 
 interface TrackPayload {
   model?: string | null;
