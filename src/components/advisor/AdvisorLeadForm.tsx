@@ -130,10 +130,11 @@ const AdvisorLeadForm = ({ defaults, summary, onDone }: Props) => {
           disabled={saving || !lead.name.trim()}
           onClick={async () => {
             const ok = await save(true);
-            if (!ok) return;
             trackContact("whatsapp", { model: lead.model_interest || null, source: "asesor-lead" });
             window.open(waLink(buildWhatsAppMessage(lead)), "_blank", "noopener,noreferrer");
-            toast({ title: "Datos enviados", description: "Continúa la conversación por WhatsApp." });
+            if (ok) {
+              toast({ title: "Datos enviados", description: "Continúa la conversación por WhatsApp." });
+            }
             onDone?.();
           }}
         >
