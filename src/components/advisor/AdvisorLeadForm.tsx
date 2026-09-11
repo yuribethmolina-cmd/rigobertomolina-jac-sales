@@ -90,7 +90,7 @@ const AdvisorLeadForm = ({ defaults, summary, onDone }: Props) => {
     if (error) {
       toast({
         title: "No pude guardar tus datos",
-        description: "Puedes escribirle directamente a Rigoberto por WhatsApp.",
+        description: "Continúa por WhatsApp para que Rigoberto reciba tu mensaje.",
         variant: "destructive",
       });
       return false;
@@ -130,10 +130,11 @@ const AdvisorLeadForm = ({ defaults, summary, onDone }: Props) => {
           disabled={saving || !lead.name.trim()}
           onClick={async () => {
             const ok = await save(true);
-            if (!ok) return;
             trackContact("whatsapp", { model: lead.model_interest || null, source: "asesor-lead" });
             window.open(waLink(buildWhatsAppMessage(lead)), "_blank", "noopener,noreferrer");
-            toast({ title: "Datos enviados", description: "Continúa la conversación por WhatsApp." });
+            if (ok) {
+              toast({ title: "Datos enviados", description: "Continúa la conversación por WhatsApp." });
+            }
             onDone?.();
           }}
         >
