@@ -90,7 +90,7 @@ const AdvisorLeadForm = ({ defaults, summary, onDone }: Props) => {
     if (error) {
       toast({
         title: "No pude guardar tus datos",
-        description: "Puedes escribirle directamente a Rigoberto por WhatsApp.",
+        description: "Continúa por WhatsApp para que Rigoberto reciba tu mensaje.",
         variant: "destructive",
       });
       return false;
