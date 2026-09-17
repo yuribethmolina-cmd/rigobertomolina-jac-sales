@@ -92,6 +92,152 @@ export type Database = {
         }
         Relationships: []
       }
+      catalog_audit: {
+        Row: {
+          action: string
+          created_at: string
+          details: Json
+          id: string
+          plan_id: string
+          user_email: string | null
+          user_id: string | null
+          version_id: string | null
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          details?: Json
+          id?: string
+          plan_id: string
+          user_email?: string | null
+          user_id?: string | null
+          version_id?: string | null
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          details?: Json
+          id?: string
+          plan_id?: string
+          user_email?: string | null
+          user_id?: string | null
+          version_id?: string | null
+        }
+        Relationships: []
+      }
+      catalog_entries: {
+        Row: {
+          change_type: string
+          conditions: string | null
+          created_at: string
+          edited_fields: string[]
+          extra: Json
+          id: string
+          installment_amount: number | null
+          installments_count: number | null
+          model_name: string
+          position: number
+          pre_delivery_amount: number | null
+          promo: string | null
+          signature_amount: number | null
+          updated_at: string
+          vehicle_id: string | null
+          version_id: string
+          version_label: string | null
+        }
+        Insert: {
+          change_type?: string
+          conditions?: string | null
+          created_at?: string
+          edited_fields?: string[]
+          extra?: Json
+          id?: string
+          installment_amount?: number | null
+          installments_count?: number | null
+          model_name: string
+          position?: number
+          pre_delivery_amount?: number | null
+          promo?: string | null
+          signature_amount?: number | null
+          updated_at?: string
+          vehicle_id?: string | null
+          version_id: string
+          version_label?: string | null
+        }
+        Update: {
+          change_type?: string
+          conditions?: string | null
+          created_at?: string
+          edited_fields?: string[]
+          extra?: Json
+          id?: string
+          installment_amount?: number | null
+          installments_count?: number | null
+          model_name?: string
+          position?: number
+          pre_delivery_amount?: number | null
+          promo?: string | null
+          signature_amount?: number | null
+          updated_at?: string
+          vehicle_id?: string | null
+          version_id?: string
+          version_label?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "catalog_entries_version_id_fkey"
+            columns: ["version_id"]
+            isOneToOne: false
+            referencedRelation: "catalog_versions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      catalog_versions: {
+        Row: {
+          catalog_date: string
+          created_at: string
+          created_by: string | null
+          entries_count: number
+          id: string
+          notes: string | null
+          pdf_path: string | null
+          plan_id: string
+          published_at: string | null
+          source: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          catalog_date: string
+          created_at?: string
+          created_by?: string | null
+          entries_count?: number
+          id?: string
+          notes?: string | null
+          pdf_path?: string | null
+          plan_id: string
+          published_at?: string | null
+          source: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          catalog_date?: string
+          created_at?: string
+          created_by?: string | null
+          entries_count?: number
+          id?: string
+          notes?: string | null
+          pdf_path?: string | null
+          plan_id?: string
+          published_at?: string | null
+          source?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       contact_events: {
         Row: {
           action: string
@@ -308,6 +454,14 @@ export type Database = {
           _user_id: string
         }
         Returns: boolean
+      }
+      publish_catalog_version: {
+        Args: { _version_id: string }
+        Returns: undefined
+      }
+      rollback_catalog_version: {
+        Args: { _version_id: string }
+        Returns: undefined
       }
     }
     Enums: {

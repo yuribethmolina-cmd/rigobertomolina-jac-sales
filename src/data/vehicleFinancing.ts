@@ -14,6 +14,7 @@ import {
   type SourceStatus,
 } from "./financingPlans";
 import { findVehicle } from "./vehicles";
+import { getActiveCatalogs, scheduleOfEntry } from "./catalogStore";
 
 export interface VehicleFinancing {
   vehicleId: string;
@@ -274,6 +275,7 @@ const buildRuta48Schedule = (q: { firma: number; preEntrega: number; fija: numbe
   { type: "FIXED", count: 32, amount: q.fija, label: "32 pagos fijos mensuales" },
 ];
 
+/** Respaldo de arranque: se usa solo si la base de datos no responde. */
 export const vehicleFinancing: VehicleFinancing[] = [
   ...pagoFacilSep.map((q) => ({
     vehicleId: q.vehicleId,
@@ -317,6 +319,42 @@ export const vehicleFinancing: VehicleFinancing[] = [
   })),
 ];
 
+/**
+ * Importes vigentes: la versión ACTIVA de cada plan en la base de datos.
+ * Si un plan todavía no tiene versión activa, se conserva su respaldo local.
+ */
+export const activeFinancingRows = (): VehicleFinancing[] => {
+  const catalogs = getActiveCatalogs();
+  if (!catalogs) return vehicleFinancing;
+
+  const fromDb: VehicleFinancing[] = [];
+  for (const [planId, catalog] of Object.entries(catalogs)) {
+    for (const entry of catalog.entries) {
+      if (!entry.vehicle_id) continue;
+      const schedule = scheduleOfEntry(entry);
+      if (!schedule.length) continue;
+      fromDb.push({
+        vehicleId: entry.vehicle_id,
+        planId,
+        currency: "USD",
+        amountsSourceStatus: "VERIFIED_16_SEP" as SourceStatus,
+        amountsSource: catalog.version.source,
+        schedule,
+      });
+    }
+  }
+
+  const planesEnBase = new Set(Object.keys(catalogs));
+  const respaldo = vehicleFinancing.filter((f) => !planesEnBase.has(f.planId));
+  return [...fromDb, ...respaldo];
+};
+
+/** Vigencia y fuente publicadas del plan, según su versión activa. */
+export const planWithActiveCatalog = (plan: FinancingPlan): FinancingPlan => {
+  const catalog = getActiveCatalogs()?.[plan.id];
+  if (!catalog) return plan;
+  return { ...plan, effectiveDate: catalog.version.catalog_date, source: catalog.version.source };
+};
 
 /** Cronograma sin importes: solo estructura oficial del plan. */
 const templateSchedule = (plan: FinancingPlan): PaymentStage[] =>
@@ -338,7 +376,7 @@ export interface FinancingOption {
 export const financingOptionsFor = (vehicleKey: string): FinancingOption[] => {
   const vehicle = findVehicle(vehicleKey);
   if (!vehicle) return [];
-  const rows = vehicleFinancing.filter((f) => f.vehicleId === vehicle.id);
+  const rows = activeFinancingRows().filter((f) => f.vehicleId === vehicle.id);
 
   return financingPlans
     .filter(
@@ -350,7 +388,7 @@ export const financingOptionsFor = (vehicleKey: string): FinancingOption[] => {
       const row = rows.find((r) => r.planId === plan.id);
       if (row) {
         return {
-          plan,
+          plan: planWithActiveCatalog(plan),
           schedule: row.schedule,
           hasAmounts: row.schedule.some((s) => s.amount !== null),
           amountsSourceStatus: row.amountsSourceStatus,
@@ -370,7 +408,7 @@ export const financingOptionsFor = (vehicleKey: string): FinancingOption[] => {
 export const pagoFacilMonthly = (vehicleKey: string): number | null => {
   const vehicle = findVehicle(vehicleKey);
   if (!vehicle) return null;
-  const row = vehicleFinancing.find(
+  const row = activeFinancingRows().find(
     (f) => f.vehicleId === vehicle.id && f.planId === "pago-facil"
   );
   return row?.schedule.find((s) => s.type === "ORDINARY")?.amount ?? null;
@@ -380,7 +418,7 @@ export const pagoFacilMonthly = (vehicleKey: string): number | null => {
 export const compraDirectaMonthly = (vehicleKey: string): number | null => {
   const vehicle = findVehicle(vehicleKey);
   if (!vehicle) return null;
-  const row = vehicleFinancing.find(
+  const row = activeFinancingRows().find(
     (f) => f.vehicleId === vehicle.id && f.planId === "compra-directa"
   );
   return row?.schedule.find((s) => s.type === "ORDINARY")?.amount ?? null;
