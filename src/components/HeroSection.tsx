@@ -127,7 +127,7 @@ const HeroSection = () => {
         <p
           className="mt-6 text-white/80 text-lg md:text-xl animate-[fade-in_0.6s_ease_0.4s_both]"
         >
-          Vendedor independiente en Caracas · Catálogo vigente Agosto 2026
+          Vendedor independiente en Caracas · Catálogo vigente Septiembre 2026
         </p>
         <div
           className="mt-8 flex flex-col sm:flex-row gap-4 justify-center animate-[fade-in_0.6s_ease_0.6s_both]"
