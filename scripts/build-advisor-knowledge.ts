@@ -44,6 +44,8 @@ for (const plan of financingPlans) {
   );
 }
 
+const planLines = [...lines];
+
 lines.push("\n# MODELOS Y MONTOS POR PLAN");
 for (const v of vehicles) {
   const opciones = financingOptionsFor(v.id)
@@ -85,9 +87,27 @@ lines.push(
 
 const body = lines.join("\n");
 
+/* Secciones sin montos: el asesor arma los montos con las versiones ACTIVAS. */
+const tail = lines.slice(-2).join("\n");
+const base = `${planLines.join("\n")}\n${tail}`;
+
+const vehicleIndex = vehicles.map((v) => ({
+  id: v.id,
+  name: v.displayName,
+  category: v.category,
+  tagline: v.tagline ?? null,
+  unavailable: !!v.unavailable,
+}));
+
+const planIndex = financingPlans.map((p) => ({ id: p.id, name: p.name }));
+
 writeFileSync(
   new URL("../supabase/functions/asesor/knowledge.ts", import.meta.url),
-  `/* GENERADO AUTOMÁTICAMENTE por scripts/build-advisor-knowledge.ts.\n   No editar a mano: los datos comerciales viven en src/data. */\nexport const KNOWLEDGE = ${JSON.stringify(body)};\n`
+  `/* GENERADO AUTOMÁTICAMENTE por scripts/build-advisor-knowledge.ts.\n   No editar a mano: los datos comerciales viven en src/data. */\n` +
+    `export const KNOWLEDGE = ${JSON.stringify(body)};\n` +
+    `export const KNOWLEDGE_BASE = ${JSON.stringify(base)};\n` +
+    `export const VEHICLE_INDEX = ${JSON.stringify(vehicleIndex)};\n` +
+    `export const PLAN_INDEX = ${JSON.stringify(planIndex)};\n`
 );
 
 console.log(`knowledge.ts generado (${body.length} caracteres)`);

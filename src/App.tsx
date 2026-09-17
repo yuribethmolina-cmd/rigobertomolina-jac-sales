@@ -19,6 +19,9 @@ import Asesor from "./pages/Asesor.tsx";
 import AdvisorLauncher from "./components/advisor/AdvisorLauncher.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import RequireAdmin from "./components/RequireAdmin.tsx";
+import CatalogGate from "./components/CatalogGate.tsx";
+import AdminCatalogs from "./pages/AdminCatalogs.tsx";
+import AdminCatalogReview from "./pages/AdminCatalogReview.tsx";
 
 
 const queryClient = new QueryClient();
@@ -29,6 +32,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+       <CatalogGate>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/modelo/:slug" element={<ModelDetail />} />
@@ -56,6 +60,22 @@ const App = () => (
               </RequireAdmin>
             }
           />
+          <Route
+            path="/admin/catalogos"
+            element={
+              <RequireAdmin>
+                <AdminCatalogs />
+              </RequireAdmin>
+            }
+          />
+          <Route
+            path="/admin/catalogos/:versionId"
+            element={
+              <RequireAdmin>
+                <AdminCatalogReview />
+              </RequireAdmin>
+            }
+          />
 
           <Route path="/asesor" element={<Asesor />} />
 
@@ -63,6 +83,7 @@ const App = () => (
           <Route path="*" element={<NotFound />} />
         </Routes>
         <AdvisorLauncher />
+       </CatalogGate>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

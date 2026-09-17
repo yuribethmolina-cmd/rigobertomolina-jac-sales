@@ -13,7 +13,7 @@ import {
   requiresCreditEvaluation,
   fmtUsd,
 } from "@/data/financingPlans";
-import { vehicleFinancing } from "@/data/vehicleFinancing";
+import { activeFinancingRows } from "@/data/vehicleFinancing";
 import SharePlanButton from "@/components/SharePlanButton";
 import FooterSection from "@/components/FooterSection";
 
@@ -21,7 +21,7 @@ const verifiedPlans = financingPlans.filter((p) => p.sourceStatus !== "REVIEW_NO
 
 const cuotaRangeForPlan = (planId: string): { min: number; max: number } | null => {
   const amounts: number[] = [];
-  for (const row of vehicleFinancing.filter((f) => f.planId === planId)) {
+  for (const row of activeFinancingRows().filter((f) => f.planId === planId)) {
     for (const s of row.schedule) {
       if ((s.type === "ORDINARY" || s.type === "FIXED") && s.amount !== null) amounts.push(s.amount);
     }
