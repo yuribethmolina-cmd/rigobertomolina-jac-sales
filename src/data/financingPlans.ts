@@ -10,6 +10,7 @@
 export type SourceStatus =
   | "VERIFIED_17_AUG"
   | "VERIFIED_04_SEP"
+  | "VERIFIED_16_SEP"
   | "VERIFIED_PROMO_SEP"
   | "REVIEW_NOT_VERIFIED";
 
@@ -121,9 +122,9 @@ export const financingPlans: FinancingPlan[] = [
   {
     id: "compra-directa",
     name: "Compra Directa",
-    effectiveDate: "04 de septiembre",
-    source: "COMPRA DIRECTA — 04 DE SEPTIEMBRE",
-    sourceStatus: "VERIFIED_04_SEP",
+    effectiveDate: "16 de septiembre",
+    source: "COMPRA DIRECTA — 16 DE SEPTIEMBRE",
+    sourceStatus: "VERIFIED_16_SEP",
     description:
       "Pago a la firma del contrato, 5 cuotas mensuales y consecutivas y un pago previo a la entrega.",
     template: [
