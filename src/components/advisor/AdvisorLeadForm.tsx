@@ -2,6 +2,8 @@ import { useState } from "react";
 import { MessageCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { waLink } from "@/lib/constants";
+import { findVehicle } from "@/data/vehicles";
+import { vehicleFinancing } from "@/data/vehicleFinancing";
 import { trackContact } from "@/lib/track";
 import { toast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
@@ -28,6 +30,26 @@ const empty: LeadDraft = {
   phone: "",
 };
 
+const usd = (amount: number) =>
+  `US$ ${amount.toLocaleString("es-VE", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+/** Línea de Pago Fácil con los importes exactos del catálogo vigente del modelo. */
+const pagoFacilLine = (modelKey: string): string | null => {
+  const vehicle = findVehicle(modelKey);
+  if (!vehicle) return null;
+  const row = vehicleFinancing.find(
+    (f) => f.vehicleId === vehicle.id && f.planId === "pago-facil"
+  );
+  if (!row) return null;
+  const firma = row.schedule.find((s) => s.type === "SIGNATURE")?.amount;
+  const cuota = row.schedule.find((s) => s.type === "ORDINARY")?.amount;
+  const pre = row.schedule.find((s) => s.type === "PRE_DELIVERY")?.amount;
+  if (firma == null || cuota == null || pre == null) return null;
+  return `Pago Fácil (${row.amountsSource}): ${usd(firma)} a la firma + 12 cuotas de ${usd(
+    cuota
+  )} + ${usd(pre)} previo a la entrega`;
+};
+
 export const buildWhatsAppMessage = (lead: LeadDraft) => {
   const lines = [
     "Hola Rigoberto, vengo del asistente de tu página.",
@@ -35,12 +57,13 @@ export const buildWhatsAppMessage = (lead: LeadDraft) => {
     lead.name && `Nombre: ${lead.name}`,
     lead.city && `Ciudad: ${lead.city}`,
     lead.model_interest && `Modelo de interés: ${lead.model_interest}`,
+    lead.model_interest && pagoFacilLine(lead.model_interest),
     lead.use_case && `Uso principal: ${lead.use_case}`,
     lead.purchase_method && `Modalidad: ${lead.purchase_method}`,
     lead.initial_budget && `Inicial aproximada: ${lead.initial_budget}`,
     lead.monthly_budget && `Pago mensual aproximado: ${lead.monthly_budget}`,
     "",
-    "Quisiera confirmar disponibilidad y condiciones vigentes.",
+    "Montos referenciales del último catálogo disponible. Quisiera confirmar disponibilidad y condiciones vigentes.",
   ].filter(Boolean);
   return lines.join("\n");
 };
