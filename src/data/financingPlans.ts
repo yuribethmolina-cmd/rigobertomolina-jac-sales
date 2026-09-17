@@ -136,9 +136,9 @@ export const financingPlans: FinancingPlan[] = [
   {
     id: "pago-facil",
     name: "Pago Fácil",
-    effectiveDate: "04 de septiembre",
-    source: "PAGO FÁCIL — 04 DE SEPTIEMBRE",
-    sourceStatus: "VERIFIED_04_SEP",
+    effectiveDate: "16 de septiembre",
+    source: "PAGO FÁCIL — 16 DE SEPTIEMBRE",
+    sourceStatus: "VERIFIED_16_SEP",
     description:
       "US$ 999,90 a la firma del contrato, 12 cuotas consecutivas y mensuales y un pago adicional previo a la entrega.",
     template: [
