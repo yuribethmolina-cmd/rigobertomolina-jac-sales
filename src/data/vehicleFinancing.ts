@@ -151,7 +151,7 @@ const buildPagoFacilSchedule = (q: { cuota: number; preEntrega: number }): Payme
   { type: "PRE_DELIVERY", count: 1, amount: q.preEntrega, label: "Pago previo a la entrega" },
 ];
 
-/* ── COMPRA DIRECTA — catálogo del 04 de septiembre ──
+/* ── COMPRA DIRECTA — catálogo del 16 de septiembre ──
    Estructura: 1 pago a la firma + 5 cuotas mensuales y consecutivas +
    1 pago previo a la entrega. En este catálogo las tres etapas tienen el
    mismo importe, tal como aparece impreso en cada página. 65 configuraciones. */
