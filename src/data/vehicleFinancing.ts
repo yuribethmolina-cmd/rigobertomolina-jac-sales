@@ -145,7 +145,7 @@ const fiaoQuotas: {
   { vehicleId: "la-venezolana-a-diesel-4x4", firma: 2063.5, preEntrega: 5388.1, cuota: 1547.6 },
 ];
 
-/** Cronograma de Pago Fácil con los importes del catálogo del 04 de septiembre. */
+/** Cronograma de Pago Fácil con los importes del catálogo del 16 de septiembre. */
 const buildPagoFacilSchedule = (q: { cuota: number; preEntrega: number }): PaymentStage[] => [
   { type: "SIGNATURE", count: 1, amount: PAGO_FACIL_SIGNATURE, label: "Pago a la firma del contrato" },
   { type: "ORDINARY", count: 12, amount: q.cuota, label: "12 cuotas consecutivas y mensuales" },
@@ -279,8 +279,8 @@ export const vehicleFinancing: VehicleFinancing[] = [
     vehicleId: q.vehicleId,
     planId: "pago-facil",
     currency: "USD" as const,
-    amountsSourceStatus: "VERIFIED_04_SEP" as SourceStatus,
-    amountsSource: CATALOGO_PF_04_SEP,
+    amountsSourceStatus: "VERIFIED_16_SEP" as SourceStatus,
+    amountsSource: CATALOGO_PF_16_SEP,
     schedule: buildPagoFacilSchedule(q),
   })),
   ...fiaoQuotas.map((q) => ({
