@@ -181,6 +181,7 @@ const compraDirectaSep: { vehicleId: string; monto: number }[] = [
   { vehicleId: "urban-3-ton", monto: 3813.1 },
   { vehicleId: "c-3500-ferretero-4x4", monto: 5072.2 },
   { vehicleId: "doble-cabina-ferretero", monto: 4239.5 },
+  { vehicleId: "pionero-ferretero-4x4", monto: 6472.5 },
   { vehicleId: "6t-chasis", monto: 5180.0 },
   { vehicleId: "6t-ferretero", monto: 5544.8 },
   { vehicleId: "bufalo-12-ton", monto: 7816.3 },

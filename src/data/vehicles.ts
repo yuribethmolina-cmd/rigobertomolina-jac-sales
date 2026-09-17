@@ -461,6 +461,17 @@ export const vehicles: Vehicle[] = [
     sourceStatus: "VERIFIED_17_AUG",
   },
   {
+    id: "pionero-ferretero-4x4",
+    canonicalName: "Pionero Ferretero 4x4",
+    displayName: "Pionero Ferretero 4x4",
+    aliases: ["Pionero Ferretero 4x4","Pionero Ferretero","Pionero 4x4"],
+    category: "CAMIONES",
+    tagline: "Camión ferretero 4x4",
+    image: "https://jacvenezuela.com/wp-content/uploads/2025/01/C-3500-FERRETERO-4X4-1024x427.webp",
+    referentialImage: true,
+    sourceStatus: "VERIFIED_16_SEP",
+  },
+  {
     id: "doble-cabina-brazo-elevador-20m",
     canonicalName: "Doble Cabina con Brazo Elevador 20M",
     displayName: "Doble Cabina con Brazo Elevador 20M",
