@@ -3,7 +3,7 @@ import { MessageCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { waLink } from "@/lib/constants";
 import { findVehicle } from "@/data/vehicles";
-import { vehicleFinancing } from "@/data/vehicleFinancing";
+import { activeFinancingRows } from "@/data/vehicleFinancing";
 import { trackContact } from "@/lib/track";
 import { toast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
@@ -37,7 +37,7 @@ const usd = (amount: number) =>
 const pagoFacilLine = (modelKey: string): string | null => {
   const vehicle = findVehicle(modelKey);
   if (!vehicle) return null;
-  const row = vehicleFinancing.find(
+  const row = activeFinancingRows().find(
     (f) => f.vehicleId === vehicle.id && f.planId === "pago-facil"
   );
   if (!row) return null;
