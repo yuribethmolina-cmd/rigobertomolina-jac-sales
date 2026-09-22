@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { AlertTriangle } from "lucide-react";
 import { vehicles } from "@/data/vehicles";
+import { useCatalogVersion } from "@/data/catalogStore";
 import { financingOptionsFor } from "@/data/vehicleFinancing";
 import { FINANCING_DISCLAIMER, NOT_VERIFIED_LABEL, fmtUsd } from "@/data/financingPlans";
 import WhatsAppButton from "@/components/WhatsAppButton";
