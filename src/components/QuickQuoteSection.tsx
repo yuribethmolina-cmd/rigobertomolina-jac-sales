@@ -7,6 +7,7 @@ import WhatsAppButton from "./WhatsAppButton";
 import { generateQuotePdf } from "@/lib/quotePdf";
 import { trackContact } from "@/lib/track";
 import { vehicles } from "@/data/vehicles";
+import { useCatalogVersion } from "@/data/catalogStore";
 import { financingOptionsFor } from "@/data/vehicleFinancing";
 import { FINANCING_DISCLAIMER, NOT_VERIFIED_LABEL, fmtUsd } from "@/data/financingPlans";
 
@@ -25,8 +26,12 @@ const QuickQuoteSection = () => {
     if (nombre) localStorage.setItem("rm_nombre", nombre);
   }, [nombre]);
 
+  const catalogVersion = useCatalogVersion();
   const vehicle = useMemo(() => vehicles.find((v) => v.id === vehicleId), [vehicleId]);
-  const options = useMemo(() => (vehicle ? financingOptionsFor(vehicle.id) : []), [vehicle]);
+  const options = useMemo(
+    () => (vehicle ? financingOptionsFor(vehicle.id) : []),
+    [vehicle, catalogVersion]
+  );
   const option = options.find((o) => o.plan.id === planId) ?? options[0];
 
   useEffect(() => {

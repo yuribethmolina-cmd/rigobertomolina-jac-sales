@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { AlertTriangle } from "lucide-react";
 import { vehicles } from "@/data/vehicles";
+import { useCatalogVersion } from "@/data/catalogStore";
 import { financingOptionsFor } from "@/data/vehicleFinancing";
 import { FINANCING_DISCLAIMER, NOT_VERIFIED_LABEL, fmtUsd } from "@/data/financingPlans";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -9,8 +10,12 @@ import WhatsAppButton from "@/components/WhatsAppButton";
    Todo sale de src/data — sin estimaciones propias. */
 const PlanComparator = () => {
   const [vehicleId, setVehicleId] = useState(vehicles[0]?.id ?? "");
+  const catalogVersion = useCatalogVersion();
   const vehicle = vehicles.find((v) => v.id === vehicleId);
-  const options = useMemo(() => (vehicle ? financingOptionsFor(vehicle.id) : []), [vehicle]);
+  const options = useMemo(
+    () => (vehicle ? financingOptionsFor(vehicle.id) : []),
+    [vehicle, catalogVersion]
+  );
 
   const grouped = useMemo(() => {
     const map = new Map<string, typeof vehicles>();
