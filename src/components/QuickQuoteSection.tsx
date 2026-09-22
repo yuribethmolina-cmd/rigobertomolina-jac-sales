@@ -25,8 +25,12 @@ const QuickQuoteSection = () => {
     if (nombre) localStorage.setItem("rm_nombre", nombre);
   }, [nombre]);
 
+  const catalogVersion = useCatalogVersion();
   const vehicle = useMemo(() => vehicles.find((v) => v.id === vehicleId), [vehicleId]);
-  const options = useMemo(() => (vehicle ? financingOptionsFor(vehicle.id) : []), [vehicle]);
+  const options = useMemo(
+    () => (vehicle ? financingOptionsFor(vehicle.id) : []),
+    [vehicle, catalogVersion]
+  );
   const option = options.find((o) => o.plan.id === planId) ?? options[0];
 
   useEffect(() => {
