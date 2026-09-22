@@ -7,6 +7,7 @@ import WhatsAppButton from "./WhatsAppButton";
 import { generateQuotePdf } from "@/lib/quotePdf";
 import { trackContact } from "@/lib/track";
 import { vehicles } from "@/data/vehicles";
+import { useCatalogVersion } from "@/data/catalogStore";
 import { financingOptionsFor } from "@/data/vehicleFinancing";
 import { FINANCING_DISCLAIMER, NOT_VERIFIED_LABEL, fmtUsd } from "@/data/financingPlans";
 
