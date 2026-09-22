@@ -80,14 +80,24 @@ export const scheduleOfEntry = (entry: CatalogEntry): PaymentStage[] => {
 };
 
 let activeCatalogs: Record<string, ActivePlanCatalog> | null = null;
+let catalogVersion = 0;
 const listeners = new Set<() => void>();
 
 export const getActiveCatalogs = () => activeCatalogs;
 
+/** Contador que cambia cada vez que llegan catálogos nuevos. */
+export const getCatalogVersion = () => catalogVersion;
+
 export const subscribeToCatalogs = (fn: () => void) => {
   listeners.add(fn);
-  return () => listeners.delete(fn);
+  return () => {
+    listeners.delete(fn);
+  };
 };
+
+/** Permite que un componente se vuelva a calcular cuando cambian los catálogos. */
+export const useCatalogVersion = () =>
+  useSyncExternalStore(subscribeToCatalogs, getCatalogVersion, getCatalogVersion);
 
 /** Carga las versiones ACTIVAS y sus registros. Silencioso si falla: queda el respaldo. */
 export const loadActiveCatalogs = async (): Promise<void> => {
