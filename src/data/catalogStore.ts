@@ -1,3 +1,4 @@
+import { useSyncExternalStore } from "react";
 /* ══════════════════════════════════════════════════════════════
    CATÁLOGOS ACTIVOS (base de datos)
    ══════════════════════════════════════════════════════════════
@@ -127,5 +128,6 @@ export const loadActiveCatalogs = async (): Promise<void> => {
     };
   }
   activeCatalogs = next;
+  catalogVersion += 1;
   listeners.forEach((fn) => fn());
 };
