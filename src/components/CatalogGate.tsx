@@ -45,10 +45,7 @@ const CatalogGate = ({ children }: { children: React.ReactNode }) => {
     );
   }
 
-  /* key por versión de catálogo: las secciones que leen montos en render
-     (fichas, tabla de cuotas, planes) se repintan con los datos ACTIVOS
-     aunque la base haya respondido después del tiempo máximo de espera. */
-  return <div key={catalogTick}>{children}</div>;
+  return <>{children}</>;
 };
 
 export default CatalogGate;
