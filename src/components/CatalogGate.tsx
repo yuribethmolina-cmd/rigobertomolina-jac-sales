@@ -20,7 +20,7 @@ const CatalogGate = ({ children }: { children: React.ReactNode }) => {
     }, MAX_WAIT_MS);
 
     const unsubscribe = subscribeToCatalogs(() => {
-      if (active) forceRender((n) => n + 1);
+      if (active) setCatalogTick((n) => n + 1);
     });
 
     loadActiveCatalogs().finally(() => {
@@ -45,7 +45,10 @@ const CatalogGate = ({ children }: { children: React.ReactNode }) => {
     );
   }
 
-  return <>{children}</>;
+  /* key por versión de catálogo: las secciones que leen montos en render
+     (fichas, tabla de cuotas, planes) se repintan con los datos ACTIVOS
+     aunque la base haya respondido después del tiempo máximo de espera. */
+  return <div key={catalogTick}>{children}</div>;
 };
 
 export default CatalogGate;
