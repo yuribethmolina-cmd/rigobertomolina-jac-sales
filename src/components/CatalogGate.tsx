@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { loadActiveCatalogs, subscribeToCatalogs } from "@/data/catalogStore";
+import { loadActiveCatalogs } from "@/data/catalogStore";
 
 /** Tiempo máximo de espera antes de mostrar el sitio con los datos de respaldo. */
 const MAX_WAIT_MS = 2500;
@@ -11,17 +11,12 @@ const MAX_WAIT_MS = 2500;
  */
 const CatalogGate = ({ children }: { children: React.ReactNode }) => {
   const [ready, setReady] = useState(false);
-  const [, forceRender] = useState(0);
 
   useEffect(() => {
     let active = true;
     const timer = window.setTimeout(() => {
       if (active) setReady(true);
     }, MAX_WAIT_MS);
-
-    const unsubscribe = subscribeToCatalogs(() => {
-      if (active) forceRender((n) => n + 1);
-    });
 
     loadActiveCatalogs().finally(() => {
       if (active) {
@@ -33,7 +28,6 @@ const CatalogGate = ({ children }: { children: React.ReactNode }) => {
     return () => {
       active = false;
       window.clearTimeout(timer);
-      unsubscribe();
     };
   }, []);
 
