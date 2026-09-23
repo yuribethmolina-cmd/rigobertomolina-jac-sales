@@ -11,7 +11,7 @@ const MAX_WAIT_MS = 2500;
  */
 const CatalogGate = ({ children }: { children: React.ReactNode }) => {
   const [ready, setReady] = useState(false);
-  const [, forceRender] = useState(0);
+  const [catalogTick, setCatalogTick] = useState(0);
 
   useEffect(() => {
     let active = true;

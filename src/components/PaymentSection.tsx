@@ -1,22 +1,29 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { waLink } from "@/lib/constants";
 import { ArrowRight, AlertTriangle } from "lucide-react";
 import { financingPlans, FINANCING_DISCLAIMER, NOT_VERIFIED_LABEL, fmtUsd0 } from "@/data/financingPlans";
 import { vehicles } from "@/data/vehicles";
 import { pagoFacilMonthly } from "@/data/vehicleFinancing";
+import { useCatalogVersion } from "@/data/catalogStore";
 
 /* Estructuras y montos: fuente única en src/data. Sin cifras hardcodeadas. */
 const verifiedPlans = financingPlans.filter((p) => p.sourceStatus !== "REVIEW_NOT_VERIFIED");
 
-/* Referencia de cuota mensual documentada (Pago Fácil, 12 cuotas). */
-const quotaRows = vehicles
-  .map((v) => ({ vehicle: v, cuota: pagoFacilMonthly(v.id) }))
-  .filter((r) => r.cuota !== null)
-  .slice(0, 12);
-
 const PaymentSection = () => {
   const [planId, setPlanId] = useState(verifiedPlans[0]?.id ?? "");
   const plan = verifiedPlans.find((p) => p.id === planId) ?? verifiedPlans[0];
+  const catalogVersion = useCatalogVersion();
+
+  /* Referencia de cuota mensual documentada (Pago Fácil, 12 cuotas).
+     Se recalcula cuando llegan los catálogos ACTIVOS desde la base. */
+  const quotaRows = useMemo(
+    () =>
+      vehicles
+        .map((v) => ({ vehicle: v, cuota: pagoFacilMonthly(v.id) }))
+        .filter((r) => r.cuota !== null)
+        .slice(0, 12),
+    [catalogVersion]
+  );
 
   if (!plan) return null;
 
