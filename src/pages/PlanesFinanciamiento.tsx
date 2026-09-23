@@ -14,6 +14,7 @@ import {
   fmtUsd,
 } from "@/data/financingPlans";
 import { activeFinancingRows } from "@/data/vehicleFinancing";
+import { useCatalogVersion } from "@/data/catalogStore";
 import SharePlanButton from "@/components/SharePlanButton";
 import FooterSection from "@/components/FooterSection";
 
@@ -35,6 +36,9 @@ const rangeText = (r: { min: number; max: number } | null) =>
 
 const PlanesFinanciamiento = () => {
   const { hash } = useLocation();
+  /* Se repinta cuando llegan los catálogos ACTIVOS desde la base. */
+  const catalogVersion = useCatalogVersion();
+  void catalogVersion;
 
   useEffect(() => {
     if (!hash) return;

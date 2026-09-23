@@ -21,6 +21,7 @@ import WhatsAppFloat from "@/components/WhatsAppFloat";
 import catalogSpecs from "@/lib/catalogSpecs";
 import { SITE_URL } from "@/lib/modelLinks";
 import { waLink } from "@/lib/constants";
+import { useCatalogVersion } from "@/data/catalogStore";
 
 const REQUIREMENT_GROUPS = [
   {
@@ -38,6 +39,8 @@ const REQUIREMENT_GROUPS = [
 
 const ModelDetail = () => {
   const { slug } = useParams();
+  /* Se repinta cuando llegan los catálogos ACTIVOS desde la base. */
+  useCatalogVersion();
   const vehicle = findVehicle(slug);
 
   if (!vehicle) {
