@@ -1,3 +1,4 @@
+import { useCatalogVersion } from "@/data/catalogStore";
 import { waLink, waModelMessage } from "@/lib/constants";
 import { ArrowRight, Calculator } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -32,7 +33,9 @@ const rows: { label: string; value: (id: string) => string; isTotal?: boolean }[
 ];
 
 /* ── Mobile: card-per-model ── */
-const MobileCards = () => (
+const MobileCards = () => {
+  useCatalogVersion();
+  return (
   <div className="flex flex-col gap-5 md:hidden mt-10">
     {models.map((m) => (
       <div
@@ -77,10 +80,13 @@ const MobileCards = () => (
       </div>
     ))}
   </div>
-);
+  );
+};
 
 /* ── Desktop table ── */
-const DesktopTable = () => (
+const DesktopTable = () => {
+  useCatalogVersion();
+  return (
   <div className="hidden md:block mt-10 overflow-x-auto">
     <table className="w-full min-w-[640px] text-sm">
       <thead>
@@ -113,7 +119,8 @@ const DesktopTable = () => (
       </tbody>
     </table>
   </div>
-);
+  );
+};
 
 const ComparisonSection = () => (
   <section id="comparar" className="py-20 section-divider">
