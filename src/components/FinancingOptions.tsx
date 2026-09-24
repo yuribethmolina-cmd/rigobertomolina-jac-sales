@@ -1,3 +1,4 @@
+import { useCatalogVersion } from "@/data/catalogStore";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { AlertTriangle, Check, ChevronDown, FileUp } from "lucide-react";
@@ -36,6 +37,7 @@ interface Props {
 }
 
 const FinancingOptions = ({ vehicle, source = "opciones-financiamiento" }: Props) => {
+  useCatalogVersion();
   const options = financingOptionsFor(vehicle.id);
   const [openValue, setOpenValue] = useState<string>(options[0]?.plan.id ?? "");
   const { hash } = useLocation();

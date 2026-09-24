@@ -1,3 +1,4 @@
+import { useCatalogVersion } from "@/data/catalogStore";
 import { Check, MessageCircle, Banknote, ShieldCheck, ClipboardList } from "lucide-react";
 import {
   Accordion,
@@ -18,7 +19,9 @@ import {
 } from "@/data/financingPlans";
 import { waLink } from "@/lib/constants";
 
-const ModelRequirementsSection = () => (
+const ModelRequirementsSection = () => {
+  useCatalogVersion();
+  return (
   <section id="requisitos-modelo" className="py-16 bg-secondary/30 section-divider">
     <div className="section-container">
       <div className="text-center max-w-2xl mx-auto">
@@ -162,6 +165,7 @@ const ModelRequirementsSection = () => (
       </p>
     </div>
   </section>
-);
+  );
+};
 
 export default ModelRequirementsSection;

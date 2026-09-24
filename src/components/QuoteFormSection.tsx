@@ -1,3 +1,4 @@
+import { useCatalogVersion } from "@/data/catalogStore";
 import { useMemo, useState } from "react";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
@@ -38,6 +39,7 @@ const inputCls =
   "w-full rounded-lg border-2 border-border bg-secondary px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary transition-colors";
 
 const QuoteFormSection = () => {
+  useCatalogVersion();
   const [form, setForm] = useState<QuoteForm>(EMPTY);
   const [errors, setErrors] = useState<Partial<Record<keyof QuoteForm, string>>>({});
   const [sending, setSending] = useState(false);
