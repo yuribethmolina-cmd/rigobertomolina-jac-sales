@@ -68,14 +68,16 @@ const AdvisorChat = ({ compact = false }: { compact?: boolean }) => {
   messagesRef.current = messages;
 
   /** Último modelo mencionado en la conversación: va en el mensaje de WhatsApp. */
+  const [pickedModel, setPickedModel] = useState("");
   const preferredModel = useMemo(() => {
+    if (pickedModel) return pickedModel;
     for (let i = messages.length - 1; i >= 0; i--) {
       const found = messages[i].content ? detectVehicles(messages[i].content) : [];
       if (found.length === 1) return found[0].displayName;
       if (messages[i].role === "user" && found.length > 0) return found[0].displayName;
     }
     return "";
-  }, [messages]);
+  }, [messages, pickedModel]);
 
   const userTurns = messages.filter((m) => m.role === "user").length;
   const buyingIntent =
@@ -289,7 +291,7 @@ const AdvisorChat = ({ compact = false }: { compact?: boolean }) => {
                         vehicle={v}
                         selected={compareIds.includes(v.id)}
                         onCompare={(id) => {
-                          setPreferredModel(v.displayName);
+                          setPickedModel(v.displayName);
                           toggleCompare(id);
                         }}
                       />
