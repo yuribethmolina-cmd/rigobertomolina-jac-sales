@@ -5,7 +5,7 @@ import ShareModelButton from "@/components/ShareModelButton";
 import catalogSpecs from "@/lib/catalogSpecs";
 import { ChevronDown, Camera, ExternalLink } from "lucide-react";
 import type { Vehicle } from "@/data/vehicles";
-import { pagoFacilMonthly, compraDirectaMonthly, financingOptionsFor } from "@/data/vehicleFinancing";
+import { pagoFacilMonthly, compraDirectaMonthly, financingOptionsFor, planScheduleSummary } from "@/data/vehicleFinancing";
 import { fmtUsd0, NOT_VERIFIED_LABEL } from "@/data/financingPlans";
 import { useCatalogVersion } from "@/data/catalogStore";
 import { Plus } from "lucide-react";
@@ -112,10 +112,10 @@ const CatalogCard = ({ vehicle, isExpanded, onToggle }: Props) => {
         {/* Referencia de financiamiento — Compra Directa primero, Pago Fácil segundo */}
         <div className="mt-3 mb-4 flex flex-wrap items-center gap-1.5">
           {compraDirecta && (
-            <span className="pill">💳 Compra Directa {fmtUsd0(compraDirecta)}/mes</span>
+            <span className="pill">Compra Directa: {planScheduleSummary(vehicle.id, "compra-directa")}</span>
           )}
           {pagoFacil && (
-            <span className="pill">📅 Pago Fácil {fmtUsd0(pagoFacil)}/mes</span>
+            <span className="pill">Pago Fácil: {planScheduleSummary(vehicle.id, "pago-facil")}</span>
           )}
           {!compraDirecta && !pagoFacil && (
             <span className="pill">{NOT_VERIFIED_LABEL}</span>

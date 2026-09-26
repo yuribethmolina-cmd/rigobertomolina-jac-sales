@@ -4,7 +4,7 @@ import { ArrowRight, Calculator } from "lucide-react";
 import { Link } from "react-router-dom";
 import { findVehicle } from "@/data/vehicles";
 import { pagoFacilMonthly } from "@/data/vehicleFinancing";
-import { NOT_VERIFIED_LABEL, fmtUsd0, FINANCING_DISCLAIMER } from "@/data/financingPlans";
+import { NOT_VERIFIED_LABEL, fmtUsd0, fmtUsd, FINANCING_DISCLAIMER } from "@/data/financingPlans";
 
 /* Comparativa de SUV — los montos provienen de la fuente única. */
 const COMPARE_IDS = [
@@ -20,7 +20,7 @@ const models = COMPARE_IDS.map((id) => findVehicle(id)).filter(
 
 const cuotaLabel = (id: string) => {
   const v = pagoFacilMonthly(id);
-  return v ? `${fmtUsd0(v)}/mes` : NOT_VERIFIED_LABEL;
+  return v ? `12 cuotas de ${fmtUsd(v)}` : NOT_VERIFIED_LABEL;
 };
 
 const rows: { label: string; value: (id: string) => string; isTotal?: boolean }[] = [
