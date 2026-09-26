@@ -71,8 +71,8 @@ const AdvisorChat = ({ compact = false }: { compact?: boolean }) => {
   const preferredModel = useMemo(() => {
     for (let i = messages.length - 1; i >= 0; i--) {
       const found = messages[i].content ? detectVehicles(messages[i].content) : [];
-      if (found.length === 1) return found[0].displayName ?? found[0].name;
-      if (messages[i].role === "user" && found.length > 0) return found[0].displayName ?? found[0].name;
+      if (found.length === 1) return found[0].displayName;
+      if (messages[i].role === "user" && found.length > 0) return found[0].displayName;
     }
     return "";
   }, [messages]);
