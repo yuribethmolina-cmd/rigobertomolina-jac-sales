@@ -424,3 +424,16 @@ export const compraDirectaMonthly = (vehicleKey: string): number | null => {
   );
   return row?.schedule.find((s) => s.type === "ORDINARY")?.amount ?? null;
 };
+
+/** Resumen del cronograma vigente (firma + cuotas + previo) de un plan para un modelo. */
+export const planScheduleSummary = (vehicleKey: string, planId: string): string | null => {
+  const vehicle = findVehicle(vehicleKey);
+  if (!vehicle) return null;
+  const row = activeFinancingRows().find((f) => f.vehicleId === vehicle.id && f.planId === planId);
+  if (!row) return null;
+  const firma = row.schedule.find((s) => s.type === "SIGNATURE");
+  const cuotas = row.schedule.find((s) => s.type === "ORDINARY");
+  const previo = row.schedule.find((s) => s.type === "PRE_DELIVERY");
+  if (firma?.amount == null || cuotas?.amount == null || previo?.amount == null) return null;
+  return `${fmtUsd(firma.amount)} a la firma + ${cuotas.count} cuotas de ${fmtUsd(cuotas.amount)} + ${fmtUsd(previo.amount)} previo a la entrega`;
+};

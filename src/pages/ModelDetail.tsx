@@ -4,7 +4,7 @@ import { ArrowLeft, AlertTriangle, Check, Camera, ExternalLink, FileUp } from "l
 import ApplicationFormButton from "@/components/ApplicationFormButton";
 
 import { findVehicle } from "@/data/vehicles";
-import { pagoFacilMonthly, compraDirectaMonthly } from "@/data/vehicleFinancing";
+import { pagoFacilMonthly, compraDirectaMonthly, planScheduleSummary } from "@/data/vehicleFinancing";
 import {
   FINANCING_DISCLAIMER,
   NOT_VERIFIED_LABEL,
@@ -128,24 +128,24 @@ const ModelDetail = () => {
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             <div className="rounded-xl border border-primary/25 bg-primary/5 px-5 py-4">
               <p className="text-xs uppercase tracking-wider text-muted-foreground">
-                Compra Directa · cuota
+                Compra Directa
               </p>
-              <p className="font-heading text-2xl font-bold text-primary mt-1">
-                {compraDirecta ? `${fmtUsd0(compraDirecta)} / mes` : NOT_VERIFIED_LABEL}
+              <p className="font-heading text-lg font-bold text-primary mt-1">
+                {compraDirecta ? planScheduleSummary(vehicle.id, "compra-directa") : NOT_VERIFIED_LABEL}
               </p>
               <p className="text-xs text-muted-foreground mt-1">
-                Pago a la firma, 5 cuotas mensuales y consecutivas y un pago previo a la entrega.
+                Las 5 cuotas son mensuales y consecutivas.
               </p>
             </div>
             <div className="rounded-xl border border-primary/25 bg-primary/5 px-5 py-4">
               <p className="text-xs uppercase tracking-wider text-muted-foreground">
-                Pago Fácil · cuota mensual
+                Pago Fácil
               </p>
-              <p className="font-heading text-2xl font-bold text-primary mt-1">
-                {cuota ? `${fmtUsd0(cuota)} / mes` : NOT_VERIFIED_LABEL}
+              <p className="font-heading text-lg font-bold text-primary mt-1">
+                {cuota ? planScheduleSummary(vehicle.id, "pago-facil") : NOT_VERIFIED_LABEL}
               </p>
               <p className="text-xs text-muted-foreground mt-1">
-                Corresponde a cada una de las 12 cuotas mensuales, no al precio total del vehículo.
+                Las 12 cuotas son mensuales y consecutivas; no es el precio total del vehículo.
               </p>
             </div>
           </div>

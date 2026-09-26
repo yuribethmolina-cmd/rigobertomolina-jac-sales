@@ -20,7 +20,7 @@ const models = COMPARE_IDS.map((id) => findVehicle(id)).filter(
 
 const cuotaLabel = (id: string) => {
   const v = pagoFacilMonthly(id);
-  return v ? `${fmtUsd0(v)}/mes` : NOT_VERIFIED_LABEL;
+  return v ? `12 cuotas de ${fmtUsd(v)}` : NOT_VERIFIED_LABEL;
 };
 
 const rows: { label: string; value: (id: string) => string; isTotal?: boolean }[] = [
