@@ -9,6 +9,7 @@ import {
   FINANCING_DISCLAIMER,
   NOT_VERIFIED_LABEL,
   fmtUsd0,
+  fmtUsd,
   DIRECT_PLAN_REQUIREMENTS,
   CREDIT_PLAN_REQUIREMENTS,
   APPLICATION_FORM_NOTE,
@@ -60,7 +61,7 @@ const ModelDetail = () => {
   const specs = catalogSpecs[vehicle.canonicalName] ?? catalogSpecs[vehicle.displayName];
   const url = `${SITE_URL}/modelo/${vehicle.id}`;
   const description = cuota
-    ? `${vehicle.displayName}: cuota Pago Fácil desde ${fmtUsd0(cuota)} al mes. Planes de financiamiento JAC en Caracas con Rigoberto Molina.`
+    ? `${vehicle.displayName}: cuota Pago Fácil desde ${fmtUsd(cuota)} (12 cuotas mensuales). Planes de financiamiento JAC en Caracas con Rigoberto Molina.`
     : `${vehicle.displayName}: planes de financiamiento JAC en Caracas con Rigoberto Molina. Consulta condiciones actualizadas.`;
 
   return (
