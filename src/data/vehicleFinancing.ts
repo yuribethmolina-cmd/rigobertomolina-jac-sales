@@ -8,7 +8,7 @@
 
 import {
   financingPlans,
-  
+  fmtUsd,
   type FinancingPlan,
   type PaymentStage,
   type SourceStatus,
