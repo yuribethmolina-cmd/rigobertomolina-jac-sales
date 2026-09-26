@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { waLink } from "@/lib/constants";
 import { ArrowRight, AlertTriangle } from "lucide-react";
-import { financingPlans, FINANCING_DISCLAIMER, NOT_VERIFIED_LABEL, fmtUsd0 } from "@/data/financingPlans";
+import { financingPlans, FINANCING_DISCLAIMER, NOT_VERIFIED_LABEL, fmtUsd0, fmtUsd } from "@/data/financingPlans";
 import { vehicles } from "@/data/vehicles";
 import { pagoFacilMonthly } from "@/data/vehicleFinancing";
 import { useCatalogVersion } from "@/data/catalogStore";
@@ -106,7 +106,7 @@ const PaymentSection = () => {
                     <td className="p-3 font-semibold">{row.vehicle.displayName}</td>
                     <td className="p-3 text-center text-muted-foreground">{row.vehicle.category}</td>
                     <td className="p-3 text-center font-bold">
-                      {row.cuota ? fmtUsd0(row.cuota) : NOT_VERIFIED_LABEL}
+                      {row.cuota ? fmtUsd(row.cuota) : NOT_VERIFIED_LABEL}
                     </td>
                   </tr>
                 ))}
