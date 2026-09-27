@@ -20,8 +20,8 @@ const CatalogCard = ({ vehicle, isExpanded, onToggle }: Props) => {
   /* Se repinta cuando llegan los catálogos ACTIVOS desde la base. */
   useCatalogVersion();
   const specs = catalogSpecs[vehicle.canonicalName] ?? catalogSpecs[vehicle.aliases[0] ?? ""];
-  const pagoFacil = pagoFacilMonthly(vehicle.id);
-  const compraDirecta = compraDirectaMonthly(vehicle.id);
+  const pagoFacil = planScheduleSummary(vehicle.id, "pago-facil");
+  const compraDirecta = planScheduleSummary(vehicle.id, "compra-directa");
   const totalPlans = financingOptionsFor(vehicle.id).length;
 
   return (
@@ -112,10 +112,10 @@ const CatalogCard = ({ vehicle, isExpanded, onToggle }: Props) => {
         {/* Referencia de financiamiento — Compra Directa primero, Pago Fácil segundo */}
         <div className="mt-3 mb-4 flex flex-wrap items-center gap-1.5">
           {compraDirecta && (
-            <span className="pill">Compra Directa: {planScheduleSummary(vehicle.id, "compra-directa")}</span>
+            <span className="pill">Compra Directa: {compraDirecta}</span>
           )}
           {pagoFacil && (
-            <span className="pill">Pago Fácil: {planScheduleSummary(vehicle.id, "pago-facil")}</span>
+            <span className="pill">Pago Fácil: {pagoFacil}</span>
           )}
           {!compraDirecta && !pagoFacil && (
             <span className="pill">{NOT_VERIFIED_LABEL}</span>

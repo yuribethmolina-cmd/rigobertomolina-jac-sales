@@ -132,7 +132,7 @@ const ModelDetail = () => {
                 Compra Directa
               </p>
               <p className="font-heading text-lg font-bold text-primary mt-1">
-                {compraDirecta ? planScheduleSummary(vehicle.id, "compra-directa") : NOT_VERIFIED_LABEL}
+                {planScheduleSummary(vehicle.id, "compra-directa") ?? NOT_VERIFIED_LABEL}
               </p>
               <p className="text-xs text-muted-foreground mt-1">
                 Las 5 cuotas son mensuales y consecutivas.
@@ -143,7 +143,7 @@ const ModelDetail = () => {
                 Pago Fácil
               </p>
               <p className="font-heading text-lg font-bold text-primary mt-1">
-                {cuota ? planScheduleSummary(vehicle.id, "pago-facil") : NOT_VERIFIED_LABEL}
+                {planScheduleSummary(vehicle.id, "pago-facil") ?? NOT_VERIFIED_LABEL}
               </p>
               <p className="text-xs text-muted-foreground mt-1">
                 Las 12 cuotas son mensuales y consecutivas; no es el precio total del vehículo.
