@@ -128,23 +128,33 @@ const pagoFacilSep: { vehicleId: string; cuota: number; preEntrega: number }[] =
   { vehicleId: "volkan-mezclador-9m3", cuota: 9038.4, preEntrega: 17953.8 },
 ];
 
-const CATALOGO_FIAO_06_AGO = "Catálogo Llévatelo Fiao 06 de agosto de 2026";
+const CATALOGO_FIAO_28_SEP = "LLÉVATELO FIAO 28 DE SEPTIEMBRE";
 
-/* Cronogramas Llévatelo Fiao trazables al catálogo del 6 de agosto (OCR).
-   Estructura documentada: pago a la firma + 5 pagos de igual monto (inicial)
-   + pre-entrega + 12 cuotas ordinarias. */
+/* Cronogramas Llévatelo Fiao trazables al catálogo del 28 de septiembre.
+   Estructura: pago a la firma + 5 pagos de igual monto (inicial)
+   + pre-entrega + 15 cuotas ordinarias. */
 const fiaoQuotas: {
   vehicleId: string;
   firma: number;
   preEntrega: number;
   cuota: number;
 }[] = [
-  { vehicleId: "arena-sport-manual", firma: 1298.7, preEntrega: 3559.2, cuota: 974.0 },
-  { vehicleId: "arena-sport-automatico", firma: 1419.9, preEntrega: 3841.5, cuota: 1064.9 },
-  { vehicleId: "arena-pro", firma: 1564.2, preEntrega: 4177.8, cuota: 1173.2 },
-  { vehicleId: "tepuy-pro", firma: 2487.4, preEntrega: 6328.9, cuota: 1865.6 },
-  { vehicleId: "la-venezolana-a-diesel-4x2", firma: 1861.5, preEntrega: 4917.5, cuota: 1396.1 },
-  { vehicleId: "la-venezolana-a-diesel-4x4", firma: 2063.5, preEntrega: 5388.1, cuota: 1547.6 },
+  { vehicleId: "arena-sport-automatico", firma: 1097.8, preEntrega: 3943.7, cuota: 1024.6 },
+  { vehicleId: "arena-pro", firma: 1227.6, preEntrega: 4347.1, cuota: 1145.8 },
+  { vehicleId: "nevado-manual", firma: 1318.5, preEntrega: 4629.4, cuota: 1230.6 },
+  { vehicleId: "tepuy-pro", firma: 1924.0, preEntrega: 6510.5, cuota: 1795.7 },
+  { vehicleId: "savanna", firma: 1924.0, preEntrega: 6510.5, cuota: 1795.7 },
+  { vehicleId: "rf8", firma: 3008.1, preEntrega: 9878.5, cuota: 2807.5 },
+  { vehicleId: "gx7", firma: 1692.5, preEntrega: 5791.2, cuota: 1579.6 },
+  { vehicleId: "t5-la-venezolana-4x2-diesel-2-8l", firma: 1273.2, preEntrega: 4535.6, cuota: 1188.3 },
+  { vehicleId: "la-venezolana-a-gasolina-4x2", firma: 1402.6, preEntrega: 4937.7, cuota: 1309.1 },
+  { vehicleId: "la-venezolana-a-diesel-4x2", firma: 1445.9, preEntrega: 5072.1, cuota: 1349.5 },
+  { vehicleId: "la-venezolana-a-diesel-4x4", firma: 1619.0, preEntrega: 5609.9, cuota: 1511.0 },
+  { vehicleId: "la-venezolana-pa-l-campo-4x4-diesel", firma: 1737.9, preEntrega: 5979.2, cuota: 1622.0 },
+  { vehicleId: "la-venezolana-pro-4x4", firma: 1835.4, preEntrega: 6282.2, cuota: 1713.0 },
+  { vehicleId: "limited", firma: 2188.1, preEntrega: 7378.1, cuota: 2042.2 },
+  { vehicleId: "aventura-a-gasolina", firma: 2181.6, preEntrega: 7357.9, cuota: 2036.1 },
+  { vehicleId: "aventura-pro-a-gasolina", firma: 2614.4, preEntrega: 8702.4, cuota: 2440.1 },
 ];
 
 /** Cronograma de Pago Fácil con los importes del catálogo del 25 de septiembre. */
@@ -237,12 +247,12 @@ const buildFiaoSchedule = (q: { firma: number; preEntrega: number; cuota: number
   { type: "SIGNATURE", count: 1, amount: q.firma, label: "Pago a la firma del contrato" },
   { type: "INITIAL", count: 5, amount: q.firma, label: "5 pagos para completar la inicial" },
   { type: "PRE_DELIVERY", count: 1, amount: q.preEntrega, label: "Cuota especial previa a la entrega" },
-  { type: "ORDINARY", count: 12, amount: q.cuota, label: "12 cuotas ordinarias mensuales (catálogo 06 ago)" },
+  { type: "ORDINARY", count: 15, amount: q.cuota, label: "15 cuotas ordinarias mensuales" },
 ];
 
-const CATALOGO_RUTA48_17_AGO = "CREDIJAC RUTA 48 17 DE AGOSTO";
+const CATALOGO_RUTA48_28_SEP = "CREDIJAC RUTA 48 28 DE SEPTIEMBRE";
 
-/* Cronogramas CrediJAC Ruta 48 trazables al catálogo del 17 de agosto.
+/* Cronogramas CrediJAC Ruta 48 trazables al catálogo del 28 de septiembre.
    Estructura oficial: pago 1 con la firma + 15 pagos de inicial del mismo
    importe + cuota especial previa a la entrega + 32 pagos fijos mensuales.
    Solo los vehículos listados aquí tienen importes: no se extrapola. */
@@ -264,9 +274,14 @@ const ruta48Quotas: {
   { vehicleId: "la-venezolana-a-diesel-4x2", firma: 667.9, preEntrega: 3730.2, fija: 876.9 },
   { vehicleId: "la-venezolana-a-diesel-4x4", firma: 748.3, preEntrega: 4109.5, fija: 982.4 },
   { vehicleId: "t5-la-venezolana-4x2-diesel-2-8l", firma: 660.9, preEntrega: 3697.6, fija: 867.8 },
-  { vehicleId: "la-venezolana-pa-l-campo-4x4-diesel", firma: 844.8, preEntrega: 4564.8, fija: 1109.2 },
+  { vehicleId: "la-venezolana-pa-l-campo-4x4-diesel", firma: 831.7, preEntrega: 4454.4, fija: 1093.5 },
   { vehicleId: "la-venezolana-pro-4x4", firma: 886.2, preEntrega: 4760.3, fija: 1163.6 },
   { vehicleId: "limited", firma: 1100.6, preEntrega: 5771.5, fija: 1445.1 },
+  { vehicleId: "aventura-a-gasolina", firma: 1082.5, preEntrega: 5686.1, fija: 1421.3 },
+  { vehicleId: "aventura-pro-a-gasolina", firma: 1341.5, preEntrega: 6907.8, fija: 1761.4 },
+  { vehicleId: "x100-ferretero", firma: 482.2, preEntrega: 2855.3, fija: 633.0 },
+  { vehicleId: "urban-chasis-largo-3-ton", firma: 668.6, preEntrega: 3733.8, fija: 877.9 },
+  { vehicleId: "urban-3-ton", firma: 708.9, preEntrega: 3923.8, fija: 930.8 },
 ];
 
 const buildRuta48Schedule = (q: { firma: number; preEntrega: number; fija: number }): PaymentStage[] => [
@@ -274,6 +289,71 @@ const buildRuta48Schedule = (q: { firma: number; preEntrega: number; fija: numbe
   { type: "INITIAL", count: 15, amount: q.firma, label: "15 pagos adicionales de inicial" },
   { type: "PRE_DELIVERY", count: 1, amount: q.preEntrega, label: "Cuota especial previa a la entrega" },
   { type: "FIXED", count: 32, amount: q.fija, label: "32 pagos fijos mensuales" },
+];
+
+const CATALOGO_FACILITO_28_SEP = "FACILITO DE JAC 28 DE SEPTIEMBRE";
+
+/* Cronogramas Facilito de JAC trazables al catálogo del 28 de septiembre.
+   Estructura: 1 pago a la firma + 6 pagos mensuales + pre-entrega + 20 cuotas fijas.
+   Solo páginas 1-20 del PDF confirmadas; el resto queda pendiente. */
+const facilitoQuotas: {
+  vehicleId: string;
+  cuota: number;
+  preEntrega: number;
+}[] = [
+  { vehicleId: "arena-sport-manual", cuota: 799.2, preEntrega: 2887.9 },
+  { vehicleId: "arena-sport-automatico", cuota: 899.1, preEntrega: 3082.0 },
+  { vehicleId: "arena-pro", cuota: 999.1, preEntrega: 3330.5 },
+  { vehicleId: "nevado-manual", cuota: 1099.1, preEntrega: 3622.1 },
+  { vehicleId: "tepuy-pro", cuota: 1499.0, preEntrega: 4787.3 },
+  { vehicleId: "savanna", cuota: 1599.3, preEntrega: 5096.2 },
+  { vehicleId: "rf8", cuota: 2799.4, preEntrega: 7665.6 },
+  { vehicleId: "gx7", cuota: 1599.7, preEntrega: 4612.3 },
+  { vehicleId: "t5-la-venezolana-4x2-diesel-2-8l", cuota: 1199.8, preEntrega: 3697.7 },
+  { vehicleId: "la-venezolana-a-gasolina-4x2", cuota: 1119.1, preEntrega: 3633.2 },
+];
+
+const buildFacilitoSchedule = (q: { cuota: number; preEntrega: number }): PaymentStage[] => [
+  { type: "SIGNATURE", count: 1, amount: q.cuota, label: "Pago a la firma del contrato" },
+  { type: "INITIAL", count: 6, amount: q.cuota, label: "Pagos mensuales de inicial" },
+  { type: "PRE_DELIVERY", count: 1, amount: q.preEntrega, label: "Cuota especial previa a la entrega" },
+  { type: "FIXED", count: 20, amount: q.cuota, label: "Cuotas fijas mensuales" },
+];
+
+const CATALOGO_35X35_28_SEP = "CREDIJAC 35X35 28 DE SEPTIEMBRE";
+
+/* Cronogramas CrediJAC 35x35 trazables al catálogo del 28 de septiembre.
+   Estructura: 6 cuotas de inicial + pre-entrega + 30 cuotas ordinarias + 6 cuotas especiales.
+   Solo páginas 1-30 del PDF confirmadas; el resto queda pendiente. */
+const credijac35x35Quotas: {
+  vehicleId: string;
+  inicial: number;
+  preEntrega: number;
+  ordinaria: number;
+  especial: number;
+}[] = [
+  { vehicleId: "arena-sport-manual", inicial: 1442.3, preEntrega: 2887.9, ordinaria: 499.2, especial: 437.9 },
+  { vehicleId: "arena-sport-automatico", inicial: 1561.2, preEntrega: 3204.4, ordinaria: 536.1, especial: 473.9 },
+  { vehicleId: "arena-pro", inicial: 1713.4, preEntrega: 3330.5, ordinaria: 593.0, especial: 520.2 },
+  { vehicleId: "nevado-manual", inicial: 1892.0, preEntrega: 3622.1, ordinaria: 654.8, especial: 574.4 },
+  { vehicleId: "tepuy-pro", inicial: 2605.6, preEntrega: 4787.3, ordinaria: 901.8, especial: 791.0 },
+  { vehicleId: "savanna", inicial: 2794.9, preEntrega: 5096.2, ordinaria: 967.3, especial: 848.5 },
+  { vehicleId: "rf8", inicial: 4368.5, preEntrega: 7665.6, ordinaria: 1511.9, especial: 1326.2 },
+  { vehicleId: "gx7", inicial: 2498.4, preEntrega: 4612.3, ordinaria: 864.7, especial: 758.5 },
+  { vehicleId: "t5-la-venezolana-4x2-diesel-2-8l", inicial: 1909.4, preEntrega: 3697.6, ordinaria: 660.8, especial: 579.7 },
+  { vehicleId: "la-venezolana-a-gasolina-4x2", inicial: 1870.0, preEntrega: 3633.2, ordinaria: 647.2, especial: 567.7 },
+  { vehicleId: "la-venezolana-a-diesel-4x2", inicial: 1929.4, preEntrega: 3730.2, ordinaria: 667.7, especial: 585.7 },
+  { vehicleId: "la-venezolana-a-diesel-4x4", inicial: 2161.7, preEntrega: 4109.5, ordinaria: 748.1, especial: 656.3 },
+  { vehicleId: "la-venezolana-pa-l-campo-4x4-diesel", inicial: 2399.1, preEntrega: 4454.4, ordinaria: 831.8, especial: 728.3 },
+  { vehicleId: "la-venezolana-pro-4x4", inicial: 2560.3, preEntrega: 4760.3, ordinaria: 886.1, especial: 777.3 },
+  { vehicleId: "limited", inicial: 3179.6, preEntrega: 5771.5, ordinaria: 1100.4, especial: 965.3 },
+];
+
+const buildCredijac35x35Schedule = (q: { inicial: number; preEntrega: number; ordinaria: number; especial: number }): PaymentStage[] => [
+  { type: "INITIAL", count: 6, amount: q.inicial, label: "Cuotas de inicial (35%)" },
+  { type: "PRE_DELIVERY", count: 1, amount: q.preEntrega, label: "Cuota especial previa a la entrega" },
+  { type: "ORDINARY", count: 30, amount: q.ordinaria, label: "Cuotas ordinarias mensuales" },
+  { type: "SPECIAL", count: 6, months: [9, 12, 15, 18, 21, 24], amount: q.especial, label: "Cuotas especiales (meses 9, 12, 15, 18, 21 y 24)" },
 ];
 
 /** Respaldo de arranque: se usa solo si la base de datos no responde. */
@@ -290,16 +370,16 @@ export const vehicleFinancing: VehicleFinancing[] = [
     vehicleId: q.vehicleId,
     planId: "llevatelo-fiao",
     currency: "USD" as const,
-    amountsSourceStatus: "REVIEW_NOT_VERIFIED" as SourceStatus,
-    amountsSource: CATALOGO_FIAO_06_AGO,
+    amountsSourceStatus: "VERIFIED_28_SEP" as SourceStatus,
+    amountsSource: CATALOGO_FIAO_28_SEP,
     schedule: buildFiaoSchedule(q),
   })),
   ...ruta48Quotas.map((q) => ({
     vehicleId: q.vehicleId,
     planId: "credijac-ruta-48",
     currency: "USD" as const,
-    amountsSourceStatus: "VERIFIED_17_AUG" as SourceStatus,
-    amountsSource: CATALOGO_RUTA48_17_AGO,
+    amountsSourceStatus: "VERIFIED_28_SEP" as SourceStatus,
+    amountsSource: CATALOGO_RUTA48_28_SEP,
     schedule: buildRuta48Schedule(q),
   })),
   ...deUnaQuotas.map((q) => ({
@@ -309,6 +389,22 @@ export const vehicleFinancing: VehicleFinancing[] = [
     amountsSourceStatus: "VERIFIED_PROMO_SEP" as SourceStatus,
     amountsSource: PROMO_DE_UNA,
     schedule: buildDeUnaSchedule(q),
+  })),
+  ...facilitoQuotas.map((q) => ({
+    vehicleId: q.vehicleId,
+    planId: "facilito",
+    currency: "USD" as const,
+    amountsSourceStatus: "VERIFIED_28_SEP" as SourceStatus,
+    amountsSource: CATALOGO_FACILITO_28_SEP,
+    schedule: buildFacilitoSchedule(q),
+  })),
+  ...credijac35x35Quotas.map((q) => ({
+    vehicleId: q.vehicleId,
+    planId: "credijac-35x35",
+    currency: "USD" as const,
+    amountsSourceStatus: "VERIFIED_28_SEP" as SourceStatus,
+    amountsSource: CATALOGO_35X35_28_SEP,
+    schedule: buildCredijac35x35Schedule(q),
   })),
   ...compraDirectaSep.map((q) => ({
     vehicleId: q.vehicleId,

@@ -13,6 +13,7 @@ export type SourceStatus =
   | "VERIFIED_16_SEP"
   | "VERIFIED_25_SEP"
   | "VERIFIED_PROMO_SEP"
+  | "VERIFIED_28_SEP"
   | "REVIEW_NOT_VERIFIED";
 
 export type StageType =
@@ -151,9 +152,9 @@ export const financingPlans: FinancingPlan[] = [
   {
     id: "facilito",
     name: "Facilito de JAC",
-    effectiveDate: "2026-08-17",
-    source: "FACILITO DE JAC 17 DE AGOSTO",
-    sourceStatus: "VERIFIED_17_AUG",
+    effectiveDate: "28 de septiembre",
+    source: "FACILITO DE JAC 28 DE SEPTIEMBRE",
+    sourceStatus: "VERIFIED_28_SEP",
     description:
       "Pago a la firma, 6 pagos mensuales, cuota especial previa a la entrega y 20 cuotas fijas mensuales.",
     template: [
@@ -166,9 +167,9 @@ export const financingPlans: FinancingPlan[] = [
   {
     id: "llevatelo-fiao",
     name: "Llévatelo Fiao",
-    effectiveDate: "2026-08-17",
-    source: "LLÉVATELO FIAO 17 DE AGOSTO",
-    sourceStatus: "VERIFIED_17_AUG",
+    effectiveDate: "28 de septiembre",
+    source: "LLÉVATELO FIAO 28 DE SEPTIEMBRE",
+    sourceStatus: "VERIFIED_28_SEP",
     description:
       "Pago a la firma, 5 pagos adicionales para completar una inicial del 30%, cuota especial previa a la entrega y 15 cuotas ordinarias mensuales.",
     template: [
@@ -181,9 +182,9 @@ export const financingPlans: FinancingPlan[] = [
   {
     id: "credijac-35x35",
     name: "CrediJAC 35x35",
-    effectiveDate: "2026-08-17",
-    source: "CREDIJAC 35X35 17 DE AGOSTO",
-    sourceStatus: "VERIFIED_17_AUG",
+    effectiveDate: "28 de septiembre",
+    source: "CREDIJAC 35X35 28 DE SEPTIEMBRE",
+    sourceStatus: "VERIFIED_28_SEP",
     description:
       "6 cuotas correspondientes a la inicial del 35%, cuota especial previa a la entrega, 30 cuotas ordinarias mensuales y 6 cuotas especiales adicionales.",
     template: [
@@ -201,9 +202,9 @@ export const financingPlans: FinancingPlan[] = [
   {
     id: "credijac-ruta-48",
     name: "CrediJAC Ruta 48",
-    effectiveDate: "2026-08-17",
-    source: "CREDIJAC RUTA 48 17 DE AGOSTO",
-    sourceStatus: "VERIFIED_17_AUG",
+    effectiveDate: "28 de septiembre",
+    source: "CREDIJAC RUTA 48 28 DE SEPTIEMBRE",
+    sourceStatus: "VERIFIED_28_SEP",
     description:
       "Pago 1 con la firma del contrato, 15 pagos adicionales de inicial, cuota especial previa a la entrega y 32 pagos fijos mensuales.",
     template: [
