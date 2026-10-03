@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { MessageCircle } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+import { saveAdvisorLead } from "@/lib/advisorLead";
 import { waLink } from "@/lib/constants";
 import { findVehicle } from "@/data/vehicles";
 import { activeFinancingRows } from "@/data/vehicleFinancing";
@@ -97,20 +97,13 @@ const AdvisorLeadForm = ({ defaults, summary, onDone }: Props) => {
 
   const save = async (clickedWhatsApp: boolean) => {
     setSaving(true);
-    const { error } = await supabase.from("advisor_leads").insert({
-      name: lead.name || null,
-      phone: lead.phone || null,
-      city: lead.city || null,
-      model_interest: lead.model_interest || null,
-      use_case: lead.use_case || null,
-      purchase_method: lead.purchase_method || null,
-      initial_budget: lead.initial_budget || null,
-      monthly_budget: lead.monthly_budget || null,
+    const ok = await saveAdvisorLead({
+      ...lead,
       conversation_summary: summary ?? null,
       lead_score: scoreOf(lead, clickedWhatsApp),
     });
     setSaving(false);
-    if (error) {
+    if (!ok) {
       toast({
         title: "No pude guardar tus datos",
         description: "Continúa por WhatsApp para que Rigoberto reciba tu mensaje.",

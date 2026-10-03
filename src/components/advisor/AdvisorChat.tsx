@@ -19,6 +19,7 @@ import AdvisorCompare from "@/components/advisor/AdvisorCompare";
 import AdvisorLeadForm, { buildWhatsAppMessage } from "@/components/advisor/AdvisorLeadForm";
 import { supabase } from "@/integrations/supabase/client";
 import { waLink } from "@/lib/constants";
+import { saveAdvisorLead } from "@/lib/advisorLead";
 import { trackContact } from "@/lib/track";
 import { toast } from "@/hooks/use-toast";
 import { detectVehicles } from "@/lib/advisorMatch";
@@ -187,6 +188,27 @@ const AdvisorChat = ({ compact = false }: { compact?: boolean }) => {
       trackContact("asesor-quickstart", { source: seed });
       setTimeout(() => void send(seed), 0);
     }
+  };
+
+  /** Una sola vez por conversación: al abrir WhatsApp desde el asesor queda el lead en la bandeja. */
+  const whatsappLeadRef = useRef(false);
+  const saveWhatsAppLead = () => {
+    if (whatsappLeadRef.current || messagesRef.current.length === 0) return;
+    whatsappLeadRef.current = true;
+    const convo = messagesRef.current
+      .slice(-8)
+      .map((m) => `${m.role === "user" ? "Cliente" : "Asesor"}: ${m.content}`)
+      .join("\n");
+    void saveAdvisorLead({
+      model_interest: preferredModel || null,
+      conversation_summary: convo,
+      lead_score: preferredModel ? "hot" : "warm",
+    });
+  };
+
+  const handleChatClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const a = (e.target as HTMLElement).closest("a");
+    if (a && /wa\.me|whatsapp\.com/i.test(a.getAttribute("href") ?? "")) saveWhatsAppLead();
   };
 
   const toggleCompare = (id: string) => {
