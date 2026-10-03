@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
 import { ArrowRight, MessageCircle, UserPlus } from "lucide-react";
 import {
   Conversation,
@@ -206,7 +206,7 @@ const AdvisorChat = ({ compact = false }: { compact?: boolean }) => {
     });
   };
 
-  const handleChatClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleChatClick = (e: MouseEvent<HTMLDivElement>) => {
     const a = (e.target as HTMLElement).closest("a");
     if (a && /wa\.me|whatsapp\.com/i.test(a.getAttribute("href") ?? "")) saveWhatsAppLead();
   };
@@ -293,7 +293,7 @@ const AdvisorChat = ({ compact = false }: { compact?: boolean }) => {
   }
 
   return (
-    <div ref={rootRef} className={`flex flex-col ${height}`}>
+    <div ref={rootRef} onClickCapture={handleChatClick} className={`flex flex-col ${height}`}>
       <Conversation className="flex-1">
         <ConversationContent className="gap-6">
           {messages.map((m) => {
