@@ -3,3 +3,4 @@
 - [x] Actualizar índice del asesor y verificar fichas, asociaciones y pruebas.
 - [x] Verificar las 190 filas de los tres borradores en fichas, simuladores, comparadores y mensajes de WhatsApp mediante una sesión privada sin publicación: 760 comparaciones sin diferencias y 570 mensajes comprobados.
 - [x] Confirmar que las versiones siguen como borradores; los mensajes del cotizador incluyen importes y los de fichas/comparador solo consultan modelo y plan. No se enviaron conversaciones reales ni se revalidó la extracción contra los PDF.
+- [x] Aprobar y publicar los borradores de Facilito (68 registros), Llévatelo Fiao (60) y CrediJAC 35x35 (62) mediante el panel privado; confirmar estado ACTIVO, archivado del anterior de Fiao y los importes públicos de Arena Sport Manual en rigobertomolina.com sin sesión. Los demás planes permanecen intactos.
