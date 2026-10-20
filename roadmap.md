@@ -1,3 +1,3 @@
-- [ ] Crear fichas distintas para Pionero Chasis 5 Ton y Pionero Ferretero 5 Ton sin fotos ni especificaciones inventadas.
-- [ ] Asociar las cuatro filas de borrador de Facilito y Llévatelo Fiao, conservando montos y estados de versión.
-- [ ] Actualizar índice del asesor y verificar fichas, asociaciones y pruebas.
+- [x] Crear fichas distintas para Pionero Chasis 5 Ton y Pionero Ferretero 5 Ton sin fotos ni especificaciones inventadas.
+- [x] Asociar las cuatro filas de borrador de Facilito y Llévatelo Fiao, conservando montos y estados de versión.
+- [x] Actualizar índice del asesor y verificar fichas, asociaciones y pruebas.
