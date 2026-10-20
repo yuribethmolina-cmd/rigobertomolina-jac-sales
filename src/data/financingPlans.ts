@@ -153,9 +153,9 @@ export const financingPlans: FinancingPlan[] = [
   {
     id: "facilito",
     name: "Facilito de JAC",
-    effectiveDate: "28 de septiembre",
-    source: "FACILITO DE JAC 28 DE SEPTIEMBRE",
-    sourceStatus: "VERIFIED_28_SEP",
+    effectiveDate: "12 de octubre",
+    source: "FACILITO DE JAC — 12 DE OCTUBRE",
+    sourceStatus: "VERIFIED_12_OCT",
     description:
       "Pago a la firma, 6 pagos mensuales, cuota especial previa a la entrega y 20 cuotas fijas mensuales.",
     template: [
@@ -168,9 +168,9 @@ export const financingPlans: FinancingPlan[] = [
   {
     id: "llevatelo-fiao",
     name: "Llévatelo Fiao",
-    effectiveDate: "28 de septiembre",
-    source: "LLÉVATELO FIAO 28 DE SEPTIEMBRE",
-    sourceStatus: "VERIFIED_28_SEP",
+    effectiveDate: "12 de octubre",
+    source: "LLÉVATELO FIAO — 12 DE OCTUBRE",
+    sourceStatus: "VERIFIED_12_OCT",
     description:
       "Pago a la firma, 5 pagos adicionales para completar una inicial del 30%, cuota especial previa a la entrega y 15 cuotas ordinarias mensuales.",
     template: [
