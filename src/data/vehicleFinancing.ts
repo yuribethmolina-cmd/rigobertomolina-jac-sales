@@ -128,7 +128,7 @@ const pagoFacilSep: { vehicleId: string; cuota: number; preEntrega: number }[] =
   { vehicleId: "volkan-mezclador-9m3", cuota: 9038.4, preEntrega: 17953.8 },
 ];
 
-const CATALOGO_FIAO_28_SEP = "LLÉVATELO FIAO 28 DE SEPTIEMBRE";
+const CATALOGO_FIAO_12_OCT = "LLÉVATELO FIAO — 12 DE OCTUBRE";
 
 /* Cronogramas Llévatelo Fiao trazables al catálogo del 28 de septiembre.
    Estructura: pago a la firma + 5 pagos de igual monto (inicial)
@@ -139,22 +139,64 @@ const fiaoQuotas: {
   preEntrega: number;
   cuota: number;
 }[] = [
-  { vehicleId: "arena-sport-automatico", firma: 1097.8, preEntrega: 3943.7, cuota: 1024.6 },
-  { vehicleId: "arena-pro", firma: 1227.6, preEntrega: 4347.1, cuota: 1145.8 },
-  { vehicleId: "nevado-manual", firma: 1318.5, preEntrega: 4629.4, cuota: 1230.6 },
-  { vehicleId: "tepuy-pro", firma: 1924.0, preEntrega: 6510.5, cuota: 1795.7 },
-  { vehicleId: "savanna", firma: 1924.0, preEntrega: 6510.5, cuota: 1795.7 },
-  { vehicleId: "rf8", firma: 3008.1, preEntrega: 9878.5, cuota: 2807.5 },
-  { vehicleId: "gx7", firma: 1692.5, preEntrega: 5791.2, cuota: 1579.6 },
-  { vehicleId: "t5-la-venezolana-4x2-diesel-2-8l", firma: 1273.2, preEntrega: 4535.6, cuota: 1188.3 },
-  { vehicleId: "la-venezolana-a-gasolina-4x2", firma: 1402.6, preEntrega: 4937.7, cuota: 1309.1 },
-  { vehicleId: "la-venezolana-a-diesel-4x2", firma: 1445.9, preEntrega: 5072.1, cuota: 1349.5 },
-  { vehicleId: "la-venezolana-a-diesel-4x4", firma: 1619.0, preEntrega: 5609.9, cuota: 1511.0 },
-  { vehicleId: "la-venezolana-pa-l-campo-4x4-diesel", firma: 1737.9, preEntrega: 5979.2, cuota: 1622.0 },
-  { vehicleId: "la-venezolana-pro-4x4", firma: 1835.4, preEntrega: 6282.2, cuota: 1713.0 },
-  { vehicleId: "limited", firma: 2188.1, preEntrega: 7378.1, cuota: 2042.2 },
-  { vehicleId: "aventura-a-gasolina", firma: 2181.6, preEntrega: 7357.9, cuota: 2036.1 },
-  { vehicleId: "aventura-pro-a-gasolina", firma: 2614.4, preEntrega: 8702.4, cuota: 2440.1 },
+  { vehicleId: "arena-sport-manual", firma: 994.0, preEntrega: 3621.0, cuota: 927.7 }, // pág. 2
+  { vehicleId: "arena-sport-automatico", firma: 1097.8, preEntrega: 3943.7, cuota: 1024.6 }, // pág. 4
+  { vehicleId: "arena-pro", firma: 1227.6, preEntrega: 4347.1, cuota: 1145.8 }, // pág. 6
+  { vehicleId: "nevado-manual", firma: 1318.5, preEntrega: 4629.4, cuota: 1230.6 }, // pág. 8
+  { vehicleId: "tepuy-pro", firma: 1924.0, preEntrega: 6510.5, cuota: 1795.7 }, // pág. 10
+  { vehicleId: "savanna", firma: 1924.0, preEntrega: 6510.5, cuota: 1795.7 }, // pág. 12
+  { vehicleId: "rf8", firma: 3008.1, preEntrega: 9878.5, cuota: 2807.5 }, // pág. 14
+  { vehicleId: "gx7", firma: 1692.5, preEntrega: 5791.2, cuota: 1579.6 }, // pág. 16
+  { vehicleId: "t5-la-venezolana-4x2-diesel-2-8l", firma: 1273.2, preEntrega: 4535.6, cuota: 1188.3 }, // pág. 18
+  { vehicleId: "la-venezolana-a-gasolina-4x2", firma: 1402.6, preEntrega: 4937.7, cuota: 1309.1 }, // pág. 20
+  { vehicleId: "la-venezolana-pa-l-campo-4x2-gasolina", firma: 1503.9, preEntrega: 5252.2, cuota: 1403.6 }, // pág. 22
+  { vehicleId: "la-venezolana-a-diesel-4x2", firma: 1445.9, preEntrega: 5072.1, cuota: 1349.5 }, // pág. 24
+  { vehicleId: "la-venezolana-pa-l-campo-4x2-diesel", firma: 1546.0, preEntrega: 5383.2, cuota: 1442.9 }, // pág. 26
+  { vehicleId: "la-venezolana-a-diesel-4x4", firma: 1619.0, preEntrega: 5609.9, cuota: 1511.0 }, // pág. 28
+  { vehicleId: "la-venezolana-pa-l-campo-4x4-diesel", firma: 1737.9, preEntrega: 5979.2, cuota: 1622.0 }, // pág. 30
+  { vehicleId: "la-venezolana-pro-4x4", firma: 1835.4, preEntrega: 6282.2, cuota: 1713.0 }, // pág. 32
+  { vehicleId: "la-venezolana-pro-4x4-pa-l-campo", firma: 2015.4, preEntrega: 6841.5, cuota: 1881.0 }, // pág. 34
+  { vehicleId: "limited", firma: 2188.1, preEntrega: 7378.1, cuota: 2042.2 }, // pág. 36
+  { vehicleId: "aventura-a-gasolina", firma: 2181.6, preEntrega: 7357.9, cuota: 2036.1 }, // pág. 38
+  { vehicleId: "aventura-pro-a-gasolina", firma: 2614.4, preEntrega: 8702.4, cuota: 2440.1 }, // pág. 40
+  { vehicleId: "x100-ferretero", firma: 1186.7, preEntrega: 4266.7, cuota: 1107.5 }, // pág. 42
+  { vehicleId: "urban-chasis-largo-3-ton", firma: 1446.3, preEntrega: 5073.4, cuota: 1349.9 }, // pág. 44
+  { vehicleId: "urban-3-ton", firma: 1576.2, preEntrega: 5476.8, cuota: 1471.1 }, // pág. 46
+  { vehicleId: "pionero-ferretero-4x4", firma: 2525.1, preEntrega: 8425.1, cuota: 2356.8 }, // pág. 52
+  { vehicleId: "c-3500-ferretero-4x4", firma: 2044.2, preEntrega: 6930.8, cuota: 1907.9 }, // pág. 54
+  { vehicleId: "doble-cabina-ferretero", firma: 1749.3, preEntrega: 6014.6, cuota: 1632.6 }, // pág. 56
+  { vehicleId: "6t-chasis", firma: 2134.4, preEntrega: 7211.3, cuota: 1992.1 }, // pág. 58
+  { vehicleId: "6t-ferretero", firma: 2268.6, preEntrega: 7628.1, cuota: 2117.3 }, // pág. 60
+  { vehicleId: "bufalo-12-ton", firma: 3134.1, preEntrega: 10317.1, cuota: 2925.2 }, // pág. 62
+  { vehicleId: "bufalo-xl", firma: 3350.5, preEntrega: 10989.4, cuota: 3127.1 }, // pág. 64
+  { vehicleId: "leyenda-20-ton", firma: 4519.0, preEntrega: 14619.7, cuota: 4217.7 }, // pág. 66
+  { vehicleId: "leyenda-380-hp", firma: 5347.3, preEntrega: 17193.1, cuota: 4990.8 }, // pág. 68
+  { vehicleId: "minero-20m3", firma: 6039.4, preEntrega: 19343.1, cuota: 5636.7 }, // pág. 70
+  { vehicleId: "minero-14m3", firma: 4222.2, preEntrega: 13697.4, cuota: 3940.6 }, // pág. 72
+  { vehicleId: "cavalino", firma: 3220.7, preEntrega: 10586.1, cuota: 3005.9 }, // pág. 74
+  { vehicleId: "bachaco-400-hp", firma: 4086.2, preEntrega: 13275.1, cuota: 3813.8 }, // pág. 76
+  { vehicleId: "chuto-4251-430-hp", firma: 4644.5, preEntrega: 15009.6, cuota: 4334.8 }, // pág. 78
+  { vehicleId: "sunray-v4-pasajeros", firma: 2224.9, preEntrega: 7492.3, cuota: 2076.5 }, // pág. 80
+  { vehicleId: "sunray-v4-carga", firma: 2134.4, preEntrega: 7211.3, cuota: 1992.1 }, // pág. 82
+  { vehicleId: "sunray-v6-pasajeros", firma: 2744.2, preEntrega: 9105.7, cuota: 2561.2 }, // pág. 84
+  { vehicleId: "sunray-v6-carga", firma: 2441.7, preEntrega: 8165.9, cuota: 2278.9 }, // pág. 86
+  { vehicleId: "sunray-v6-motorhome", firma: 4953.6, preEntrega: 15922.9, cuota: 4623.3 }, // pág. 88
+  { vehicleId: "sunray-v6-van-escolar", firma: 2707.4, preEntrega: 8991.4, cuota: 2526.9 }, // pág. 90
+  { vehicleId: "sunray-v4-ambulancia", firma: 3135.7, preEntrega: 10275.1, cuota: 2926.7 }, // pág. 92
+  { vehicleId: "autobus-28-6-1-puestos", firma: 4265.4, preEntrega: 13831.8, cuota: 3981.0 }, // pág. 94
+  { vehicleId: "compactador-5-ton", firma: 3789.4, preEntrega: 12352.9, cuota: 3536.7 }, // pág. 96
+  { vehicleId: "compactador-10m3", firma: 5188.5, preEntrega: 16699.8, cuota: 4842.6 }, // pág. 98
+  { vehicleId: "x100-cava-de-conservacion", firma: 1279.3, preEntrega: 4554.5, cuota: 1194.0 }, // pág. 100
+  { vehicleId: "urban-cava-seca", firma: 1704.8, preEntrega: 4914.6, cuota: 1657.1 }, // pág. 102
+  { vehicleId: "urban-cava-refrigerada", firma: 2528.3, preEntrega: 8434.8, cuota: 2359.7 }, // pág. 104
+  { vehicleId: "6t-cava-seca", firma: 2567.2, preEntrega: 8555.8, cuota: 2396.0 }, // pág. 106
+  { vehicleId: "6t-cava-refrigerada", firma: 3631.8, preEntrega: 11863.4, cuota: 3389.7 }, // pág. 108
+  { vehicleId: "6t-brazo-hidraulico", firma: 4135.6, preEntrega: 13428.5, cuota: 3859.8 }, // pág. 110
+  { vehicleId: "bufalo-brazo-hidraulico", firma: 6358.3, preEntrega: 20334.0, cuota: 5934.4 }, // pág. 112
+  { vehicleId: "leyenda-cava-seca", firma: 5433.9, preEntrega: 17462.1, cuota: 5071.6 }, // pág. 114
+  { vehicleId: "leyenda-brazo-hidraulico", firma: 8694.0, preEntrega: 27590.6, cuota: 8114.3 }, // pág. 116
+  { vehicleId: "doble-cabina-brazo-elevador-20m", firma: 4104.7, preEntrega: 13332.5, cuota: 3831.0 }, // pág. 118
+  { vehicleId: "volkan-mezclador-9m3", firma: 6732.2, preEntrega: 21495.7, cuota: 6283.3 }, // pág. 120
 ];
 
 /** Cronograma de Pago Fácil con los importes del catálogo del 25 de septiembre. */
@@ -291,26 +333,82 @@ const buildRuta48Schedule = (q: { firma: number; preEntrega: number; fija: numbe
   { type: "FIXED", count: 32, amount: q.fija, label: "32 pagos fijos mensuales" },
 ];
 
-const CATALOGO_FACILITO_28_SEP = "FACILITO DE JAC 28 DE SEPTIEMBRE";
+const CATALOGO_FACILITO_12_OCT = "FACILITO DE JAC — 12 DE OCTUBRE";
 
-/* Cronogramas Facilito de JAC trazables al catálogo del 28 de septiembre.
+/* Cronogramas Facilito de JAC trazables al catálogo del 12 de octubre (137 páginas).
    Estructura: 1 pago a la firma + 6 pagos mensuales + pre-entrega + 20 cuotas fijas.
-   Solo páginas 1-20 del PDF confirmadas; el resto queda pendiente. */
+   Pionero Chasis 5 Ton y Pionero Ferretero 5 Ton (págs. 48 y 50) no tienen ficha en el sitio. */
 const facilitoQuotas: {
   vehicleId: string;
   cuota: number;
   preEntrega: number;
 }[] = [
-  { vehicleId: "arena-sport-manual", cuota: 799.2, preEntrega: 2887.9 },
-  { vehicleId: "arena-sport-automatico", cuota: 899.1, preEntrega: 3082.0 },
-  { vehicleId: "arena-pro", cuota: 999.1, preEntrega: 3330.5 },
-  { vehicleId: "nevado-manual", cuota: 1099.1, preEntrega: 3622.1 },
-  { vehicleId: "tepuy-pro", cuota: 1499.0, preEntrega: 4787.3 },
-  { vehicleId: "savanna", cuota: 1599.3, preEntrega: 5096.2 },
-  { vehicleId: "rf8", cuota: 2799.4, preEntrega: 7665.6 },
-  { vehicleId: "gx7", cuota: 1599.7, preEntrega: 4612.3 },
-  { vehicleId: "t5-la-venezolana-4x2-diesel-2-8l", cuota: 1199.8, preEntrega: 3697.7 },
-  { vehicleId: "la-venezolana-a-gasolina-4x2", cuota: 1119.1, preEntrega: 3633.2 },
+  { vehicleId: "arena-sport-manual", cuota: 799.2, preEntrega: 2887.9 }, // pág. 2
+  { vehicleId: "arena-sport-automatico", cuota: 899.1, preEntrega: 3082.0 }, // pág. 4
+  { vehicleId: "arena-pro", cuota: 999.1, preEntrega: 3330.5 }, // pág. 6
+  { vehicleId: "nevado-manual", cuota: 1099.1, preEntrega: 3622.1 }, // pág. 8
+  { vehicleId: "tepuy-pro", cuota: 1499.0, preEntrega: 4787.3 }, // pág. 10
+  { vehicleId: "savanna", cuota: 1599.3, preEntrega: 5096.2 }, // pág. 12
+  { vehicleId: "rf8", cuota: 2799.4, preEntrega: 7665.6 }, // pág. 14
+  { vehicleId: "gx7", cuota: 1599.7, preEntrega: 4612.3 }, // pág. 16
+  { vehicleId: "t5-la-venezolana-4x2-diesel-2-8l", cuota: 1199.8, preEntrega: 3697.7 }, // pág. 18
+  { vehicleId: "la-venezolana-a-gasolina-4x2", cuota: 1119.1, preEntrega: 3633.2 }, // pág. 20
+  { vehicleId: "la-venezolana-pa-l-campo-4x2-gasolina", cuota: 1248.7, preEntrega: 4040.9 }, // pág. 22
+  { vehicleId: "la-venezolana-a-diesel-4x2", cuota: 1149.8, preEntrega: 3730.2 }, // pág. 24
+  { vehicleId: "la-venezolana-pa-l-campo-4x2-diesel", cuota: 1259.1, preEntrega: 4137.9 }, // pág. 26
+  { vehicleId: "la-venezolana-a-diesel-4x4", cuota: 1299.6, preEntrega: 4109.6 }, // pág. 28
+  { vehicleId: "la-venezolana-pa-l-campo-4x4-diesel", cuota: 1473.1, preEntrega: 4454.6 }, // pág. 30
+  { vehicleId: "la-venezolana-pro-4x4", cuota: 1629.6, preEntrega: 4760.3 }, // pág. 32
+  { vehicleId: "la-venezolana-pro-4x4-pa-l-campo", cuota: 1643.3, preEntrega: 5218.2 }, // pág. 34
+  { vehicleId: "limited", cuota: 1999.5, preEntrega: 5771.5 }, // pág. 36
+  { vehicleId: "aventura-a-gasolina", cuota: 1899.2, preEntrega: 5686.1 }, // pág. 38
+  { vehicleId: "aventura-pro-a-gasolina", cuota: 2199.5, preEntrega: 6907.8 }, // pág. 40
+  { vehicleId: "x100-ferretero", cuota: 1049.4, preEntrega: 2854.3 }, // pág. 42
+  { vehicleId: "urban-chasis-largo-3-ton", cuota: 1199.1, preEntrega: 3733.8 }, // pág. 44
+  { vehicleId: "urban-3-ton", cuota: 1299.1, preEntrega: 3923.8 }, // pág. 46
+  { vehicleId: "pionero-ferretero-4x4", cuota: 2078.2, preEntrega: 6459.2 }, // pág. 52
+  { vehicleId: "c-3500-ferretero-4x4", cuota: 1817.6, preEntrega: 5273.2 }, // pág. 54
+  { vehicleId: "doble-cabina-ferretero", cuota: 1499.4, preEntrega: 4323.5 }, // pág. 56
+  { vehicleId: "6t-chasis", cuota: 1719.8, preEntrega: 5119.3 }, // pág. 58
+  { vehicleId: "6t-ferretero", cuota: 1809.8, preEntrega: 5461.3 }, // pág. 60
+  { vehicleId: "bufalo-12-ton", cuota: 2779.1, preEntrega: 7591.4 }, // pág. 62
+  { vehicleId: "bufalo-xl", cuota: 2999.3, preEntrega: 7957.3 }, // pág. 64
+  { vehicleId: "leyenda-20-ton", cuota: 3549.1, preEntrega: 10694.9 }, // pág. 66
+  { vehicleId: "leyenda-380-hp", cuota: 4299.1, preEntrega: 11772.6 }, // pág. 68
+  { vehicleId: "minero-20m3", cuota: 5399.2, preEntrega: 13747.4 }, // pág. 70
+  { vehicleId: "minero-28m3", cuota: 5989.1, preEntrega: 17537.2 }, // pág. 72
+  { vehicleId: "minero-14m3", cuota: 3899.2, preEntrega: 10522.2 }, // pág. 74
+  { vehicleId: "cavalino", cuota: 2769.4, preEntrega: 7651.1 }, // pág. 76
+  { vehicleId: "bachaco-400-hp", cuota: 3529.3, preEntrega: 10128.8 }, // pág. 78
+  { vehicleId: "chuto-4251-430-hp", cuota: 3859.3, preEntrega: 11732.9 }, // pág. 80
+  { vehicleId: "sunray-v4-pasajeros", cuota: 2029.3, preEntrega: 5795.1 }, // pág. 82
+  { vehicleId: "sunray-v4-carga", cuota: 1899.2, preEntrega: 5431.5 }, // pág. 84
+  { vehicleId: "sunray-v6-pasajeros", cuota: 2279.7, preEntrega: 6093.8 }, // pág. 86
+  { vehicleId: "sunray-v6-carga", cuota: 2059.0, preEntrega: 5810.6 }, // pág. 88
+  { vehicleId: "sunray-v6-motorhome", cuota: 4499.3, preEntrega: 13135.3 }, // pág. 90
+  { vehicleId: "sunray-v6-van-escolar", cuota: 2499.2, preEntrega: 6867.4 }, // pág. 92
+  { vehicleId: "sunray-v4-ambulancia", cuota: 2699.8, preEntrega: 7378.2 }, // pág. 94
+  { vehicleId: "autobus-28-6-1-puestos", cuota: 3799.7, preEntrega: 10621.0 }, // pág. 96
+  { vehicleId: "compactador-5-ton", cuota: 3499.4, preEntrega: 9148.0 }, // pág. 98
+  { vehicleId: "compactador-10m3", cuota: 4769.5, preEntrega: 12625.5 }, // pág. 100
+  { vehicleId: "x100-cava-seca", cuota: 1119.3, preEntrega: 3406.8 }, // pág. 102
+  { vehicleId: "x100-cava-de-conservacion", cuota: 1259.7, preEntrega: 3652.0 }, // pág. 104
+  { vehicleId: "urban-cava-seca", cuota: 1559.0, preEntrega: 4390.0 }, // pág. 106
+  { vehicleId: "urban-cava-de-conservacion", cuota: 1599.1, preEntrega: 4696.8 }, // pág. 108
+  { vehicleId: "urban-cava-refrigerada", cuota: 2232.9, preEntrega: 5000.2 }, // pág. 110
+  { vehicleId: "6t-cava-seca", cuota: 2009.1, preEntrega: 6047.4 }, // pág. 112
+  { vehicleId: "6t-cava-de-conservacion", cuota: 2309.1, preEntrega: 6694.0 }, // pág. 114
+  { vehicleId: "6t-cava-refrigerada", cuota: 3109.1, preEntrega: 8367.3 }, // pág. 116
+  { vehicleId: "6t-brazo-hidraulico", cuota: 3499.1, preEntrega: 9766.8 }, // pág. 118
+  { vehicleId: "bufalo-cava-seca", cuota: 3399.1, preEntrega: 9078.9 }, // pág. 120
+  { vehicleId: "bufalo-cava-de-conservacion", cuota: 3499.1, preEntrega: 9723.2 }, // pág. 122
+  { vehicleId: "bufalo-cava-refrigerada", cuota: 4299.0, preEntrega: 11844.6 }, // pág. 124
+  { vehicleId: "bufalo-brazo-hidraulico", cuota: 5460.2, preEntrega: 15839.6 }, // pág. 126
+  { vehicleId: "leyenda-cava-seca", cuota: 4697.2, preEntrega: 13872.5 }, // pág. 128
+  { vehicleId: "leyenda-cava-refrigerada", cuota: 4999.1, preEntrega: 14855.0 }, // pág. 130
+  { vehicleId: "leyenda-brazo-hidraulico", cuota: 7539.2, preEntrega: 21125.0 }, // pág. 132
+  { vehicleId: "doble-cabina-brazo-elevador-20m", cuota: 3789.2, preEntrega: 10271.7 }, // pág. 134
+  { vehicleId: "volkan-mezclador-9m3", cuota: 6049.6, preEntrega: 17165.6 }, // pág. 136
 ];
 
 const buildFacilitoSchedule = (q: { cuota: number; preEntrega: number }): PaymentStage[] => [
@@ -417,8 +515,8 @@ export const vehicleFinancing: VehicleFinancing[] = [
     vehicleId: q.vehicleId,
     planId: "llevatelo-fiao",
     currency: "USD" as const,
-    amountsSourceStatus: "VERIFIED_28_SEP" as SourceStatus,
-    amountsSource: CATALOGO_FIAO_28_SEP,
+    amountsSourceStatus: "VERIFIED_12_OCT" as SourceStatus,
+    amountsSource: CATALOGO_FIAO_12_OCT,
     schedule: buildFiaoSchedule(q),
   })),
   ...ruta48Quotas.map((q) => ({
@@ -441,8 +539,8 @@ export const vehicleFinancing: VehicleFinancing[] = [
     vehicleId: q.vehicleId,
     planId: "facilito",
     currency: "USD" as const,
-    amountsSourceStatus: "VERIFIED_28_SEP" as SourceStatus,
-    amountsSource: CATALOGO_FACILITO_28_SEP,
+    amountsSourceStatus: "VERIFIED_12_OCT" as SourceStatus,
+    amountsSource: CATALOGO_FACILITO_12_OCT,
     schedule: buildFacilitoSchedule(q),
   })),
   ...credijac35x35Quotas.map((q) => ({
