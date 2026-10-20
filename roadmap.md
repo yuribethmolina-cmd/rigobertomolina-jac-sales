@@ -1,5 +1,5 @@
 - [x] Crear fichas distintas para Pionero Chasis 5 Ton y Pionero Ferretero 5 Ton sin fotos ni especificaciones inventadas.
 - [x] Asociar las cuatro filas de borrador de Facilito y Llévatelo Fiao, conservando montos y estados de versión.
 - [x] Actualizar índice del asesor y verificar fichas, asociaciones y pruebas.
-- [ ] Verificar las 190 filas de los tres borradores en fichas, simuladores, comparadores y mensajes de WhatsApp mediante una sesión privada sin publicación.
-- [ ] Confirmar que las versiones siguen como borradores y comunicar cualquier diferencia o limitación.
+- [x] Verificar las 190 filas de los tres borradores en fichas, simuladores, comparadores y mensajes de WhatsApp mediante una sesión privada sin publicación: 760 comparaciones sin diferencias y 570 mensajes comprobados.
+- [x] Confirmar que las versiones siguen como borradores; los mensajes del cotizador incluyen importes y los de fichas/comparador solo consultan modelo y plan. No se enviaron conversaciones reales ni se revalidó la extracción contra los PDF.
