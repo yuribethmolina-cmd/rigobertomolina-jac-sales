@@ -130,7 +130,7 @@ const pagoFacilSep: { vehicleId: string; cuota: number; preEntrega: number }[] =
 
 const CATALOGO_FIAO_12_OCT = "LLÉVATELO FIAO — 12 DE OCTUBRE";
 
-/* Cronogramas Llévatelo Fiao trazables al catálogo del 28 de septiembre.
+/* Cronogramas Llévatelo Fiao trazables al catálogo del 12 de octubre (121 páginas).
    Estructura: pago a la firma + 5 pagos de igual monto (inicial)
    + pre-entrega + 15 cuotas ordinarias. */
 const fiaoQuotas: {
