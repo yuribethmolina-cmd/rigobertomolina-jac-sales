@@ -3,7 +3,7 @@ import { waLink, waModelMessage } from "@/lib/constants";
 import { modelPath } from "@/lib/modelLinks";
 import ShareModelButton from "@/components/ShareModelButton";
 import catalogSpecs from "@/lib/catalogSpecs";
-import { ChevronDown, Camera, ExternalLink } from "lucide-react";
+import { ChevronDown, Camera, CameraOff, ExternalLink } from "lucide-react";
 import type { Vehicle } from "@/data/vehicles";
 import { pagoFacilMonthly, compraDirectaMonthly, financingOptionsFor, planScheduleSummary } from "@/data/vehicleFinancing";
 import { fmtUsd0, NOT_VERIFIED_LABEL } from "@/data/financingPlans";
@@ -31,7 +31,14 @@ const CatalogCard = ({ vehicle, isExpanded, onToggle }: Props) => {
         className="relative h-[150px] md:h-[180px] bg-[hsl(213,45%,11%)] cursor-pointer"
         onClick={onToggle}
       >
-        <img src={vehicle.image} alt={vehicle.displayName} className={`w-full h-full object-cover ${vehicle.unavailable ? "grayscale opacity-60" : ""}`} loading="lazy" />
+        {vehicle.image ? (
+          <img src={vehicle.image} alt={vehicle.displayName} className={`w-full h-full object-cover ${vehicle.unavailable ? "grayscale opacity-60" : ""}`} loading="lazy" />
+        ) : (
+          <div className="h-full flex flex-col items-center justify-center gap-2 bg-muted text-muted-foreground">
+            <CameraOff size={28} aria-hidden="true" />
+            <span className="text-sm">Foto no disponible</span>
+          </div>
+        )}
         {vehicle.featured && (
           <span className="absolute top-3 left-3 z-10 px-3 py-1 text-[10px] font-bold rounded-full bg-primary text-primary-foreground uppercase tracking-wider">
             ⭐ {vehicle.featured}

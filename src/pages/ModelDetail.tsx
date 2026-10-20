@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { ArrowLeft, AlertTriangle, Check, Camera, ExternalLink, FileUp } from "lucide-react";
+import { ArrowLeft, AlertTriangle, Check, Camera, CameraOff, ExternalLink, FileUp } from "lucide-react";
 import ApplicationFormButton from "@/components/ApplicationFormButton";
 
 import { findVehicle } from "@/data/vehicles";
@@ -84,11 +84,16 @@ const ModelDetail = () => {
           </Link>
 
           <div className="mt-6 rounded-2xl overflow-hidden border border-primary/20 relative">
-            <img
+            {vehicle.image ? <img
               src={vehicle.image}
               alt={`${vehicle.displayName} — JAC Venezuela`}
               className={`w-full h-[220px] md:h-[340px] object-cover ${vehicle.unavailable ? "grayscale opacity-60" : ""}`}
-            />
+            /> : (
+              <div className="h-[220px] md:h-[340px] flex flex-col items-center justify-center gap-3 bg-muted text-muted-foreground">
+                <CameraOff size={36} aria-hidden="true" />
+                <p>Foto no disponible</p>
+              </div>
+            )}
             {vehicle.unavailable && (
               <span className="absolute top-4 left-1/2 -translate-x-1/2 px-5 py-2 text-xs font-bold rounded-full bg-amber-500 text-black uppercase tracking-wider shadow-lg whitespace-nowrap">
                 No disponible por los momentos
