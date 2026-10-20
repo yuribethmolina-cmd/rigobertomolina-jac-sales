@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Check, GitCompare } from "lucide-react";
+import { ArrowUpRight, CameraOff, Check, GitCompare } from "lucide-react";
 import type { Vehicle } from "@/data/vehicles";
 import { documentedMonthlyQuotas, usd } from "@/lib/advisorMatch";
 
@@ -17,12 +17,17 @@ const AdvisorModelCard = ({ vehicle, selected, onCompare }: Props) => {
 
   return (
     <article className="overflow-hidden rounded-xl border border-border bg-card">
-      <img
+      {vehicle.image ? <img
         src={vehicle.image}
         alt={`JAC ${vehicle.displayName}`}
         loading="lazy"
         className={`h-32 w-full object-cover ${vehicle.unavailable ? "opacity-50 grayscale" : ""}`}
-      />
+      /> : (
+        <div className="h-32 flex flex-col items-center justify-center gap-2 bg-muted text-muted-foreground">
+          <CameraOff size={24} aria-hidden="true" />
+          <span className="text-sm">Foto no disponible</span>
+        </div>
+      )}
       <div className="space-y-2 p-4">
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
           <span className="rounded-full bg-secondary px-2 py-0.5">{vehicle.category}</span>
