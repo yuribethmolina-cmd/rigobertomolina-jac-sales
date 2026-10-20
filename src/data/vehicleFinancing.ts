@@ -320,11 +320,11 @@ const buildFacilitoSchedule = (q: { cuota: number; preEntrega: number }): Paymen
   { type: "FIXED", count: 20, amount: q.cuota, label: "Cuotas fijas mensuales" },
 ];
 
-const CATALOGO_35X35_28_SEP = "CREDIJAC 35X35 28 DE SEPTIEMBRE";
+const CATALOGO_35X35_12_OCT = "CREDIJAC 35X35 PASAJEROS Y CAMIONES — 12 DE OCTUBRE";
 
-/* Cronogramas CrediJAC 35x35 trazables al catálogo del 28 de septiembre.
-   Estructura: 6 cuotas de inicial + pre-entrega + 30 cuotas ordinarias + 6 cuotas especiales.
-   Solo páginas 1-30 del PDF confirmadas; el resto queda pendiente. */
+/* Cronogramas CrediJAC 35x35 trazables al catálogo del 12 de octubre (126 páginas,
+   24 pasajeros + 38 camiones). Estructura: 6 cuotas de inicial + pre-entrega +
+   30 cuotas ordinarias + 6 cuotas especiales. Importes copiados tal cual del PDF. */
 const credijac35x35Quotas: {
   vehicleId: string;
   inicial: number;
@@ -332,21 +332,68 @@ const credijac35x35Quotas: {
   ordinaria: number;
   especial: number;
 }[] = [
-  { vehicleId: "arena-sport-manual", inicial: 1442.3, preEntrega: 2887.9, ordinaria: 499.2, especial: 437.9 },
-  { vehicleId: "arena-sport-automatico", inicial: 1561.2, preEntrega: 3204.4, ordinaria: 536.1, especial: 473.9 },
-  { vehicleId: "arena-pro", inicial: 1713.4, preEntrega: 3330.5, ordinaria: 593.0, especial: 520.2 },
-  { vehicleId: "nevado-manual", inicial: 1892.0, preEntrega: 3622.1, ordinaria: 654.8, especial: 574.4 },
-  { vehicleId: "tepuy-pro", inicial: 2605.6, preEntrega: 4787.3, ordinaria: 901.8, especial: 791.0 },
-  { vehicleId: "savanna", inicial: 2794.9, preEntrega: 5096.2, ordinaria: 967.3, especial: 848.5 },
-  { vehicleId: "rf8", inicial: 4368.5, preEntrega: 7665.6, ordinaria: 1511.9, especial: 1326.2 },
-  { vehicleId: "gx7", inicial: 2498.4, preEntrega: 4612.3, ordinaria: 864.7, especial: 758.5 },
-  { vehicleId: "t5-la-venezolana-4x2-diesel-2-8l", inicial: 1909.4, preEntrega: 3697.6, ordinaria: 660.8, especial: 579.7 },
-  { vehicleId: "la-venezolana-a-gasolina-4x2", inicial: 1870.0, preEntrega: 3633.2, ordinaria: 647.2, especial: 567.7 },
-  { vehicleId: "la-venezolana-a-diesel-4x2", inicial: 1929.4, preEntrega: 3730.2, ordinaria: 667.7, especial: 585.7 },
-  { vehicleId: "la-venezolana-a-diesel-4x4", inicial: 2161.7, preEntrega: 4109.5, ordinaria: 748.1, especial: 656.3 },
-  { vehicleId: "la-venezolana-pa-l-campo-4x4-diesel", inicial: 2399.1, preEntrega: 4454.4, ordinaria: 831.8, especial: 728.3 },
-  { vehicleId: "la-venezolana-pro-4x4", inicial: 2560.3, preEntrega: 4760.3, ordinaria: 886.1, especial: 777.3 },
-  { vehicleId: "limited", inicial: 3179.6, preEntrega: 5771.5, ordinaria: 1100.4, especial: 965.3 },
+  { vehicleId: "arena-sport-manual", inicial: 1442.3, preEntrega: 2887.9, ordinaria: 499.2, especial: 437.9 }, // pág. 2
+  { vehicleId: "arena-sport-automatico", inicial: 1561.2, preEntrega: 3204.4, ordinaria: 536.1, especial: 473.9 }, // pág. 4
+  { vehicleId: "arena-pro", inicial: 1713.4, preEntrega: 3330.5, ordinaria: 593.0, especial: 520.2 }, // pág. 6
+  { vehicleId: "nevado-manual", inicial: 1892.0, preEntrega: 3622.1, ordinaria: 654.8, especial: 574.4 }, // pág. 8
+  { vehicleId: "tepuy-pro", inicial: 2605.6, preEntrega: 4787.3, ordinaria: 901.8, especial: 791.0 }, // pág. 10
+  { vehicleId: "savanna", inicial: 2794.9, preEntrega: 5096.2, ordinaria: 967.3, especial: 848.5 }, // pág. 12
+  { vehicleId: "rf8", inicial: 4368.5, preEntrega: 7665.6, ordinaria: 1511.9, especial: 1326.2 }, // pág. 14
+  { vehicleId: "gx7", inicial: 2498.4, preEntrega: 4612.3, ordinaria: 864.7, especial: 758.5 }, // pág. 16
+  { vehicleId: "t5-la-venezolana-4x2-diesel-2-8l", inicial: 1909.4, preEntrega: 3697.6, ordinaria: 660.8, especial: 579.7 }, // pág. 18
+  { vehicleId: "la-venezolana-a-gasolina-4x2", inicial: 1870.0, preEntrega: 3633.2, ordinaria: 647.2, especial: 567.7 }, // pág. 20
+  { vehicleId: "la-venezolana-a-diesel-4x2", inicial: 1929.4, preEntrega: 3730.2, ordinaria: 667.7, especial: 585.7 }, // pág. 22
+  { vehicleId: "la-venezolana-a-diesel-4x4", inicial: 2161.7, preEntrega: 4109.5, ordinaria: 748.1, especial: 656.3 }, // pág. 24
+  { vehicleId: "la-venezolana-pa-l-campo-4x4-diesel", inicial: 2399.1, preEntrega: 4454.4, ordinaria: 831.8, especial: 728.3 }, // pág. 26
+  { vehicleId: "la-venezolana-pro-4x4", inicial: 2560.3, preEntrega: 4760.3, ordinaria: 886.1, especial: 777.3 }, // pág. 28
+  { vehicleId: "limited", inicial: 3179.6, preEntrega: 5771.5, ordinaria: 1100.4, especial: 965.3 }, // pág. 30
+  { vehicleId: "aventura-a-gasolina", inicial: 3127.3, preEntrega: 5686.1, ordinaria: 1082.3, especial: 949.4 }, // pág. 32
+  { vehicleId: "aventura-pro-a-gasolina", inicial: 3875.6, preEntrega: 6907.8, ordinaria: 1341.3, especial: 1176.6 }, // pág. 34
+  { vehicleId: "sunray-v4-pasajeros", inicial: 3194.1, preEntrega: 5795.1, ordinaria: 1105.4, especial: 969.7 }, // pág. 36
+  { vehicleId: "sunray-v4-carga", inicial: 2971.4, preEntrega: 5431.5, ordinaria: 1028.4, especial: 902.1 }, // pág. 38
+  { vehicleId: "sunray-v6-pasajeros", inicial: 3377.0, preEntrega: 6093.8, ordinaria: 1168.7, especial: 1025.2 }, // pág. 40
+  { vehicleId: "sunray-v6-carga", inicial: 3203.6, preEntrega: 5810.6, ordinaria: 1108.7, especial: 972.6 }, // pág. 42
+  { vehicleId: "sunray-v6-motorhome", inicial: 7718.5, preEntrega: 13135.3, ordinaria: 2671.3, especial: 2343.2 }, // pág. 44
+  { vehicleId: "sunray-v6-van-escolar", inicial: 3850.8, preEntrega: 6867.4, ordinaria: 1332.7, especial: 1169.1 }, // pág. 46
+  { vehicleId: "sunray-v4-ambulancia", inicial: 4192.5, preEntrega: 7378.2, ordinaria: 1451.0, especial: 1272.8 }, // pág. 48
+  { vehicleId: "x100-ferretero", inicial: 1393.0, preEntrega: 2854.3, ordinaria: 385.6, especial: 905.4 }, // pág. 51
+  { vehicleId: "urban-chasis-largo-3-ton", inicial: 1931.6, preEntrega: 3733.8, ordinaria: 534.7, especial: 1255.5 }, // pág. 53
+  { vehicleId: "urban-3-ton", inicial: 2048.0, preEntrega: 3923.8, ordinaria: 566.9, especial: 1331.2 }, // pág. 55
+  { vehicleId: "c-3500-ferretero-4x4", inicial: 2849.8, preEntrega: 5273.2, ordinaria: 787.4, especial: 1852.4 }, // pág. 57
+  { vehicleId: "doble-cabina-ferretero", inicial: 2292.8, preEntrega: 4323.5, ordinaria: 634.6, especial: 1490.3 }, // pág. 59
+  { vehicleId: "6t-chasis", inicial: 2780.2, preEntrega: 5119.3, ordinaria: 769.5, especial: 1807.1 }, // pág. 61
+  { vehicleId: "6t-ferretero", inicial: 2989.7, preEntrega: 5461.3, ordinaria: 827.5, especial: 1943.3 }, // pág. 63
+  { vehicleId: "bufalo-12-ton", inicial: 4293.8, preEntrega: 7590.6, ordinaria: 1188.5, especial: 2790.9 }, // pág. 65
+  { vehicleId: "bufalo-xl", inicial: 4518.4, preEntrega: 7957.3, ordinaria: 1250.7, especial: 2936.9 }, // pág. 67
+  { vehicleId: "leyenda-20-ton", inicial: 6195.1, preEntrega: 10694.9, ordinaria: 1714.8, especial: 4026.8 }, // pág. 69
+  { vehicleId: "leyenda-380-hp", inicial: 6855.1, preEntrega: 11772.6, ordinaria: 1897.5, especial: 4455.8 }, // pág. 71
+  { vehicleId: "minero-20m3", inicial: 8064.6, preEntrega: 13747.4, ordinaria: 2232.3, especial: 5242.0 }, // pág. 73
+  { vehicleId: "minero-28m3", inicial: 10385.8, preEntrega: 17537.2, ordinaria: 2874.7, especial: 6750.7 }, // pág. 75
+  { vehicleId: "minero-14m3", inicial: 6089.3, preEntrega: 10522.2, ordinaria: 1685.5, especial: 3958.0 }, // pág. 77
+  { vehicleId: "cavalino", inicial: 4330.8, preEntrega: 7651.1, ordinaria: 1198.8, especial: 2815.0 }, // pág. 79
+  { vehicleId: "bachaco-400-hp", inicial: 5848.3, preEntrega: 10128.8, ordinaria: 1618.8, especial: 3801.4 }, // pág. 81
+  { vehicleId: "chuto-4251-430-hp", inicial: 6617.2, preEntrega: 11732.9, ordinaria: 1819.6, especial: 4301.2 }, // pág. 83
+  { vehicleId: "autobus-28-6-1-puestos", inicial: 6149.8, preEntrega: 10621.0, ordinaria: 1702.2, especial: 3997.3 }, // pág. 85
+  { vehicleId: "compactador-5-ton", inicial: 5308.8, preEntrega: 9148.0, ordinaria: 1472.9, especial: 3450.7 }, // pág. 87
+  { vehicleId: "compactador-10m3", inicial: 7377.5, preEntrega: 12625.5, ordinaria: 2042.1, especial: 4795.3 }, // pág. 89
+  { vehicleId: "x100-cava-seca", inicial: 1742.0, preEntrega: 3406.8, ordinaria: 482.8, especial: 1132.3 }, // pág. 91
+  { vehicleId: "x100-cava-de-conservacion", inicial: 1950.7, preEntrega: 3652.0, ordinaria: 543.8, especial: 1267.9 }, // pág. 93
+  { vehicleId: "urban-cava-seca", inicial: 2419.4, preEntrega: 4390.0, ordinaria: 674.5, especial: 1572.6 }, // pág. 95
+  { vehicleId: "urban-cava-de-conservacion", inicial: 2521.4, preEntrega: 4696.8, ordinaria: 697.9, especial: 1638.9 }, // pág. 97
+  { vehicleId: "urban-cava-refrigerada", inicial: 3386.7, preEntrega: 5885.2, ordinaria: 945.1, especial: 2201.3 }, // pág. 99
+  { vehicleId: "6t-cava-seca", inicial: 3348.6, preEntrega: 6047.4, ordinaria: 926.9, especial: 2176.6 }, // pág. 101
+  { vehicleId: "6t-cava-de-conservacion", inicial: 3744.6, preEntrega: 6694.0, ordinaria: 1036.5, especial: 2434.0 }, // pág. 103
+  { vehicleId: "6t-cava-refrigerada", inicial: 4942.0, preEntrega: 8367.3, ordinaria: 1377.6, especial: 3212.3 }, // pág. 105
+  { vehicleId: "6t-brazo-hidraulico", inicial: 5626.7, preEntrega: 9766.8, ordinaria: 1557.4, especial: 3657.3 }, // pág. 107
+  { vehicleId: "bufalo-cava-seca", inicial: 5317.0, preEntrega: 9078.9, ordinaria: 1478.0, especial: 3456.0 }, // pág. 109
+  { vehicleId: "bufalo-cava-de-conservacion", inicial: 5599.9, preEntrega: 9723.2, ordinaria: 1550.0, especial: 3639.9 }, // pág. 111
+  { vehicleId: "bufalo-cava-refrigerada", inicial: 6899.2, preEntrega: 11844.6, ordinaria: 1909.7, especial: 4484.5 }, // pág. 113
+  { vehicleId: "bufalo-brazo-hidraulico", inicial: 9573.5, preEntrega: 15839.6, ordinaria: 2662.7, especial: 6222.7 }, // pág. 115
+  { vehicleId: "leyenda-cava-seca", inicial: 7467.6, preEntrega: 12772.5, ordinaria: 2067.0, especial: 4853.9 }, // pág. 117
+  { vehicleId: "leyenda-cava-refrigerada", inicial: 8743.1, preEntrega: 14855.1, ordinaria: 2420.0, especial: 5682.9 }, // pág. 119
+  { vehicleId: "leyenda-brazo-hidraulico", inicial: 12583.2, preEntrega: 21125.0, ordinaria: 3483.0, especial: 8179.0 }, // pág. 121
+  { vehicleId: "doble-cabina-brazo-elevador-20m", inicial: 5935.9, preEntrega: 10271.7, ordinaria: 1643.0, especial: 3858.3 }, // pág. 123
+  { vehicleId: "volkan-mezclador-9m3", inicial: 10158.2, preEntrega: 17165.6, ordinaria: 2811.7, especial: 6602.7 }, // pág. 125
 ];
 
 const buildCredijac35x35Schedule = (q: { inicial: number; preEntrega: number; ordinaria: number; especial: number }): PaymentStage[] => [
@@ -402,8 +449,8 @@ export const vehicleFinancing: VehicleFinancing[] = [
     vehicleId: q.vehicleId,
     planId: "credijac-35x35",
     currency: "USD" as const,
-    amountsSourceStatus: "VERIFIED_28_SEP" as SourceStatus,
-    amountsSource: CATALOGO_35X35_28_SEP,
+    amountsSourceStatus: "VERIFIED_12_OCT" as SourceStatus,
+    amountsSource: CATALOGO_35X35_12_OCT,
     schedule: buildCredijac35x35Schedule(q),
   })),
   ...compraDirectaSep.map((q) => ({

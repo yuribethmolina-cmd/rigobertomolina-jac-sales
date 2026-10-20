@@ -14,6 +14,7 @@ export type SourceStatus =
   | "VERIFIED_25_SEP"
   | "VERIFIED_PROMO_SEP"
   | "VERIFIED_28_SEP"
+  | "VERIFIED_12_OCT"
   | "REVIEW_NOT_VERIFIED";
 
 export type StageType =
@@ -182,9 +183,9 @@ export const financingPlans: FinancingPlan[] = [
   {
     id: "credijac-35x35",
     name: "CrediJAC 35x35",
-    effectiveDate: "28 de septiembre",
-    source: "CREDIJAC 35X35 28 DE SEPTIEMBRE",
-    sourceStatus: "VERIFIED_28_SEP",
+    effectiveDate: "12 de octubre",
+    source: "CREDIJAC 35X35 PASAJEROS Y CAMIONES — 12 DE OCTUBRE",
+    sourceStatus: "VERIFIED_12_OCT",
     description:
       "6 cuotas correspondientes a la inicial del 35%, cuota especial previa a la entrega, 30 cuotas ordinarias mensuales y 6 cuotas especiales adicionales.",
     template: [
