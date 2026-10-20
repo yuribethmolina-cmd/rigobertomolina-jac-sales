@@ -3,3 +3,4 @@
 - [x] Actualizar índice del asesor y verificar fichas, asociaciones y pruebas.
 - [x] Verificar las 190 filas de los tres borradores en fichas, simuladores, comparadores y mensajes de WhatsApp mediante una sesión privada sin publicación: 760 comparaciones sin diferencias y 570 mensajes comprobados.
 - [x] Confirmar que las versiones siguen como borradores; los mensajes del cotizador incluyen importes y los de fichas/comparador solo consultan modelo y plan. No se enviaron conversaciones reales ni se revalidó la extracción contra los PDF.
+- [ ] Aprobar y publicar los borradores de Facilito, Llévatelo Fiao y CrediJAC 35x35 mediante el panel privado; comprobar lectura pública de sus importes y archivado de versiones anteriores.
