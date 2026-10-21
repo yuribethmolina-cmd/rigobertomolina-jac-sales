@@ -22,6 +22,8 @@ interface TrackPayload {
 
 /** Registra un intento de contacto. Nunca bloquea ni rompe la UI. */
 export const trackContact = (action: ContactAction, payload: TrackPayload = {}) => {
+  // Navegadores automatizados (pruebas) no cuentan como contactos reales.
+  if (typeof navigator !== "undefined" && navigator.webdriver) return;
   try {
     supabase
       .from("contact_events")
