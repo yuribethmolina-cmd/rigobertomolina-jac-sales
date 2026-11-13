@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import logoRM from "@/assets/logo-rigoberto.png";
+import { useIsAdmin } from "@/hooks/useIsAdmin";
 
 const navLinks = [
   { label: "Modelos", href: "/#modelos" },
@@ -14,6 +15,10 @@ const navLinks = [
 const SiteHeader = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const isAdmin = useIsAdmin();
+  const links = isAdmin
+    ? [...navLinks, { label: "CRM", href: "/admin/crm" }]
+    : navLinks;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -38,7 +43,7 @@ const SiteHeader = () => {
 
         {/* Desktop links */}
         <div className="hidden md:flex gap-6 text-sm font-medium">
-          {navLinks.map((link) => (
+          {links.map((link) => (
             <a
               key={link.href}
               href={link.href}
@@ -70,7 +75,7 @@ const SiteHeader = () => {
         style={{ top: "5rem" }}
       >
         <div className="py-6 px-6 flex flex-col gap-1">
-          {navLinks.map((link, i) => (
+          {links.map((link, i) => (
             <a
               key={link.href}
               href={link.href}
