@@ -17,7 +17,7 @@ const SiteHeader = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const isAdmin = useIsAdmin();
   const links = isAdmin
-    ? [...navLinks, { label: "CRM", href: "/admin/crm" }]
+    ? [...navLinks, { label: "Admin", href: "/admin" }]
     : navLinks;
 
   useEffect(() => {
