@@ -26,12 +26,23 @@ export interface SendTemplateEmailOptions {
   replyTo?: string
 }
 
+/** Splits a fixed recipient field into individual addresses. */
+const parseRecipients = (raw: string) =>
+  raw
+    .split(/[,;]/)
+    .map((address) => address.trim())
+    .filter((address, index, all) => address.length > 0 && all.indexOf(address) === index)
+
 /**
  * Renders a registered template and sends it through Lovable's managed email
  * API. Suppression, retries, and rate limits are enforced by Lovable
  * server-side. A suppressed recipient is an expected outcome
  * ({ sent: false }); any other failure throws — EmailAPIError exposes
  * .code and .status for branching.
+ *
+ * A template may list a few fixed internal mailboxes (comma separated) so the
+ * same operational notice reaches each owner inbox; every address still gets
+ * its own single-recipient send.
  */
 export async function sendTemplateEmail(
   templateName: string,

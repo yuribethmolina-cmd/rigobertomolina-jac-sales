@@ -50,7 +50,7 @@ export const template = {
   subject: (d: Record<string, any>) =>
     `Nueva reseña: ${d.customerName || 'cliente'}${d.vehicleName ? ` — ${d.vehicleName}` : ''} (${d.rating || 0}/5)`,
   displayName: 'Notificación de reseña a Rigoberto',
-  to: 'rigobertomolina6@gmail.com',
+  to: 'rigobertomolina6@gmail.com, rigobertomolina6@hotmail.com',
   previewData: {
     customerName: 'María Pérez',
     vehicleName: 'Arena Sport Manual',

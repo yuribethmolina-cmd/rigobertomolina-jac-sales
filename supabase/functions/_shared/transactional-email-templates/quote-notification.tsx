@@ -46,7 +46,7 @@ export const template = {
   subject: (d: Record<string, any>) =>
     `Nueva cotización: ${d.vehicleName || 'modelo'} — ${d.name || 'cliente'}`,
   displayName: 'Notificación de cotización a Rigoberto',
-  to: 'rigobertomolina6@gmail.com',
+  to: 'rigobertomolina6@gmail.com, rigobertomolina6@hotmail.com',
   previewData: {
     name: 'María Pérez',
     phone: '+58 412 1234567',

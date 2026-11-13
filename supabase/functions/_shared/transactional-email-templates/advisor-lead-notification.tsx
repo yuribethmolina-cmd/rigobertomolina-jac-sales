@@ -58,7 +58,7 @@ export const template = {
   subject: (d: Record<string, any>) =>
     `Nuevo lead del asesor: ${d.modelInterest || 'sin modelo'}${d.name ? ` — ${d.name}` : ''}`,
   displayName: 'Notificación de lead del asesor a Rigoberto',
-  to: 'rigobertomolina6@gmail.com',
+  to: 'rigobertomolina6@gmail.com, rigobertomolina6@hotmail.com',
   previewData: {
     name: 'María Pérez',
     phone: '0414 000 0000',
