@@ -8,6 +8,13 @@
       "when": 1794585039193,
       "tag": "0000_auto_admin_rigoberto",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1794585481210,
+      "tag": "0001_auto_admin_extra_emails",
+      "breakpoints": true
     }
   ]
 }
