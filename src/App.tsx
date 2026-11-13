@@ -17,6 +17,7 @@ import Creditos from "./pages/Creditos.tsx";
 import EnviarDocumentos from "./pages/EnviarDocumentos.tsx";
 import Asesor from "./pages/Asesor.tsx";
 import AdvisorLauncher from "./components/advisor/AdvisorLauncher.tsx";
+import AdminDocumentos from "./pages/AdminDocumentos.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import RequireAdmin from "./components/RequireAdmin.tsx";
 import CatalogGate from "./components/CatalogGate.tsx";
@@ -77,6 +78,14 @@ const App = () => (
             }
           />
 
+          <Route
+            path="/admin/documentos"
+            element={
+              <RequireAdmin>
+                <AdminDocumentos />
+              </RequireAdmin>
+            }
+          />
           <Route path="/asesor" element={<Asesor />} />
 
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
