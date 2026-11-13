@@ -23,6 +23,7 @@ import RequireAdmin from "./components/RequireAdmin.tsx";
 import CatalogGate from "./components/CatalogGate.tsx";
 import AdminCatalogs from "./pages/AdminCatalogs.tsx";
 import AdminCatalogReview from "./pages/AdminCatalogReview.tsx";
+import AdminCRM from "./pages/AdminCRM.tsx";
 
 
 const queryClient = new QueryClient();
@@ -83,6 +84,14 @@ const App = () => (
             element={
               <RequireAdmin>
                 <AdminDocumentos />
+              </RequireAdmin>
+            }
+          />
+          <Route
+            path="/admin/crm"
+            element={
+              <RequireAdmin>
+                <AdminCRM />
               </RequireAdmin>
             }
           />

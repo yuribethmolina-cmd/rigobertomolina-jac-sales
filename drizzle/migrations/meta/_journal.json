@@ -15,6 +15,13 @@
       "when": 1794585481210,
       "tag": "0001_auto_admin_extra_emails",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794585844892,
+      "tag": "0002_create_crm_notes",
+      "breakpoints": true
     }
   ]
 }

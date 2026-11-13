@@ -349,6 +349,36 @@ export type Database = {
         }
         Relationships: []
       }
+      crm_notes: {
+        Row: {
+          created_at: string
+          created_by: string
+          created_by_email: string | null
+          id: string
+          note: string
+          source_id: string
+          source_table: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string
+          created_by_email?: string | null
+          id?: string
+          note: string
+          source_id: string
+          source_table: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          created_by_email?: string | null
+          id?: string
+          note?: string
+          source_id?: string
+          source_table?: string
+        }
+        Relationships: []
+      }
       quote_requests: {
         Row: {
           city: string | null
