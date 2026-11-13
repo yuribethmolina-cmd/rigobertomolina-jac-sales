@@ -77,7 +77,7 @@ export const template = {
   subject: (d: Record<string, any>) =>
     `Documentación de crédito: ${d.name || 'cliente'} — ${d.planName || 'plan'}`,
   displayName: 'Documentación de crédito para el ejecutivo',
-  to: 'rigobertomolina6@gmail.com',
+  to: 'rigobertomolina6@gmail.com, rigobertomolina6@hotmail.com',
   previewData: {
     name: 'María Pérez',
     idNumber: 'V-12345678',

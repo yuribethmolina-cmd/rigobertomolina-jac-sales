@@ -26,12 +26,23 @@ export interface SendTemplateEmailOptions {
   replyTo?: string
 }
 
+/** Splits a fixed recipient field into individual addresses. */
+const parseRecipients = (raw: string) =>
+  raw
+    .split(/[,;]/)
+    .map((address) => address.trim())
+    .filter((address, index, all) => address.length > 0 && all.indexOf(address) === index)
+
 /**
  * Renders a registered template and sends it through Lovable's managed email
  * API. Suppression, retries, and rate limits are enforced by Lovable
  * server-side. A suppressed recipient is an expected outcome
  * ({ sent: false }); any other failure throws — EmailAPIError exposes
  * .code and .status for branching.
+ *
+ * A template may list a few fixed internal mailboxes (comma separated) so the
+ * same operational notice reaches each owner inbox; every address still gets
+ * its own single-recipient send.
  */
 export async function sendTemplateEmail(
   templateName: string,
@@ -51,9 +62,9 @@ export async function sendTemplateEmail(
   }
 
   // Template-level `to` takes precedence — notification templates always
-  // send to their fixed address.
-  const recipient = template.to || to
-  if (!recipient) {
+  // send to their fixed address(es).
+  const recipients = parseRecipients(template.to || to)
+  if (recipients.length === 0) {
     throw new Error('Recipient is required (the template defines no fixed recipient)')
   }
 
@@ -66,27 +77,41 @@ export async function sendTemplateEmail(
       ? template.subject(templateData)
       : template.subject
 
-  try {
-    await sendLovableEmail(
-      {
-        to: recipient,
-        from: `${SITE_NAME} <noreply@${FROM_DOMAIN}>`,
-        sender_domain: SENDER_DOMAIN,
-        subject,
-        html,
-        text,
-        purpose: 'transactional',
-        label: templateName,
-        idempotency_key: options.idempotencyKey || crypto.randomUUID(),
-        reply_to: options.replyTo,
-      },
-      { apiKey, sendUrl: Deno.env.get('LOVABLE_SEND_URL') }
-    )
-  } catch (error) {
-    if (error instanceof EmailAPIError && error.code === 'recipient_suppressed') {
-      return { sent: false, reason: 'recipient_suppressed' }
+  const baseKey = options.idempotencyKey || crypto.randomUUID()
+  let suppressed = 0
+
+  for (const [index, recipient] of recipients.entries()) {
+    try {
+      await sendLovableEmail(
+        {
+          to: recipient,
+          from: `${SITE_NAME} <noreply@${FROM_DOMAIN}>`,
+          sender_domain: SENDER_DOMAIN,
+          subject,
+          html,
+          text,
+          purpose: 'transactional',
+          label: templateName,
+          idempotency_key:
+            recipients.length > 1 ? `${baseKey}-${index + 1}` : baseKey,
+          reply_to: options.replyTo,
+        },
+        { apiKey, sendUrl: Deno.env.get('LOVABLE_SEND_URL') }
+      )
+    } catch (error) {
+      if (
+        error instanceof EmailAPIError &&
+        error.code === 'recipient_suppressed'
+      ) {
+        suppressed += 1
+        continue
+      }
+      throw error
     }
-    throw error
+  }
+
+  if (suppressed === recipients.length) {
+    return { sent: false, reason: 'recipient_suppressed' }
   }
 
   return { sent: true }
