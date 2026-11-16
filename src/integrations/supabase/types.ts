@@ -478,6 +478,10 @@ export type Database = {
     }
     Functions: {
       contact_stats: { Args: { days?: number }; Returns: Json }
+      credit_document_upload_allowed: {
+        Args: { _name: string }
+        Returns: boolean
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
