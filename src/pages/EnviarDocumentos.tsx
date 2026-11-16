@@ -147,13 +147,13 @@ const EnviarDocumentos = () => {
     const uploaded: { label: string; path: string; name: string }[] = [];
 
     try {
+      const pending: { path: string; file: File }[] = [];
+      let counter = 0;
       for (const [slot, list] of Object.entries(files)) {
         for (const file of list) {
-          const path = `${applicationId}/${Date.now()}-${safeName(file.name)}`;
-          const { error } = await supabase.storage
-            .from("credit-documents")
-            .upload(path, file, { contentType: file.type || "application/octet-stream" });
-          if (error) throw error;
+          counter += 1;
+          const path = `${applicationId}/${Date.now()}-${counter}-${safeName(file.name)}`;
+          pending.push({ path, file });
           uploaded.push({ label: slot, path, name: file.name });
         }
       }
@@ -174,6 +174,13 @@ const EnviarDocumentos = () => {
         documents: uploaded,
       });
       if (insertError) throw insertError;
+
+      for (const { path, file } of pending) {
+        const { error } = await supabase.storage
+          .from("credit-documents")
+          .upload(path, file, { contentType: file.type || "application/octet-stream" });
+        if (error) throw error;
+      }
 
       await supabase.functions.invoke("send-credit-application", {
         body: { applicationId },
