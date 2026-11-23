@@ -3,9 +3,7 @@ import { waLink } from "@/lib/constants";
 import { MessageCircle, Menu, X } from "lucide-react";
 import logoRM from "@/assets/logo-rigoberto.png";
 import heroVideo from "@/assets/hero-titanio.mp4.asset.json";
-import heroMobile from "@/assets/hero-titanio-mobile.mp4.asset.json";
 import heroPoster from "@/assets/hero-titanio-poster.jpg.asset.json";
-import heroPosterMobile from "@/assets/hero-titanio-poster-mobile.jpg.asset.json";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 
 const navLinks = [
@@ -52,22 +50,25 @@ const HeroSection = () => {
       >
         <source src={heroVideo.url} type="video/mp4" />
       </video>
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-        poster={heroPosterMobile.url}
-        disableRemotePlayback
-        disablePictureInPicture
-        controls={false}
-        aria-hidden="true"
-        tabIndex={-1}
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none md:hidden [transform:translateZ(0)] [will-change:transform] [backface-visibility:hidden]"
-      >
-        <source src={heroMobile.url} type="video/mp4" />
-      </video>
+      {/* Mobile: full video uncropped, with a blurred copy filling the screen behind */}
+      <div className="absolute inset-0 md:hidden pointer-events-none" aria-hidden="true">
+        <img src={heroPoster.url} alt="" className="absolute inset-0 w-full h-full object-cover scale-110 blur-2xl opacity-60" />
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          poster={heroPoster.url}
+          disableRemotePlayback
+          disablePictureInPicture
+          controls={false}
+          tabIndex={-1}
+          className="absolute left-0 right-0 top-[22%] w-full aspect-video object-contain"
+        >
+          <source src={heroVideo.url} type="video/mp4" />
+        </video>
+      </div>
 
       {/* Gradient overlay */}
       <div
