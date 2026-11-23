@@ -14,7 +14,7 @@ const AdvisorFloat = () => {
         onClick={() => setOpen(true)}
         aria-label="Abrir el asesor JAC"
         title="Asesor JAC: te ayudo a elegir modelo y plan"
-        className="fixed bottom-24 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-card shadow-lg ring-2 ring-primary transition-transform hover:scale-110"
+        className="contact-float fixed bottom-24 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-card shadow-lg ring-2 ring-primary transition-transform hover:scale-110"
       >
         <img
           src={asesorAvatar}

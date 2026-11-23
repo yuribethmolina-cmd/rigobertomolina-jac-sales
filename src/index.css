@@ -80,3 +80,15 @@
     color: hsl(186, 100%, 39%);
   }
 }
+
+/* Mobile: keep the floating contact buttons off the hero's own CTAs until the
+   visitor scrolls (HeroSection sets data-at-top). */
+@media (max-width: 767px) {
+  body:has(#hero[data-at-top="true"]) .contact-float {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+.contact-float {
+  transition: opacity 0.25s ease-out, transform 0.15s ease-out;
+}

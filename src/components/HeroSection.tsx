@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 import { waLink } from "@/lib/constants";
 import { MessageCircle, Menu, X } from "lucide-react";
 import logoRM from "@/assets/logo-rigoberto.png";
-import heroVideo from "@/assets/hero-titanio.mp4.asset.json";
-import heroPoster from "@/assets/hero-titanio-poster.jpg.asset.json";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 
 const navLinks = [
@@ -32,47 +30,39 @@ const HeroSection = () => {
   const handleNavClick = () => setMenuOpen(false);
 
   return (
-    <section id="hero" className="relative flex items-center justify-center overflow-hidden h-[100svh]">
-      {/* Video background */}
+    <section
+      id="hero"
+      data-at-top={!scrolled}
+      className="relative flex flex-col overflow-hidden min-h-[100svh] bg-[rgb(13,27,42)] md:h-[100svh] md:items-center md:justify-center"
+    >
+      {/* Mobile: blurred still fills the screen behind the uncropped video */}
+      <img
+        src="/videos/hero-titanio-poster.jpg"
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full object-cover scale-110 blur-2xl opacity-40 pointer-events-none md:hidden"
+      />
+      {/* One video: in-flow 16:9 stage on mobile, full-bleed background from md up */}
       <video
         autoPlay
         loop
         muted
         playsInline
         preload="metadata"
-        poster={heroPoster.url}
+        poster="/videos/hero-titanio-poster.jpg"
         disableRemotePlayback
         disablePictureInPicture
         controls={false}
         aria-hidden="true"
         tabIndex={-1}
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none hidden md:block [transform:translateZ(0)] [will-change:transform] [backface-visibility:hidden]"
+        className="relative mt-[4.5rem] w-full aspect-video object-cover pointer-events-none md:absolute md:inset-0 md:mt-0 md:h-full md:aspect-auto [transform:translateZ(0)] [will-change:transform] [backface-visibility:hidden]"
       >
-        <source src={heroVideo.url} type="video/mp4" />
+        <source src="/videos/hero-titanio.mp4" type="video/mp4" />
       </video>
-      {/* Mobile: full video uncropped, with a blurred copy filling the screen behind */}
-      <div className="absolute inset-0 md:hidden pointer-events-none" aria-hidden="true">
-        <img src={heroPoster.url} alt="" className="absolute inset-0 w-full h-full object-cover scale-110 blur-2xl opacity-60" />
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-          poster={heroPoster.url}
-          disableRemotePlayback
-          disablePictureInPicture
-          controls={false}
-          tabIndex={-1}
-          className="absolute left-0 right-0 top-[22%] w-full aspect-video object-contain"
-        >
-          <source src={heroVideo.url} type="video/mp4" />
-        </video>
-      </div>
 
-      {/* Gradient overlay */}
+      {/* Gradient overlay (desktop only: on mobile no text sits over the video) */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 hidden md:block"
         style={{
           background:
             "linear-gradient(to bottom, rgba(13,27,42,0.35) 0%, rgba(13,27,42,0.55) 60%, rgba(13,27,42,0.78) 100%)",
@@ -81,13 +71,16 @@ const HeroSection = () => {
 
       {/* Nav */}
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 md:px-12 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-2 md:py-4 md:px-12 transition-all duration-300 ${
           scrolled
             ? "bg-[rgba(13,27,42,0.95)] shadow-lg"
             : "bg-gradient-to-b from-[rgba(0,0,0,0.6)] to-transparent"
         }`}
       >
-        <img src={logoRM} alt="Rigoberto Molina" className="h-28 md:h-40 w-auto brightness-0 invert" />
+        {/* The logo file is square with empty bands above and below; crop them on mobile */}
+        <div className="h-14 overflow-hidden md:h-auto md:overflow-visible">
+          <img src={logoRM} alt="Rigoberto Molina" className="h-28 -mt-7 md:mt-0 md:h-40 w-auto brightness-0 invert" />
+        </div>
 
         {/* Desktop links */}
         <div className="hidden md:flex gap-6 text-sm font-medium">
@@ -119,7 +112,7 @@ const HeroSection = () => {
             ? "translate-y-0 opacity-100"
             : "-translate-y-8 opacity-0 pointer-events-none"
         }`}
-        style={{ top: '9rem', maxHeight: `calc(100dvh - 9rem)`, overflowY: "auto" }}
+        style={{ top: '4.5rem', maxHeight: `calc(100dvh - 4.5rem)`, overflowY: "auto" }}
       >
         <div className="py-4 px-6 pb-8 flex flex-col gap-1">
           {links.map((link, i) => (
@@ -141,25 +134,25 @@ const HeroSection = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 text-center px-6 max-w-3xl">
+      <div className="relative z-10 flex flex-1 flex-col justify-center text-center px-6 py-6 max-w-3xl md:flex-none md:py-0">
         <h1
-          className="font-heading text-5xl md:text-7xl font-extrabold leading-[1.05] tracking-tight animate-[fade-in_0.6s_ease_0.2s_both]"
+          className="font-heading text-4xl md:text-7xl font-extrabold leading-[1.05] tracking-tight [text-wrap:balance] animate-[fade-in_0.6s_ease_0.2s_both]"
         >
           Tu próximo carro JAC,
           <br />
           <span className="text-primary">con la atención que mereces.</span>
         </h1>
         <p
-          className="mt-6 text-white/80 text-lg md:text-xl animate-[fade-in_0.6s_ease_0.4s_both]"
+          className="mt-4 md:mt-6 text-white/80 text-base md:text-xl animate-[fade-in_0.6s_ease_0.4s_both]"
         >
           Vendedor independiente en Caracas · Catálogos en constante actualización
         </p>
         <div
-          className="mt-8 flex flex-col sm:flex-row gap-4 justify-center animate-[fade-in_0.6s_ease_0.6s_both]"
+          className="mt-6 md:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center animate-[fade-in_0.6s_ease_0.6s_both]"
         >
           <a
             href="#modelos"
-            className="inline-flex items-center justify-center rounded-lg bg-primary px-8 py-3.5 font-heading text-lg font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
+            className="inline-flex items-center justify-center rounded-lg bg-primary px-4 sm:px-8 py-3.5 font-heading text-lg font-bold text-primary-foreground hover:bg-primary/90 transition-colors"
           >
             Ver modelos disponibles
           </a>
@@ -167,7 +160,7 @@ const HeroSection = () => {
             href={waLink()}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-lg bg-whatsapp px-8 py-3.5 font-heading text-lg font-bold text-whatsapp-foreground hover:bg-whatsapp/90 transition-colors"
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-whatsapp px-4 sm:px-8 py-3.5 font-heading text-lg font-bold text-whatsapp-foreground hover:bg-whatsapp/90 transition-colors"
           >
             <MessageCircle size={20} />
             Escribir por WhatsApp
