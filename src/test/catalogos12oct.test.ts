@@ -20,10 +20,14 @@ describe("Facilito de JAC — 05 de noviembre", () => {
     expect(amounts("facilito", "6t-brazo-hidraulico")).toBeUndefined());
 });
 
-describe("Llévatelo Fiao — 12 de octubre", () => {
-  it("58 configuraciones con ficha", () => expect(count("llevatelo-fiao")).toBe(58));
-  it("Arena Sport Manual (pág. 2): 15 cuotas de 927,7", () => {
-    expect(amounts("llevatelo-fiao", "arena-sport-manual")).toEqual([994.0, 994.0, 3621.0, 927.7]);
+describe("Llévatelo Fiao — 05 de noviembre", () => {
+  it("64 configuraciones con ficha", () => expect(count("llevatelo-fiao")).toBe(64));
+  it("retira la 6T Brazo Hidráulico", () =>
+    expect(amounts("llevatelo-fiao", "6t-brazo-hidraulico")).toBeUndefined());
+  it("Nevado Pro (pág. 6): 15 cuotas de 1.493,13", () =>
+    expect(amounts("llevatelo-fiao", "nevado-pro")).toEqual([1599.81, 1599.81, 5503.28, 1493.13]));
+  it("Arena Sport Manual (pág. 2): 15 cuotas de 927,67", () => {
+    expect(amounts("llevatelo-fiao", "arena-sport-manual")).toEqual([993.95, 993.95, 3621.0, 927.67]);
     const row = vehicleFinancing.find((r) => r.planId === "llevatelo-fiao" && r.vehicleId === "arena-sport-manual");
     expect(row?.schedule.find((s) => s.type === "ORDINARY")?.count).toBe(15);
   });
