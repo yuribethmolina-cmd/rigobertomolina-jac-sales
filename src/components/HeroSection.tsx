@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import { waLink } from "@/lib/constants";
 import { MessageCircle, Menu, X } from "lucide-react";
 import logoRM from "@/assets/logo-rigoberto.png";
+import heroVideo from "@/assets/hero-titanio.mp4.asset.json";
+import heroMobile from "@/assets/hero-titanio-mobile.mp4.asset.json";
+import heroPoster from "@/assets/hero-titanio-poster.jpg.asset.json";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 
 const navLinks = [
@@ -38,7 +41,7 @@ const HeroSection = () => {
         muted
         playsInline
         preload="metadata"
-        poster="/videos/hero-poster.jpg"
+        poster={heroPoster.url}
         disableRemotePlayback
         disablePictureInPicture
         controls={false}
@@ -46,8 +49,8 @@ const HeroSection = () => {
         tabIndex={-1}
         className="absolute inset-0 w-full h-full object-cover pointer-events-none [transform:translateZ(0)] [will-change:transform] [backface-visibility:hidden]"
       >
-        <source src="/videos/hero-mobile.mp4" type="video/mp4" media="(max-width: 768px)" />
-        <source src="/videos/hero.mp4" type="video/mp4" />
+        <source src={heroMobile.url} type="video/mp4" media="(max-width: 768px)" />
+        <source src={heroVideo.url} type="video/mp4" />
       </video>
 
       {/* Gradient overlay */}
