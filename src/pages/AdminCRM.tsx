@@ -35,8 +35,10 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 import {
+  ArrowLeft,
   Download,
   FileText,
+  Home,
   MessageCircle,
   NotebookPen,
   StickyNote,
@@ -206,6 +208,12 @@ const AdminCRM = () => {
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
+            <Button asChild variant="outline" size="sm">
+              <Link to="/admin"><ArrowLeft className="h-4 w-4" /> Volver al admin</Link>
+            </Button>
+            <Button asChild variant="outline" size="sm">
+              <Link to="/"><Home className="h-4 w-4" /> Inicio</Link>
+            </Button>
             <Button asChild variant="outline" size="sm">
               <Link to="/admin/catalogos">Catálogos</Link>
             </Button>
