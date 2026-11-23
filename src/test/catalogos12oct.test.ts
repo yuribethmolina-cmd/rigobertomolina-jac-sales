@@ -8,12 +8,16 @@ const amounts = (plan: string, id: string) =>
     ?.schedule.map((s) => s.amount);
 const count = (plan: string) => vehicleFinancing.filter((r) => r.planId === plan).length;
 
-describe("Facilito de JAC — 12 de octubre", () => {
-  it("66 configuraciones con ficha", () => expect(count("facilito")).toBe(66));
+describe("Facilito de JAC — 05 de noviembre", () => {
+  it("72 configuraciones con ficha", () => expect(count("facilito")).toBe(72));
   it("Arena Sport Manual (pág. 2)", () =>
-    expect(amounts("facilito", "arena-sport-manual")).toEqual([799.2, 799.2, 2887.9, 799.2]));
-  it("Volkán Mezclador 9M3 (pág. 136)", () =>
-    expect(amounts("facilito", "volkan-mezclador-9m3")).toEqual([6049.6, 6049.6, 17165.6, 6049.6]));
+    expect(amounts("facilito", "arena-sport-manual")).toEqual([799.18, 799.18, 2887.92, 799.18]));
+  it("Volkán Mezclador 9M3", () =>
+    expect(amounts("facilito", "volkan-mezclador-9m3")).toEqual([6049.62, 6049.62, 17165.58, 6049.62]));
+  it("Nevado Pro (pág. 6) es nuevo", () =>
+    expect(amounts("facilito", "nevado-pro")).toEqual([1323.12, 1323.12, 4203.67, 1323.12]));
+  it("ya no incluye 6T Brazo Hidráulico", () =>
+    expect(amounts("facilito", "6t-brazo-hidraulico")).toBeUndefined());
 });
 
 describe("Llévatelo Fiao — 12 de octubre", () => {
