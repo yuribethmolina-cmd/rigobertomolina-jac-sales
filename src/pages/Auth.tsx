@@ -63,6 +63,23 @@ const Auth = () => {
     }
   };
 
+  const sendMagicLink = async () => {
+    if (!email) { toast.error("Escribe tu correo primero."); return; }
+    setLoading(true);
+    try {
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: { emailRedirectTo: `${window.location.origin}/admin` },
+      });
+      if (error) throw error;
+      toast.success("Te enviamos un enlace a tu correo. Ábrelo para entrar sin clave.");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "No se pudo enviar el enlace.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <Helmet>
@@ -141,6 +158,14 @@ const Auth = () => {
             className="w-full rounded-lg bg-primary text-primary-foreground font-heading font-bold py-3 disabled:opacity-60"
           >
             {loading ? "Procesando..." : mode === "signin" ? "Iniciar sesión" : "Crear cuenta"}
+          </button>
+          <button
+            type="button"
+            onClick={sendMagicLink}
+            disabled={loading}
+            className="w-full rounded-lg border-2 border-primary text-primary font-heading font-bold py-3 disabled:opacity-60"
+          >
+            Entrar sin clave (enlace al correo)
           </button>
           <button
             type="button"
