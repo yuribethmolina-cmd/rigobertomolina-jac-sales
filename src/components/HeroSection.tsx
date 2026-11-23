@@ -5,6 +5,7 @@ import logoRM from "@/assets/logo-rigoberto.png";
 import heroVideo from "@/assets/hero-titanio.mp4.asset.json";
 import heroMobile from "@/assets/hero-titanio-mobile.mp4.asset.json";
 import heroPoster from "@/assets/hero-titanio-poster.jpg.asset.json";
+import heroPosterMobile from "@/assets/hero-titanio-poster-mobile.jpg.asset.json";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 
 const navLinks = [
@@ -47,10 +48,25 @@ const HeroSection = () => {
         controls={false}
         aria-hidden="true"
         tabIndex={-1}
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none [transform:translateZ(0)] [will-change:transform] [backface-visibility:hidden]"
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none hidden md:block [transform:translateZ(0)] [will-change:transform] [backface-visibility:hidden]"
       >
-        <source src={heroMobile.url} type="video/mp4" media="(max-width: 768px)" />
         <source src={heroVideo.url} type="video/mp4" />
+      </video>
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        poster={heroPosterMobile.url}
+        disableRemotePlayback
+        disablePictureInPicture
+        controls={false}
+        aria-hidden="true"
+        tabIndex={-1}
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none md:hidden [transform:translateZ(0)] [will-change:transform] [backface-visibility:hidden]"
+      >
+        <source src={heroMobile.url} type="video/mp4" />
       </video>
 
       {/* Gradient overlay */}
@@ -58,7 +74,7 @@ const HeroSection = () => {
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(to bottom, rgba(13,27,42,0.3) 0%, rgba(13,27,42,0.5) 60%, rgba(13,27,42,0.7) 100%)",
+            "linear-gradient(to bottom, rgba(13,27,42,0.35) 0%, rgba(13,27,42,0.55) 60%, rgba(13,27,42,0.78) 100%)",
         }}
       />
 
