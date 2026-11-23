@@ -34,8 +34,8 @@ const sections = [
 ];
 
 const AdminHome = () => (
-  <div className="min-h-screen bg-background px-4 py-10">
-    <div className="mx-auto max-w-3xl space-y-6">
+  <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-background px-4 py-10">
+    <div className="mx-auto w-full min-w-0 max-w-3xl space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-2xl font-bold text-foreground">Panel de administración</h1>
         <Button asChild variant="outline" size="sm">
@@ -44,12 +44,12 @@ const AdminHome = () => (
           </Link>
         </Button>
       </div>
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {sections.map((s) => (
           <Link
             key={s.to}
             to={s.to}
-            className="rounded-lg border border-border bg-card p-5 transition-colors hover:border-primary"
+            className="block min-w-0 break-words rounded-lg border border-border bg-card p-5 transition-colors hover:border-primary"
           >
             <s.icon className="mb-3 h-6 w-6 text-primary" />
             <p className="font-semibold text-foreground">{s.title}</p>
