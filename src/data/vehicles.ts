@@ -466,7 +466,7 @@ export const vehicles: Vehicle[] = [
     displayName: "Pionero Chasis 5 Ton",
     aliases: ["Pionero Chasis 5 Ton"],
     category: "CAMIONES",
-    image: "",
+    image: "https://jacvenezuela.com/wp-content/uploads/2026/11/PIONERO-CHASIS-5-TON-1024x427.webp",
     sourceStatus: "VERIFIED_12_OCT",
   },
   {
@@ -475,7 +475,7 @@ export const vehicles: Vehicle[] = [
     displayName: "Pionero Ferretero 5 Ton",
     aliases: ["Pionero Ferretero 5 Ton"],
     category: "CAMIONES",
-    image: "",
+    image: "https://jacvenezuela.com/wp-content/uploads/2026/11/JAC-Pionero-Ferretero-5-Ton-1024x427.webp",
     sourceStatus: "VERIFIED_12_OCT",
   },
   {
@@ -484,7 +484,7 @@ export const vehicles: Vehicle[] = [
     displayName: "Nevado Pro",
     aliases: ["Nevado Pro"],
     category: "SUV",
-    image: "",
+    image: "https://jacvenezuela.com/wp-content/uploads/2026/11/JAC-NEVADO-PRO-3-1-1024x427.webp",
     sourceStatus: "VERIFIED_05_NOV",
   },
   {
@@ -493,7 +493,7 @@ export const vehicles: Vehicle[] = [
     displayName: "Titanio",
     aliases: ["Titanio"],
     category: "PICKUP",
-    image: "",
+    image: "https://jacvenezuela.com/wp-content/uploads/2026/11/JAC-TITANIO.jpg-1-1024x576.webp",
     sourceStatus: "VERIFIED_05_NOV",
   },
   {
@@ -502,7 +502,7 @@ export const vehicles: Vehicle[] = [
     displayName: "Pionero Transporte de Pollito Bebé",
     aliases: ["Pionero Transporte de Pollito Bebé con Calefacción","Pionero Transporte de Pollito Bebé","Pionero Pollito Bebé"],
     category: "CAMIONES",
-    image: "",
+    image: "https://jacvenezuela.com/wp-content/uploads/2026/11/Pionero-pollito-bebe--1024x427.webp",
     sourceStatus: "VERIFIED_05_NOV",
   },
   {
@@ -511,7 +511,7 @@ export const vehicles: Vehicle[] = [
     displayName: "Búfalo Transporte de Pollito Bebé",
     aliases: ["Búfalo Transporte de Pollito Bebé con Calefacción","Búfalo Transporte de Pollito Bebé","Búfalo Pollito Bebé","Bufalo Transporte de Pollito Bebé"],
     category: "CAMIONES",
-    image: "",
+    image: "https://jacvenezuela.com/wp-content/uploads/2026/11/BANNER-JAC-MOTORS-2-1024x427.jpg",
     sourceStatus: "VERIFIED_05_NOV",
   },
   {
@@ -520,7 +520,7 @@ export const vehicles: Vehicle[] = [
     displayName: "Contenedor Refrigerado 40 Pies",
     aliases: ["Contenedor Refrigerado 40 Pies con Puerta Lateral","Contenedor Refrigerado 40 Pies"],
     category: "CAMIONES",
-    image: "",
+    image: "https://jacvenezuela.com/wp-content/uploads/2026/11/BANNER-JAC-MOTORS-5-1024x427.webp",
     sourceStatus: "VERIFIED_05_NOV",
   },
   {
