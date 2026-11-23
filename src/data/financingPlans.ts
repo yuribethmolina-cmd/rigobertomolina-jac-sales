@@ -144,7 +144,7 @@ export const financingPlans: FinancingPlan[] = [
     source: "PAGO FÁCIL — 25 DE SEPTIEMBRE",
     sourceStatus: "VERIFIED_25_SEP",
     description:
-      "US$ 999,90 a la firma del contrato, 12 cuotas consecutivas y mensuales y un pago adicional previo a la entrega.",
+      "US$ 999,99 a la firma del contrato, 12 cuotas consecutivas y mensuales y un pago adicional previo a la entrega.",
     template: [
       { type: "SIGNATURE", count: 1, label: "Pago a la firma del contrato" },
       { type: "ORDINARY", count: 12, label: "12 cuotas consecutivas y mensuales" },

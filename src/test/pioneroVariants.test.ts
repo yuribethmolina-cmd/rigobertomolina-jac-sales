@@ -10,11 +10,11 @@ describe("Pionero — variantes independientes", () => {
     expect(findVehicle("Pionero Ferretero 5 Ton")?.id).toBe("pionero-ferretero-5-ton");
     expect(findVehicle("Pionero Ferretero 4x4")?.id).toBe("pionero-ferretero-4x4");
   });
-  it("en el respaldo local solo tienen montos del Facilito verificado", () => {
+  it("en el respaldo local solo tienen montos de catálogos verificados", () => {
     const rows = vehicleFinancing.filter((r) =>
       ["pionero-chasis-5-ton", "pionero-ferretero-5-ton"].includes(r.vehicleId)
     );
-    expect(rows.map((r) => r.planId)).toEqual(["facilito", "facilito"]);
-    expect(rows.find((r) => r.vehicleId === "pionero-chasis-5-ton")?.schedule[0].amount).toBe(1593.51);
+    expect(rows.map((r) => r.planId).sort()).toEqual(["facilito", "facilito", "pago-facil", "pago-facil"]);
+    expect(rows.find((r) => r.planId === "facilito" && r.vehicleId === "pionero-chasis-5-ton")?.schedule[0].amount).toBe(1593.51);
   });
 });
