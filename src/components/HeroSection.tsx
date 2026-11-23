@@ -99,15 +99,15 @@ const HeroSection = () => {
             ? "translate-y-0 opacity-100"
             : "-translate-y-8 opacity-0 pointer-events-none"
         }`}
-        style={{ top: '9rem' }}
+        style={{ top: '9rem', maxHeight: `calc(100dvh - 9rem)`, overflowY: "auto" }}
       >
-        <div className="py-6 px-6 flex flex-col gap-1">
+        <div className="py-4 px-6 pb-8 flex flex-col gap-1">
           {links.map((link, i) => (
             <a
               key={link.href}
               href={link.href}
               onClick={handleNavClick}
-              className="block py-3 px-4 text-lg font-medium text-white border-l-2 border-transparent hover:border-primary hover:text-primary transition-all"
+              className={link.href === "/admin" ? "block mt-3 py-3 px-4 text-lg font-bold text-center rounded-lg bg-primary text-primary-foreground transition-all" : "block py-2.5 px-4 text-lg font-medium text-foreground border-l-2 border-transparent hover:border-primary hover:text-primary transition-all"}
               style={{
                 opacity: menuOpen ? 1 : 0,
                 transform: menuOpen ? "translateX(0)" : "translateX(-20px)",
