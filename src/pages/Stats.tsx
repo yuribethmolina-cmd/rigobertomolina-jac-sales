@@ -304,6 +304,9 @@ const Stats = () => {
           <Link to="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary">
             <ArrowLeft size={16} /> Volver al inicio
           </Link>
+          <Link to="/admin" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary">
+            Volver al admin
+          </Link>
           <div className="flex items-center gap-4">
             <Link
               to="/resenas/moderar"

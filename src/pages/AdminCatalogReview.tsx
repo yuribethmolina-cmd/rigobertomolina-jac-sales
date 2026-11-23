@@ -131,9 +131,17 @@ const AdminCatalogReview = () => {
     <div className="min-h-screen bg-background px-4 py-10">
       <div className="mx-auto max-w-6xl space-y-6">
         <header className="space-y-2">
-          <Link to="/admin/catalogos" className="text-sm text-primary underline">
-            Volver al panel de catálogos
-          </Link>
+          <div className="flex flex-wrap gap-4">
+            <Link to="/admin/catalogos" className="text-sm text-primary underline">
+              Volver al panel de catálogos
+            </Link>
+            <Link to="/admin" className="text-sm text-primary underline">
+              Volver al admin
+            </Link>
+            <Link to="/" className="text-sm text-primary underline">
+              Volver al inicio
+            </Link>
+          </div>
           <h1 className="text-3xl font-bold text-foreground">
             {plan?.name ?? version.plan_id} — {version.catalog_date}
           </h1>

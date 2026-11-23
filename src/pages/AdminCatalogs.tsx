@@ -124,9 +124,14 @@ const AdminCatalogs = () => {
             Actualiza los montos de cada plan subiendo su catálogo en PDF. Nada se publica sin tu
             aprobación.
           </p>
-          <Link to="/" className="text-sm text-primary underline">
-            Volver al inicio
-          </Link>
+          <div className="flex flex-wrap gap-4">
+            <Link to="/admin" className="text-sm text-primary underline">
+              Volver al admin
+            </Link>
+            <Link to="/" className="text-sm text-primary underline">
+              Volver al inicio
+            </Link>
+          </div>
         </header>
 
         {loading ? (

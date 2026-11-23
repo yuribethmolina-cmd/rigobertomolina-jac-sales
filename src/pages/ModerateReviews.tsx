@@ -131,6 +131,12 @@ const ModerateReviews = () => {
           >
             <ArrowLeft className="w-4 h-4" /> Inicio
           </Link>
+          <Link
+            to="/admin"
+            className="ml-6 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+          >
+            Volver al admin
+          </Link>
           <h1 className="font-heading text-3xl font-bold text-foreground">
             Moderación de reseñas
           </h1>

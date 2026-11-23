@@ -47,6 +47,8 @@ const AdminDocumentos = () => {
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h1 className="text-2xl font-bold text-foreground">Documentos de clientes</h1>
           <div className="flex gap-2">
+            <Button asChild variant="outline" size="sm"><Link to="/admin">Volver al admin</Link></Button>
+            <Button asChild variant="outline" size="sm"><Link to="/">Inicio</Link></Button>
             <Button asChild variant="outline" size="sm"><Link to="/admin/catalogos">Catálogos</Link></Button>
             <Button asChild variant="outline" size="sm"><Link to="/estadisticas">Estadísticas</Link></Button>
           </div>
