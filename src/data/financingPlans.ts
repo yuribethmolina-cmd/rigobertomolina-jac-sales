@@ -15,6 +15,7 @@ export type SourceStatus =
   | "VERIFIED_PROMO_SEP"
   | "VERIFIED_28_SEP"
   | "VERIFIED_12_OCT"
+  | "VERIFIED_05_NOV"
   | "REVIEW_NOT_VERIFIED";
 
 export type StageType =
